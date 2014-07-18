@@ -44,7 +44,7 @@ Optionally some deprecated units of measurements (such as miles and calories) ar
 Based on code from Simple Currency Converter
 https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
 
-Runs on Firefox version 29 and later versions.
+Runs on Firefox version 30 and later versions.
 
 External libraries used:
 jQuery 2.1.1

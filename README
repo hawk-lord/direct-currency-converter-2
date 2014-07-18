@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 1.0.0
-Date: 2014-06-14
+Version: 1.0.1
+Date: 2014-07-18
 
 After installation, you'll have two new buttons in the toolbar.
 
@@ -53,3 +53,13 @@ jQuery UI 1.10.4
 Icons provided by Iconfinder.
 
 Author: Per Johansson, Åland Islands, Finland.
+
+History
+
+Version: 1.0.0
+Date: 2014-06-14
+
+Version: 1.0.1
+Date: 2014-07-18
+Fixed some security issues.
+

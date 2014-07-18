@@ -1,0 +1,55 @@
+Direct Currency Converter
+
+Version: 1.0.0
+Date: 2014-06-14
+
+After installation, you'll have two new buttons in the toolbar.
+
+Conversion is enabled or disabled by the "Toggle currency conversion" button.
+
+The settings tab is opened by the "Open settings" button. Changed settings are saved with the "Save" button in the settings tab.
+Settings can be reset to original with the "Reset" button.
+
+Currency rates are taken from Yahoo Finance and updated when you start Firefox or when you switch currency.
+
+Your location is used to set your default region and currency (for example Finland - euro). It is guessed using the freegeoip.net service.
+
+If conversion does not work, it probably means that there was no reply from Yahoo or freegeoip. Try to reload the browser (F5 button).
+
+You can convert to any existing currency as defined by ISO 4217, including precious metals, if Yahoo provides a conversion rate for the currency.
+
+You can convert from the following currencies:
+CHF Swiss franc
+DKK Danish krona (and Faroese króna)
+EUR euro
+GBP British pound
+ISK	Icelandic króna
+JPY Japanese yen
+NOK Norwegian krona
+RUB Russian rubel
+SEK Swedish krona
+USD United States dollar
+
+Special attention is given to conversion of currencies used in the Nordic countries: Sweden, Denmark, Norway, Faroe Islands, Iceland and Greenland.
+
+The conversion is made according to a best guess. For instance, "kr" can mean SEK, DKK, NOK or ISK.
+In such cases, the currency is shown in brackets after the original value: 6,67 € (60 kr [SEK]).
+
+Amounts without units are not converted.
+
+Currencies in PDF files shown in Firefox (using pdf.js) are converted too, if possible. Converted elements are shown with a light yellow background.
+
+Optionally some deprecated units of measurements (such as miles and calories) are converted into SI units (such as kilometres and kilojoules).
+
+Based on code from Simple Currency Converter
+https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
+
+Runs on Firefox version 29 and later versions.
+
+External libraries used:
+jQuery 2.1.1
+jQuery UI 1.10.4
+
+Icons provided by Iconfinder.
+
+Author: Per Johansson, Åland Islands, Finland.

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<!--
+ * © 2014 Per Johansson
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Partially based on code from Simple Currency Converter
+ * https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Direct Currency Converter options</title>
+        <link rel="icon" type="image/png" href="images/1402781551_currency_exchange_1.png">
+        <link rel="stylesheet" type="text/css" href="direct-currency-converter.css">
+    </head>
+
+    <body>
+        <!-- http://jqueryui.com/sortable/#connect-lists -->
+        <p class="caption">Drag and drop currencies between the boxes below to enable, disable and reorder them.
+            If an ambiguous currency such as "kroner" (could be DKK or NOK) is found, it is converted to the first possible currency in the "Convert from" list.</p>
+        <fieldset class="currencies">
+            <legend>
+                Convert from, in this order:
+            </legend>
+            <ol id="enabledCurrencies" class="connectedSortable"> </ol>
+        </fieldset>
+        <fieldset class="arrows">
+            <ul>
+                <li class="arrow">⇋</li>
+            </ul>
+        </fieldset>
+        <fieldset class="currencies">
+            <legend>
+                Don't convert from:
+            </legend>
+            <ul id="disabledCurrencies" class="connectedSortable"> </ul>
+        </fieldset>
+        <div class="clear"> </div>
+        <fieldset>
+            <legend>
+                Convert to
+            </legend>
+            <select class="options-combo" id="convert_to_currency">
+                <option value="AFN_AF">AFGHANISTAN, Afghani (AFN)</option>
+                <option value="EUR_AX">ÅLAND ISLANDS, Euro (EUR)</option>
+                <option value="ALL_AL">ALBANIA, Lek (ALL)</option>
+                <option value="DZD_DZ">ALGERIA, Algerian Dinar (DZD)</option>
+                <option value="USD_AS">AMERICAN SAMOA, US Dollar (USD)</option>
+                <option value="EUR_AD">ANDORRA, Euro (EUR)</option>
+                <option value="AOA_AO">ANGOLA, Kwanza (AOA)</option>
+                <option value="XCD_AI">ANGUILLA, East Caribbean Dollar (XCD)</option>
+                <option value="____AQ">ANTARCTICA, No universal currency ()</option>
+                <option value="XCD_AG">ANTIGUA AND BARBUDA, East Caribbean Dollar (XCD)</option>
+                <option value="ARS_AR">ARGENTINA, Argentine Peso (ARS)</option>
+                <option value="AMD_AM">ARMENIA, Armenian Dram (AMD)</option>
+                <option value="AWG_AW">ARUBA, Aruban Florin (AWG)</option>
+                <option value="AUD_AU">AUSTRALIA, Australian Dollar (AUD)</option>
+                <option value="EUR_AT">AUSTRIA, Euro (EUR)</option>
+                <option value="AZN_AZ">AZERBAIJAN, Azerbaijanian Manat (AZN)</option>
+                <option value="BSD_BS">BAHAMAS, Bahamian Dollar (BSD)</option>
+                <option value="BHD_BH">BAHRAIN, Bahraini Dinar (BHD)</option>
+                <option value="BDT_BD">BANGLADESH, Taka (BDT)</option>
+                <option value="BBD_BB">BARBADOS, Barbados Dollar (BBD)</option>
+                <option value="BYR_BY">BELARUS, Belarussian Ruble (BYR)</option>
+                <option value="EUR_BE">BELGIUM, Euro (EUR)</option>
+                <option value="BZD_BZ">BELIZE, Belize Dollar (BZD)</option>
+                <option value="XOF_BJ">BENIN, CFA Franc BCEAO (XOF)</option>
+                <option value="BMD_BM">BERMUDA, Bermudian Dollar (BMD)</option>
+                <option value="BTN_BT">BHUTAN, Ngultrum (BTN)</option>
+                <option value="INR_BT">BHUTAN, Indian Rupee (INR)</option>
+                <option value="BOB_BO">BOLIVIA, PLURINATIONAL STATE OF, Boliviano (BOB)</option>
+                <option value="BOV_BO">BOLIVIA, PLURINATIONAL STATE OF, Mvdol (BOV)</option>
+                <option value="USD_BQ">BONAIRE, SINT EUSTATIUS AND SABA, US Dollar (USD)</option>
+                <option value="BAM_BA">BOSNIA AND HERZEGOVINA, Convertible Mark (BAM)</option>
+                <option value="BWP_BW">BOTSWANA, Pula (BWP)</option>
+                <option value="NOK_BV">BOUVET ISLAND, Norwegian Krone (NOK)</option>
+                <option value="BRL_BR">BRAZIL, Brazilian Real (BRL)</option>
+                <option value="USD_IO">BRITISH INDIAN OCEAN TERRITORY, US Dollar (USD)</option>
+                <option value="BND_BN">BRUNEI DARUSSALAM, Brunei Dollar (BND)</option>
+                <option value="BGN_BG">BULGARIA, Bulgarian Lev (BGN)</option>
+                <option value="XOF_BF">BURKINA FASO, CFA Franc BCEAO (XOF)</option>
+                <option value="BIF_BI">BURUNDI, Burundi Franc (BIF)</option>
+                <option value="KHR_KH">CAMBODIA, Riel (KHR)</option>
+                <option value="XAF_CM">CAMEROON, CFA Franc BEAC (XAF)</option>
+                <option value="CAD_CA">CANADA, Canadian Dollar (CAD)</option>
+                <option value="CVE_CV">CAPE VERDE, Cape Verde Escudo (CVE)</option>
+                <option value="KYD_KY">CAYMAN ISLANDS, Cayman Islands Dollar (KYD)</option>
+                <option value="XAF_CF">CENTRAL AFRICAN REPUBLIC, CFA Franc BEAC (XAF)</option>
+                <option value="XAF_TD">CHAD, CFA Franc BEAC (XAF)</option>
+                <option value="CLF_CL">CHILE, Unidad de Fomento (CLF)</option>
+                <option value="CLP_CL">CHILE, Chilean Peso (CLP)</option>
+                <option value="CNY_CN">CHINA, Yuan Renminbi (CNY)</option>
+                <option value="AUD_CX">CHRISTMAS ISLAND, Australian Dollar (AUD)</option>
+                <option value="AUD_CC">COCOS (KEELING) ISLANDS, Australian Dollar (AUD)</option>
+                <option value="COP_CO">COLOMBIA, Colombian Peso (COP)</option>
+                <option value="COU_CO">COLOMBIA, Unidad de Valor Real (COU)</option>
+                <option value="KMF_KM">COMOROS, Comoro Franc (KMF)</option>
+                <option value="XAF_CG">CONGO, CFA Franc BEAC (XAF)</option>
+                <option value="CDF_CD">CONGO, THE DEMOCRATIC REPUBLIC OF, Congolese Franc (CDF)</option>
+                <option value="NZD_CK">COOK ISLANDS, New Zealand Dollar (NZD)</option>
+                <option value="CRC_CR">COSTA RICA, Costa Rican Colon (CRC)</option>
+                <option value="XOF_CI">CÔTE D'IVOIRE, CFA Franc BCEAO (XOF)</option>
+                <option value="HRK_HR">CROATIA, Croatian Kuna (HRK)</option>
+                <option value="CUC_CU">CUBA, Peso Convertible (CUC)</option>
+                <option value="CUP_CU">CUBA, Cuban Peso (CUP)</option>
+                <option value="ANG_CW">CURAÇAO, Netherlands Antillean Guilder (ANG)</option>
+                <option value="EUR_CY">CYPRUS, Euro (EUR)</option>
+                <option value="CZK_CZ">CZECH REPUBLIC, Czech Koruna (CZK)</option>
+                <option value="DKK_DK">DENMARK, Danish Krone (DKK)</option>
+                <option value="DJF_DJ">DJIBOUTI, Djibouti Franc (DJF)</option>
+                <option value="XCD_DM">DOMINICA, East Caribbean Dollar (XCD)</option>
+                <option value="DOP_DO">DOMINICAN REPUBLIC, Dominican Peso (DOP)</option>
+                <option value="USD_EC">ECUADOR, US Dollar (USD)</option>
+                <option value="EGP_EG">EGYPT, Egyptian Pound (EGP)</option>
+                <option value="SVC_SV">EL SALVADOR, El Salvador Colon (SVC)</option>
+                <option value="USD_SV">EL SALVADOR, US Dollar (USD)</option>
+                <option value="XAF_GQ">EQUATORIAL GUINEA, CFA Franc BEAC (XAF)</option>
+                <option value="ERN_ER">ERITREA, Nakfa (ERN)</option>
+                <option value="EUR_EE">ESTONIA, Euro (EUR)</option>
+                <option value="ETB_ET">ETHIOPIA, Ethiopian Birr (ETB)</option>
+                <option value="EUR_EU" selected="selected">EUROPEAN UNION, Euro (EUR)</option>
+                <option value="FKP_FK">FALKLAND ISLANDS (MALVINAS), Falkland Islands Pound (FKP)</option>
+                <option value="DKK_FO">FAROE ISLANDS, Danish Krone (DKK)</option>
+                <option value="FJD_FJ">FIJI, Fiji Dollar (FJD)</option>
+                <option value="EUR_FI">FINLAND, Euro (EUR)</option>
+                <option value="EUR_FR">FRANCE, Euro (EUR)</option>
+                <option value="EUR_GF">FRENCH GUIANA, Euro (EUR)</option>
+                <option value="XPF_PF">FRENCH POLYNESIA, CFP Franc (XPF)</option>
+                <option value="EUR_TF">FRENCH SOUTHERN TERRITORIES, Euro (EUR)</option>
+                <option value="XAF_GA">GABON, CFA Franc BEAC (XAF)</option>
+                <option value="GMD_GM">GAMBIA, Dalasi (GMD)</option>
+                <option value="GEL_GE">GEORGIA, Lari (GEL)</option>
+                <option value="EUR_DE">GERMANY, Euro (EUR)</option>
+                <option value="GHS_GH">GHANA, Ghana Cedi (GHS)</option>
+                <option value="GIP_GI">GIBRALTAR, Gibraltar Pound (GIP)</option>
+                <option value="EUR_GR">GREECE, Euro (EUR)</option>
+                <option value="DKK_GL">GREENLAND, Danish Krone (DKK)</option>
+                <option value="XCD_GD">GRENADA, East Caribbean Dollar (XCD)</option>
+                <option value="EUR_GP">GUADELOUPE, Euro (EUR)</option>
+                <option value="USD_GU">GUAM, US Dollar (USD)</option>
+                <option value="GTQ_GT">GUATEMALA, Quetzal (GTQ)</option>
+                <option value="GBP_GG">GUERNSEY, Pound Sterling (GBP)</option>
+                <option value="GNF_GN">GUINEA, Guinea Franc (GNF)</option>
+                <option value="XOF_GW">GUINEA-BISSAU, CFA Franc BCEAO (XOF)</option>
+                <option value="GYD_GY">GUYANA, Guyana Dollar (GYD)</option>
+                <option value="HTG_HT">HAITI, Gourde (HTG)</option>
+                <option value="USD_HT">HAITI, US Dollar (USD)</option>
+                <option value="AUD_HM">HEARD ISLAND AND McDONALD ISLANDS, Australian Dollar (AUD)</option>
+                <option value="EUR_VA">HOLY SEE (VATICAN CITY STATE), Euro (EUR)</option>
+                <option value="HNL_HN">HONDURAS, Lempira (HNL)</option>
+                <option value="HKD_HK">HONG KONG, Hong Kong Dollar (HKD)</option>
+                <option value="HUF_HU">HUNGARY, Forint (HUF)</option>
+                <option value="ISK_IS">ICELAND, Iceland Krona (ISK)</option>
+                <option value="INR_IN">INDIA, Indian Rupee (INR)</option>
+                <option value="IDR_ID">INDONESIA, Rupiah (IDR)</option>
+                <option value="XDR___">INTERNATIONAL MONETARY FUND (IMF) , SDR (Special Drawing Right) (XDR)</option>
+                <option value="IRR_IR">IRAN, ISLAMIC REPUBLIC OF, Iranian Rial (IRR)</option>
+                <option value="IQD_IQ">IRAQ, Iraqi Dinar (IQD)</option>
+                <option value="EUR_IE">IRELAND, Euro (EUR)</option>
+                <option value="GBP_IM">ISLE OF MAN, Pound Sterling (GBP)</option>
+                <option value="ILS_IL">ISRAEL, New Israeli Sheqel (ILS)</option>
+                <option value="EUR_IT">ITALY, Euro (EUR)</option>
+                <option value="JMD_JM">JAMAICA, Jamaican Dollar (JMD)</option>
+                <option value="JPY_JP">JAPAN, Yen (JPY)</option>
+                <option value="GBP_JE">JERSEY, Pound Sterling (GBP)</option>
+                <option value="JOD_JO">JORDAN, Jordanian Dinar (JOD)</option>
+                <option value="KZT_KZ">KAZAKHSTAN, Tenge (KZT)</option>
+                <option value="KES_KE">KENYA, Kenyan Shilling (KES)</option>
+                <option value="AUD_KI">KIRIBATI, Australian Dollar (AUD)</option>
+                <option value="KPW_KP">KOREA, DEMOCRATIC PEOPLE’S REPUBLIC OF, North Korean Won (KPW)</option>
+                <option value="KRW_KR">KOREA, REPUBLIC OF, Won (KRW)</option>
+                <option value="KWD_KW">KUWAIT, Kuwaiti Dinar (KWD)</option>
+                <option value="KGS_KG">KYRGYZSTAN, Som (KGS)</option>
+                <option value="LAK_LA">LAO PEOPLE’S DEMOCRATIC REPUBLIC, Kip (LAK)</option>
+                <option value="EUR_LV">LATVIA, Euro (EUR)</option>
+                <option value="LBP_LB">LEBANON, Lebanese Pound (LBP)</option>
+                <option value="LSL_LS">LESOTHO, Loti (LSL)</option>
+                <option value="ZAR_LS">LESOTHO, Rand (ZAR)</option>
+                <option value="LRD_LR">LIBERIA, Liberian Dollar (LRD)</option>
+                <option value="LYD_LY">LIBYA, Libyan Dinar (LYD)</option>
+                <option value="CHF_LI">LIECHTENSTEIN, Swiss Franc (CHF)</option>
+                <option value="LTL_LT">LITHUANIA, Lithuanian Litas (LTL)</option>
+                <option value="EUR_LU">LUXEMBOURG, Euro (EUR)</option>
+                <option value="MOP_MO">MACAO, Pataca (MOP)</option>
+                <option value="MKD_MK">MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF, Denar (MKD)</option>
+                <option value="MGA_MG">MADAGASCAR, Malagasy Ariary (MGA)</option>
+                <option value="MWK_MW">MALAWI, Kwacha (MWK)</option>
+                <option value="MYR_MY">MALAYSIA, Malaysian Ringgit (MYR)</option>
+                <option value="MVR_MV">MALDIVES, Rufiyaa (MVR)</option>
+                <option value="XOF_ML">MALI, CFA Franc BCEAO (XOF)</option>
+                <option value="EUR_MT">MALTA, Euro (EUR)</option>
+                <option value="USD_MH">MARSHALL ISLANDS, US Dollar (USD)</option>
+                <option value="EUR_MQ">MARTINIQUE, Euro (EUR)</option>
+                <option value="MRO_MR">MAURITANIA, Ouguiya (MRO)</option>
+                <option value="MUR_MU">MAURITIUS, Mauritius Rupee (MUR)</option>
+                <option value="EUR_YT">MAYOTTE, Euro (EUR)</option>
+                <option value="XUA___">MEMBER COUNTRIES OF THE AFRICAN DEVELOPMENT BANK GROUP, ADB Unit of Account (XUA)</option>
+                <option value="MXN_MX">MEXICO, Mexican Peso (MXN)</option>
+                <option value="MXV_MX">MEXICO, Mexican Unidad de Inversion (UDI) (MXV)</option>
+                <option value="USD_FM">MICRONESIA, FEDERATED STATES OF, US Dollar (USD)</option>
+                <option value="MDL_MD">MOLDOVA, REPUBLIC OF, Moldovan Leu (MDL)</option>
+                <option value="EUR_MC">MONACO, Euro (EUR)</option>
+                <option value="MNT_MN">MONGOLIA, Tugrik (MNT)</option>
+                <option value="EUR_ME">MONTENEGRO, Euro (EUR)</option>
+                <option value="XCD_MS">MONTSERRAT, East Caribbean Dollar (XCD)</option>
+                <option value="MAD_MA">MOROCCO, Moroccan Dirham (MAD)</option>
+                <option value="MZN_MZ">MOZAMBIQUE, Mozambique Metical (MZN)</option>
+                <option value="MMK_MM">MYANMAR, Kyat (MMK)</option>
+                <option value="NAD_NA">NAMIBIA, Namibia Dollar (NAD)</option>
+                <option value="ZAR_NA">NAMIBIA, Rand (ZAR)</option>
+                <option value="AUD_NR">NAURU, Australian Dollar (AUD)</option>
+                <option value="NPR_NP">NEPAL, Nepalese Rupee (NPR)</option>
+                <option value="EUR_NL">NETHERLANDS, Euro (EUR)</option>
+                <option value="XPF_NC">NEW CALEDONIA, CFP Franc (XPF)</option>
+                <option value="NZD_NZ">NEW ZEALAND, New Zealand Dollar (NZD)</option>
+                <option value="NIO_NI">NICARAGUA, Cordoba Oro (NIO)</option>
+                <option value="XOF_NE">NIGER, CFA Franc BCEAO (XOF)</option>
+                <option value="NGN_NG">NIGERIA, Naira (NGN)</option>
+                <option value="NZD_NU">NIUE, New Zealand Dollar (NZD)</option>
+                <option value="AUD_NF">NORFOLK ISLAND, Australian Dollar (AUD)</option>
+                <option value="USD_MP">NORTHERN MARIANA ISLANDS, US Dollar (USD)</option>
+                <option value="NOK_NO">NORWAY, Norwegian Krone (NOK)</option>
+                <option value="OMR_OM">OMAN, Rial Omani (OMR)</option>
+                <option value="PKR_PK">PAKISTAN, Pakistan Rupee (PKR)</option>
+                <option value="USD_PW">PALAU, US Dollar (USD)</option>
+                <option value="____PS">PALESTINE, STATE OF, No universal currency ()</option>
+                <option value="PAB_PA">PANAMA, Balboa (PAB)</option>
+                <option value="USD_PA">PANAMA, US Dollar (USD)</option>
+                <option value="PGK_PG">PAPUA NEW GUINEA, Kina (PGK)</option>
+                <option value="PYG_PY">PARAGUAY, Guarani (PYG)</option>
+                <option value="PEN_PE">PERU, Nuevo Sol (PEN)</option>
+                <option value="PHP_PH">PHILIPPINES, Philippine Peso (PHP)</option>
+                <option value="NZD_PN">PITCAIRN, New Zealand Dollar (NZD)</option>
+                <option value="PLN_PL">POLAND, Zloty (PLN)</option>
+                <option value="EUR_PT">PORTUGAL, Euro (EUR)</option>
+                <option value="USD_PR">PUERTO RICO, US Dollar (USD)</option>
+                <option value="QAR_QA">QATAR, Qatari Rial (QAR)</option>
+                <option value="EUR_RE">RÉUNION, Euro (EUR)</option>
+                <option value="RON_RO">ROMANIA, New Romanian Leu (RON)</option>
+                <option value="RUB_RU">RUSSIAN FEDERATION, Russian Ruble (RUB)</option>
+                <option value="RWF_RW">RWANDA, Rwanda Franc (RWF)</option>
+                <option value="EUR_BL">SAINT BARTHÉLEMY, Euro (EUR)</option>
+                <option value="SHP_SH">SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA, Saint Helena Pound (SHP)</option>
+                <option value="XCD_KN">SAINT KITTS AND NEVIS, East Caribbean Dollar (XCD)</option>
+                <option value="XCD_LC">SAINT LUCIA, East Caribbean Dollar (XCD)</option>
+                <option value="EUR_MF">SAINT MARTIN (FRENCH PART), Euro (EUR)</option>
+                <option value="EUR_PM">SAINT PIERRE AND MIQUELON, Euro (EUR)</option>
+                <option value="XCD_VC">SAINT VINCENT AND THE GRENADINES, East Caribbean Dollar (XCD)</option>
+                <option value="WST_WS">SAMOA, Tala (WST)</option>
+                <option value="EUR_SM">SAN MARINO, Euro (EUR)</option>
+                <option value="STD_ST">SAO TOME AND PRINCIPE, Dobra (STD)</option>
+                <option value="SAR_SA">SAUDI ARABIA, Saudi Riyal (SAR)</option>
+                <option value="XOF_SN">SENEGAL, CFA Franc BCEAO (XOF)</option>
+                <option value="RSD_RS">SERBIA, Serbian Dinar (RSD)</option>
+                <option value="SCR_SC">SEYCHELLES, Seychelles Rupee (SCR)</option>
+                <option value="SLL_SL">SIERRA LEONE, Leone (SLL)</option>
+                <option value="SGD_SG">SINGAPORE, Singapore Dollar (SGD)</option>
+                <option value="ANG_SX">SINT MAARTEN (DUTCH PART), Netherlands Antillean Guilder (ANG)</option>
+                <option value="XSU___">SISTEMA UNITARIO DE COMPENSACION REGIONAL DE PAGOS "SUCRE", Sucre (XSU)</option>
+                <option value="EUR_SK">SLOVAKIA, Euro (EUR)</option>
+                <option value="EUR_SI">SLOVENIA, Euro (EUR)</option>
+                <option value="SBD_SB">SOLOMON ISLANDS, Solomon Islands Dollar (SBD)</option>
+                <option value="SOS_SO">SOMALIA, Somali Shilling (SOS)</option>
+                <option value="ZAR_ZA">SOUTH AFRICA, Rand (ZAR)</option>
+                <option value="____GS">SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS, No universal currency ()</option>
+                <option value="SSP_SS">SOUTH SUDAN, South Sudanese Pound (SSP)</option>
+                <option value="EUR_ES">SPAIN, Euro (EUR)</option>
+                <option value="LKR_LK">SRI LANKA, Sri Lanka Rupee (LKR)</option>
+                <option value="SDG_SD">SUDAN, Sudanese Pound (SDG)</option>
+                <option value="SRD_SR">SURINAME, Surinam Dollar (SRD)</option>
+                <option value="NOK_SJ">SVALBARD AND JAN MAYEN, Norwegian Krone (NOK)</option>
+                <option value="SZL_SZ">SWAZILAND, Lilangeni (SZL)</option>
+                <option value="SEK_SE">SWEDEN, Swedish Krona (SEK)</option>
+                <option value="CHE_CH">SWITZERLAND, WIR Euro (CHE)</option>
+                <option value="CHF_CH">SWITZERLAND, Swiss Franc (CHF)</option>
+                <option value="CHW_CH">SWITZERLAND, WIR Franc (CHW)</option>
+                <option value="SYP_SY">SYRIAN ARAB REPUBLIC, Syrian Pound (SYP)</option>
+                <option value="TWD_TW">TAIWAN, PROVINCE OF CHINA, New Taiwan Dollar (TWD)</option>
+                <option value="TJS_TJ">TAJIKISTAN, Somoni (TJS)</option>
+                <option value="TZS_TZ">TANZANIA, UNITED REPUBLIC OF, Tanzanian Shilling (TZS)</option>
+                <option value="THB_TH">THAILAND, Baht (THB)</option>
+                <option value="USD_TL">TIMOR-LESTE, US Dollar (USD)</option>
+                <option value="XOF_TG">TOGO, CFA Franc BCEAO (XOF)</option>
+                <option value="NZD_TK">TOKELAU, New Zealand Dollar (NZD)</option>
+                <option value="TOP_TO">TONGA, Pa’anga (TOP)</option>
+                <option value="TTD_TT">TRINIDAD AND TOBAGO, Trinidad and Tobago Dollar (TTD)</option>
+                <option value="TND_TN">TUNISIA, Tunisian Dinar (TND)</option>
+                <option value="TRY_TR">TURKEY, Turkish Lira (TRY)</option>
+                <option value="TMT_TM">TURKMENISTAN, Turkmenistan New Manat (TMT)</option>
+                <option value="USD_TC">TURKS AND CAICOS ISLANDS, US Dollar (USD)</option>
+                <option value="AUD_TV">TUVALU, Australian Dollar (AUD)</option>
+                <option value="UGX_UG">UGANDA, Uganda Shilling (UGX)</option>
+                <option value="UAH_UA">UKRAINE, Hryvnia (UAH)</option>
+                <option value="AED_AE">UNITED ARAB EMIRATES, UAE Dirham (AED)</option>
+                <option value="GBP_GB">UNITED KINGDOM, Pound Sterling (GBP)</option>
+                <option value="USD_US">UNITED STATES, US Dollar (USD)</option>
+                <option value="USN_US">UNITED STATES, US Dollar (Next day) (USN)</option>
+                <option value="USS_US">UNITED STATES, US Dollar (Same day) (USS)</option>
+                <option value="USD_US">UNITED STATES MINOR OUTLYING ISLANDS, US Dollar (USD)</option>
+                <option value="UYI_UY">URUGUAY, Uruguay Peso en Unidades Indexadas (URUIURUI) (UYI)</option>
+                <option value="UYU_UY">URUGUAY, Peso Uruguayo (UYU)</option>
+                <option value="UZS_UZ">UZBEKISTAN, Uzbekistan Sum (UZS)</option>
+                <option value="VUV_VU">VANUATU, Vatu (VUV)</option>
+                <option value="EUR_VA">Vatican City State (HOLY SEE), Euro (EUR)</option>
+                <option value="VEF_VE">VENEZUELA, BOLIVARIAN REPUBLIC OF, Bolivar (VEF)</option>
+                <option value="VND_VN">VIET NAM, Dong (VND)</option>
+                <option value="USD_VG">VIRGIN ISLANDS (BRITISH), US Dollar (USD)</option>
+                <option value="USD_VI">VIRGIN ISLANDS (US), US Dollar (USD)</option>
+                <option value="XPF_WF">WALLIS AND FUTUNA, CFP Franc (XPF)</option>
+                <option value="MAD_EH">WESTERN SAHARA, Moroccan Dirham (MAD)</option>
+                <option value="YER_YE">YEMEN, Yemeni Rial (YER)</option>
+                <option value="ZMW_ZM">ZAMBIA, Zambian Kwacha (ZMW)</option>
+                <option value="ZWL_ZW">ZIMBABWE, Zimbabwe Dollar (ZWL)</option>
+                <option value="XBA___">ZZ01_Bond Markets Unit European_EURCO, Bond Markets Unit European Composite Unit (EURCO) (XBA)</option>
+                <option value="XBB___">ZZ02_Bond Markets Unit European_EMU-6, Bond Markets Unit European Monetary Unit (E.M.U.-6) (XBB)</option>
+                <option value="XBC___">ZZ03_Bond Markets Unit European_EUA-9, Bond Markets Unit European Unit of Account 9 (E.U.A.-9) (XBC)</option>
+                <option value="XBD___">ZZ04_Bond Markets Unit European_EUA-17, Bond Markets Unit European Unit of Account 17 (E.U.A.-17) (XBD)</option>
+                <option value="XTS___">ZZ06_Testing_Code, Codes specifically reserved for testing purposes (XTS)</option>
+                <option value="XXX___">ZZ07_No_Currency, The codes assigned for transactions where no currency is involved (XXX)</option>
+                <option value="XAU___">ZZ08_Gold, Gold (XAU)</option>
+                <option value="XPD___">ZZ09_Palladium, Palladium (XPD)</option>
+                <option value="XPT___">ZZ10_Platinum, Platinum (XPT)</option>
+                <option value="XAG___">ZZ11_Silver, Silver (XAG)</option>
+                <option value="gAu___">Gold grams (gAu)</option>
+            </select>
+        </fieldset>
+        <fieldset>
+            <legend>
+                General
+            </legend>
+            <ul>
+                <li>
+                    <input type="checkbox" id="enable_conversion" checked="checked" />
+                    <label for="enable_conversion">Enable conversion on Firefox start</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="always_round" />
+                    <label for="always_round">Do not show amount subunits</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="show_original_prices" />
+                    <label for="show_original_prices">Show original amounts in parentheses: 6,12 € (55 SEK).
+                    If unselected, original amounts are shown in the element titles (tooltips).</label>
+                </li>
+                <li>
+                    <select class="options-combo" id="adjustment_percentage">
+                        <option value="-10">-10</option>
+                        <option value="-9">-9</option>
+                        <option value="-8">-8</option>
+                        <option value="-7">-7</option>
+                        <option value="-6">-6</option>
+                        <option value="-5">-5</option>
+                        <option value="-4">-4</option>
+                        <option value="-3">-3</option>
+                        <option value="-2">-2</option>
+                        <option value="-1">-1</option>
+                        <option value="0" selected="selected">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <label for="adjustment_percentage">% exchange rate adjustment</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="temp_convert_units" />
+                    <label for="temp_convert_units">Convert other units such as inches and miles to SI (experimental)</label>
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>
+                Format
+            </legend>
+            <ul>
+                <li>
+                    <label for="unitPlacement">Unit placement: </label>
+                    <input type="radio" name="unitPlacement" id="unitBefore">Before the amount
+                    <input type="radio" name="unitPlacement" id="unitAfter">After the amount
+                </li>
+                <li>
+                    <input type="checkbox" id="separate_price" checked="checked" />
+                    <label for="separate_price">Separate amount from unit</label>
+                </li>
+                <li>
+                    <select class="options-combo" id="thousands_separator">
+                        <option value=",">,</option>
+                        <option value=" " selected="selected"> </option>
+                        <option value=".">.</option>
+                        <option value="'">'</option>
+                    </select>
+                    <label for="thousands_separator">Thousands separator</label>
+                </li>
+                <li>
+                    <select class="options-combo" id="decimal_separator">
+                        <option value=",">,</option>
+                        <option value=" "> </option>
+                        <option value="." selected="selected">.</option>
+                    </select>
+                    <label for="decimal_separator">Subunits separator</label>
+                </li>
+                <li>
+                    <input type="text" size="5" id="custom_symbol" class="textbox"/>
+                    <label for="custom_symbol">Custom symbol</label>
+                </li>
+                <li>
+                    <div id="custom_symbol_reset-button">
+                        <span id="custom_symbol_reset_text" class="loc">Reset custom symbol</span>
+                    </div>
+                </li>
+                <li>
+                    <div id="format_preview">
+                        <span id="preview_left">¤</span><span id="preview_left_space"> </span><span>12</span><span id="preview_thousand">,</span><span>345</span><span id="preview_decimal">.</span><span>67</span><span id="preview_right_space"> </span><span id="preview_right">¤</span>
+                    </div>
+                    Preview
+                </li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>
+                Excluded Domains
+            </legend>
+            <ul>
+                <li>
+                    <textarea id="excluded_domains" placeholder="Example: ebay.com" > </textarea>
+                </li>
+            </ul>
+        </fieldset>
+        <div id="footer">
+            <div id="save-button">
+                <span id="savebutton_text" class="loc">Save</span>
+            </div>
+        </div>
+        <div id="footer">
+            <div id="reset-button">
+                <span id="resetbutton_text" class="loc">Reset settings</span>
+            </div>
+        </div>
+
+    </body>
+</html>

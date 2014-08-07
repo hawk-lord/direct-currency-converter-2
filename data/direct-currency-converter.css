@@ -186,7 +186,7 @@ li {
     width:300px;
 }
 
-#footer {
+#footer1, #footer2 {
     bottom:0;
     float:left;
     height:45px;
@@ -205,7 +205,7 @@ li {
 
 #save-button, #reset-button {
     margin-left:10px !important;
-    width:80px;
+    width:120px;
 }
 
 #save-button, #reset-button, #custom_symbol_reset-button {

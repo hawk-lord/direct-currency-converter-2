@@ -11,7 +11,7 @@
     ], 
     "lib": "lib", 
     "author": "Per Johansson", 
-    "version": "1.0.2", 
+    "version": "1.0.4", 
     "_xxx": "My remark: underscore xxx means disabled", 
     "main": "main", 
     "homepage": "", 

@@ -10,18 +10,17 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title data-l10n-id="Direct Currency Converter"></title>
+        <title data-l10n-id="Direct Currency Converter">Direct Currency Converter</title>
         <link rel="icon" type="image/png" href="images/1402781551_currency_exchange_1.png">
         <link rel="stylesheet" type="text/css" href="direct-currency-converter.css">
     </head>
 
     <body>
-    	<h1 data-l10n-id="Options"></h1>
+    	<h1 data-l10n-id="Options"Options></h1>
         <!-- http://jqueryui.com/sortable/#connect-lists -->
-        <p class="caption">Drag and drop currencies between the boxes below to enable, disable and reorder them.
-            If an ambiguous currency such as "kroner" (could be DKK or NOK) is found, it is converted to the first possible currency in the "Convert from" list.</p>
+        <p class="caption" data-l10n-id="caption">Drag and drop currencies between the boxes below to enable, disable and reorder them. If an ambiguous currency such as "kroner" (could be DKK or NOK) is found, it is converted to the first possible currency in the "Convert from" list.</p>
         <fieldset class="currencies">
-            <legend>
+            <legend data-l10n-id="enabled-legend">
                 Convert from, in this order:
             </legend>
             <ol id="enabledCurrencies" class="connectedSortable"> </ol>
@@ -32,14 +31,14 @@
             </ul>
         </fieldset>
         <fieldset class="currencies">
-            <legend>
+            <legend data-l10n-id="disabled-legend">
                 Don't convert from:
             </legend>
             <ul id="disabledCurrencies" class="connectedSortable"> </ul>
         </fieldset>
         <div class="clear"> </div>
         <fieldset>
-            <legend>
+            <legend data-l10n-id="convert-to-legend">
                 Convert to
             </legend>
             <select class="options-combo" id="convert_to_currency">
@@ -325,21 +324,21 @@
             </select>
         </fieldset>
         <fieldset>
-            <legend>
+            <legend data-l10n-id="General">
                 General
             </legend>
             <ul>
                 <li>
                     <input type="checkbox" id="enable_conversion" checked="checked" />
-                    <label for="enable_conversion">Enable conversion on Firefox start</label>
+                    <label for="enable_conversion" data-l10n-id="Enable conversion on Firefox start">Enable conversion on Firefox start</label>
                 </li>
                 <li>
                     <input type="checkbox" id="always_round" />
-                    <label for="always_round">Do not show amount subunits</label>
+                    <label for="always_round" data-l10n-id="Do not show amount subunits">Do not show amount subunits</label>
                 </li>
                 <li>
                     <input type="checkbox" id="show_original_prices" />
-                    <label for="show_original_prices">Show original amounts in parentheses: 6,12 € (55 SEK).
+                    <label for="show_original_prices" data-l10n-id="Show original amounts in parentheses">Show original amounts in parentheses: 6,12 € (55 SEK).
                     If unselected, original amounts are shown in the element titles (tooltips).</label>
                 </li>
                 <li>
@@ -366,27 +365,29 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select>
-                    <label for="adjustment_percentage">% exchange rate adjustment</label>
+                    <label for="adjustment_percentage" data-l10n-id="Percent exchange rate adjustment">% exchange rate adjustment</label>
                 </li>
                 <li>
                     <input type="checkbox" id="temp_convert_units" />
-                    <label for="temp_convert_units">Convert other units such as inches and miles to SI (experimental)</label>
+                    <label for="temp_convert_units" data-l10n-id="Convert other units">Convert other units such as inches and miles to SI (experimental)</label>
                 </li>
             </ul>
         </fieldset>
         <fieldset>
-            <legend>
+            <legend data-l10n-id="Format">
                 Format
             </legend>
             <ul>
                 <li>
-                    <label for="unitPlacement">Unit placement: </label>
-                    <input type="radio" name="unitPlacement" id="unitBefore">Before the amount
-                    <input type="radio" name="unitPlacement" id="unitAfter">After the amount
+                    <label for="unitPlacement" data-l10n-id="Unit placement">Unit placement: </label>
+                    <input type="radio" name="unitPlacement" id="unitBefore">
+                    <label for="unitBefore" data-l10n-id="Before the amount">Before the amount</label>
+                    <input type="radio" name="unitPlacement" id="unitAfter" data-l10n-id="After the amount">
+                    <label for="unitAfter" data-l10n-id="After the amount">After the amount</label>
                 </li>
                 <li>
                     <input type="checkbox" id="separate_price" checked="checked" />
-                    <label for="separate_price">Separate amount from unit</label>
+                    <label for="separate_price" data-l10n-id="Separate amount from unit">Separate amount from unit</label>
                 </li>
                 <li>
                     <select class="options-combo" id="thousands_separator">
@@ -395,7 +396,7 @@
                         <option value=".">.</option>
                         <option value="'">'</option>
                     </select>
-                    <label for="thousands_separator">Thousands separator</label>
+                    <label for="thousands_separator" data-l10n-id="Thousands separator">Thousands separator</label>
                 </li>
                 <li>
                     <select class="options-combo" id="decimal_separator">
@@ -403,27 +404,27 @@
                         <option value=" "> </option>
                         <option value="." selected="selected">.</option>
                     </select>
-                    <label for="decimal_separator">Subunits separator</label>
+                    <label for="decimal_separator" data-l10n-id="Subunits separator">Subunits separator</label>
                 </li>
                 <li>
                     <input type="text" size="5" maxlength="55" id="custom_symbol" class="textbox"/>
-                    <label for="custom_symbol">Custom symbol</label>
+                    <label for="custom_symbol" data-l10n-id="Custom symbol">Custom symbol</label>
                 </li>
                 <li>
                     <div id="custom_symbol_reset-button">
-                        <span id="custom_symbol_reset_text" class="loc">Reset custom symbol</span>
+                        <span id="custom_symbol_reset_text" class="loc" data-l10n-id="Reset custom symbol">Reset custom symbol</span>
                     </div>
                 </li>
                 <li>
                     <div id="format_preview">
                         <span id="preview_left">¤</span><span id="preview_left_space"> </span><span>12</span><span id="preview_thousand">,</span><span>345</span><span id="preview_decimal">.</span><span>67</span><span id="preview_right_space"> </span><span id="preview_right">¤</span>
                     </div>
-                    Preview
+                    <span data-l10n-id="Preview">Preview</span>
                 </li>
             </ul>
         </fieldset>
         <fieldset>
-            <legend>
+            <legend data-l10n-id="Excluded Domains">
                 Excluded Domains
             </legend>
             <ul>
@@ -434,12 +435,12 @@
         </fieldset>
         <div id="footer1">
             <div id="save-button">
-                <span id="savebutton_text" class="loc">Save</span>
+                <span id="savebutton_text" class="loc" data-l10n-id="Save">Save</span>
             </div>
         </div>
         <div id="footer2">
             <div id="reset-button">
-                <span id="resetbutton_text" class="loc">Reset settings</span>
+                <span id="resetbutton_text" class="loc" data-l10n-id="Reset settings">Reset settings</span>
             </div>
         </div>
 

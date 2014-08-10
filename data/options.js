@@ -171,6 +171,23 @@ const DirectCurrencySettings = (function() {
         jQuery("#separate_price").prop("checked", separatePrice);
         jQuery("#temp_convert_units").prop("checked", tempConvertUnits);
         jQuery("#preview_thousand").html(thousandSep);
+        const selectedOption = jQuery('#convert_to_currency').val();
+        const selectList = jQuery("#convert_to_currency option");
+        selectList.sort(function(a,b){
+            const A = jQuery(a).text().toLowerCase();
+            const B = jQuery(b).text().toLowerCase();
+            if (A < B){
+                return -1;
+            }
+            else if (A > B){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        });
+        jQuery("#convert_to_currency").html(selectList);
+        jQuery('#convert_to_currency').val(selectedOption);
     };
     const onCurrencyChange = function(val) {
         var currencyVal = escapeHtml(val);

@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 1.0.0
-Date: 2014-06-14
+Version: 1.0.2
+Date: 2014-08-10
 
 After installation, you'll have two new buttons in the toolbar.
 
@@ -44,12 +44,28 @@ Optionally some deprecated units of measurements (such as miles and calories) ar
 Based on code from Simple Currency Converter
 https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
 
-Runs on Firefox version 29 and later versions.
+Runs on Firefox version 30 and later versions.
 
 External libraries used:
 jQuery 2.1.1
-jQuery UI 1.10.4
+jQuery UI 1.11.0
 
 Icons provided by Iconfinder.
 
-Author: Per Johansson, Åland Islands, Finland.
+Author: Per Johansson, Johanssons Informationsteknik JOINT, Åland Islands, Finland.
+
+History
+
+Version: 1.0.0
+Date: 2014-06-14
+
+Version: 1.0.1
+Date: 2014-07-18
+Fixed some security issues.
+
+Version: 1.0.2
+Date: 2014-08-10
+Swedish and English localisation
+Updated jQuery UI to 1.11.0
+Some code review issues
+

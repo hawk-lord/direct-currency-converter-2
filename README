@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 1.0.4
-Date: 2014-08-10
+Version: 1.0.5
+Date: 2014-08-14
 
 After installation, you'll have two new buttons in the toolbar.
 
@@ -76,9 +76,5 @@ Reverted SDK to 1.16
 
 Version: 1.0.4
 Date: 2014-08-10
-<<<<<<< HEAD
 Rebuild
-=======
 jquery-ui-1.10.4.min.js replaced with another copy
-
->>>>>>> 1.0.4

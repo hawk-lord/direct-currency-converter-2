@@ -1,6 +1,6 @@
 Direct Currency Converter
 
-Version: 1.0.2
+Version: 1.0.4
 Date: 2014-08-10
 
 After installation, you'll have two new buttons in the toolbar.
@@ -69,3 +69,11 @@ Swedish and English localisation
 Updated jQuery UI to 1.11.0
 Some code review issues
 
+Version: 1.0.3
+Date: 2014-08-10
+Reverted jQuery UI to 1.10.4 since it is the most recent one supported by AMO
+Reverted SDK to 1.16
+
+Version: 1.0.4
+Date: 2014-08-10
+Rebuild

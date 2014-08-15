@@ -238,8 +238,15 @@ const DirectCurrencyContent = (function() {
         convertedContent = aNode.textContent;
         elementTitleText = "";
         matchFound = false;
-        // Modifies convertedContent and elementTitleText
-        regexArray.some(checkRegex);
+        // Don't check text without numbers
+        if (/[0-9]/.exec(aNode.textContent)) {
+            console.log("/[0-9]/");
+            // Modifies convertedContent and elementTitleText
+            regexArray.some(checkRegex);
+        }
+        else {
+            console.log("!/[0-9]/");
+        }
         if (!matchFound) {
             return;
         }

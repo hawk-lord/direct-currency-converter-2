@@ -65,6 +65,10 @@ body {
     width:80%;
 }
 
+h1 {
+    margin-left: 25px;
+}
+
 fieldset {
     border-style:solid;
     border-width:1px;
@@ -104,6 +108,7 @@ li {
     border-width:1px;
     font-size:14px !important;
     font-weight:bold;
+    margin-left:20px;
     padding:4px;
 }
 
@@ -150,7 +155,7 @@ li {
 }
 
 #custom_symbol_reset-button {
-    height:26px;
+    height:35px;
     margin-top:0px;
     width:180px;
 }
@@ -173,9 +178,9 @@ li {
 }
 #enabledCurrencies li, #disabledCurrencies li {
     font-size:1.2em;
-    margin:0 5px 5px 5px;
+    margin:0 5px 5px 20px;
     padding:5px;
-    width:120px;
+    width: 300px;
 }
 #enabledCurrencies li:hover, #disabledCurrencies li:hover {
     cursor:pointer;
@@ -191,9 +196,6 @@ li {
     float:left;
     height:45px;
     left:0;
-    overflow:auto;
-    text-align:right;
-    width:100%;
 }
 
 #format_preview {
@@ -206,6 +208,10 @@ li {
 #save-button, #reset-button {
     margin-left:10px !important;
     width:120px;
+}
+
+#reset-button {
+    height:45px !important;
 }
 
 #save-button, #reset-button, #custom_symbol_reset-button {

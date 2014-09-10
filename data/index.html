@@ -19,7 +19,7 @@
     	<h1 data-l10n-id="Options"Options></h1>
         <!-- http://jqueryui.com/sortable/#connect-lists -->
         <p class="caption" data-l10n-id="caption">Drag and drop currencies between the boxes below to enable, disable and reorder them. If an ambiguous currency such as "kroner" (could be DKK or NOK) is found, it is converted to the first possible currency in the "Convert from" list.</p>
-        <fieldset class="currencies">
+        <fieldset class="currencies minimised" >
             <legend data-l10n-id="enabled-legend">
                 Convert from, in this order:
             </legend>
@@ -28,9 +28,15 @@
         <fieldset class="arrows">
             <ul>
                 <li class="arrow">⇋</li>
+                <li>
+                    <div id="toggleCurrencies">
+                        <span id="toggleCurrencies_text" class="loc" data-l10n-id="Expand/Compress lists"></span>
+                    </div>
+                </li>
+
             </ul>
         </fieldset>
-        <fieldset class="currencies">
+        <fieldset class="currencies minimised">
             <legend data-l10n-id="disabled-legend">
                 Don't convert from:
             </legend>

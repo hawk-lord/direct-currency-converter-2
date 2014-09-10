@@ -40,7 +40,7 @@ legend {
     background-color:silver;
 }
 
-#save-button, #reset-button, #custom_symbol_reset-button {
+#save-button, #reset-button, #custom_symbol_reset-button, #toggleCurrencies {
     background-color:burlywood;
     border-color:brown;
     color:white;
@@ -95,7 +95,7 @@ li {
     border-style:none;
     font-size:3em !important;
     font-weight:bold;
-    padding-right:1em;
+    text-align:center;
 }
 
 .arrows {
@@ -118,6 +118,11 @@ li {
 
 .currencies {
     float:left;
+    overflow-y: scroll;
+}
+
+.minimised {
+    max-height: 150px;
 }
 
 .format_options {
@@ -205,6 +210,12 @@ li {
     margin-right:1em;
 }
 
+#toggleCurrencies {
+    padding:0 5px;
+    height:60px !important;
+    width:100px;
+}
+
 #save-button, #reset-button {
     margin-left:10px !important;
     width:120px;
@@ -214,7 +225,7 @@ li {
     height:45px !important;
 }
 
-#save-button, #reset-button, #custom_symbol_reset-button {
+#save-button, #reset-button, #custom_symbol_reset-button, #toggleCurrencies {
     border-radius:0px;
     border-style:solid;
     border-width:1px;

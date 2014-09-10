@@ -17,6 +17,9 @@ const DirectCurrencySettings = (function() {
         return String(s).replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     };
     jQuery(document).ready(function() {
+        jQuery( "#toggleCurrencies" ).click(function() {
+            jQuery("fieldset.currencies").toggleClass( "minimised" );
+        });
         jQuery("#enabledCurrencies, #disabledCurrencies" ).sortable({
             connectWith: ".connectedSortable"
         }).disableSelection();

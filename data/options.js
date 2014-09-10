@@ -17,6 +17,9 @@ const DirectCurrencySettings = (function() {
         return String(s).replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     };
     jQuery(document).ready(function() {
+        jQuery( "#toggleCurrencies" ).click(function() {
+            jQuery("fieldset.currencies").toggleClass( "minimised" );
+        });
         jQuery("#enabledCurrencies, #disabledCurrencies" ).sortable({
             connectWith: ".connectedSortable"
         }).disableSelection();
@@ -93,11 +96,11 @@ const DirectCurrencySettings = (function() {
             enabledCurrencies = {};
             var listItems = jQuery("#enabledCurrencies li");
             listItems.each(function(index, element) {
-                enabledCurrencies[jQuery(this).text()] = true;
+                enabledCurrencies[jQuery(this).attr('id')] = true;
             });
             listItems = jQuery("#disabledCurrencies li");
             listItems.each(function(index, element) {
-                enabledCurrencies[jQuery(this).text()] = false;
+                enabledCurrencies[jQuery(this).attr('id')] = false;
             });
             const contentScriptParams = {};
             contentScriptParams.convertToCurrency = escapeHtml(convertToCurrency);
@@ -138,6 +141,7 @@ const DirectCurrencySettings = (function() {
     var unitAfter = true;
     var tempConvertUnits = null;
     var thousandSep = null;
+    var currencyNames = {};
     const setUIFromPreferences = function() {
         jQuery("#convert_to_currency").val(convertToCurrency + "_" + convertToCountry);
         onCurrencyChange(convertToCurrency);
@@ -151,12 +155,12 @@ const DirectCurrencySettings = (function() {
             if (enabledCurrencies[currency]) {
                 jQuery("#enabledCurrencies").append(jQuery(document.createElement("li")).attr({
                         id: currency
-                }).append(currency));
+                }).append(currencyNames[currency]));
             }
             else {
                 jQuery("#disabledCurrencies").append(jQuery(document.createElement("li")).attr({
                         id: currency
-                }).append(currency));
+                }).append(currencyNames[currency]));
             }
         }
         jQuery("#adjustment_percentage").val(quoteAdjustmentPercent);
@@ -260,6 +264,7 @@ const DirectCurrencySettings = (function() {
         unitAfter = contentScriptParams.unitAfter;
         tempConvertUnits = contentScriptParams.tempConvertUnits;
         thousandSep = escapeHtml(contentScriptParams.thousandSep);
+        currencyNames = contentScriptParams.currencyNames;
         setUIFromPreferences();
     };
     return {

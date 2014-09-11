@@ -118,7 +118,7 @@ li {
 
 .currencies {
     float:left;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .minimised {

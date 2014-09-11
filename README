@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 1.0.5
-Date: 2014-08-14
+Version: 1.1.0
+Date: 2014-09-11
 
 After installation, you'll have two new buttons in the toolbar.
 
@@ -16,19 +16,7 @@ Your location is used to set your default region and currency (for example Finla
 
 If conversion does not work, it probably means that there was no reply from Yahoo or freegeoip. Try to reload the browser (F5 button).
 
-You can convert to any existing currency as defined by ISO 4217, including precious metals, if Yahoo provides a conversion rate for the currency.
-
-You can convert from the following currencies:
-CHF Swiss franc
-DKK Danish krona (and Faroese króna)
-EUR euro
-GBP British pound
-ISK	Icelandic króna
-JPY Japanese yen
-NOK Norwegian krona
-RUB Russian rubel
-SEK Swedish krona
-USD United States dollar
+You can convert to and from any existing currency as defined by ISO 4217, including precious metals, if Yahoo provides a conversion rate for the currency.
 
 Special attention is given to conversion of currencies used in the Nordic countries: Sweden, Denmark, Norway, Faroe Islands, Iceland and Greenland.
 
@@ -78,3 +66,7 @@ Version: 1.0.4
 Date: 2014-08-10
 Rebuild
 jquery-ui-1.10.4.min.js replaced with another copy
+
+Version: 1.1.0
+Date: 2014-09-11
+Conversion to and from all 179 currencies

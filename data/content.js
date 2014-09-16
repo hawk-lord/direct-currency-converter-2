@@ -27,12 +27,12 @@ const DirectCurrencyContent = (function() {
     const makePriceRegexes = function(aRegex1, aRegex2) {
         // aRegex1.XXX = /(XXX\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
         // aRegex2.XXX = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?XXX
-        aRegex1.AFN = /(AFN\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
-        aRegex1.AED = /(AED\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
-        aRegex1.ALL = /(ALL\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
-        aRegex1.AMD = /(AMD\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
-        aRegex1.ANG = /(ANG\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
-        aRegex1.AOA = /(AOA\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
+        aRegex1.AED = /(dhs?\s?|AED\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
+        aRegex1.AFN = /(؋\s?|افغانۍ\s?|afs?\s?|AFN\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
+        aRegex1.ALL = /(Lekë?\s?|ALL\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
+        aRegex1.AMD = /(\\u058F\s?|Դրամ\s?|drams?\s?|драм\s?|AMD\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
+        aRegex1.ANG = /(NAƒ\s?|ƒ\s?|NAfs?|ANG\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
+        aRegex1.AOA = /(Kz\s?|AOA\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
         aRegex1.ARS = /(ARS\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
         aRegex1.AUD = /(AUD\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
         aRegex1.AWG = /(AWG\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
@@ -206,12 +206,12 @@ const DirectCurrencyContent = (function() {
         aRegex1.ZAR = /(ZAR\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
         aRegex1.ZMW = /(ZMW\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
         aRegex1.ZWL = /(ZWL\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))/ig;
-        aRegex2.AFN = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?AFN)/ig;
-        aRegex2.AED = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?AED)/ig;
-        aRegex2.ALL = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?ALL)/ig;
-        aRegex2.AMD = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?AMD)/ig;
-        aRegex2.ANG = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?ANG)/ig;
-        aRegex2.AOA = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?AOA)/ig;
+        aRegex2.AED = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?dhs?|\s?dirhams?|\s?AED)/ig;
+        aRegex2.AFN = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s؋\s?afs?|\s?افغانۍ|\s?afghanis?|\s?AFN)/ig;
+        aRegex2.ALL = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?Lekë?|\s?ALL)/ig;
+        aRegex2.AMD = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?\\u058F|\s?Դրամ|\s?drams?|\s?драм|\s?AMD)/ig;
+        aRegex2.ANG = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?NAƒ|\s?ƒ|\s?NAf\.?|\sgulden|\s?ANG)/ig;
+        aRegex2.AOA = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?Kz|\s?kwanzas?|\s?AOA)/ig;
         aRegex2.ARS = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?ARS)/ig;
         aRegex2.AUD = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?AUD)/ig;
         aRegex2.AWG = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)|(\.\d{1,9}))(\s?AWG)/ig;
@@ -546,7 +546,7 @@ const DirectCurrencyContent = (function() {
                     if (otherDollarSigns.some(ignoreOtherDollars)) {
                         tempConvertedContent = convertedContent;
                     }
-                    
+
                 }
                 convertedContent = tempConvertedContent;
                 elementTitleText += "~" + aPrice.unit;
@@ -600,12 +600,12 @@ const DirectCurrencyContent = (function() {
         matchFound = false;
         // Don't check text without numbers
         if (/\d/.exec(aNode.textContent)) {
-            console.log("/[0-9]/");
+            // console.log("/[0-9]/");
             // Modifies convertedContent and elementTitleText
             regexArray.some(checkRegex);
         }
         else {
-            console.log("!/[0-9]/");
+            // console.log("!/[0-9]/");
         }
         if (!matchFound) {
             return;
@@ -887,6 +887,7 @@ const DirectCurrencyContent = (function() {
         const mutationHandler = function(aMutationRecord, anIndex, anArray) {
             if (aMutationRecord.type === "childList") {
                 // Can't use forEach on NodeList
+                // Can't use const here - SyntaxError: invalid for/in left-hand side
                 for (var node of aMutationRecord.addedNodes) {
                     traverseDomTree(node);
                 }
@@ -999,6 +1000,7 @@ const DirectCurrencyContent = (function() {
         quoteAdjustmentPercent = +contentScriptParams.quoteAdjustmentPercent;
 
         for (var currency in contentScriptParams.enabledCurrencies) {
+            // Add enabled currencies to regexArray
             if (contentScriptParams.enabledCurrencies[currency]) {
                 const regexObj = {};
                 regexObj.currency = currency;
@@ -1007,6 +1009,7 @@ const DirectCurrencyContent = (function() {
                 regexArray.push(regexObj);
             }
         }
+        // console.log("regexArray.length " + regexArray.length);
         if (tempConvertUnits) {
             const regexObj_inch = {};
             regexObj_inch.currency = "inch";

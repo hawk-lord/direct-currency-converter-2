@@ -26,9 +26,9 @@ const DirectCurrencySettings = (function() {
         jQuery("#convert_to_currency").change(function() {
             const currencyCountry = jQuery(this).val();
             convertToCurrency = currencyCountry.substr(0, 3);
-            console.log("convertToCurrency : " + convertToCurrency);
+            // console.log("convertToCurrency : " + convertToCurrency);
             convertToCountry = currencyCountry.substr(-2);
-            console.log("convertToCountry : " + convertToCountry);
+            // console.log("convertToCountry : " + convertToCountry);
             onCurrencyChange(convertToCurrency);
         });
         jQuery("#custom_symbol").change(function() {
@@ -168,7 +168,7 @@ const DirectCurrencySettings = (function() {
         jQuery("#separate_price").prop("checked", separatePrice);
         onSeparatePriceChange(separatePrice);
         jQuery("#show_original_prices").prop("checked", showOriginalPrices);
-        console.log("unitAfter " + unitAfter);
+        // console.log("unitAfter " + unitAfter);
         jQuery("#unitAfter").prop("checked", unitAfter);
         jQuery("#unitBefore").prop("checked", !unitAfter);
         onUnitAfterChange(unitAfter);
@@ -220,7 +220,7 @@ const DirectCurrencySettings = (function() {
         }
     };
     const onUnitAfterChange = function(unitAfter) {
-        console.log("onUnitAfterChange ".concat(unitAfter));
+        // console.log("onUnitAfterChange ".concat(unitAfter));
         if (unitAfter) {
             jQuery("#preview_left").hide();
             jQuery("#preview_right").show();

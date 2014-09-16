@@ -1,7 +1,7 @@
 Direct Currency Converter
 
 Version: 1.1.1
-Date: 2014-09-??
+Date: 2014-09-16
 
 After installation, you'll have two new buttons in the toolbar.
 
@@ -73,3 +73,7 @@ jquery-ui-1.10.4.min.js replaced with another copy
 Version: 1.1.0
 Date: 2014-09-11
 Conversion to and from all 179 currencies
+
+Version: 1.1.1
+Date: 2014-09-16
+Improved support for conversion from AED, AFN, ALL, AMD, ANG, AOA currencies.

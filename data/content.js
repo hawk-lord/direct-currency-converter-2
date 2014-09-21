@@ -19,27 +19,25 @@ const DirectCurrencyContent = (function() {
     var quoteAdjustmentPercent = 0;
     const regex1 = {};
     const regex2 = {};
-    const regexArray = [];
+    const enabledCurrenciesWithRegexes = [];
     var roundAmounts = false;
     var showOriginal = false;
     const skippedElements = ["audio", "button", "embed", "head", "img", "noscript", "object", "script", "select", "style", "textarea", "video"];
     const subUnits = {"EUR" : "cent", "RUB" : "коп."};
     const makePriceRegexes = function(aRegex1, aRegex2) {
-        // aRegex1.XXX = /(XXX\s?)(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
-        // aRegex2.XXX = /(((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?))(\s?XXX
         aRegex1.AED = /(dhs?\s?|AED\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
         aRegex1.AFN = /(؋\s?|افغانۍ\s?|afs?\s?|AFN\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
         aRegex1.ALL = /(Lekë?\s?|ALL\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
         aRegex1.AMD = /(\\u058F\s?|Դրամ\s?|drams?\s?|драм\s?|AMD\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
         aRegex1.ANG = /(NAƒ\s?|ƒ\s?|NAfs?|ANG\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
         aRegex1.AOA = /(Kz\s?|AOA\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
-        aRegex1.ARS = /(ARS\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
-        aRegex1.AUD = /(AUD\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
-        aRegex1.AWG = /(AWG\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
-        aRegex1.AZN = /(AZN\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
-        aRegex1.BAM = /(BAM\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
-        aRegex1.BBD = /(BBD\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
-        aRegex1.BDT = /(BDT\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
+        aRegex1.ARS = /(AR\$\s?|\$\s?|ARS\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
+        aRegex1.AUD = /(AUD\s?\$\s?|AU\$\s?|\$\s?|AUD\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
+        aRegex1.AWG = /(Afl\.?\s?|AWG\.?\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
+        aRegex1.AZN = /(₼\s?|AZN\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
+        aRegex1.BAM = /(BAM\s?|KM\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
+        aRegex1.BBD = /(BBD\s?|Bds\$?\s?|\$\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
+        aRegex1.BDT = /(BDT\s?|৳\s?|Tk\.?\s?|Taka\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
         aRegex1.BGN = /(BGN\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
         aRegex1.BHD = /(BHD\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
         aRegex1.BIF = /(BIF\s?)((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)/ig;
@@ -212,14 +210,14 @@ const DirectCurrencyContent = (function() {
         aRegex2.AMD = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?\\u058F|\s?Դրամ|\s?drams?|\s?драм|\s?AMD)/ig;
         aRegex2.ANG = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?NAƒ|\s?ƒ|\s?NAf\.?|\sgulden|\s?ANG)/ig;
         aRegex2.AOA = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?Kz|\s?kwanzas?|\s?AOA)/ig;
-        aRegex2.ARS = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?ARS)/ig;
-        aRegex2.AUD = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?AUD)/ig;
-        aRegex2.AWG = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?AWG)/ig;
-        aRegex2.AZN = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?AZN)/ig;
-        aRegex2.BAM = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?BAM)/ig;
-        aRegex2.BBD = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?BBD)/ig;
-        aRegex2.BDT = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?BDT)/ig;
-        aRegex2.BGN = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?BGN)/ig;
+        aRegex2.ARS = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?AR\$|\s?\$|\s?pesos?|\s?ARS)/ig;
+        aRegex2.AUD = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?AUD\$|\s?AU\$|\s?\$|\s?dollars?|\s?AUD)/ig;
+        aRegex2.AWG = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?Afl\.?|\sflorin|\s?AWG)/ig;
+        aRegex2.AZN = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?₼|\s?manat|\s?man\.?|\s?AZN)/ig;
+        aRegex2.BAM = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?KM|\s?BAM)/g;
+        aRegex2.BBD = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?\$|\s?dollars?|\s?BBD)/ig;
+        aRegex2.BDT = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?BDT|\s?টাকা|\s?Tk|\s?taka)/ig;
+        aRegex2.BGN = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?BGN|\s?лв\.?|\s?лева?|\s?lv\.?|\s?leva?)/ig;
         aRegex2.BHD = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?BHD)/ig;
         aRegex2.BIF = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?BIF)/ig;
         aRegex2.BMD = /((\d{1,3}((\,|\.|\s)\d{3})+|(\d+))((\.|\,)\d{1,9})?)(\s?BMD)/ig;
@@ -429,7 +427,7 @@ const DirectCurrencyContent = (function() {
         var matchFound = false;
         var replacedUnit = "";
         var elementTitleText = "";
-        const checkRegex = function(aRegex, anIndex, anArray) {
+        const checkRegex = function(anEnabledCurrenciesWithRegexes, anIndex, anArray) {
             var conversionQuote = 1;
             const makeReplacement = function(aPrice, anIndex, anArray) {
                 var tempConversionQuote = conversionQuote;
@@ -534,31 +532,30 @@ const DirectCurrencyContent = (function() {
                     tempConvertedContent = tempConvertedContent.replace("¤¤¤", replacedUnit);
                     // console.log("tempConvertedContent " + tempConvertedContent);
                 }
-                if (replacedUnit === "USD") {
-                    // console.log("replacedUnit === USD")
-                    const otherDollarSigns = ["ARS", "CLD", "COP", "CUP", "DOP", "MXN", "PHP", "UYU", "AUD", "BBD", "BMD", "BND", "BSD", "BZD", "CAD", "FJD", "GYD", "HKD", "JMD", "KYD", "LRD", "NAD", "NZD", "SBD", "SGD", "SRD", "TTD", "TWD", "XCD"];
-                    const ignoreOtherDollars = function(aCurrency, anIndex, anArray) {
-                            const dollarIndex = convertedContent.indexOf("$");
-                            const cIndex = convertedContent.indexOf(aCurrency);
-                            // console.log(cIndex + "  " + dollarIndex + " ");
-                            return dollarIndex > -1 && cIndex > -1;
-                    };
-                    if (otherDollarSigns.some(ignoreOtherDollars)) {
-                        tempConvertedContent = convertedContent;
-                    }
-
-                }
+                // if (replacedUnit === "USD") {
+                    // // console.log("replacedUnit === USD")
+                    // const otherDollarSigns = ["ARS", "CLD", "COP", "CUP", "DOP", "MXN", "PHP", "UYU", "AUD", "BBD", "BMD", "BND", "BSD", "BZD", "CAD", "FJD", "GYD", "HKD", "JMD", "KYD", "LRD", "NAD", "NZD", "SBD", "SGD", "SRD", "TTD", "TWD", "XCD"];
+                    // const ignoreOtherDollars = function(aCurrency, anIndex, anArray) {
+                            // const dollarIndex = convertedContent.indexOf("$");
+                            // const cIndex = convertedContent.indexOf(aCurrency);
+                            // // console.log(cIndex + "  " + dollarIndex + " ");
+                            // return dollarIndex > -1 && cIndex > -1;
+                    // };
+                    // if (otherDollarSigns.some(ignoreOtherDollars)) {
+                        // tempConvertedContent = convertedContent;
+                    // }
+                // }
                 convertedContent = tempConvertedContent;
                 elementTitleText += "~" + aPrice.full;
             };
                     // console.log("checkRegex.this " + this);
-            replacedUnit = aRegex.currency;
+            replacedUnit = anEnabledCurrenciesWithRegexes.currency;
             if (currencyCode === replacedUnit) {
                return false;
             }
-            var prices = findPrices(aRegex.regex1, aNode.textContent, 2);
+            var prices = findPrices(anEnabledCurrenciesWithRegexes.regex1, aNode.textContent, 2);
             if (prices.length === 0) {
-                prices = findPrices(aRegex.regex2, aNode.textContent, 1);
+                prices = findPrices(anEnabledCurrenciesWithRegexes.regex2, aNode.textContent, 1);
             }
             if (prices.length === 0) {
                 return false;
@@ -602,7 +599,7 @@ const DirectCurrencyContent = (function() {
         if (/\d/.exec(aNode.textContent)) {
             // console.log("/[0-9]/");
             // Modifies convertedContent and elementTitleText
-            regexArray.some(checkRegex);
+            enabledCurrenciesWithRegexes.some(checkRegex);
         }
         else {
             // console.log("!/[0-9]/");
@@ -696,6 +693,7 @@ const DirectCurrencyContent = (function() {
         }
         return "";
     };
+    // Stores prices that will be replaced with converted prices
     const findPrices = function(aRegex, aText, anAmountPosition) {
         const prices = [];
         if (aRegex === null) {
@@ -706,14 +704,14 @@ const DirectCurrencyContent = (function() {
             price.amount = aMatch[anAmountPosition];
             price.full = aMatch[0];
             price.index = aMatch.index;
-            console.log(price.amount + ";" + price.full + ";" + price.index);
+            // console.log(price.amount + ";" + price.full + ";" + price.index);
             return price;
         };
         var match = [];
         while ((match = aRegex.exec(aText)) !== null) {
-            console.log(anAmountPosition);
-            console.log(match.index);
-            console.log(match);
+            // console.log(anAmountPosition);
+            // console.log(match.index);
+            // console.log(match);
             prices.push(makePrice(match));
         }
         return prices;
@@ -1002,52 +1000,53 @@ const DirectCurrencyContent = (function() {
         quoteAdjustmentPercent = +contentScriptParams.quoteAdjustmentPercent;
 
         for (var currency in contentScriptParams.enabledCurrencies) {
-            // Add enabled currencies to regexArray
+            // Add enabled currencies to enabledCurrenciesWithRegexes
             if (contentScriptParams.enabledCurrencies[currency]) {
-                const regexObj = {};
-                regexObj.currency = currency;
-                regexObj.regex1 = regex1[regexObj.currency];
-                regexObj.regex2 = regex2[regexObj.currency];
-                regexArray.push(regexObj);
+                const currencyRegex = {};
+                currencyRegex.currency = currency;
+                currencyRegex.regex1 = regex1[currency];
+                currencyRegex.regex2 = regex2[currency];
+                enabledCurrenciesWithRegexes.push(currencyRegex);
+                // console.log("enabledCurrenciesWithRegexes " + enabledCurrenciesWithRegexes.length);
             }
         }
-        // console.log("regexArray.length " + regexArray.length);
+        // console.log("enabledCurrenciesWithRegexes.length " + enabledCurrenciesWithRegexes.length);
         if (tempConvertUnits) {
             const regexObj_inch = {};
             regexObj_inch.currency = "inch";
             regexObj_inch.regex1 = regex1.inch;
             regexObj_inch.regex2 = regex2.inch;
-            regexArray.push(regexObj_inch);
+            enabledCurrenciesWithRegexes.push(regexObj_inch);
             const regexObj_kcal = {};
             regexObj_kcal.currency = "kcal";
             regexObj_kcal.regex1 = regex1.kcal;
             regexObj_kcal.regex2 = regex2.kcal;
-            regexArray.push(regexObj_kcal);
+            enabledCurrenciesWithRegexes.push(regexObj_kcal);
             const regexObj_nmi = {};
             regexObj_nmi.currency = "nmi";
             regexObj_nmi.regex1 = regex1.nmi;
             regexObj_nmi.regex2 = regex2.nmi;
-            regexArray.push(regexObj_nmi);
+            enabledCurrenciesWithRegexes.push(regexObj_nmi);
             const regexObj_mile = {};
             regexObj_mile.currency = "mile";
             regexObj_mile.regex1 = regex1.mile;
             regexObj_mile.regex2 = regex2.mile;
-            regexArray.push(regexObj_mile);
+            enabledCurrenciesWithRegexes.push(regexObj_mile);
             const regexObj_mil = {};
             regexObj_mil.currency = "mil";
             regexObj_mil.regex1 = regex1.mil;
             regexObj_mil.regex2 = regex2.mil;
-            regexArray.push(regexObj_mil);
+            enabledCurrenciesWithRegexes.push(regexObj_mil);
             const regexObj_knots = {};
             regexObj_knots.currency = "knots";
             regexObj_knots.regex1 = regex1.knots;
             regexObj_knots.regex2 = regex2.knots;
-            regexArray.push(regexObj_knots);
+            enabledCurrenciesWithRegexes.push(regexObj_knots);
             const regexObj_hp = {};
             regexObj_hp.currency = "hp";
             regexObj_hp.regex1 = regex1.hp;
             regexObj_hp.regex2 = regex2.hp;
-            regexArray.push(regexObj_hp);
+            enabledCurrenciesWithRegexes.push(regexObj_hp);
         }
         var process = true;
         const excludedLen = contentScriptParams.excludedDomains.length;

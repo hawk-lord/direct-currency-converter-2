@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 1.1.1
-Date: 2014-09-16
+Version: 1.1.2
+Date: 2014-09-21
 
 After installation, you'll have two new buttons in the toolbar.
 
@@ -18,12 +18,12 @@ If conversion does not work, it probably means that there was no reply from Yaho
 
 You can convert to and from any existing currency as defined by ISO 4217, including precious metals, if Yahoo provides a conversion rate for the currency.
 
-A few currencies are pre-selected for conversion. You can select all currencies, but having too many selected may result in slow performance.
+A few currencies (CHF, DKK, EUR, GBP, ISK, JPY, NOK, RUB, SEK and USD) are pre-selected for conversion. You can select all currencies, but having too many selected may result in slow performance.
 
 Special attention is given to conversion of currencies used in the Nordic countries: Sweden, Denmark, Norway, Faroe Islands, Iceland and Greenland.
 
 The conversion is made according to a best guess and the priority order you want. For instance, "kr" can mean SEK, DKK, NOK or ISK.
-In such cases, the currency is shown in brackets after the original value: 6,67 € (60 kr [SEK]).
+In any case, the from-currency is shown in brackets after the original value like this: 6,67 € (60 kr [SEK]).
 
 Amounts without units are not converted.
 Also, if amount and unit are in different HTML elements (for example when they have different colours or sizes) conversion cannot be done.
@@ -77,3 +77,7 @@ Conversion to and from all 179 currencies
 Version: 1.1.1
 Date: 2014-09-16
 Improved support for conversion from AED, AFN, ALL, AMD, ANG, AOA currencies.
+
+Version: 1.1.2
+Date: 2014-09-21
+Improved support for conversion from ARS, AUD, AWG, AZN, BAM, BBD, BDT, BGN, BHD, BIF, BMD, BND, BOB, BOV, BRL, BSD, BTN, BWP, BYR and BZD currencies.

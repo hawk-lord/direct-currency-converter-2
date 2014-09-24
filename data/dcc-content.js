@@ -307,7 +307,7 @@ const DirectCurrencyContent = (function() {
         }
         const makePrice = function(aMatch) {
             const price = {};
-            price.amount = aMatch[anAmountPosition];
+            price.amount = aMatch[anAmountPosition].trim();
             price.full = aMatch[0];
             price.index = aMatch.index;
             // console.log(price.amount + ";" + price.full + ";" + price.index);

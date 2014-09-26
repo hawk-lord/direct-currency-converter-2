@@ -448,7 +448,7 @@ const DirectCurrencyContent = (function() {
         const hasFractionalPart = amountParts.length > 1;
         const amountFractionalPart = hasFractionalPart ? amountParts[1] : null;
         var formattedPrice;
-        if (anAmount < 1 && hasFractionalPart && currencyCode in subUnits  && aMultiplicator === "") {
+        if (amountIntegralPart === 0 && hasFractionalPart && currencyCode in subUnits  && aMultiplicator === "") {
             formattedPrice = parseInt(amountFractionalPart);
             unit = subUnits[currencyCode];
         }

@@ -159,9 +159,9 @@ const DirectCurrencyContent = (function() {
             if (currencyCode === replacedUnit) {
                return false;
             }
-            var prices = findPrices(anEnabledCurrenciesWithRegexes.regex1, aNode.textContent, 2);
+            var prices = findPrices(anEnabledCurrenciesWithRegexes.regex1, aNode.textContent, 3);
             if (prices.length === 0) {
-                prices = findPrices(anEnabledCurrenciesWithRegexes.regex2, aNode.textContent, 1);
+                prices = findPrices(anEnabledCurrenciesWithRegexes.regex2, aNode.textContent, 2);
             }
             if (prices.length === 0) {
                 return false;
@@ -465,13 +465,14 @@ const DirectCurrencyContent = (function() {
         else {
             formattedPrice = unit + amountUnitSeparator + formattedPrice;
         }
-        return formattedPrice;
+        return " " + formattedPrice;
     };
-    const addThousandsSeparator = function(anAmount, thousandsSeparator) {
+    const addThousandsSeparator = function(anAmount, aThousandsSeparator) {
         const amountParts = anAmount.split(".");
         var x1 = amountParts[0];
         const x2 = amountParts.length > 1 ? "." + amountParts[1] : "";
         const regex = /(\d+)(\d{3})/;
+        const thousandsSeparator = aThousandsSeparator === " " ? "\u00a0" : aThousandsSeparator;
         while (regex.test(x1)) {
             x1 = x1.replace(regex, "$1" + thousandsSeparator + "$2");
         }

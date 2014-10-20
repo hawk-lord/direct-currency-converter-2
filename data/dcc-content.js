@@ -9,7 +9,6 @@
  * Module pattern is used.
  */
 const DirectCurrencyContent = (function() {
-    "use strict";
     var conversionQuotes = [];
     var currencyCode = "";
     var currencySymbol = "¤";
@@ -17,6 +16,11 @@ const DirectCurrencyContent = (function() {
     var excludedDomains = [];
     var isEnabled = true;
     var quoteAdjustmentPercent = 0;
+    const CurrencyRegex = function (aCurrency, aRegex1, aRegex2){
+        this.currency = aCurrency;
+        this.regex1 = aRegex1;
+        this.regex2 = aRegex2;
+    };
     const regex1 = {};
     const regex2 = {};
     const enabledCurrenciesWithRegexes = [];
@@ -24,6 +28,7 @@ const DirectCurrencyContent = (function() {
     var showOriginal = false;
     const skippedElements = ["audio", "button", "embed", "head", "img", "noscript", "object", "script", "select", "style", "textarea", "video"];
     const subUnits = {"EUR" : "cent", "RUB" : "коп."};
+
     //
     PriceRegexes.makePriceRegexes(regex1, regex2);
     //
@@ -33,9 +38,9 @@ const DirectCurrencyContent = (function() {
         var matchFound = false;
         var replacedUnit = "";
         var elementTitleText = "";
-        const checkRegex = function(anEnabledCurrenciesWithRegexes, anIndex, anArray) {
+        const checkRegex = function(aCurrencyRegex) {
             var conversionQuote = 1;
-            const makeReplacement = function(aPrice, anIndex, anArray) {
+            const makeReplacement = function(aPrice) {
                 var tempConversionQuote = conversionQuote;
                 if (replacedUnit === "SEK" && aPrice.full.toLowerCase().contains("öre")) {
                     tempConversionQuote = conversionQuote / 100;
@@ -155,13 +160,13 @@ const DirectCurrencyContent = (function() {
                 elementTitleText += "~" + aPrice.full;
             };
                     // console.log("checkRegex.this " + this);
-            replacedUnit = anEnabledCurrenciesWithRegexes.currency;
+            replacedUnit = aCurrencyRegex.currency;
             if (currencyCode === replacedUnit) {
                return false;
             }
-            var prices = findPrices(anEnabledCurrenciesWithRegexes.regex1, aNode.textContent, 3);
+            var prices = findPrices(aCurrencyRegex.regex1, aNode.textContent, 3);
             if (prices.length === 0) {
-                prices = findPrices(anEnabledCurrenciesWithRegexes.regex2, aNode.textContent, 2);
+                prices = findPrices(aCurrencyRegex.regex2, aNode.textContent, 2);
             }
             if (prices.length === 0) {
                 return false;
@@ -174,7 +179,8 @@ const DirectCurrencyContent = (function() {
             prices.forEach(makeReplacement);
             return true;
         };
-        const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent, aReplacedUnit) {
+        // aReplacedUnit removed, taken from closure
+        const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent) {
             // console.log("aNode.textContent " + aNode.textContent);
             // console.log("anElementTitleText " + anElementTitleText);
             // console.log("aConvertedContent " + aConvertedContent);
@@ -217,7 +223,7 @@ const DirectCurrencyContent = (function() {
         if (showOriginal) {
             elementTitleText = "";
         }
-        aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent, replacedUnit), aNode);
+        aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent), aNode);
         if (aNode.baseURI.contains("pdf.js")) {
             aNode.parentNode.style.color = "black";
             aNode.parentNode.style.backgroundColor = "lightyellow";
@@ -313,7 +319,7 @@ const DirectCurrencyContent = (function() {
             // console.log(price.amount + ";" + price.full + ";" + price.index);
             return price;
         };
-        var match = [];
+        var match;
         while ((match = aRegex.exec(aText)) !== null) {
             // console.log(anAmountPosition);
             // console.log(match.index);
@@ -491,7 +497,7 @@ const DirectCurrencyContent = (function() {
         if (document === null || MutationObserver === null) {
             return;
         }
-        const mutationHandler = function(aMutationRecord, anIndex, anArray) {
+        const mutationHandler = function(aMutationRecord) {
             if (aMutationRecord.type === "childList") {
                 // Can't use forEach on NodeList
                 // Can't use const here - SyntaxError: invalid for/in left-hand side
@@ -575,7 +581,7 @@ const DirectCurrencyContent = (function() {
                 // console.log("line 553 ");
                 traverseDomTree(document.body);
             }
-            // console.log("message " + message);
+            console.log("message " + message);
             substitute(document.body, !isEnabled);
         }
     };
@@ -609,50 +615,24 @@ const DirectCurrencyContent = (function() {
         for (var currency in contentScriptParams.enabledCurrencies) {
             // Add enabled currencies to enabledCurrenciesWithRegexes
             if (contentScriptParams.enabledCurrencies[currency]) {
-                const currencyRegex = {};
-                currencyRegex.currency = currency;
-                currencyRegex.regex1 = regex1[currency];
-                currencyRegex.regex2 = regex2[currency];
+                const currencyRegex = new CurrencyRegex(currency, regex1[currency], regex2[currency]);
                 enabledCurrenciesWithRegexes.push(currencyRegex);
-                // console.log("enabledCurrenciesWithRegexes " + enabledCurrenciesWithRegexes.length);
             }
         }
-        // console.log("enabledCurrenciesWithRegexes.length " + enabledCurrenciesWithRegexes.length);
         if (tempConvertUnits) {
-            const regexObj_inch = {};
-            regexObj_inch.currency = "inch";
-            regexObj_inch.regex1 = regex1.inch;
-            regexObj_inch.regex2 = regex2.inch;
+            const regexObj_inch = new CurrencyRegex("inch", regex1["inch"], regex2["inch"]);
             enabledCurrenciesWithRegexes.push(regexObj_inch);
-            const regexObj_kcal = {};
-            regexObj_kcal.currency = "kcal";
-            regexObj_kcal.regex1 = regex1.kcal;
-            regexObj_kcal.regex2 = regex2.kcal;
+            const regexObj_kcal = new CurrencyRegex("kcal", regex1["kcal"], regex2["kcal"]);
             enabledCurrenciesWithRegexes.push(regexObj_kcal);
-            const regexObj_nmi = {};
-            regexObj_nmi.currency = "nmi";
-            regexObj_nmi.regex1 = regex1.nmi;
-            regexObj_nmi.regex2 = regex2.nmi;
+            const regexObj_nmi = new CurrencyRegex("nmi", regex1["nmi"], regex2["nmi"]);
             enabledCurrenciesWithRegexes.push(regexObj_nmi);
-            const regexObj_mile = {};
-            regexObj_mile.currency = "mile";
-            regexObj_mile.regex1 = regex1.mile;
-            regexObj_mile.regex2 = regex2.mile;
+            const regexObj_mile = new CurrencyRegex("mile", regex1["mile"], regex2["mile"]);
             enabledCurrenciesWithRegexes.push(regexObj_mile);
-            const regexObj_mil = {};
-            regexObj_mil.currency = "mil";
-            regexObj_mil.regex1 = regex1.mil;
-            regexObj_mil.regex2 = regex2.mil;
+            const regexObj_mil = new CurrencyRegex("mil", regex1["mil"], regex2["mil"]);
             enabledCurrenciesWithRegexes.push(regexObj_mil);
-            const regexObj_knots = {};
-            regexObj_knots.currency = "knots";
-            regexObj_knots.regex1 = regex1.knots;
-            regexObj_knots.regex2 = regex2.knots;
+            const regexObj_knots = new CurrencyRegex("knots", regex1["knots"], regex2["knots"]);
             enabledCurrenciesWithRegexes.push(regexObj_knots);
-            const regexObj_hp = {};
-            regexObj_hp.currency = "hp";
-            regexObj_hp.regex1 = regex1.hp;
-            regexObj_hp.regex2 = regex2.hp;
+            const regexObj_hp = new CurrencyRegex("hp", regex1["hp"], regex2["hp"]);
             enabledCurrenciesWithRegexes.push(regexObj_hp);
         }
         var process = true;

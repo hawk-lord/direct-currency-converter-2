@@ -9,7 +9,6 @@
  * Module pattern is used.
  */
 const DirectCurrencySettings = (function() {
-    "use strict";
     const escapeHtml = function(s) {
         if (s === null || s == null) {
             return "";
@@ -46,23 +45,20 @@ const DirectCurrencySettings = (function() {
             jQuery("#preview_decimal").html(subUnitSeparator);
         });
         jQuery("#enable_conversion").change(function() {
-            const val = jQuery(this).is(":checked");
-            enableOnStart = val;
+            enableOnStart = jQuery(this).is(":checked");
         });
         jQuery("#adjustment_percentage").change(function() {
             quoteAdjustmentPercent = jQuery(this).val();
         });
         jQuery("#always_round").change(function() {
-            const val = jQuery(this).is(":checked");
-            roundAmounts = val;
+            roundAmounts = jQuery(this).is(":checked");
         });
         jQuery("#separate_price").change(function() {
             separatePrice = jQuery(this).is(":checked");
             onSeparatePriceChange(separatePrice);
         });
         jQuery("#show_original_prices").change(function() {
-            const val = jQuery(this).is(":checked");
-            showOriginalPrices = val;
+            showOriginalPrices = jQuery(this).is(":checked");
         });
         jQuery("#unitAfter").change(function() {
             unitAfter = jQuery(this).is(":checked");
@@ -73,8 +69,7 @@ const DirectCurrencySettings = (function() {
             onUnitAfterChange(unitAfter);
         });
         jQuery("#temp_convert_units").change(function() {
-            const val = jQuery(this).is(":checked");
-            tempConvertUnits = val;
+            tempConvertUnits = jQuery(this).is(":checked");
         });
         jQuery("#thousands_separator").change(function() {
             thousandSep = escapeHtml(jQuery(this).val());
@@ -94,12 +89,12 @@ const DirectCurrencySettings = (function() {
             }
             excludedDomains = excludedLines;
             enabledCurrencies = {};
-            var listItems = jQuery("#enabledCurrencies li");
-            listItems.each(function(index, element) {
+            var listItems = jQuery("#enabledCurrencies").find("li");
+            listItems.each(function () {
                 enabledCurrencies[jQuery(this).attr('id')] = true;
             });
-            listItems = jQuery("#disabledCurrencies li");
-            listItems.each(function(index, element) {
+            listItems = jQuery("#disabledCurrencies").find("li");
+            listItems.each(function() {
                 enabledCurrencies[jQuery(this).attr('id')] = false;
             });
             const contentScriptParams = {};
@@ -176,7 +171,7 @@ const DirectCurrencySettings = (function() {
         jQuery("#temp_convert_units").prop("checked", tempConvertUnits);
         jQuery("#preview_thousand").html(thousandSep);
         const selectedOption = jQuery('#convert_to_currency').val();
-        const selectList = jQuery("#convert_to_currency option");
+        const selectList = jQuery("#convert_to_currency").find("option");
         selectList.sort(function(a,b){
             const A = jQuery(a).text().toLowerCase();
             const B = jQuery(b).text().toLowerCase();

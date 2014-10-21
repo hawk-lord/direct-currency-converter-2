@@ -18,7 +18,7 @@ If conversion does not work, it probably means that there was no reply from Yaho
 
 You can convert to and from any existing currency as defined by ISO 4217, including precious metals, if Yahoo provides a conversion rate for the currency.
 
-A few currencies (CHF, DKK, EUR, GBP, ISK, JPY, NOK, RUB, SEK and USD) are pre-selected for conversion. You can select all currencies, but having too many selected may result in slow performance.
+A few currencies (CHF, DKK, EUR, GBP, ISK, JPY, NOK, RUB, SEK and USD) are pre-selected for conversion. You can select all currencies, but having too many currencies selected may clutter the pages and result in slow performance.
 
 Special attention is given to conversion of currencies used in the Nordic countries: Sweden, Denmark, Norway, Faroe Islands, Iceland and Greenland.
 

@@ -29,9 +29,6 @@ legend {
     border-color:silver;
 }
 
-.format_options {
-}
-
 .options-combo {
     border-color:silver;
 }
@@ -119,11 +116,6 @@ li {
     max-height: 150px;
 }
 
-.format_options {
-    font-family:Arial,serif;
-    font-size:12px;
-}
-
 .format_options td {
     padding:5px;
 }
@@ -136,21 +128,7 @@ li {
     padding:4px;
 }
 
-.preview_right {
-    display:none;
-}
 
-.table_header {
-    font-weight:bold;
-    min-width:300px;
-    text-align:right;
-}
-
-#container {
-    left:0;
-    padding:0;
-    right:0;
-}
 
 #custom_symbol_reset-button {
     height:35px;

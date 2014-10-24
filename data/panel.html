@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        const openSettingsPage = function() {
+            addon.port.emit("showSettingsTab");
+        };
+        const openTestPage = function() {
+            addon.port.emit("showTestTab");
+        };
+    </script>
+    <style type="text/css">
+        ul {
+            background-color: brown;
+        }
+        li {
+            color: white;
+            font-size: 1em;
+            font-family: sans-serif;
+            list-style-type:none;
+            padding: 0.5em;
+            background-color: burlywood;
+            border-style: solid;
+            border-color: brown;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li>
+        <a onclick="openSettingsPage()">Open settings page</a>
+    </li>
+    <li>
+        <a onclick="openTestPage()">Open test page</a>
+    </li>
+    <li>
+        <a onclick="showRatesPriority()">Show exchange rates in priority order</a>
+    </li>
+    <li>
+        <a onclick="showRatesAlphabetic()">Show exchange rates in alphabetic order</a>
+    </li>
+    <li>
+        <a onclick="showRatesValue()">Show exchange rates in value order</a>
+    </li>
+</ul>
+</body>
+</html>

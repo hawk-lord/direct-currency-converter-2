@@ -404,7 +404,7 @@ const DirectCurrencyContent = (function() {
                         // CHF 10'000.-.
                 }
                 else {
-                    amount = amount.replace(/\'/g,"");
+                    amount = amount.replace(/'/g,"");
                 }
             }
             else if (pointIndex > -1) {
@@ -658,6 +658,7 @@ const DirectCurrencyContent = (function() {
                 hasConvertedElements = true;
             }
         }
+        console.log(message);
         self.port.emit("finishedTabProcessing", hasConvertedElements);
         isEnabled = contentScriptParams.isEnabled;
     };

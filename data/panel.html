@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+ * © 2014 Per Johansson
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -12,8 +17,11 @@
         };
     </script>
     <style type="text/css">
+        body {
+            background-color: papayawhip;
+        }
         ul {
-            background-color: brown;
+            background-color: papayawhip;
         }
         li {
             color: white;
@@ -23,7 +31,7 @@
             padding: 0.5em;
             background-color: burlywood;
             border-style: solid;
-            border-color: brown;
+            border-color: papayawhip;
         }
     </style>
 </head>
@@ -36,13 +44,7 @@
         <a onclick="openTestPage()">Open test page</a>
     </li>
     <li>
-        <a onclick="showRatesPriority()">Show exchange rates in priority order</a>
-    </li>
-    <li>
-        <a onclick="showRatesAlphabetic()">Show exchange rates in alphabetic order</a>
-    </li>
-    <li>
-        <a onclick="showRatesValue()">Show exchange rates in value order</a>
+        <a onclick="showRates()">Show exchange rates</a>
     </li>
 </ul>
 </body>

@@ -115,10 +115,10 @@ const DirectCurrencySettings = (function() {
             contentScriptParams.unitAfter = unitAfter;
             contentScriptParams.tempConvertUnits = tempConvertUnits;
             contentScriptParams.thousandSep = escapeHtml(thousandSep);
-            self.port.emit("saveSettings", contentScriptParams);
+            OptionsAdapter.save(contentScriptParams);
         });
         jQuery("#reset-button").click(function() {
-            self.port.emit("resetSettings");
+            OptionsAdapter.reset();
         });
     });
     var convertToCurrency = null;
@@ -266,5 +266,3 @@ const DirectCurrencySettings = (function() {
         showSettings : showSettings
     };
 })();
-//
-self.port.on("showSettings", DirectCurrencySettings.showSettings);

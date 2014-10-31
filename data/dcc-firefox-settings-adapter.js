@@ -2,7 +2,7 @@
  * Created by per on 14-10-30.
  */
 
-const OptionsAdapter = function() {
+const SettingsAdapter = function() {
     self.port.on("showSettings", DirectCurrencySettings.showSettings);
     return {
         save: function (contentScriptParams) {

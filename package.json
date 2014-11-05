@@ -1,6 +1,7 @@
 {
     "contributors": "", 
-    "id": "jid1-EP6Btq0BhcevYA", 
+    "_id": "jid1-EP6Btq0BhcevYA",
+    "id": "dcc@joint.ax",
     "preferences": [
         {
             "title": "Preferences", 
@@ -11,7 +12,7 @@
     ], 
     "lib": "lib", 
     "author": "Per Johansson", 
-    "version": "1.1.5",
+    "version": "1.2.0 beta",
     "_xxx": "My remark: underscore xxx means disabled", 
     "main": "dcc-main", 
     "homepage": "", 

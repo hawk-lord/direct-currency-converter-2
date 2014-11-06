@@ -259,7 +259,6 @@ const DirectCurrencySettings = (function() {
         showOriginalPrices = contentScriptParams.showOriginalPrices;
         unitAfter = contentScriptParams.unitAfter;
         tempConvertUnits = contentScriptParams.tempConvertUnits;
-        console.log("1000 " + contentScriptParams.thousandSep)
         thousandSep = contentScriptParams.thousandSep;
         currencyNames = contentScriptParams.currencyNames;
         setUIFromPreferences();

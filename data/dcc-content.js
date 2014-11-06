@@ -587,7 +587,7 @@ const DirectCurrencyContent = (function() {
                 // console.log("line 553 ");
                 traverseDomTree(document.body);
             }
-            console.log("message " + message);
+            // console.log("message " + message);
             substitute(document.body, !isEnabled);
         }
     };
@@ -658,13 +658,12 @@ const DirectCurrencyContent = (function() {
             message = "Content was converted...";
             startObserve();
             if (document !== null) {
-                // console.log("line 663 ");
                 traverseDomTree(document.body);
                 substitute(document.body, false);
                 hasConvertedElements = true;
             }
         }
-        console.log(message);
+        // console.log(message);
         ContentAdapter.finish(hasConvertedElements);
         isEnabled = contentScriptParams.isEnabled;
     };

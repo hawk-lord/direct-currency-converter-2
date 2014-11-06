@@ -95,3 +95,8 @@ Date: 2014-10-22
 Improved support for finding of and conversion from all currencies from AED to ZWL.
 Improved control to avoid false positives.
 
+Version: 1.2.0
+Date: 2014-11-06
+Changed program ID.
+Added test page with various price examples.
+Added panel with links to settings and test pages.

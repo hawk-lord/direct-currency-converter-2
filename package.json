@@ -12,7 +12,7 @@
     ], 
     "lib": "lib", 
     "author": "Per Johansson", 
-    "version": "1.2.0",
+    "version": "2.0.0",
     "_xxx": "My remark: underscore xxx means disabled", 
     "main": "dcc-main", 
     "homepage": "", 
@@ -21,7 +21,7 @@
     "description": "Converts monetary amounts from any currency (USD, GBP, etc.) to monetary amounts in a selectable currency automatically while browsing.", 
     "icon64": "data/images/1402781517_currency_exchange_1.png", 
     "dependencies": "", 
-    "fullName": "Direct Currency Converter", 
+    "fullName": "Direct Currency Converter 2",
     "permissions": {
         "private-browsing": true, 
         "cross-domain-content": [
@@ -29,7 +29,7 @@
             "http://example.com/"
         ]
     }, 
-    "_name": "direct-currency-converter", 
+    "name": "direct-currency-converter-2",
     "license": "MPL 2.0", 
     "_packages": "packages", 
     "translators": "", 

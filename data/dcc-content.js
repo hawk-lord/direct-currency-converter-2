@@ -539,8 +539,12 @@ const DirectCurrencyContent = (function() {
                     }
                 }
             }
+            const originalChildNodes = [];
             for (var i = 0; i < aNode.childNodes.length; ++i) {
-                var node = aNode.childNodes[i];
+                originalChildNodes.push(aNode.childNodes[i]);
+            }
+            for (var i = 0; i < originalChildNodes.length; ++i) {
+                var node = originalChildNodes[i];
                 traverseDomTree(node);
             }
         }
@@ -553,7 +557,8 @@ const DirectCurrencyContent = (function() {
         var nodeList = aNode.parentNode.querySelectorAll(className);
         for (var i = 0; i < nodeList.length; ++i) {
             var node = nodeList[i];
-            const originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
+            // Must be var, not const, in Chrome
+            var originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
             originalNode.textContent = node.value;
             originalNode.parentNode.title = node.title;
         }

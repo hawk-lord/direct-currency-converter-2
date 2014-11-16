@@ -42,7 +42,7 @@ const DirectCurrencyContent = (function() {
             var conversionQuote = 1;
             const makeReplacement = function(aPrice) {
                 var tempConversionQuote = conversionQuote;
-                if (replacedUnit === "SEK" && aPrice.full.toLowerCase().contains("öre")) {
+                if (replacedUnit === "SEK" && aPrice.full.toLowerCase().indexOf("öre") > -1) {
                     tempConversionQuote = conversionQuote / 100;
                 }
                 if (replacedUnit === "inch") {
@@ -108,7 +108,7 @@ const DirectCurrencyContent = (function() {
                     convertedPrice = formatPrice(convertedAmount, currencySymbol, multiplicator);
                 }
                 if (showOriginal) {
-                    if (convertedContent.contains(replacedUnit)) {
+                    if (convertedContent.indexOf(replacedUnit) > -1 ) {
                         convertedPrice = convertedPrice + " (##__##)";
                     }
                     else {
@@ -194,7 +194,7 @@ const DirectCurrencyContent = (function() {
                 // // aNode.textContent = aConvertedContent;
             // }
             var title;
-            if (anElementTitleText === "" || anElementTitleText.contains(replacedUnit)) {
+            if (anElementTitleText === "" || anElementTitleText.indexOf(replacedUnit) > -1) {
                 title = anElementTitleText;
             }
             else {
@@ -224,7 +224,7 @@ const DirectCurrencyContent = (function() {
             elementTitleText = "";
         }
         aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent), aNode);
-        if (aNode.baseURI.contains("pdf.js")) {
+        if (aNode.baseURI.indexOf("pdf.js") > -1) {
             aNode.parentNode.style.color = "black";
             aNode.parentNode.style.backgroundColor = "lightyellow";
         }
@@ -234,73 +234,73 @@ const DirectCurrencyContent = (function() {
     };
     //
     const getSekMultiplicator = function(aUnit) {
-        if (aUnit.contains("miljoner")) {
+        if (aUnit.indexOf("miljoner") > -1) {
             return "miljoner ";
         }
-        else if (aUnit.contains("miljon")) {
+        else if (aUnit.indexOf("miljon") > -1) {
             return "miljon ";
         }
-        else if (aUnit.contains("miljarder")) {
+        else if (aUnit.indexOf("miljarder") > -1) {
             return "miljarder ";
         }
-        else if (aUnit.contains("miljard")) {
+        else if (aUnit.indexOf("miljard") > -1) {
             return "miljard ";
         }
-        else if (aUnit.contains("mnkr")) {
+        else if (aUnit.indexOf("mnkr") > -1) {
             return "mn ";
         }
-        else if (aUnit.contains("mdkr")) {
+        else if (aUnit.indexOf("mdkr") > -1) {
             return "md ";
         }
-        else if (aUnit.toLowerCase().contains("mkr")) {
+        else if (aUnit.toLowerCase().indexOf("mkr") > -1) {
             return "mn ";
         }
-        else if (aUnit.contains("ksek")) {
+        else if (aUnit.indexOf("ksek") > -1) {
             return "k";
         }
-        else if (aUnit.contains("msek")) {
+        else if (aUnit.indexOf("msek") > -1) {
             return "M";
         }
-        else if (aUnit.contains("gsek")) {
+        else if (aUnit.indexOf("gsek") > -1) {
             return "G";
         }
         return "";
     };
     const getDkkMultiplicator = function(aUnit) {
-        if (aUnit.contains("millión")) {
+        if (aUnit.indexOf("millión") > -1) {
             return "millión ";
         }
-        else if (aUnit.contains("miljón")) {
+        else if (aUnit.indexOf("miljón") > -1) {
             return "miljón ";
         }
-        else if (aUnit.contains("milliard")) {
+        else if (aUnit.indexOf("milliard") > -1) {
             return "milliard ";
         }
-        if (aUnit.contains("mia.")) {
+        if (aUnit.indexOf("mia.") > -1) {
             return "mia. ";
         }
-        if (aUnit.contains("mio.")) {
+        if (aUnit.indexOf("mio.") > -1) {
             return "mio. ";
         }
-        else if (aUnit.contains("million")) {
+        else if (aUnit.indexOf("million") > -1) {
             return "million ";
         }
         return "";
     };
     const getIskMultiplicator = function(aUnit) {
-        if (aUnit.contains("milljón")) {
+        if (aUnit.indexOf("milljón") > -1) {
             return "milljón ";
         }
-        else if (aUnit.contains("milljarð")) {
+        else if (aUnit.indexOf("milljarð") > -1) {
             return "milljarð ";
         }
         return "";
     };
     const getNokMultiplicator = function(aUnit) {
-        if (aUnit.contains("milliard")) {
+        if (aUnit.indexOf("milliard") > -1) {
             return "milliard";
         }
-        else if (aUnit.contains("million")) {
+        else if (aUnit.indexOf("million") > -1) {
             return "million ";
         }
         return "";
@@ -399,18 +399,18 @@ const DirectCurrencyContent = (function() {
             else if (apoIndex > -1) {
                    // only apo
                 const apoCount = amount.split("'").length - 1;
-                let checkValidity = (amount.length - apoIndex - apoCount) % 3;
+                var checkValidity = (amount.length - apoIndex - apoCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                         // CHF 10'000.-.
                 }
                 else {
-                    amount = amount.replace(/\'/g,"");
+                    amount = amount.replace(/'/g,"");
                 }
             }
             else if (pointIndex > -1) {
                    // only point
                 const pointCount = amount.split(".").length - 1;
-                let checkValidity = (amount.length - pointIndex - pointCount) % 3;
+                var checkValidity = (amount.length - pointIndex - pointCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                         //if < 1 or NOT of form 1,234,567 {
                 }
@@ -421,7 +421,7 @@ const DirectCurrencyContent = (function() {
             else if (commaIndex > -1) {
                    // only commas
                 const commaCount = amount.split(",").length - 1;
-                let checkValidity = (amount.length - commaIndex - commaCount) % 3;
+                var checkValidity = (amount.length - commaIndex - commaCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                        //if < 1 or NOT of form 1,234,567
                     amount = amount.replace(/,/g,".");
@@ -433,7 +433,7 @@ const DirectCurrencyContent = (function() {
             else if (colonIndex > -1) {
                 // only colons
                 const colonCount = amount.split(":").length - 1;
-                let checkValidity = (amount.length - colonIndex - colonCount) % 3;
+                var checkValidity = (amount.length - colonIndex - colonCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                     amount = amount.replace(/:/g,".");
                 }
@@ -501,7 +501,8 @@ const DirectCurrencyContent = (function() {
             if (aMutationRecord.type === "childList") {
                 // Can't use forEach on NodeList
                 // Can't use const here - SyntaxError: invalid for/in left-hand side
-                for (var node of aMutationRecord.addedNodes) {
+                for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
+                    var node = aMutationRecord.addedNodes[i];
                     traverseDomTree(node);
                 }
             }
@@ -519,7 +520,9 @@ const DirectCurrencyContent = (function() {
         if (aNode === null) {
             return;
         }
-        for (var node of aNode.querySelectorAll(".convertedText, .originalText")) {
+        var nodeList = aNode.querySelectorAll(".convertedText, .originalText");
+        for (var i = 0; i < nodeList.length; ++i) {
+            var node = nodeList[i];
             node.parentNode.removeChild(node);
         }
     };
@@ -536,7 +539,12 @@ const DirectCurrencyContent = (function() {
                     }
                 }
             }
-            for (var node of aNode.childNodes) {
+            const originalChildNodes = [];
+            for (var i = 0; i < aNode.childNodes.length; ++i) {
+                originalChildNodes.push(aNode.childNodes[i]);
+            }
+            for (var i = 0; i < originalChildNodes.length; ++i) {
+                var node = originalChildNodes[i];
                 traverseDomTree(node);
             }
         }
@@ -546,8 +554,11 @@ const DirectCurrencyContent = (function() {
             return;
         }
         const className = isShowOriginal ? ".originalText" : ".convertedText";
-        for (var node of aNode.parentNode.querySelectorAll(className)) {
-            const originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
+        var nodeList = aNode.parentNode.querySelectorAll(className);
+        for (var i = 0; i < nodeList.length; ++i) {
+            var node = nodeList[i];
+            // Must be var, not const, in Chrome
+            var originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
             originalNode.textContent = node.value;
             originalNode.parentNode.title = node.title;
         }
@@ -581,7 +592,7 @@ const DirectCurrencyContent = (function() {
                 // console.log("line 553 ");
                 traverseDomTree(document.body);
             }
-            console.log("message " + message);
+            // console.log("message " + message);
             substitute(document.body, !isEnabled);
         }
     };
@@ -612,11 +623,11 @@ const DirectCurrencyContent = (function() {
         showOriginal = contentScriptParams.showOriginalPrices;
         quoteAdjustmentPercent = +contentScriptParams.quoteAdjustmentPercent;
 
+        enabledCurrenciesWithRegexes.length = 0;
         for (var currency in contentScriptParams.enabledCurrencies) {
             // Add enabled currencies to enabledCurrenciesWithRegexes
             if (contentScriptParams.enabledCurrencies[currency]) {
-                const currencyRegex = new CurrencyRegex(currency, regex1[currency], regex2[currency]);
-                enabledCurrenciesWithRegexes.push(currencyRegex);
+                enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency, regex1[currency], regex2[currency]));
             }
         }
         if (tempConvertUnits) {
@@ -652,13 +663,13 @@ const DirectCurrencyContent = (function() {
             message = "Content was converted...";
             startObserve();
             if (document !== null) {
-                // console.log("line 663 ");
                 traverseDomTree(document.body);
                 substitute(document.body, false);
                 hasConvertedElements = true;
             }
         }
-        self.port.emit("finishedTabProcessing", hasConvertedElements);
+        // console.log(message);
+        ContentAdapter.finish(hasConvertedElements);
         isEnabled = contentScriptParams.isEnabled;
     };
     return {
@@ -666,35 +677,3 @@ const DirectCurrencyContent = (function() {
         onUpdateSettings : onUpdateSettings
     };
 })();
-// end DirectCurrencyContent
-
-// Left-click
-self.port.on("sendEnabledStatus", DirectCurrencyContent.onSendEnabledStatus);
-// Right-click
-self.port.on("updateSettings", DirectCurrencyContent.onUpdateSettings);
-
-
-    // // Experiments
-    // //$("p").click(alert("p clicked"));
-    // // aNode.onclick = function() {
-    // // alert(aNode.textContent);
-//
-    // document.body.onclick = function() {
-        // console.log("body clicked");
-    // };
-    // $("body").onclick = function() {
-        // console.log("Jquery body clicked");
-    // };
-    // var doit = function(e) {
-        // var elementClickedOn = e.target;
-        // //can experiement with e.originalTarget, e.currentTarget, and some others like explicitOriginalTarget, one of them gets you the text node you clicked on
-        // alert('you clicked on: ' + elementClickedOn.nodeName);
-    // };
-    // document.addEventListener('click', doit, false);
-
-// $("td").on("click", alert("Hej"));
-// function getColumnID() {
-    // var $td = $(this),
-        // $th = $td.closest('table').find('th').eq($td.index());
-    // console.log($th.attr("id"));
-// }//

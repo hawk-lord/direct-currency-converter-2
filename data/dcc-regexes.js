@@ -1,3 +1,13 @@
+/*
+ * © 2014 Per Johansson
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Based on code from Simple Currency Converter
+ * https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
+ *
+ * Module pattern is used.
+ */
 const PriceRegexes = (function() {
     const makePriceRegexes = function(aRegex1, aRegex2) {
         aRegex1.AED = /(^|\s)(Dhs?|AED)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
@@ -58,8 +68,8 @@ const PriceRegexes = (function() {
         aRegex2.CDF = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(CDF|F[Cc]|francs)(?!\w)/g;
         aRegex1.CHE = /(^|\s)(CHE)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.CHE = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(CHE)(?!\w)/g;
-        aRegex1.CHF = /(^|\s)(Fr\.|CHF)(\s?(\d{1,3}((\'|,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
-        aRegex2.CHF = /((\d{1,3}((\'|,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(Fr\.|Franken|CHF)(?!\w)/g;
+        aRegex1.CHF = /(^|\s)(Fr\.|CHF)(\s?(\d{1,3}(('|,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
+        aRegex2.CHF = /((\d{1,3}(('|,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(Fr\.|Franken|CHF)(?!\w)/g;
         aRegex1.CHW = /(^|\s)(CHW)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.CHW = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(CHW)(?!\w)/g;
         aRegex1.CLF = /(^|\s)(CLF|UF)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
@@ -132,7 +142,7 @@ const PriceRegexes = (function() {
         aRegex2.IDR = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(IDR|[rR]upiah)(?!\w)/g;
         aRegex1.ILS = /(^|\s)(ILS|NIS|₪|שֶׁקֶל)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.ILS = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(ILS|NIS|₪|שֶׁקֶל|shekel)(?!\w)/g;
-        aRegex1.INR = /(^|\s)(INR|₹|Rs\.?|रु\.?|ரூ\.?)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
+        aRegex1.INR = /(^|\s)(INR|₹|₨|Rs\.?|रु\.?|ரூ\.?)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.INR = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(INR|Rs\.?|rupees)(?!\w)/g;
         aRegex1.IQD = /(^|\s)(IQD|دينار|د\.ع)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.IQD = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(IQD|دينار|د\.ع|dinars?)(?!\w)/g;
@@ -154,10 +164,10 @@ const PriceRegexes = (function() {
         aRegex2.KHR = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(KHR|៛|រៀល|[rR]iels?)(?!\w)/g;
         aRegex1.KMF = /(^|\s)(KMF)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.KMF = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(KMF|[fF][cC]|francs?)(?!\w)/g;
-        aRegex1.KPW = /(^|\s)(KPW|₩|원)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
-        aRegex2.KPW = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(KPW|₩|원|wons?)(?!\w)/g;
-        aRegex1.KRW = /(^|\s)(KRW|₩|원)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
-        aRegex2.KRW = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(KRW|₩|원|wons?)(?!\w)/g;
+        aRegex1.KPW = /(^|\s)(KPW|₩|￦|원)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
+        aRegex2.KPW = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(KPW|₩|￦|원|wons?)(?!\w)/g;
+        aRegex1.KRW = /(^|\s)(KRW|₩|￦|원)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
+        aRegex2.KRW = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(KRW|₩|￦|원|wons?)(?!\w)/g;
         aRegex1.KWD = /(^|\s)(KWD|دينار|K\.?D\.?\.?|\.د\.ب)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.KWD = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(KWD|K\.?D\.?|\.د\.ب|dinars?|دينار)(?!\w)/g;
         aRegex1.KYD = /(^|\s)(KYD\$?|CI\$|\$)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
@@ -168,7 +178,7 @@ const PriceRegexes = (function() {
         aRegex2.LAK = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(LAK|ກີ|₭N?|[kK]ip|KIP)(?!\w)/g;
         aRegex1.LBP = /(^|\s)(LBP|L\.L\.?|ل\.ل\.|ليرات)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.LBP = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(LBP|Lebanese [pP]ounds?|L\.L\.?|ل\.ل\.|ليرات)(?!\w)/g;
-        aRegex1.LKR = /(^|\s)(LKR|රු|SLRs\.?|Rs\.?|ரூபாய்\.?|රුපියල්\.?)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
+        aRegex1.LKR = /(^|\s)(LKR|රු|₨\.?|SLRs\.?|Rs\.?|ரூபாய்\.?|රුපියල්\.?)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.LKR = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(LKR|Rs\.?|rupees|ரூபாய்)(?!\w)/g;
         aRegex1.LRD = /(^|\s)(LRD|LD\$?|L\$|\$)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.LRD = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(LRD|\$|dollars?)(?!\w)/g;
@@ -194,7 +204,7 @@ const PriceRegexes = (function() {
         aRegex2.MOP = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(MOP\$|澳門圓|澳门圆|[pP]atacas?)(?!\w)/g;
         aRegex1.MRO = /(^|\s)(MRO|أوقية)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.MRO = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(MRO|أوقية|ouguiya|um|UM)(?!\w)/g;
-        aRegex1.MUR = /(^|\s)(MUR|[rR]s)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
+        aRegex1.MUR = /(^|\s)(MUR|₨\.?|[rR]s)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.MUR = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(MUR|[rR]upees?|[rR]oupies?|[rR]s)(?!\w)/g;
         aRegex1.MVR = /(^|\s)(MVR|MRF\.?|MRf\.?|Mrf\.?|Rf\.?|RF\.?|Rufiyaa)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.MVR = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(MVR|mrf|Rufiyaa)(?!\w)/g;
@@ -230,7 +240,7 @@ const PriceRegexes = (function() {
         aRegex2.PGK = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(PGK|[kK]ina)(?!\w)/g;
         aRegex1.PHP = /(^|\s)(PHP|₱|PhP|Php|P)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.PHP = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(PHP|[pP]esos)(?!\w)/g;
-        aRegex1.PKR = /(^|\s)(PKR|Rs\.?|روپیہ)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
+        aRegex1.PKR = /(^|\s)(PKR|₨\.?|Rs\.?|روپیہ)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.PKR = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(PKR|[rR]upees?|روپیہ)(?!\w)/g;
         aRegex1.PLN = /(^|\s)(PLN|zł)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.PLN = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(PLN|zł|złoty|zlotys?)(?!\w)/g;
@@ -285,7 +295,7 @@ const PriceRegexes = (function() {
         aRegex1.TND = /(^|\s)(TND)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.TND = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(TND|DT|[dD][tT]|[dD]inars?|د\.ت|دينار)(?!\w)/g;
         aRegex1.TOP = /(^|\s)(TOP\$|T?\$)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
-        aRegex2.TOP = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(TOP|[pP]a\'anga)(?!\w)/g;
+        aRegex2.TOP = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(TOP|[pP]a'anga)(?!\w)/g;
         aRegex1.TRY = /(^|\s)(TRY|₺|TL)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.TRY = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(TRY|[lL]ira|TL)(?!\w)/g;
         aRegex1.TTD = /(^|\s)(TTD\$?|TT\$|\$)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
@@ -359,19 +369,19 @@ const PriceRegexes = (function() {
         aRegex1.ZWL = /(^|\s)(ZWL|Z\$)(\s?(\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)/g;
         aRegex2.ZWL = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?\s?)(ZWL)(?!\w)/g;
         aRegex1.inch = /NOMATCH(?!\w)/g;
-        aRegex2.inch = /(((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?))(\s?tum|-tums?|\s?\"|\s?″)(?!\w)/g;
+        aRegex2.inch = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)(\s?tum|-tums?|\s?"|\s?″)(?!\w)/g;
         aRegex1.kcal = /NOMATCH(?!\w)/g;
-        aRegex2.kcal = /(((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?))(\s?kcal|\s?kalorier)(?!\w)/g;
+        aRegex2.kcal = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)(\s?kcal|\s?kalorier)(?!\w)/g;
         aRegex1.nmi = /NOMATCH(?!\w)/g;
-        aRegex2.nmi = /(((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?))(\s?sjömil|\s?nautiska mil?|\s?nautical miles?)(?!\w)/g;
+        aRegex2.nmi = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)(\s?sjömil|\s?nautiska mil?|\s?nautical miles?)(?!\w)/g;
         aRegex1.mile = /NOMATCH(?!\w)/g;
-        aRegex2.mile = /(((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?))(\s?mile|\s?miles)(?!\w)/g;
+        aRegex2.mile = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)(\s?mile|\s?miles)(?!\w)/g;
         aRegex1.mil = /NOMATCH(?!\w)/g;
-        aRegex2.mil = /(((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?))(\s?mil)(?!\w)/g;
+        aRegex2.mil = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)(\s?mil)(?!\w)/g;
         aRegex1.knots = /NOMATCH(?!\w)/g;
-        aRegex2.knots = /(((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?))(\s?knop)(?!\w)/g;
+        aRegex2.knots = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)(\s?knop)(?!\w)/g;
         aRegex1.hp = /NOMATCH(?!\w)/g;
-        aRegex2.hp = /(((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?))(\s?hästkrafter|\s?hkr?|\s?hp)(?!\w)/g;
+        aRegex2.hp = /((\d{1,3}((,|\.|\s)\d{3})+|(\d+))((\.|,)\d{1,9})?)(\s?hästkrafter|\s?hkr?|\s?hp)(?!\w)/g;
     };
     return {
         makePriceRegexes : makePriceRegexes

@@ -1,20 +1,22 @@
 Direct Currency Converter
 
-Version: 1.1.4
-Date: 2014-10-22
+Version: 2.0.0
+Date: 2014-11-06
 
 After installation, you'll have two new buttons in the Firefox toolbar.
 
 Conversion is enabled or disabled by the "Toggle currency conversion" button.
 
-The settings tab is opened by the "Open settings" button. Changed settings are saved with the "Save" button in the settings tab.
+The tools panel is opened with the "Open settings" button.
+From there you can open the Settings tab. Changed settings are saved with the "Save" button in the settings tab.
 Settings can be reset to default with the "Reset" button.
+You can also open a test page with various price examples for all currencies.
 
 Currency rates are taken from Yahoo Finance and updated when you start Firefox or when you switch currency.
 
 Your location is used to set your default region and currency (for example Finland - euro). It is guessed using the freegeoip.net service.
 
-If conversion does not work, it probably means that there was no reply from Yahoo. Try to reload the browser (F5 button) and check the internet connection.
+If conversion does not work, it probably means that there was no reply from Yahoo. Try to reload the browser (F5 button) and check the internet connection. Also, force a reload by switching "to currency" from settings tab, save, and reload the web pages.
 
 You can convert to and from any existing currency code as defined by ISO 4217, including precious metals, if Yahoo provides a conversion rate for the currency.
 There are currently 16 codes with no conversion rates: BOV, CHE, CHW, COU, CUC, SSP, USN, UYI, XBA, XBB, XBC, XBD, XSU, XTS, XUA, XXX.
@@ -95,3 +97,11 @@ Date: 2014-10-22
 Improved support for finding of and conversion from all currencies from AED to ZWL.
 Improved control to avoid false positives.
 
+Version: 2.0.0
+Date: 2014-11-06
+Changed program ID.
+Added test page with various price examples.
+Added panel with links to settings and test pages.
+Fixed an error with saving "Convert to" currency.
+Improved support for finding prices.
+Internal changes for compatibility with other web browsers.

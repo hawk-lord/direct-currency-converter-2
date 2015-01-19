@@ -494,7 +494,7 @@ const DirectCurrencyContent = (function() {
     };
     const startObserve = function() {
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-        if (document === null || MutationObserver === null) {
+        if (document === null || MutationObserver == null) {
             return;
         }
         const mutationHandler = function(aMutationRecord) {
@@ -564,8 +564,6 @@ const DirectCurrencyContent = (function() {
         }
     };
     const onSendEnabledStatus = function(aStatus) {
-        // console.log("content  onSendEnabledStatus ");
-        // console.log("onSendEnabledStatus.this " + this);
         const isEnabled = aStatus.isEnabled;
         const hasConvertedElements = aStatus.hasConvertedElements;
         var message = "...";

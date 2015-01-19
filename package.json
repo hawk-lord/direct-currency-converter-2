@@ -12,7 +12,7 @@
     ], 
     "lib": "lib", 
     "author": "Per Johansson", 
-    "version": "2.0.0",
+    "version": "2.0.1.1",
     "_xxx": "My remark: underscore xxx means disabled", 
     "main": "dcc-main", 
     "homepage": "", 

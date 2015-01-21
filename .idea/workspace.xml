@@ -4,12 +4,11 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3b051e5-81ff-47c9-8434-26b5a8a5b635" name="Default" comment="">
+    <list default="true" id="b3b051e5-81ff-47c9-8434-26b5a8a5b635" name="Default" comment="Fixes for GHC and USD.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/dcc-content.js" afterPath="$PROJECT_DIR$/data/dcc-content.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/dcc-regexes.js" afterPath="$PROJECT_DIR$/data/dcc-regexes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/prices.html" afterPath="$PROJECT_DIR$/data/prices.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="a7fe84ee-08d9-4b4b-8342-c607107fcd4d" name="New changelist" comment="New changelist" />
@@ -51,8 +50,8 @@
       <file leaf-file-name="dcc-regexes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/dcc-regexes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1428" max-vertical-offset="6562">
-              <caret line="119" column="81" selection-start-line="119" selection-start-column="81" selection-end-line="119" selection-end-column="84" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="4692" max-vertical-offset="6562">
+              <caret line="310" column="124" selection-start-line="310" selection-start-column="22" selection-end-line="310" selection-end-column="124" />
               <folding />
             </state>
           </provider>
@@ -61,8 +60,8 @@
       <file leaf-file-name="prices.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/prices.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.4150944" vertical-offset="2737" max-vertical-offset="4607">
-              <caret line="181" column="120" selection-start-line="181" selection-start-column="117" selection-end-line="181" selection-end-column="120" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2737" max-vertical-offset="4607">
+              <caret line="180" column="120" selection-start-line="180" selection-start-column="120" selection-end-line="180" selection-end-column="120" />
               <folding />
             </state>
           </provider>
@@ -71,8 +70,18 @@
       <file leaf-file-name="README" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9168704" vertical-offset="1154" max-vertical-offset="2006">
-              <caret line="112" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2074">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dcc-content.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/dcc-content.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.851852" vertical-offset="2440" max-vertical-offset="11458">
+              <caret line="165" column="13" selection-start-line="165" selection-start-column="13" selection-end-line="165" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -99,7 +108,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="2.0.1.0" />
       </map>
     </option>
   </component>
@@ -109,9 +118,9 @@
         <option value="$PROJECT_DIR$/lib/dcc-main.js" />
         <option value="$PROJECT_DIR$/test/testtest.js" />
         <option value="$PROJECT_DIR$/test/cconverter.js" />
-        <option value="$PROJECT_DIR$/data/dcc-content.js" />
-        <option value="$PROJECT_DIR$/data/dcc-regexes.js" />
         <option value="$PROJECT_DIR$/data/prices.html" />
+        <option value="$PROJECT_DIR$/data/dcc-regexes.js" />
+        <option value="$PROJECT_DIR$/data/dcc-content.js" />
         <option value="$PROJECT_DIR$/README" />
         <option value="$PROJECT_DIR$/package.json" />
       </list>
@@ -151,7 +160,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -214,6 +222,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -265,10 +274,14 @@
       <ConfigurationWrapper RunnerId="NodeJS.run" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
@@ -278,15 +291,11 @@
       <setting name="preferredDebugBrowser" value="Chrome" />
       <method />
     </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
-      <envs />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="NodeWebKit" factoryName="Node-webkit">
       <option name="name" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
@@ -443,7 +452,13 @@
       <option name="project" value="LOCAL" />
       <updated>1415209874319</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fixes for GHC and USD.">
+      <created>1421691114716</created>
+      <option name="number" value="00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1421691114716</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -470,13 +485,14 @@
     <frame x="0" y="23" width="1331" height="977" extended-state="0" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295053" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295053" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295053" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20093095" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26299456" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26687354" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -485,7 +501,6 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.338766" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32983795" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -521,7 +536,8 @@
     <MESSAGE value="Made content scripts work with Chrome.&#10;Added adapters for messaging." />
     <MESSAGE value="Added adapters for messaging." />
     <MESSAGE value="Renamed &quot;Options&quot; to &quot;Settings&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed &quot;Options&quot; to &quot;Settings&quot;" />
+    <MESSAGE value="Fixes for GHC and USD." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes for GHC and USD." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -865,29 +881,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/dcc-content.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="10778" max-vertical-offset="11645">
-          <caret line="667" column="8" selection-start-line="667" selection-start-column="8" selection-end-line="667" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/prices.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.4150944" vertical-offset="2737" max-vertical-offset="4607">
-          <caret line="181" column="120" selection-start-line="181" selection-start-column="117" selection-end-line="181" selection-end-column="120" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/dcc-regexes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1428" max-vertical-offset="6562">
-          <caret line="119" column="81" selection-start-line="119" selection-start-column="81" selection-end-line="119" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/dcc-main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="15564" max-vertical-offset="16405">
@@ -896,6 +889,30 @@
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#12787#47342#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/prices.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2737" max-vertical-offset="4607">
+          <caret line="180" column="120" selection-start-line="180" selection-start-column="120" selection-end-line="180" selection-end-column="120" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/dcc-regexes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4692" max-vertical-offset="6562">
+          <caret line="310" column="124" selection-start-line="310" selection-start-column="22" selection-end-line="310" selection-end-column="124" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/dcc-content.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.851852" vertical-offset="2440" max-vertical-offset="11458">
+          <caret line="165" column="13" selection-start-line="165" selection-start-column="13" selection-end-line="165" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -909,8 +926,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9168704" vertical-offset="1154" max-vertical-offset="2006">
-          <caret line="112" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2074">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

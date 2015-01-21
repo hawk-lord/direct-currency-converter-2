@@ -166,7 +166,7 @@ const DirectCurrencyContent = (function() {
             }
             var prices = findPrices(aCurrencyRegex.regex1, aNode.textContent, 3);
             if (prices.length === 0) {
-                prices = findPrices(aCurrencyRegex.regex2, aNode.textContent, 2);
+                prices = findPrices(aCurrencyRegex.regex2, aNode.textContent, 1);
             }
             if (prices.length === 0) {
                 return false;

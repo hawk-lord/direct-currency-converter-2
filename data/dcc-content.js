@@ -29,8 +29,39 @@ const DirectCurrencyContent = (function() {
     const skippedElements = ["audio", "button", "embed", "head", "img", "noscript", "object", "script", "select", "style", "textarea", "video"];
     const subUnits = {"EUR" : "cent", "RUB" : "коп."};
 
+    // console.error("Promise !== undefined " + Promise !== "undefined");
+    // console.error("Promise.toString().indexOf(\"[native code]\") " + Promise.toString().indexOf("[native code]"));
+    /**
+     * This is to check that PriceRegexes exists in SeaMonkey and Firefox
+     *
+     */
+    if(typeof Promise !== "undefined" && Promise.toString().indexOf("[native code]") !== -1){
+        const promise = new Promise(
+            function(resolve, reject) {
+                if (PriceRegexes)
+                    resolve(PriceRegexes);
+                else
+                    reject(Error("promise NOK"));
+            }
+        );
+        promise.then(
+            function(aPriceRegexes) {
+                // console.error("Promise fulfilled aPriceRegexes " + aPriceRegexes + " aData " +  aData);
+                aPriceRegexes.makePriceRegexes(regex1, regex2)
+            },
+            function (err) {
+                // console.error("promise then "  + err);
+            }
+        ).catch(
+            function (err) {
+                console.error("promise catch " + err);
+            }
+        );
+    }
+    else {
+        PriceRegexes.makePriceRegexes(regex1, regex2);
+    }
     //
-    PriceRegexes.makePriceRegexes(regex1, regex2);
     //
     const replaceCurrency = function(aNode) {
         // convertedContent goes here if callback functions are declared inside replaceCurrency
@@ -308,7 +339,8 @@ const DirectCurrencyContent = (function() {
     // Stores prices that will be replaced with converted prices
     const findPrices = function(aRegex, aText, anAmountPosition) {
         const prices = [];
-        if (aRegex === null) {
+        // aRegex may be undefined in SM...
+        if (aRegex == null) {
             return prices;
         }
         const makePrice = function(aMatch) {
@@ -564,6 +596,8 @@ const DirectCurrencyContent = (function() {
         }
     };
     const onSendEnabledStatus = function(aStatus) {
+        // console.log("content  onSendEnabledStatus ");
+        // console.log("onSendEnabledStatus.this " + this);
         const isEnabled = aStatus.isEnabled;
         const hasConvertedElements = aStatus.hasConvertedElements;
         var message = "...";

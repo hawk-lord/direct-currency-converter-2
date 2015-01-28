@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.0.2.0
-Date: 2015-01-21
+Version: 2.0.2.1
+Date: 2015-01-28
 
 After installation, you'll have two new buttons in the Firefox toolbar.
 
@@ -114,3 +114,7 @@ Added fourth digit to version number, showing browser specific changes.
 Version: 2.0.2.0
 Date: 2015-01-21
 Fixed error with decimal calculation.
+
+Version: 2.0.2.1
+Date: 2015-01-28
+Internal changes.

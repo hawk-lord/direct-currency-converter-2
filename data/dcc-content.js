@@ -256,8 +256,13 @@ const DirectCurrencyContent = (function() {
         }
         aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent), aNode);
         if (aNode.baseURI.indexOf("pdf.js") > -1) {
-            aNode.parentNode.style.color = "black";
-            aNode.parentNode.style.backgroundColor = "lightyellow";
+            if (aNode.parentNode) {
+                aNode.parentNode.style.color = "black";
+                aNode.parentNode.style.backgroundColor = "lightyellow";
+                if (aNode.parentNode.parentNode) {
+                    aNode.parentNode.parentNode.style.opacity = "1";
+                }
+            }
         }
         if (isEnabled) {
             substitute(aNode, false);

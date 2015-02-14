@@ -1,0 +1,16 @@
+body {
+    background-color: papayawhip;
+}
+ul {
+    background-color: papayawhip;
+}
+li {
+    color: white;
+    font-size: 1em;
+    font-family: sans-serif;
+    list-style-type:none;
+    padding: 0.5em;
+    background-color: burlywood;
+    border-style: solid;
+    border-color: papayawhip;
+}

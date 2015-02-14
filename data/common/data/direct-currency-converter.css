@@ -1,0 +1,221 @@
+/*
+ * © 2014 Per Johansson
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Partially based on code from Simple Currency Converter
+ * https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
+ */
+
+/* Colours */
+
+body {
+    background-color:white;
+    color:black;
+}
+
+fieldset {
+    background-color:papayawhip;
+    border-color:silver;
+}
+
+legend {
+    background-color:lightgoldenrodyellow;
+    border-color:silver;
+}
+
+.caption {
+    background-color:lightgoldenrodyellow;
+    border-color:silver;
+}
+
+.options-combo {
+    border-color:silver;
+}
+
+#format_preview {
+    background-color:silver;
+}
+
+#save-button, #reset-button, #custom_symbol_reset-button, #toggleCurrencies {
+    background-color:burlywood;
+    border-color:brown;
+    color:white;
+}
+
+#save-button:hover, #reset-button:hover, #custom_symbol_reset-button:hover {
+    background-color:black;
+}
+
+/* Other */
+
+body {
+    border-width:0;
+    font-family:Arial,serif;
+    font-size:13px;
+    margin: 0;
+    max-height:100%;
+    padding:0;
+    width:80%;
+}
+
+h1 {
+    margin-left: 25px;
+}
+
+fieldset {
+    border: 1px solid;
+    margin:10px;
+}
+
+legend {
+    border: 1px solid;
+    font-size:14px;
+    font-weight:bold;
+    padding:4px;
+}
+
+ul {
+    list-style-type:none;
+}
+
+li {
+    margin:0.5em 0;
+}
+
+.arrow {
+    border-style:none;
+    font-size:3em !important;
+    font-weight:bold;
+    text-align:center;
+}
+
+.arrows {
+    float:left;
+    margin-top:1.6em;
+}
+
+.caption {
+    border: 1px solid;
+    font-size:14px !important;
+    font-weight:bold;
+    margin-left:20px;
+    padding:4px;
+}
+
+.clear {
+    clear:both;
+}
+
+.currencies {
+    float:left;
+    overflow-y: auto;
+}
+
+.minimised {
+    max-height: 150px;
+}
+
+.format_options td {
+    padding:5px;
+}
+
+
+.options-combo {
+    border: 1px solid;
+    font-family:Arial,serif;
+    margin-left:2px;
+    padding:4px;
+}
+
+
+
+#custom_symbol_reset-button {
+    height:35px;
+    margin-top:0;
+    width:180px;
+}
+
+#custom_symbol_reset-button span {
+    top:5px;
+}
+
+#enabledCurrencies, #disabledCurrencies {
+    border-style:none;
+    margin: 0 10px 0 0;
+    padding:1em;
+}
+#enabledCurrencies {
+    list-style-type:decimal;
+}
+#disabledCurrencies {
+    list-style-type:none;
+}
+#enabledCurrencies li, #disabledCurrencies li {
+    font-size:1.2em;
+    margin:0 5px 5px 20px;
+    padding:5px;
+    width: 300px;
+}
+#enabledCurrencies li:hover, #disabledCurrencies li:hover {
+    cursor:pointer;
+}
+
+#excluded_domains {
+    height:150px;
+    width:300px;
+}
+
+#footer1, #footer2 {
+    bottom:0;
+    float:left;
+    height:45px;
+    left:0;
+}
+
+#format_preview {
+    float:left;
+    font-size:18px !important;
+    font-weight:bold !important;
+    margin-right:1em;
+}
+
+#toggleCurrencies {
+    padding:0 5px;
+    height:60px !important;
+    width:100px;
+}
+
+#save-button, #reset-button {
+    margin-left:10px !important;
+    width:120px;
+}
+
+#reset-button {
+    height:45px !important;
+}
+
+#save-button, #reset-button, #custom_symbol_reset-button, #toggleCurrencies {
+    border-radius:0;
+    border: 1px solid;
+    box-shadow:0 2px 0 0 rgba(255, 255, 255, .06) inset, 0 1px 3px 0 rgba(0, 0, 0, .2);
+    cursor:pointer;
+    font-family:Arial,serif !important;
+    font-size:13px !important;
+    font-weight:bold;
+    height:30px;
+    margin-left:0;
+    margin-top:7px;
+    text-align:center;
+}
+
+#save-button:hover, #reset-button:hover, #custom_symbol_reset-button:hover {
+    box-shadow:0 2px 0 0 rgba(255, 255, 255, .06) inset, 0 1px 3px 0 rgba(0, 0, 0, .2);
+    text-decoration:none;
+}
+
+#save-button span, #reset-button span, #custom_symbol_reset-button span {
+    position:relative;
+    top:7px;
+}
+

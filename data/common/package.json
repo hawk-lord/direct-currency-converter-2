@@ -1,0 +1,37 @@
+{
+    "contributors": "", 
+    "_id": "jid1-EP6Btq0BhcevYA",
+    "id": "dcc@joint.ax",
+    "preferences": [
+        {
+            "title": "Preferences", 
+            "type": "control", 
+            "name": "DCCPreferences", 
+            "label": "Open DCC Preferences"
+        }
+    ], 
+    "lib": "lib", 
+    "author": "Per Johansson", 
+    "version": "2.0.2.2",
+    "_xxx": "My remark: underscore xxx means disabled", 
+    "main": "dcc-main", 
+    "homepage": "", 
+    "_harnessClassID": "", 
+    "tests": "", 
+    "description": "Converts monetary amounts from any currency (USD, GBP, etc.) to monetary amounts in a selectable currency automatically while browsing.", 
+    "icon64": "data/images/1402781517_currency_exchange_1.png", 
+    "dependencies": "", 
+    "fullName": "Direct Currency Converter 2",
+    "permissions": {
+        "private-browsing": true, 
+        "cross-domain-content": [
+            "http://example.org/", 
+            "http://example.com/"
+        ]
+    }, 
+    "name": "direct-currency-converter-2",
+    "license": "MPL 2.0", 
+    "_packages": "packages", 
+    "translators": "", 
+    "icon": "data/images/1402781537_currency_exchange_1.png"
+}

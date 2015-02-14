@@ -4,7 +4,44 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3b051e5-81ff-47c9-8434-26b5a8a5b635" name="Default" comment="" />
+    <list default="true" id="b3b051e5-81ff-47c9-8434-26b5a8a5b635" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/dictionaries/per.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/direct-currency-converter.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/jsLibraryMappings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/watcherTasks.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/README" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/TODO" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/dcc-firefox-content-adapter.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/dcc-firefox-settings-adapter.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/direct-currency-converter.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/images/1402781517_currency_exchange_1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/images/1402781537_currency_exchange_1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/images/1402781551_currency_exchange_1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/images/1402782661_repair_cost.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/images/1402782677_repair_cost.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/images/1402782691_repair_cost.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/panel-style.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/panel.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/data/settings.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/lib/dcc-main.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/lib/grep.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/lib/urlProvider.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/locale/en.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/locale/sv.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/package.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/test/test-main.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/test/test-main.js.org" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <list id="a7fe84ee-08d9-4b4b-8342-c607107fcd4d" name="New changelist" comment="New changelist" />
     <ignored path="direct-currency-converter.iws" />
     <ignored path=".idea/workspace.xml" />

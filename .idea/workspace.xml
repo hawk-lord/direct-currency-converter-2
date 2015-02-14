@@ -4,15 +4,7 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3b051e5-81ff-47c9-8434-26b5a8a5b635" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/dcc-content.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/dcc-regexes.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/dcc-settings.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/jquery-2.1.1.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/jquery-ui-1.10.4.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/common/prices.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="b3b051e5-81ff-47c9-8434-26b5a8a5b635" name="Default" comment="" />
     <list id="a7fe84ee-08d9-4b4b-8342-c607107fcd4d" name="New changelist" comment="New changelist" />
     <ignored path="direct-currency-converter.iws" />
     <ignored path=".idea/workspace.xml" />

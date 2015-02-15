@@ -4,7 +4,7 @@
  * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *
  * Based on code from Simple Currency Converter
- * https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
+ * https://addons.mozilla.org/addon/simple-currency-converter/
  *
  * Module pattern is used.
  */
@@ -25,9 +25,7 @@ const DirectCurrencySettings = (function() {
         jQuery("#convert_to_currency").change(function() {
             const currencyCountry = jQuery(this).val();
             convertToCurrency = currencyCountry.substr(0, 3);
-            // console.log("convertToCurrency : " + convertToCurrency);
             convertToCountry = currencyCountry.substr(-2);
-            // console.log("convertToCountry : " + convertToCountry);
             onCurrencyChange(convertToCurrency);
         });
         jQuery("#custom_symbol").change(function() {
@@ -48,7 +46,6 @@ const DirectCurrencySettings = (function() {
             thousandSep = jQuery(this).val();
             jQuery("#preview_thousand").html(thousandSep);
         });
-
         jQuery("#enable_conversion").change(function() {
             enableOnStart = jQuery(this).is(":checked");
         });
@@ -164,7 +161,6 @@ const DirectCurrencySettings = (function() {
         jQuery("#always_round").prop("checked", roundAmounts);
         onSeparatePriceChange(separatePrice);
         jQuery("#show_original_prices").prop("checked", showOriginalPrices);
-        // console.log("unitAfter " + unitAfter);
         jQuery("#unitAfter").prop("checked", unitAfter);
         jQuery("#unitBefore").prop("checked", !unitAfter);
         onUnitAfterChange(unitAfter);
@@ -216,7 +212,6 @@ const DirectCurrencySettings = (function() {
         }
     };
     const onUnitAfterChange = function(unitAfter) {
-        // console.log("onUnitAfterChange ".concat(unitAfter));
         if (unitAfter) {
             jQuery("#preview_left").hide();
             jQuery("#preview_right").show();

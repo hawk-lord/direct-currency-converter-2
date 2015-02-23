@@ -5,6 +5,7 @@
 *.iml
 
 ## Directory-based project format:
+**/.idea/workspace.xml
 .idea/
 # if you remove the above rule, at least ignore the following:
 

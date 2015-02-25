@@ -14,21 +14,12 @@ const PriceRegexes = (function() {
     	const value = "(\\d{1,3}((,|\\.|\\s)\\d{3})+|(\\d+))((\\.|,)\\d{1,9})?";
     	const space = "\\s?";
     	const end = "(?!\\w)";
-<<<<<<< HEAD
         const makeRegex1 = function(reg) {
             return RegExp(begin + reg + "(" + space + value + ")", "g");
         };
         const makeRegex2 = function(reg) {
             return RegExp("(" + value + space + ")" + reg + end, "g");
         };
-=======
-    	const makeRegex1 = function(reg) {
-    		return RegExp(begin + reg + "(" + space + value + ")", "g");
-    	};
-    	const makeRegex2 = function(reg) {
-    		return RegExp("(" + value + space + ")" + reg + end, "g");
-    	};
->>>>>>> FETCH_HEAD
     	try {
             aRegex1.AED = makeRegex1("(AED|Dhs?)");
             aRegex2.AED = makeRegex2("(AED|Dhs?|dirhams?)");

@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.0.2.2
-Date: 2015-02-04
+Version: 2.0.3.0
+Date: 2015-02-23
 
 After installation, you'll have two new buttons in the Firefox toolbar.
 
@@ -122,4 +122,10 @@ Internal changes.
 Version: 2.0.2.2
 Date: 2015-02-04
 Fixed PDF conversion style because of changes in pdf.js.
+
+Version: 2.0.3.0
+Date: 2015-02-23
+Updated jQuery and jQuery UI versions.
+Rewrote currency regexes.
+
 

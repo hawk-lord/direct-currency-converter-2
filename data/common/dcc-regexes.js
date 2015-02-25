@@ -15,10 +15,10 @@ const PriceRegexes = (function() {
     	const space = "\\s?";
     	const end = "(?!\\w)";
     	const makeRegex1 = function(reg) {
-    		return RegExp(begin + reg + space + value, "g");
+    		return RegExp(begin + reg + "(" + space + value + ")", "g");
     	};
     	const makeRegex2 = function(reg) {
-    		return RegExp(value + space + reg + end, "g");
+    		return RegExp("(" + value + space + ")" + reg + end, "g");
     	};
     	try {
             aRegex1.AED = makeRegex1("(AED|Dhs?)");

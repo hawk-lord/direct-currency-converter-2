@@ -1,10 +1,10 @@
 /*
- * © 2014 Per Johansson
+ * © 2014-2015 Per Johansson
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *
  * Based on code from Simple Currency Converter
- * https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
+ * https://addons.mozilla.org/addon/simple-currency-converter/
  *
  * Module pattern is used.
  */
@@ -357,6 +357,7 @@ const DirectCurrencyContent = (function() {
             return price;
         };
         var match;
+        //console.error(aRegex.source);
         while ((match = aRegex.exec(aText)) !== null) {
             // console.log(anAmountPosition);
             // console.log(match.index);

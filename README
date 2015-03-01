@@ -125,7 +125,9 @@ Fixed PDF conversion style because of changes in pdf.js.
 
 Version: 2.0.3.0
 Date: 2015-02-23
-Updated jQuery and jQuery UI versions.
-Rewrote currency regexes.
+Added support for US cents (¢, ￠).
+Improved support for non-English characters in price matches.
+Internal change: rewrote price regexes.
+Internal change: Updated jQuery and jQuery UI versions.
 
 

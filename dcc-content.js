@@ -76,7 +76,11 @@ const DirectCurrencyContent = (function() {
                 if (replacedUnit === "SEK" && aPrice.full.toLowerCase().indexOf("öre") > -1) {
                     tempConversionQuote = conversionQuote / 100;
                 }
-                if (replacedUnit === "inch") {
+                else if (replacedUnit === "USD"
+                    && (aPrice.full.toLowerCase().indexOf("¢") > -1 || aPrice.full.toLowerCase().indexOf("￠") > -1)) {
+                    tempConversionQuote = conversionQuote / 100;
+                }
+                else if (replacedUnit === "inch") {
                     tempConversionQuote = 25.4;
                 }
                 else if (replacedUnit === "kcal") {

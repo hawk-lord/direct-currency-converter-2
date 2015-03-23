@@ -5,10 +5,10 @@
 const SettingsAdapter = function() {
     self.port.on("showSettings", DirectCurrencySettings.showSettings);
     return {
-        save: function (contentScriptParams) {
+        save: (contentScriptParams) => {
             self.port.emit("saveSettings", contentScriptParams);
         },
-        reset: function () {
+        reset: () => {
             self.port.emit("resetSettings");
         }
     }

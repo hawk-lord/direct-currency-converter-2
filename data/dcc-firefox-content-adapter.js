@@ -6,7 +6,7 @@ const ContentAdapter = function() {
     self.port.on("sendEnabledStatus", DirectCurrencyContent.onSendEnabledStatus);
     self.port.on("updateSettings", DirectCurrencyContent.onUpdateSettings);
     return {
-        finish: function (hasConvertedElements) {
+        finish: (hasConvertedElements) => {
             self.port.emit("finishedTabProcessing", hasConvertedElements);
         }
     }

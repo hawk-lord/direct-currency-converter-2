@@ -3,6 +3,7 @@
  */
 
 const SettingsAdapter = function() {
+    "use strict";
     self.port.on("showSettings", DirectCurrencySettings.showSettings);
     return {
         save: (contentScriptParams) => {

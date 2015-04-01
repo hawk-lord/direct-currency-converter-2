@@ -7,6 +7,12 @@ viewer.css:1309
 }
 
 
+Refactoring
+Save/reset settings.
+Storage.
+L10N
+
+
 General:
 Merge common files into common directory.
 Move workspaces close together.

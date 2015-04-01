@@ -3,6 +3,7 @@
  */
 
 const ContentAdapter = function() {
+    "use strict";
     self.port.on("sendEnabledStatus", DirectCurrencyContent.onSendEnabledStatus);
     self.port.on("updateSettings", DirectCurrencyContent.onUpdateSettings);
     return {

@@ -1,16 +1,8 @@
-FF
-Fix style for pdf.js
-<div class="textLayer"
-viewer.css:1309
-.textLayer {
-    opacity: 0.2;
-}
-
-
-Refactoring
+Refactoring:
 Save/reset settings.
 Storage.
 L10N
+Controller, so we can reinit and stuff that are done at start
 
 
 General:
@@ -34,3 +26,10 @@ Check/remove language specific files at AMO.
 FF Mobile version
 
 
+FF
+Fix style for pdf.js
+<div class="textLayer"
+viewer.css:1309
+.textLayer {
+    opacity: 0.2;
+}

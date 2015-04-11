@@ -1,6 +1,7 @@
 Refactoring:
-Save/reset settings.
+(Save) and reset settings.
 Storage.
+Should not have to reload page after changing currency.
 L10N
 Controller, so we can reinit and stuff that are done at start
 
@@ -16,8 +17,6 @@ Ignore .idea/workspace.xml etc.
 Write build instructions.
 
 Unit testing.
-
-jQuery updates.
 
 
 FF/SM

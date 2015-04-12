@@ -145,8 +145,11 @@ const DirectCurrencySettings = (function() {
         jQuery("#enable_conversion").prop("checked", enableOnStart);
         const excludedText = excludedDomains.join("\n").replace(/\n/g, "\r\n");
         jQuery("#excluded_domains").val(excludedText);
+        jQuery("#enabledCurrencies").empty();
+        jQuery("#disabledCurrencies").empty();
         for (var currency in enabledCurrencies) {
             if (enabledCurrencies[currency]) {
+                console.log("currency " + currency);
                 jQuery("#enabledCurrencies").append(jQuery(document.createElement("li")).attr({
                         id: currency
                 }).append(currencyNames[currency]));
@@ -246,7 +249,17 @@ const DirectCurrencySettings = (function() {
         enableOnStart = contentScriptParams.enableOnStart;
         excludedDomains = contentScriptParams.excludedDomains;
         excludedDomains.map(escapeHtml);
+        var size = 0, key;
+        for (key in enabledCurrencies) {
+            if (enabledCurrencies.hasOwnProperty(key)) size++;
+        }
+        console.log("enabledCurrencies " + size);
         enabledCurrencies = contentScriptParams.enabledCurrencies;
+        size = 0;
+        for (key in enabledCurrencies) {
+            if (enabledCurrencies.hasOwnProperty(key)) size++;
+        }
+        console.log("enabledCurrencies " + size);
         Object.keys(enabledCurrencies).forEach(escapeHtml);
         quoteAdjustmentPercent = escapeHtml(contentScriptParams.quoteAdjustmentPercent);
         roundAmounts = contentScriptParams.roundAmounts;

@@ -1,10 +1,42 @@
-Refactoring:
-(Save) and reset settings.
-Storage.
-Should not have to reload page after changing currency.
-L10N
-Controller, so we can reinit and stuff that are done at start
 
+Refactoring:
+space between amount and unit
+Default formats per country (library?).
+Check that storage works.
+Update test page too after currency change.
+Controller, so we can reinit and stuff that are done at start
+Testing
+Library for monetary units?
+
+http://www.unicode.org/cldr/charts/27/summary/root.html
+1243	Locale Display Names	Keys	currency	currency	Currency 	currency
+2961	Numbers	Number Formatting Patterns	Standard Patterns 	standard-currency	¤#,##0.00 	¤ #,##0.00
+2964	Numbers	Number Formatting Patterns	Currency Unit Patterns 	currencies-other	= 	{0} {1}
+
+http://www.unicode.org/cldr/charts/27/summary/sv.html
+No	Section	Page	Header	Code	English	Native	Sublocales…
+3884	Numbers	Number Formatting Patterns	Standard Patterns 	standard-currency	¤#,##0.00 	#,##0.00 ¤
+3887	Numbers	Number Formatting Patterns	Standard Patterns 	accounting-currency	¤#,##0.00;(¤#,##0.00) 	#,##0.00 ¤
+3888	Numbers	Number Formatting Patterns	Currency Unit Patterns 	currencies-one	= 	{0} {1}
+3889	Numbers	Number Formatting Patterns	Currency Unit Patterns 	currencies-other	= 	{0} {1}
+
+Currencies	Northern/Western Europe	Northern Europe: Denmark	DKK-name	Danish Krone 	dansk krona
+4235	Currencies	Northern/Western Europe	Northern Europe: Denmark	DKK-name-one	Danish krone 	dansk krona
+4236	Currencies	Northern/Western Europe	Northern Europe: Denmark	DKK-name-other	Danish kroner 	danska kronor
+4237	Currencies	Northern/Western Europe	Northern Europe: Denmark	DKK-symbol	DKK 	Dkr
+4238	Currencies	Northern/Western Europe	Northern Europe: Denmark	DKK-symbol-narrow	= 	kr
+
+http://www.unicode.org/cldr/charts/27/summary/en.html
+                                en_150, en_BE   en_IN       en_US_POSIX
+standard-currency 	¤#,##0.00 	#,##0.00 ¤ 	¤ #,##,##0.00 	¤ #0.00
+
+http://www.unicode.org/cldr/charts/27/summary/fi.html
+standard-currency   #,##0.00 ¤
+3647	Numbers	Symbols	Symbols 	decimal	. 	,
+3648	Numbers	Symbols	Symbols 	group	,
+
+http://www.unicode.org/cldr/charts/27/summary/zh.html
+standard-currency   ¤ #,##0.00 	¤#,##0.00
 
 General:
 Merge common files into common directory.

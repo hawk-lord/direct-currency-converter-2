@@ -149,7 +149,7 @@ const DirectCurrencySettings = (function() {
         jQuery("#disabledCurrencies").empty();
         for (var currency in enabledCurrencies) {
             if (enabledCurrencies[currency]) {
-                console.log("currency " + currency);
+                // console.log("currency " + currency);
                 jQuery("#enabledCurrencies").append(jQuery(document.createElement("li")).attr({
                         id: currency
                 }).append(currencyNames[currency]));
@@ -253,13 +253,13 @@ const DirectCurrencySettings = (function() {
         for (key in enabledCurrencies) {
             if (enabledCurrencies.hasOwnProperty(key)) size++;
         }
-        console.log("enabledCurrencies " + size);
+        // console.log("enabledCurrencies " + size);
         enabledCurrencies = contentScriptParams.enabledCurrencies;
         size = 0;
         for (key in enabledCurrencies) {
             if (enabledCurrencies.hasOwnProperty(key)) size++;
         }
-        console.log("enabledCurrencies " + size);
+        // console.log("enabledCurrencies " + size);
         Object.keys(enabledCurrencies).forEach(escapeHtml);
         quoteAdjustmentPercent = escapeHtml(contentScriptParams.quoteAdjustmentPercent);
         roundAmounts = contentScriptParams.roundAmounts;

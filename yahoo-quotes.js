@@ -42,15 +42,10 @@ const YahooQuotesServiceProvider = function(anEventAggregator) {
     };
     const quotesHandlerFromTo = function(aResponse) {
         try {
-            const response = JSON.parse(aResponse.text);
-            if (aResponse.status == "200") {
-                // console.log("aResponse.status " + aResponse.status);
-                quotesFromTo = response.query.results.row;
-                if (quotesFromTo.length > 0 && quotesToFrom.length > 0) {
-                    makeOneResponse();
-                }
-            }
-            else {
+            const response = JSON.parse(aResponse);
+            quotesFromTo = response.query.results.row;
+            if (quotesFromTo.length > 0 && quotesToFrom.length > 0) {
+                makeOneResponse();
             }
         }
         catch(err) {
@@ -59,14 +54,10 @@ const YahooQuotesServiceProvider = function(anEventAggregator) {
     };
     const quotesHandlerToFrom = function(aResponse) {
         try {
-            const response = JSON.parse(aResponse.text);
-            if (aResponse.status == "200") {
-                quotesToFrom = response.query.results.row;
-                if (quotesFromTo.length > 0 && quotesToFrom.length > 0) {
-                    makeOneResponse();
-                }
-            }
-            else {
+            const response = JSON.parse(aResponse);
+            quotesToFrom = response.query.results.row;
+            if (quotesFromTo.length > 0 && quotesToFrom.length > 0) {
+                makeOneResponse();
             }
         }
         catch(err) {

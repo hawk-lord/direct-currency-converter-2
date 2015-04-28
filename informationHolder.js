@@ -62,7 +62,7 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
     aStorageService.init(defaultEnabledCurrencies, _excludedDomains);
     var conversionEnabled = aStorageService.enableOnStart;
     const _currencyNames = {};
-    anIso4217Currencies.forEach((aCurrency) => {
+    anIso4217Currencies.forEach(function(aCurrency) {
         if (!defaultEnabledCurrencies[aCurrency]) {
             defaultEnabledCurrencies[aCurrency] = false;
         }
@@ -90,7 +90,7 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
     const isAllCurrenciesRead = function() {
         return numberOfReadCurrencies >= anIso4217Currencies.length;
     };
-    const makeQuoteString = (aConvertFromCurrency) => {
+    const makeQuoteString = function(aConvertFromCurrency) {
         const quote = conversionQuotes[aConvertFromCurrency];
         const conversionQuote = (parseFloat(quote)).toFixed(4);
         if (aConvertFromCurrency != aStorageService.convertToCurrency) {

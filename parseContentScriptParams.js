@@ -16,17 +16,17 @@ const ParseContentScriptParams = function(aContentScriptParams, anInformationHol
     anInformationHolder.convertToCurrency = aContentScriptParams.convertToCurrency;
     anInformationHolder.convertToCountry = aContentScriptParams.convertToCountry;
     anInformationHolder.customSymbols = aContentScriptParams.customSymbols;
-    anInformationHolder.decimalSep = aContentScriptParams.subUnitSeparator;
+    anInformationHolder.monetarySeparatorSymbol = aContentScriptParams.monetarySeparatorSymbol;
     anInformationHolder.enableOnStart = aContentScriptParams.enableOnStart;
     anInformationHolder.excludedDomains = aContentScriptParams.excludedDomains;
     anInformationHolder.enabledCurrencies = aContentScriptParams.enabledCurrencies;
     anInformationHolder.quoteAdjustmentPercent = aContentScriptParams.quoteAdjustmentPercent;
     anInformationHolder.roundPrices = aContentScriptParams.roundAmounts;
-    anInformationHolder.separatePrice = aContentScriptParams.separatePrice;
+    anInformationHolder.currencySpacing = aContentScriptParams.currencySpacing;
     anInformationHolder.showOriginalPrices = aContentScriptParams.showOriginalPrices;
-    anInformationHolder.unitAfter = aContentScriptParams.unitAfter;
+    anInformationHolder.beforeCurrencySymbol = aContentScriptParams.beforeCurrencySymbol;
     anInformationHolder.tempConvertUnits = aContentScriptParams.tempConvertUnits;
-    anInformationHolder.thousandSep = aContentScriptParams.thousandSep;
+    anInformationHolder.monetaryGroupingSeparatorSymbol = aContentScriptParams.monetaryGroupingSeparatorSymbol;
 };
 
 if (typeof exports === "object") {

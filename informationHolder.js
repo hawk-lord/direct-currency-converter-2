@@ -14,7 +14,7 @@
  * @param anIso4217Currencies
  * @param aRegionFormats
  * @param _
- * @returns {{conversionEnabled, conversionEnabled, convertToCountry, convertToCountry, convertToCurrency, convertToCurrency, getConversionQuotes: Function, setConversionQuote: Function, getCurrencySymbols: Function, customSymbols, customSymbols, decimalSep, decimalSep, excludedDomains, excludedDomains, enabledCurrencies, enabledCurrencies, enableOnStart, enableOnStart, quoteAdjustmentPercent, quoteAdjustmentPercent, roundPrices, roundPrices, separatePrice, separatePrice, showOriginalPrices, showOriginalPrices, unitAfter, unitAfter, tempConvertUnits, tempConvertUnits, thousandSep, thousandSep, getCurrencyNames: Function, getFromCurrencies: Function, isAllCurrenciesRead: Function, getQuoteString: Function, resetReadCurrencies: Function, resetSettings: Function}}
+ * @returns {{conversionEnabled, conversionEnabled, convertToCountry, convertToCountry, convertToCurrency, convertToCurrency, getConversionQuotes: Function, setConversionQuote: Function, getCurrencySymbols: Function, customSymbols, customSymbols, monetarySeparatorSymbol, monetarySeparatorSymbol, excludedDomains, excludedDomains, enabledCurrencies, enabledCurrencies, enableOnStart, enableOnStart, quoteAdjustmentPercent, quoteAdjustmentPercent, roundPrices, roundPrices, currencySpacing, currencySpacing, showOriginalPrices, showOriginalPrices, beforeCurrencySymbol, beforeCurrencySymbol, tempConvertUnits, tempConvertUnits, monetaryGroupingSeparatorSymbol, monetaryGroupingSeparatorSymbol, getCurrencyNames: Function, getFromCurrencies: Function, isAllCurrenciesRead: Function, getQuoteString: Function, resetReadCurrencies: Function, resetSettings: Function}}
  * @constructor
  */
 const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymbols, anIso4217Currencies, aRegionFormats, _) {
@@ -94,7 +94,7 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
         const quote = conversionQuotes[aConvertFromCurrency];
         const conversionQuote = (parseFloat(quote)).toFixed(4);
         if (aConvertFromCurrency != aStorageService.convertToCurrency) {
-            const quoteString = "1 " + aConvertFromCurrency + " = " + conversionQuote.replace(".", aStorageService.decimalSep) + " " + aStorageService.convertToCurrency;
+            const quoteString = "1 " + aConvertFromCurrency + " = " + conversionQuote.replace(".", aStorageService.monetarySeparatorSymbol) + " " + aStorageService.convertToCurrency;
             quoteStrings.push(quoteString);
         }
     };
@@ -125,10 +125,10 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
             aStorageService.convertToCountry = aCountry;
             //const {RegionFormat} = require("./RegionFormat");
             const regionFormat = aRegionFormats[aCountry.toLowerCase()];
-            aStorageService.decimalSep = regionFormat.monetarySeparatorSymbol;
-            aStorageService.separatePrice = regionFormat.currencySpacing !== "";
-            aStorageService.thousandSep = regionFormat.monetaryGroupingSeparatorSymbol;
-            aStorageService.unitAfter = regionFormat.beforeCurrencySymbol;
+            aStorageService.monetarySeparatorSymbol = regionFormat.monetarySeparatorSymbol;
+            aStorageService.currencySpacing = regionFormat.currencySpacing;
+            aStorageService.monetaryGroupingSeparatorSymbol = regionFormat.monetaryGroupingSeparatorSymbol;
+            aStorageService.beforeCurrencySymbol = regionFormat.beforeCurrencySymbol;
             if (!aStorageService.convertToCurrency) {
                 aStorageService.convertToCurrency = findCurrency(aCountry);
             }
@@ -148,11 +148,11 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
         set customSymbols (aCustomSymbols) {
             aStorageService.customSymbols = aCustomSymbols;
         },
-        get decimalSep () {
-            return aStorageService.decimalSep;
+        get monetarySeparatorSymbol () {
+            return aStorageService.monetarySeparatorSymbol;
         },
-        set decimalSep (aDecimalSep) {
-            aStorageService.decimalSep = aDecimalSep;
+        set monetarySeparatorSymbol (aMonetarySeparatorSymbol) {
+            aStorageService.monetarySeparatorSymbol = aMonetarySeparatorSymbol;
         },
         get excludedDomains () {
             return aStorageService.excludedDomains;
@@ -184,11 +184,11 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
         set roundPrices (aRoundPrices) {
             aStorageService.roundPrices = aRoundPrices;
         },
-        get separatePrice () {
-            return aStorageService.separatePrice;
+        get currencySpacing () {
+            return aStorageService.currencySpacing;
         },
-        set separatePrice (aSeparatePrice) {
-            aStorageService.separatePrice = aSeparatePrice;
+        set currencySpacing (aCurrencySpacing) {
+            aStorageService.currencySpacing = aCurrencySpacing;
         },
         get showOriginalPrices () {
             return aStorageService.showOriginalPrices;
@@ -196,11 +196,11 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
         set showOriginalPrices (aShowOriginalPrices) {
             aStorageService.showOriginalPrices = aShowOriginalPrices;
         },
-        get unitAfter () {
-            return aStorageService.unitAfter;
+        get beforeCurrencySymbol () {
+            return aStorageService.beforeCurrencySymbol;
         },
-        set unitAfter (aUnitAfter) {
-            aStorageService.unitAfter = aUnitAfter;
+        set beforeCurrencySymbol (aBeforeCurrencySymbol) {
+            aStorageService.beforeCurrencySymbol = aBeforeCurrencySymbol;
         },
         get tempConvertUnits () {
             return aStorageService.tempConvertUnits;
@@ -208,11 +208,11 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
         set tempConvertUnits (aTempConvertUnits) {
             aStorageService.tempConvertUnits = aTempConvertUnits;
         },
-        get thousandSep () {
-            return aStorageService.thousandSep;
+        get monetaryGroupingSeparatorSymbol () {
+            return aStorageService.monetaryGroupingSeparatorSymbol;
         },
-        set thousandSep (aThousandSep) {
-            aStorageService.thousandSep = aThousandSep;
+        set monetaryGroupingSeparatorSymbol (aMonetaryGroupingSeparatorSymbol) {
+            aStorageService.monetaryGroupingSeparatorSymbol = aMonetaryGroupingSeparatorSymbol;
         },
         getCurrencyNames: getCurrencyNames,
         getFromCurrencies: getFromCurrencies,

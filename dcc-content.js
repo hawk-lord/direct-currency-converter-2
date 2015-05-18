@@ -9,6 +9,7 @@
  * Module pattern is used.
  */
 const DirectCurrencyContent = (function() {
+    "use strict";
     var conversionQuotes = [];
     var currencyCode = "";
     var currencySymbol = "¤";

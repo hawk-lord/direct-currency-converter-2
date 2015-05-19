@@ -337,7 +337,7 @@
             <ul>
                 <li>
                     <input type="checkbox" id="enable_conversion" checked="checked" />
-                    <label for="enable_conversion" data-l10n-id="Enable conversion on Firefox start">Enable conversion on Firefox start</label>
+            <label for="enable_conversion" data-l10n-id="Enable conversion on Firefox start">Enable conversion on program start</label>
                 </li>
                 <li>
                     <input type="checkbox" id="always_round" />
@@ -389,29 +389,29 @@
                     <label data-l10n-id="Unit placement">Unit placement: </label>
                     <input type="radio" name="unitPlacement" id="unitBefore">
                     <label for="unitBefore" data-l10n-id="Before the amount">Before the amount</label>
-                    <input type="radio" name="unitPlacement" id="unitAfter" data-l10n-id="After the amount">
-                    <label for="unitAfter" data-l10n-id="After the amount">After the amount</label>
+                    <input type="radio" name="unitPlacement" id="beforeCurrencySymbol" data-l10n-id="After the amount">
+                    <label for="beforeCurrencySymbol" data-l10n-id="After the amount">After the amount</label>
                 </li>
                 <li>
-                    <input type="checkbox" id="separate_price" checked="checked" />
-                    <label for="separate_price" data-l10n-id="Separate amount from unit">Separate amount from unit</label>
+            <input type="checkbox" id="currency_spacing" checked="checked" />
+            <label for="currency_spacing" data-l10n-id="Currency Spacing">Currency Spacing</label>
                 </li>
                 <li>
-                    <select class="options-combo" id="thousands_separator">
+            <select class="options-combo" id="monetary_grouping_separator">
                         <option value=",">,</option>
                         <option value=" "> </option>
                         <option value=".">.</option>
                         <option value="'">'</option>
                     </select>
-                    <label for="thousands_separator" data-l10n-id="Thousands separator">Thousands separator</label>
+            <label for="monetary_grouping_separator" data-l10n-id="Monetary Grouping Separator">Monetary Grouping Separator</label>
                 </li>
                 <li>
-                    <select class="options-combo" id="decimal_separator">
+            <select class="options-combo" id="monetary_separator_symbol">
                         <option value=",">,</option>
                         <option value=" "> </option>
                         <option value=".">.</option>
                     </select>
-                    <label for="decimal_separator" data-l10n-id="Subunits separator">Subunits separator</label>
+            <label for="monetary_separator_symbol" data-l10n-id="Monetary Separator">Monetary Separator</label>
                 </li>
                 <li>
                     <input type="text" size="5" maxlength="55" id="custom_symbol" class="textbox"/>

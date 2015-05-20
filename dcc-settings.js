@@ -39,11 +39,11 @@ const DirectCurrencySettings = (function() {
             customSymbols = {};
             onCurrencyChange(convertToCurrency);
         });
-        jQuery("#monetary_separator").change(function() {
+        jQuery("#monetary_separator_symbol").change(function() {
             monetarySeparatorSymbol = escapeHtml(jQuery(this).val());
             jQuery("#preview_monetary_separator_symbol").html(monetarySeparatorSymbol);
         });
-        jQuery("#monetary_grouping_separator").change(function() {
+        jQuery("#monetary_grouping_separator_symbol").change(function() {
             monetaryGroupingSeparatorSymbol = jQuery(this).val();
             jQuery("#preview_monetary_grouping_separator_symbol").html(monetaryGroupingSeparatorSymbol);
         });
@@ -140,9 +140,10 @@ const DirectCurrencySettings = (function() {
         jQuery("#convert_to_currency").val(convertToCurrency + "_" + convertToCountry);
         onCurrencyChange(convertToCurrency);
         jQuery("#custom_symbol").val(escapeHtml(customSymbols[convertToCurrency]));
-        jQuery("#monetary_separator").val(monetarySeparatorSymbol);
-        jQuery("#monetary_grouping_separator").val(monetaryGroupingSeparatorSymbol);
+        jQuery("#monetary_separator_symbol").val(monetarySeparatorSymbol);
         jQuery("#preview_monetary_separator_symbol").html(monetarySeparatorSymbol);
+        jQuery("#monetary_grouping_separator_symbol").val(monetaryGroupingSeparatorSymbol);
+        jQuery("#preview_monetary_grouping_separator_symbol").html(monetaryGroupingSeparatorSymbol);
         jQuery("#enable_conversion").prop("checked", enableOnStart);
         const excludedText = excludedDomains.join("\n").replace(/\n/g, "\r\n");
         jQuery("#excluded_domains").val(excludedText);
@@ -167,7 +168,6 @@ const DirectCurrencySettings = (function() {
         onBeforeCurrencySymbolChange(beforeCurrencySymbol);
         jQuery("#currency_spacing").prop("checked", currencySpacing !== "");
         jQuery("#temp_convert_units").prop("checked", tempConvertUnits);
-        jQuery("#preview_monetary_grouping_separator_symbol").html(monetaryGroupingSeparatorSymbol);
         const selectedOption = jQuery('#convert_to_currency').val();
         const selectList = jQuery("#convert_to_currency").find("option");
         selectList.sort(function(a,b){

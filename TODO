@@ -1,13 +1,7 @@
 
 Refactoring:
-//Formatting specification template by region
-Reinstall make icons disappear
-No space between 400SEK
-Rename variables in storage
 Use the RegionFormat class.
-Check that reset works.
 Option to use € or EUR etc
-Check that storage works.
 Update test page too after currency change.
 Set conversion on individual tabs?
 Controller, so we can reinit and stuff that are done at start
@@ -15,16 +9,9 @@ Testing
 
 Add own quote.
 
-Log:
-console.error: direct-currency-converter-2:
-  customTabObject is missing
-
-
 
 General:
-Merge common files into common directory.
 Move workspaces close together.
-Make more functionality common.
 Import API's (Mozilla, Chrome, Safari) into WebStorm.
 
 Ignore .idea/workspace.xml etc.

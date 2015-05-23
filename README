@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.0.3.0
-Date: 2015-02-23
+Version: 2.1.1.0
+Date: 2015-05-23
 
 After installation, you'll have two new buttons in the Firefox toolbar.
 
@@ -134,4 +134,10 @@ Improved support for non-English characters in price matches.
 Internal change: rewrote price regexes.
 Internal change: Updated jQuery and jQuery UI versions.
 
+Version: 2.1.1.0
+Date: 2015-05-23
+Removed Lithuanian Litas (LTL).
+Improved localisation, using default currency formats from Unicode Common Locale Data Repository (CLDR) Version 27.0.1.
+Changed some settings to CLDR names.
+Internal change: general code rewrite in order to ease maintenance and porting between web browsers.
 

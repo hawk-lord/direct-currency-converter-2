@@ -1,16 +1,17 @@
-FF
-Fix style for pdf.js
-<div class="textLayer"
-viewer.css:1309
-.textLayer {
-    opacity: 0.2;
-}
+
+Refactoring:
+Use the RegionFormat class.
+Option to use € or EUR etc
+Update test page too after currency change.
+Set conversion on individual tabs?
+Controller, so we can reinit and stuff that are done at start
+Testing
+
+Add own quote.
 
 
 General:
-Merge common files into common directory.
 Move workspaces close together.
-Make more functionality common.
 Import API's (Mozilla, Chrome, Safari) into WebStorm.
 
 Ignore .idea/workspace.xml etc.
@@ -19,8 +20,6 @@ Write build instructions.
 
 Unit testing.
 
-jQuery updates.
-
 
 FF/SM
 Check/remove language specific files at AMO.
@@ -28,3 +27,10 @@ Check/remove language specific files at AMO.
 FF Mobile version
 
 
+FF
+Fix style for pdf.js
+<div class="textLayer"
+viewer.css:1309
+.textLayer {
+    opacity: 0.2;
+}

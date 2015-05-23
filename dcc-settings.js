@@ -161,7 +161,7 @@ const DirectCurrencySettings = (function() {
         }
         jQuery("#adjustment_percentage").val(quoteAdjustmentPercent);
         jQuery("#always_round").prop("checked", roundAmounts);
-        onCurrencySpacingChange(currencySpacing);
+        onCurrencySpacingChange(currencySpacing !== "");
         jQuery("#show_original_prices").prop("checked", showOriginalPrices);
         jQuery("#beforeCurrencySymbol").prop("checked", beforeCurrencySymbol);
         jQuery("#unitBefore").prop("checked", !beforeCurrencySymbol);

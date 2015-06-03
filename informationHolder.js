@@ -106,8 +106,7 @@ const InformationHolder = function(aDefaultEnabledCurrencies, aDefaultExcludedDo
         numberOfReadCurrencies = 0;
     };
     const resetSettings = function() {
-        aStorageService.resetSettings();
-        aStorageService.init(aDefaultEnabledCurrencies, aDefaultExcludedDomains);
+        aStorageService.resetSettings(aDefaultEnabledCurrencies);
     };
 
     return {

@@ -39,7 +39,7 @@ Optionally, if selected in the settings tab, some traditional units of measureme
 Based on code from Simple Currency Converter
 https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
 
-Runs on Firefox version 30 and later versions.
+Runs on Firefox 34 and later versions.
 
 External libraries used:
 jQuery 2.1.3

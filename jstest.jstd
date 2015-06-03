@@ -1,26 +1,47 @@
 server: http://localhost:4224
 
 load:
-#  - data/dcc-firefox-content-adapter.js
+  - data/common/jquery-2.1.3.min.js
+  - data/common/jquery-ui-1.11.2.min.js
   - data/common/dcc-content.js
   - data/common/dcc-regexes.js
   - data/common/dcc-settings.js
-  - data/common/jquery-2.1.3.min.js
-  - data/common/jquery-ui-1.11.2.min.js
+#  - data/dcc-firefox-content-adapter.js
+#  - data/dcc-firefox-settings-adapter.js
   - lib/dcc-common-lib/contentScriptParams.js
+# SyntaxError: let is a reserved identifier
+  - lib/dcc-common-lib/eventAggregator.js
   - lib/dcc-common-lib/freegeoip-service.js
   - lib/dcc-common-lib/informationHolder.js
+  - lib/dcc-common-lib/parseContentScriptParams.js
+  - lib/dcc-common-lib/regionFormat.js
 # SyntaxError: let is a reserved identifier
   - lib/dcc-common-lib/yahoo-quotes.js
+  - lib/ff-chromeInterface.js
+# SyntaxError: let is a reserved identifier
+  - lib/ff-contentInterface.js
+# SyntaxError: let is a reserved identifier
+  - lib/ff-freegeoip-service.js
+  - lib/ff-l10n.js
+# SyntaxError: let is a reserved identifier
+# ReferenceError: require is not define
+#  - lib/ff-main.js
+  - lib/ff-storage-service.js
+# SyntaxError: let is a reserved identifier
+  - lib/ff-yahoo-quotes-service.js
 
 test:
   - test/test-contentScriptParams.js
   - test/test-dcc-content.js
   - test/test-dcc-regexes.js
   - test/test-dcc-settings.js
+  - test/test-eventAggregator.js
+# ReferenceError: require is not defined
+#  - test/test-ff-storage-service.js
   - test/test-freegeoip-service.js
   - test/test-informationHolder.js
-  - test/test-yahoo-quotes.js
+# [ERROR] err TypeError: eventAggregator is undefined
+#  - test/test-yahoo-quotes.js
 exclude:
  - test/test-main.js
 

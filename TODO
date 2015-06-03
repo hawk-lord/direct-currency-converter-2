@@ -1,3 +1,18 @@
+http://www.cheapestnatostraps.com/
+
+<span data-currency-usd="$18.95" class="money">$18.95</span>
+
+<span data-currency="EUR" data-currency-eur="&amp;euro;17.43 EUR" data-currency-usd="$18.95" class="money">€17.95 EUR</span>
+
+<span
+data-currency="EUR"
+data-currency-eur="&amp;euro;174,347,431,849,913,088.00 EUR"
+data-currency-usd="
+<input title=&quot;&quot; value=&quot;$18.95&quot; class=&quot;originalText&quot; type=&quot;hidden&quot;>
+<input title=&quot;&quot; value=&quot; 17,40&amp;nbsp;€ ($18.95 [USD])&quot; class=&quot;convertedText&quot; type=&quot;hidden&quot;> 17,40&amp;nbsp;€ ($18.95 [USD])
+"
+title="" class="money">€174,347,431,849,913,088.95 EUR</span>
+
 
 Refactoring:
 Use the RegionFormat class.

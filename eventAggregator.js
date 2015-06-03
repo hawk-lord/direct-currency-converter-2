@@ -54,7 +54,7 @@ const eventAggregator = (function() {
     };
     return {
         publish: function(eventName, eventArgs) {
-            let event = getEvent(eventName);
+            var event = getEvent(eventName);
             if (!event) {
                 event = new Event(eventName);
                 events.push(event);
@@ -62,7 +62,7 @@ const eventAggregator = (function() {
             event.fire(eventArgs);
         },
         subscribe: function(eventName, handler) {
-            let event = getEvent(eventName);
+            var event = getEvent(eventName);
             if (!event) {
                 event = new Event(eventName);
                 events.push(event);

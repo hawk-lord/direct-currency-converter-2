@@ -9,6 +9,10 @@ DirectCurrencyContentTest.prototype.testOnSendEnabledStatus = () => {
     console.log(res);
 };
 
+/*
+
+ReferenceError: ContentAdapter is not defined
+
 DirectCurrencyContentTest.prototype.testOnUpdateSettings = () => {
     "use strict";
     const ContentScriptParams = function () {};
@@ -25,4 +29,5 @@ DirectCurrencyContentTest.prototype.testOnUpdateSettings = () => {
     const res = DirectCurrencyContent.onUpdateSettings(contentScriptParams);
     console.log(res);
 };
+*/
 

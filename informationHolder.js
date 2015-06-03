@@ -8,6 +8,8 @@
 /**
  * Stereotype Information holder
  *
+ * @param aDefaultEnabledCurrencies
+ * @param aDefaultExcludedDomains
  * @param aStorageService
  * @param aCurrencyData
  * @param aCurrencySymbols
@@ -17,7 +19,7 @@
  * @returns {{conversionEnabled, conversionEnabled, convertToCountry, convertToCountry, convertToCurrency, convertToCurrency, getConversionQuotes: Function, setConversionQuote: Function, getCurrencySymbols: Function, customSymbols, customSymbols, monetarySeparatorSymbol, monetarySeparatorSymbol, excludedDomains, excludedDomains, enabledCurrencies, enabledCurrencies, enableOnStart, enableOnStart, quoteAdjustmentPercent, quoteAdjustmentPercent, roundPrices, roundPrices, currencySpacing, currencySpacing, showOriginalPrices, showOriginalPrices, beforeCurrencySymbol, beforeCurrencySymbol, tempConvertUnits, tempConvertUnits, monetaryGroupingSeparatorSymbol, monetaryGroupingSeparatorSymbol, getCurrencyNames: Function, getFromCurrencies: Function, isAllCurrenciesRead: Function, getQuoteString: Function, resetReadCurrencies: Function, resetSettings: Function}}
  * @constructor
  */
-const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymbols, anIso4217Currencies, aRegionFormats, _) {
+const InformationHolder = function(aDefaultEnabledCurrencies, aDefaultExcludedDomains, aStorageService, aCurrencyData, aCurrencySymbols, anIso4217Currencies, aRegionFormats, _) {
     "use strict";
     const conversionQuotes = {};
     const findCurrency = function(aCountry) {
@@ -57,14 +59,11 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
      * @type {string[]}
      * @private
      */
-    const _excludedDomains = ["images.google.com", "docs.google.com", "drive.google.com", "twitter.com"];
-    const defaultEnabledCurrencies = {"SEK":true, "CHF":true, "DKK":true, "EUR":true, "GBP":true, "ISK":true, "JPY":true, "NOK":true, "RUB":true, "USD":true};
-    aStorageService.init(defaultEnabledCurrencies, _excludedDomains);
     var conversionEnabled = aStorageService.enableOnStart;
     const _currencyNames = {};
     anIso4217Currencies.forEach(function(aCurrency) {
-        if (!defaultEnabledCurrencies[aCurrency]) {
-            defaultEnabledCurrencies[aCurrency] = false;
+        if (!aDefaultEnabledCurrencies[aCurrency]) {
+            aDefaultEnabledCurrencies[aCurrency] = false;
         }
         _currencyNames[aCurrency] = _(aCurrency);
     });
@@ -107,8 +106,7 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
         numberOfReadCurrencies = 0;
     };
     const resetSettings = function() {
-        aStorageService.resetSettings();
-        aStorageService.init(defaultEnabledCurrencies, _excludedDomains);
+        aStorageService.resetSettings(aDefaultEnabledCurrencies);
     };
 
     return {

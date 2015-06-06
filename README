@@ -143,6 +143,7 @@ Internal change: general code rewrite in order to ease maintenance and porting b
 
 Version: 2.1.2.0
 Date: 2015-06-06
+Fix: upgrade settings from older versions.
 Fix: reset settings
 Fix: aWorker.tab is not defined
 Internal change: included code changes from the Google Chrome version.

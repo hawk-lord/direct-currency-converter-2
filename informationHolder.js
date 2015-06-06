@@ -124,10 +124,18 @@ const InformationHolder = function(aDefaultEnabledCurrencies, aDefaultExcludedDo
             //const {RegionFormat} = require("./RegionFormat");
             const regionFormat = aRegionFormats[aCountry.toLowerCase()];
             if (regionFormat) {
-                aStorageService.monetarySeparatorSymbol = regionFormat.monetarySeparatorSymbol;
-                aStorageService.currencySpacing = regionFormat.currencySpacing;
-                aStorageService.monetaryGroupingSeparatorSymbol = regionFormat.monetaryGroupingSeparatorSymbol;
-                aStorageService.beforeCurrencySymbol = regionFormat.beforeCurrencySymbol;
+                if (!aStorageService.monetarySeparatorSymbol) {
+                    aStorageService.monetarySeparatorSymbol = regionFormat.monetarySeparatorSymbol;
+                }
+                if ("string" !== typeof aStorageService.currencySpacing) {
+                    aStorageService.currencySpacing = regionFormat.currencySpacing;
+                }
+                if (!aStorageService.monetaryGroupingSeparatorSymbol) {
+                    aStorageService.monetaryGroupingSeparatorSymbol = regionFormat.monetaryGroupingSeparatorSymbol;
+                }
+                if (aStorageService.beforeCurrencySymbol === null || aStorageService.beforeCurrencySymbol == null) {
+                    aStorageService.beforeCurrencySymbol = regionFormat.beforeCurrencySymbol;
+                }
                 if (!aStorageService.convertToCurrency) {
                     aStorageService.convertToCurrency = findCurrency(aCountry);
                 }

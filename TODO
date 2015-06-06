@@ -1,3 +1,13 @@
+console.error: direct-currency-converter-2:
+  Message: TypeError: originalNode is null
+  Stack:
+    substitute@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://dcc-at-joint-dot-ax/direct-currency-converter-2/data/common/dcc-content.js:604:13
+onUpdateSettings@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://dcc-at-joint-dot-ax/direct-currency-converter-2/data/common/dcc-content.js:648:9
+onEvent@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://gre/modules/commonjs/sdk/content/content-worker.js:45:22
+onEvent@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://gre/modules/commonjs/sdk/content/content-worker.js:45:22
+onChromeEvent@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://gre/modules/commonjs/sdk/content/content-worker.js:91:16
+
+
 http://www.cheapestnatostraps.com/
 
 <span data-currency-usd="$18.95" class="money">$18.95</span>
@@ -18,6 +28,7 @@ Refactoring:
 Use the RegionFormat class.
 Option to use € or EUR etc
 Update test page too after currency change.
+Select/unselect all currencies.
 Set conversion on individual tabs?
 Controller, so we can reinit and stuff that are done at start
 Testing
@@ -49,3 +60,5 @@ viewer.css:1309
 .textLayer {
     opacity: 0.2;
 }
+
+

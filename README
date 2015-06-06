@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.1.1.0
-Date: 2015-05-23
+Version: 2.1.2.0
+Date: 2015-06-06
 
 After installation, you'll have two new buttons in the Firefox toolbar.
 
@@ -141,3 +141,9 @@ Improved localisation, using default currency formats from Unicode Common Locale
 Changed some settings to CLDR names.
 Internal change: general code rewrite in order to ease maintenance and porting between web browsers.
 
+Version: 2.1.2.0
+Date: 2015-06-06
+Fix: upgrade settings from older versions.
+Fix: reset settings
+Fix: aWorker.tab is not defined
+Internal change: included code changes from the Google Chrome version.

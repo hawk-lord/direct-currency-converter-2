@@ -5,7 +5,7 @@
  *
  */
 const YahooQuotesServiceProvider = function(anEventAggregator) {
-    "use strict";
+    // "use strict";
     const eventAggregator = anEventAggregator;
     var convertToCurrency;
     var quoteQueriesFromTo = [];

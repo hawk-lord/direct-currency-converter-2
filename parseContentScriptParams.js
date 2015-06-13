@@ -12,7 +12,7 @@
  * @constructor
  */
 const ParseContentScriptParams = function(aContentScriptParams, anInformationHolder) {
-    "use strict";
+    // "use strict";
     anInformationHolder.convertToCurrency = aContentScriptParams.convertToCurrency;
     anInformationHolder.convertToCountry = aContentScriptParams.convertToCountry;
     anInformationHolder.customSymbols = aContentScriptParams.customSymbols;

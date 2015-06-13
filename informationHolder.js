@@ -20,7 +20,7 @@
  * @constructor
  */
 const InformationHolder = function(aDefaultEnabledCurrencies, aDefaultExcludedDomains, aStorageService, aCurrencyData, aCurrencySymbols, anIso4217Currencies, aRegionFormats, _) {
-    "use strict";
+    // "use strict";
     const defaultEnabledCurrencies = aDefaultEnabledCurrencies;
     const conversionQuotes = {};
     const findCurrency = function(aCountry) {

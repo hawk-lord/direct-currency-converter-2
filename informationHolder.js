@@ -21,6 +21,7 @@
  */
 const InformationHolder = function(aDefaultEnabledCurrencies, aDefaultExcludedDomains, aStorageService, aCurrencyData, aCurrencySymbols, anIso4217Currencies, aRegionFormats, _) {
     "use strict";
+    const defaultEnabledCurrencies = aDefaultEnabledCurrencies;
     const conversionQuotes = {};
     const findCurrency = function(aCountry) {
         const regions = aCurrencyData.region;
@@ -53,17 +54,14 @@ const InformationHolder = function(aDefaultEnabledCurrencies, aDefaultExcludedDo
         return foundCurrency;
     };
     var numberOfReadCurrencies = 0;
-    /**
-     * Domains that should not be converted.
-     * TODO use in PageMod instead
-     * @type {string[]}
-     * @private
-     */
     var conversionEnabled = aStorageService.enableOnStart;
     const _currencyNames = {};
     anIso4217Currencies.forEach(function(aCurrency) {
-        if (!aDefaultEnabledCurrencies[aCurrency]) {
-            aDefaultEnabledCurrencies[aCurrency] = false;
+        if (defaultEnabledCurrencies[aCurrency] == null) {
+            defaultEnabledCurrencies[aCurrency] = false;
+        }
+        if (aStorageService.enabledCurrencies[aCurrency] == null) {
+            aStorageService.setEnabledCurrency(aCurrency, defaultEnabledCurrencies[aCurrency]);
         }
         _currencyNames[aCurrency] = _(aCurrency);
     });
@@ -106,7 +104,7 @@ const InformationHolder = function(aDefaultEnabledCurrencies, aDefaultExcludedDo
         numberOfReadCurrencies = 0;
     };
     const resetSettings = function() {
-        aStorageService.resetSettings(aDefaultEnabledCurrencies);
+        aStorageService.resetSettings(defaultEnabledCurrencies);
     };
 
     return {

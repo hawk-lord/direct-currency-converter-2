@@ -9,7 +9,7 @@
  * Module pattern is used.
  */
 const DirectCurrencySettings = (function() {
-    "use strict";
+    // "use strict";
     const escapeHtml = function(s) {
         if (s === null || s == null) {
             return "";

@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.1.2.0
-Date: 2015-06-06
+Version: 2.1.2+1
+Date: 2015-07-12
 
 After installation, you'll have two new buttons in the Firefox toolbar.
 
@@ -147,3 +147,9 @@ Fix: upgrade settings from older versions.
 Fix: reset settings
 Fix: aWorker.tab is not defined
 Internal change: included code changes from the Google Chrome version.
+
+Version: 2.1.2+1
+Date: 2015-07-12
+Fix: save selected currencies.
+Internal change: built with JPM, not with CFX.
+

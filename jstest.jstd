@@ -17,7 +17,7 @@ load:
   - lib/dcc-common-lib/regionFormat.js
 # SyntaxError: let is a reserved identifier
   - lib/dcc-common-lib/yahoo-quotes.js
-  - lib/ff-chromeInterface.js
+#  - lib/ff-chromeInterface.js
 # SyntaxError: let is a reserved identifier
   - lib/ff-contentInterface.js
 # SyntaxError: let is a reserved identifier

@@ -1,6 +1,6 @@
 {
   "contributors": "",
-  "id": "dcc@joint.ax",
+  "id": "dcc-fennec@joint.ax",
   "preferences": [
     {
       "title": "Preferences",
@@ -11,7 +11,7 @@
   ],
   "_lib": "lib",
   "author": "Per Johansson",
-  "version": "2.2.0+0",
+  "version": "2.2.0+1",
   "_xxx": "My remark: underscore xxx means disabled",
   "_main": "ff-main",
   "main": "./lib/ff-main",
@@ -22,7 +22,7 @@
   "_icon64": "data/images/1402781517_currency_exchange_1.png",
   "dependencies": "",
   "_fullName": "Direct Currency Converter",
-  "title": "Direct Currency Converter",
+  "title": "Direct Currency Converter for Firefox for Android",
   "permissions": {
     "private-browsing": true,
     "cross-domain-content": [
@@ -30,7 +30,7 @@
       "http://example.com/"
     ]
   },
-  "name": "direct-currency-converter-2",
+  "name": "direct-currency-converter-2-fennec",
   "license": "MPL 2.0",
   "_packages": "packages",
   "translators": "",

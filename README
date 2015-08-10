@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.2.0+1
-Date: 2015-08-04
+Version: 2.2.0+2
+Date: 2015-08-10
 
 After installation, you'll have a new submenu in the Firefox menu.
 
@@ -59,3 +59,7 @@ History
 Version: 2.2.0+1
 Date: 2015-08-04
 First release for Firefox for Android.
+
+Version: 2.2.0+2
+Date: 2015-08-10
+Internal change: merged repository with Firefox.

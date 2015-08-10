@@ -11,7 +11,7 @@
   ],
   "_lib": "lib",
   "author": "Per Johansson",
-  "version": "2.1.2+1",
+  "version": "2.2.0+0",
   "_xxx": "My remark: underscore xxx means disabled",
   "_main": "ff-main",
   "main": "./lib/ff-main",

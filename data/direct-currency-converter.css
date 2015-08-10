@@ -4,8 +4,15 @@
  * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *
  * Partially based on code from Simple Currency Converter
- * https://addons.mozilla.org/en-US/firefox/addon/simple-currency-converter/
+ * https://addons.mozilla.org/addon/simple-currency-converter/
  */
+
+/*
+Unsupported on Firefox 39
+@viewport {
+    width: device-width;
+}
+*/
 
 /* Colours */
 
@@ -52,7 +59,7 @@ legend {
 body {
     border-width:0;
     font-family:Arial,serif;
-    font-size:13px;
+    font-size:14px;
     margin: 0;
     max-height:100%;
     padding:0;
@@ -73,6 +80,12 @@ legend {
     font-size:14px;
     font-weight:bold;
     padding:4px;
+}
+
+ol li {
+    display: inline-block;
+    padding: 0em 0.5em;
+
 }
 
 ul {

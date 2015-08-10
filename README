@@ -1,6 +1,6 @@
 Direct Currency Converter
 
-Version: 2.1.2+1
+Version: 2.1.2+2
 Date: 2015-07-12
 
 After installation, you'll have two new buttons in the Firefox toolbar.
@@ -152,4 +152,8 @@ Version: 2.1.2+1
 Date: 2015-07-12
 Fix: save selected currencies.
 Internal change: built with JPM, not with CFX.
+
+Version: 2.1.2+2
+Date: 2015-07-12
+Internal change: new build.
 

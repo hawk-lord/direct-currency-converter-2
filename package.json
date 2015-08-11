@@ -1,6 +1,6 @@
 {
   "contributors": "",
-  "id": "dcc@joint.ax",
+  "id": "dcc-sm@joint.ax",
   "preferences": [
     {
       "title": "Preferences",
@@ -9,20 +9,13 @@
       "label": "Open DCC Preferences"
     }
   ],
-  "_lib": "lib",
   "author": "Per Johansson",
   "version": "2.2.0+0",
-  "_xxx": "My remark: underscore xxx means disabled",
-  "_main": "ff-main",
   "main": "./lib/ff-main",
   "homepage": "http://www.joint.ax/",
-  "_harnessClassID": "",
-  "_tests": "",
   "description": "Converts prices from any currency to prices in a selectable currency automatically while browsing. Supports $, £, ¥, ؋, ৳, ฿, ៛, ₡, ₦, ₨, ₩, ₪, ₫, €, ₭, ₮, ₱, ₲, ₴, ₵, ₸, ₹, ₺, ₼, ₽, ﷼, etc.",
-  "_icon64": "data/images/1402781517_currency_exchange_1.png",
   "dependencies": "",
-  "_fullName": "Direct Currency Converter",
-  "title": "Direct Currency Converter",
+  "title": "Direct Currency Converter for SeaMonkey",
   "permissions": {
     "private-browsing": true,
     "cross-domain-content": [
@@ -30,12 +23,12 @@
       "http://example.com/"
     ]
   },
-  "name": "direct-currency-converter-2",
+    "name": "direct-currency-converter-2-sm",
   "license": "MPL 2.0",
-  "_packages": "packages",
   "translators": "",
   "icon": "data/images/1402781537_currency_exchange_1.png",
   "engines": {
+    "seamonkey": ">=2.33",
     "firefox": ">=38.0a1"
   }
 }

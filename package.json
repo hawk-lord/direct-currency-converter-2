@@ -9,19 +9,12 @@
       "label": "Open DCC Preferences"
     }
   ],
-  "_lib": "lib",
   "author": "Per Johansson",
-  "version": "2.2.0+2",
-  "_xxx": "My remark: underscore xxx means disabled",
-  "_main": "ff-main",
+  "version": "2.2.0+3",
   "main": "./lib/ff-main",
   "homepage": "http://www.joint.ax/",
-  "_harnessClassID": "",
-  "_tests": "",
   "description": "Converts prices from any currency to prices in a selectable currency automatically while browsing. Supports $, £, ¥, ؋, ৳, ฿, ៛, ₡, ₦, ₨, ₩, ₪, ₫, €, ₭, ₮, ₱, ₲, ₴, ₵, ₸, ₹, ₺, ₼, ₽, ﷼, etc.",
-  "_icon64": "data/images/1402781517_currency_exchange_1.png",
   "dependencies": "",
-  "_fullName": "Direct Currency Converter",
   "title": "Direct Currency Converter for Firefox for Android",
   "permissions": {
     "private-browsing": true,
@@ -32,7 +25,6 @@
   },
   "name": "direct-currency-converter-2-fennec",
   "license": "MPL 2.0",
-  "_packages": "packages",
   "translators": "",
   "icon": "data/images/1402781537_currency_exchange_1.png",
   "engines": {

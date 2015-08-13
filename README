@@ -1,9 +1,9 @@
 Direct Currency Converter
 
-Version: 2.2.0+2
-Date: 2015-08-10
+Version: 2.2.0+3
+Date: 2015-08-13
 
-After installation, you'll have a new submenu in the Firefox menu.
+After installation, you'll have a new submenu in the browser menu.
 
 Conversion is enabled or disabled by the "Toggle currency conversion" submenu item.
 
@@ -13,9 +13,9 @@ Settings can be reset to default with the "Reset" button.
 
 The "Test page" submenu item opens a test page with various price examples for all currencies.
 
-Currency rates are taken from Yahoo Finance and updated when you start Firefox or when you switch currency.
+Currency rates are taken from Yahoo Finance and updated when you start the browser or when you switch currency.
 
-Your default location is used to set your default region and currency (for example Finland - euro). It is guessed using the freegeoip.net service. If unavailable, CHF (Swiss franc) will be used.
+Your location is used to set your default region and currency (for example Finland - euro). It is guessed using the freegeoip.net service. If unavailable, CHF (Swiss franc) will be used.
 
 If conversion does not work, it probably means that there was no reply from Yahoo. Try to reload the browser (F5 button) and check the internet connection. Also, force a reload by switching "to currency" from settings tab, save, and reload the web pages.
 
@@ -63,3 +63,7 @@ First release for Firefox for Android.
 Version: 2.2.0+2
 Date: 2015-08-10
 Internal change: merged repository with Firefox.
+
+Version: 2.2.0+2
+Date: 2015-08-10
+Internal change: merged repository with Firefox and SeaMonkey.

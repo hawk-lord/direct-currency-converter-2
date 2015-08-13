@@ -32,7 +32,7 @@ The "from currency" code is shown in brackets after the original value like this
 Amounts without units are not converted.
 Also, if amount and unit are in different HTML elements (for example when they have different colours or sizes) conversion cannot be done.
 
-Currencies in PDF files shown in Firefox (using pdf.js) are converted too, if possible. Converted elements are then shown with a light yellow background.
+Currencies in PDF files shown in the browser (using pdf.js) are converted too, if possible. Converted elements are then shown with a light yellow background.
 
 Optionally, if selected in the settings tab, some traditional units of measurement (such as miles and calories) are converted to SI units (such as kilometres and kilojoules).
 
@@ -44,6 +44,7 @@ Runs on SeaMonkey version 2.33 and later versions.
 External libraries used:
 jQuery 2.1.3
 jQuery UI 1.11.2
+jQuery UI Touch Punch 0.2.3
 
 currencyData.json source, element <currencyData>:
 http://unicode.org/repos/cldr/tags/release-27-0-1/common/supplemental/supplementalData.xml

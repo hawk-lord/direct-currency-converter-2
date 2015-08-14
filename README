@@ -89,3 +89,5 @@ Internal change: Updated jQuery and jQuery UI versions.
 
 Version: 2.2.0+0
 Date: 2015-08-11
+Improved settings window.
+Internal change: using Add-On SDK and shared code with the Firefox version.

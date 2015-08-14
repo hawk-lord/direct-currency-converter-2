@@ -20,9 +20,10 @@ const DirectCurrencySettings = (function() {
         jQuery( "#toggleCurrencies" ).click(function() {
             jQuery("fieldset.currencies").toggleClass( "minimised" );
         });
-        jQuery("#enabledCurrencies, #disabledCurrencies" ).sortable({
-            connectWith: ".connectedSortable"
-        }).disableSelection();
+        jQuery("#fromCurrencies").sortable({
+            revert: true
+        });
+        jQuery("ol, li").disableSelection();
         jQuery("#convert_to_currency").change(function() {
             const currencyCountry = jQuery(this).val();
             convertToCurrency = currencyCountry.substr(0, 3);
@@ -88,13 +89,16 @@ const DirectCurrencySettings = (function() {
             }
             excludedDomains = excludedLines;
             enabledCurrencies = {};
-            var listItems = jQuery("#enabledCurrencies").find("li");
-            listItems.each(function () {
-                enabledCurrencies[jQuery(this).attr('id')] = true;
-            });
-            listItems = jQuery("#disabledCurrencies").find("li");
-            listItems.each(function() {
-                enabledCurrencies[jQuery(this).attr('id')] = false;
+            const liFromCurrencies = jQuery("#fromCurrencies").find("li");
+            liFromCurrencies.each(function () {
+                var inputs = jQuery(this).find("input");
+                var input = jQuery(inputs)[0];
+                if (input && input.checked) {
+                    enabledCurrencies[jQuery(this).attr("id")] = true;
+                }
+                else {
+                    enabledCurrencies[jQuery(this).attr("id")] = false;
+                }
             });
             const contentScriptParams = {};
             contentScriptParams.convertToCurrency = escapeHtml(convertToCurrency);
@@ -148,16 +152,25 @@ const DirectCurrencySettings = (function() {
         const excludedText = excludedDomains.join("\n").replace(/\n/g, "\r\n");
         jQuery("#excluded_domains").val(excludedText);
         for (var currency in enabledCurrencies) {
+            var li = jQuery(document.createElement("li")).attr({
+                class: "ui-state-default",
+                id: currency
+            });
+            jQuery("#fromCurrencies").append(li);
+            var label = jQuery(document.createElement("label"));
+            li.append(label);
             if (enabledCurrencies[currency]) {
-                jQuery("#enabledCurrencies").append(jQuery(document.createElement("li")).attr({
-                        id: currency
-                }).append(currencyNames[currency]));
+                label.append(jQuery(document.createElement("input")).attr({
+                    type: "checkbox",
+                    checked: "checked"
+                }));
             }
             else {
-                jQuery("#disabledCurrencies").append(jQuery(document.createElement("li")).attr({
-                        id: currency
-                }).append(currencyNames[currency]));
+                label.append(jQuery(document.createElement("input")).attr({
+                    type: "checkbox"
+                }));
             }
+            label.append(currencyNames[currency]);
         }
         jQuery("#adjustment_percentage").val(quoteAdjustmentPercent);
         jQuery("#always_round").prop("checked", roundAmounts);

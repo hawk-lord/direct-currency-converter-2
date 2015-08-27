@@ -40,8 +40,7 @@ test:
 #  - test/test-ff-storage-service.js
   - test/test-freegeoip-service.js
   - test/test-informationHolder.js
-# [ERROR] err TypeError: eventAggregator is undefined
-#  - test/test-yahoo-quotes.js
+  - test/test-yahoo-quotes.js
 exclude:
  - test/test-main.js
 

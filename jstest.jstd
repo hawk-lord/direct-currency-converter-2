@@ -31,18 +31,18 @@ load:
   - lib/ff-yahoo-quotes-service.js
 
 test:
-  - test/test-contentScriptParams.js
-  - test/test-dcc-content.js
-  - test/test-dcc-regexes.js
-  - test/test-dcc-settings.js
-  - test/test-eventAggregator.js
+  - test/jstestrunner/test-contentScriptParams.js
+  - test/jstestrunner/test-dcc-content.js
+  - test/jstestrunner/test-dcc-regexes.js
+  - test/jstestrunner/test-dcc-settings.js
+  - test/jstestrunner/test-eventAggregator.js
 # ReferenceError: require is not defined
-#  - test/test-ff-storage-service.js
-  - test/test-freegeoip-service.js
-  - test/test-informationHolder.js
-  - test/test-yahoo-quotes.js
+#  - test/jstestrunner/test-ff-storage-service.js
+  - test/jstestrunner/test-freegeoip-service.js
+  - test/jstestrunner/test-informationHolder.js
+  - test/jstestrunner/test-yahoo-quotes.js
 exclude:
- - test/test-main.js
+ - test/jstestrunner/test-main.js
 
 serve:
  - data/direct-currency-converter.css

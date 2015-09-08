@@ -43,6 +43,7 @@ const onQuoteReceived = function(eventArgs) {
     convertFromCurrency = eventArgs.convertFromCurrency;
     quote = eventArgs.quote;
 };
+// Needed!
 eventAggregator.subscribe("quoteReceived", onQuoteReceived);
 
 describe("YahooQuotesServiceProvider", function() {

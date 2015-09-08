@@ -1,4 +1,4 @@
-const ContentScriptParams = require("../../lib/dcc-common-lib/contentScriptParams").ContentScriptParams;
+var ContentScriptParams = require("../../lib/dcc-common-lib/contentScriptParams").ContentScriptParams;
 const assert = require("assert");
 
 const MockInformationHolder = function () {
@@ -18,7 +18,7 @@ MockInformationHolder.prototype.getCurrencyNames = () => {
 const informationHolder = new MockInformationHolder();
 
 
-describe("ContentScriptParams", function () {
+describe("ContentScriptParams", ()  => {
     "use strict";
     it("Testing ContentScriptParams", function () {
         const contentScriptParams = new ContentScriptParams(null, informationHolder);

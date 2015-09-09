@@ -3,12 +3,14 @@
  */
 const MockContentScriptParams = function () {
 };
-MockContentScriptParams.prototype.excludedDomains = () => {
-    return [];
-};
+MockContentScriptParams.prototype.excludedDomains = [];
 MockContentScriptParams.prototype.currencySymbols = () => {
     return [];
 };
 MockContentScriptParams.prototype.customSymbols = () => {
     return [];
 };
+MockContentScriptParams.prototype.enabledCurrencies = () => {
+    return {};
+};
+

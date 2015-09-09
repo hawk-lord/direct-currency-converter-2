@@ -1,6 +1,6 @@
-var ContentScriptParams = require("../../lib/dcc-common-lib/contentScriptParams").ContentScriptParams;
-const assert = require("assert");
-
+/**
+ * Created by per on 2015-09-09.
+ */
 /**
  * Handmade mock object.
  *
@@ -20,16 +20,4 @@ MockInformationHolder.prototype.getCurrencyNames = () => {
 MockInformationHolder.prototype.getCurrencyNames = () => {
     return {};
 };
-const informationHolder = new MockInformationHolder();
-
-/**
- *
- */
-describe("ContentScriptParams", ()  => {
-    "use strict";
-    it("Testing ContentScriptParams", function () {
-        const contentScriptParams = new ContentScriptParams(null, informationHolder);
-    })
-});
-
 

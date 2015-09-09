@@ -17,9 +17,25 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             // default was false
-            {pattern: 'test/karma/dcc-mock-content-adapter.js', included: true},
             {pattern: 'data/common/dcc-content.js', included: true},
-            {pattern: 'test/karma/test-dcc-content.js', included: true}
+            {pattern: 'data/common/dcc-regexes.js', included: true},
+            {pattern: 'lib/dcc-common-lib/eventAggregator.js', included: true},
+            {pattern: 'lib/ff-storage-service.js', included: true},
+            {pattern: 'lib/dcc-common-lib/freegeoip-service.js', included: true},
+            {pattern: 'lib/dcc-common-lib/informationHolder.js', included: true},
+            {pattern: 'lib/dcc-common-lib/yahoo-quotes.js', included: true},
+            {pattern: 'test/karma/dcc-mock-content-adapter.js', included: true},
+            {pattern: 'test/karma/dcc-mock-contentscriptparams.js', included: true},
+            {pattern: 'test/karma/dcc-mock-informationholder.js', included: true},
+            {pattern: 'test/karma/dcc-mock-status.js', included: true},
+            {pattern: 'test/karma/test-contentScriptParams.js', included: true},
+            {pattern: 'test/karma/test-dcc-content.js', included: true},
+            {pattern: 'test/karma/test-dcc-regexes.js', included: true},
+            {pattern: 'test/karma/test-eventAggregator.js', included: true},
+            {pattern: 'test/karma/test-ff-storage-service.js', included: true},
+            {pattern: 'test/karma/test-freegeoip-service.js', included: true},
+            {pattern: 'test/karma/test-informationHolder.js', included: true},
+            {pattern: 'test/karma/test-yahoo-quotes.js', included: true}
         ],
 
 

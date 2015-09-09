@@ -17,8 +17,10 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             // default was false
+            {pattern: 'data/common/jquery-2.1.3.min.js', included: true},
             {pattern: 'data/common/dcc-content.js', included: true},
             {pattern: 'data/common/dcc-regexes.js', included: true},
+            {pattern: 'data/common/dcc-settings.js', included: true},
             {pattern: 'lib/dcc-common-lib/eventAggregator.js', included: true},
             {pattern: 'lib/ff-storage-service.js', included: true},
             {pattern: 'lib/dcc-common-lib/freegeoip-service.js', included: true},
@@ -31,6 +33,7 @@ module.exports = function (config) {
             {pattern: 'test/karma/test-contentScriptParams.js', included: true},
             {pattern: 'test/karma/test-dcc-content.js', included: true},
             {pattern: 'test/karma/test-dcc-regexes.js', included: true},
+            {pattern: 'test/karma/test-dcc-settings.js', included: true},
             {pattern: 'test/karma/test-eventAggregator.js', included: true},
             {pattern: 'test/karma/test-ff-storage-service.js', included: true},
             {pattern: 'test/karma/test-freegeoip-service.js', included: true},

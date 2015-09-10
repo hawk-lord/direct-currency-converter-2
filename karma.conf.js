@@ -5,40 +5,40 @@ module.exports = function (config) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '',
-
+        basePath: "",
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        //frameworks: ['mocha', 'requirejs'],
-        frameworks: ['mocha','chai'],
-
+        frameworks: ["mocha","chai"],
 
         // list of files / patterns to load in the browser
         files: [
             // default was false
-            {pattern: 'data/common/jquery-2.1.3.min.js', included: true},
-            {pattern: 'data/common/dcc-content.js', included: true},
-            {pattern: 'data/common/dcc-regexes.js', included: true},
-            {pattern: 'data/common/dcc-settings.js', included: true},
-            {pattern: 'lib/dcc-common-lib/eventAggregator.js', included: true},
-            {pattern: 'lib/ff-storage-service.js', included: true},
-            {pattern: 'lib/dcc-common-lib/freegeoip-service.js', included: true},
-            {pattern: 'lib/dcc-common-lib/informationHolder.js', included: true},
-            {pattern: 'lib/dcc-common-lib/yahoo-quotes.js', included: true},
-            {pattern: 'test/karma/dcc-mock-content-adapter.js', included: true},
-            {pattern: 'test/karma/dcc-mock-contentscriptparams.js', included: true},
-            {pattern: 'test/karma/dcc-mock-informationholder.js', included: true},
-            {pattern: 'test/karma/dcc-mock-status.js', included: true},
-            {pattern: 'test/karma/test-contentScriptParams.js', included: true},
-            {pattern: 'test/karma/test-dcc-content.js', included: true},
-            {pattern: 'test/karma/test-dcc-regexes.js', included: true},
-            {pattern: 'test/karma/test-dcc-settings.js', included: true},
-            {pattern: 'test/karma/test-eventAggregator.js', included: true},
-            {pattern: 'test/karma/test-ff-storage-service.js', included: true},
-            {pattern: 'test/karma/test-freegeoip-service.js', included: true},
-            {pattern: 'test/karma/test-informationHolder.js', included: true},
-            {pattern: 'test/karma/test-yahoo-quotes.js', included: true}
+            {pattern: "data/common/jquery-2.1.3.min.js", included: true},
+            {pattern: "data/common/dcc-content.js", included: true},
+            {pattern: "data/common/dcc-regexes.js", included: true},
+            {pattern: "data/common/dcc-settings.js", included: true},
+            {pattern: "lib/dcc-common-lib/eventAggregator.js", included: true},
+            {pattern: "lib/ff-chromeInterface.js", included: true},
+            {pattern: "lib/ff-storage-service.js", included: true},
+            {pattern: "lib/dcc-common-lib/freegeoip-service.js", included: true},
+            {pattern: "lib/dcc-common-lib/informationHolder.js", included: true},
+            {pattern: "lib/dcc-common-lib/yahoo-quotes.js", included: true},
+            {pattern: "test/karma/dcc-mock-content-adapter.js", included: true},
+            {pattern: "test/karma/dcc-mock-contentscriptparams.js", included: true},
+            {pattern: "test/karma/dcc-mock-informationholder.js", included: true},
+            {pattern: "test/karma/dcc-mock-status.js", included: true},
+            {pattern: "test/karma/test-contentScriptParams.js", included: true},
+            {pattern: "test/karma/test-dcc-content.js", included: true},
+            {pattern: "test/karma/test-dcc-regexes.js", included: true},
+            {pattern: "test/karma/test-dcc-settings.js", included: true},
+            {pattern: "test/karma/test-dcc-firefox-content-adapter.js", included: true},
+            {pattern: "test/karma/test-eventAggregator.js", included: true},
+            {pattern: "test/karma/test-ff-chromeInterface.js", included: true},
+            {pattern: "test/karma/test-ff-storage-service.js", included: true},
+            {pattern: "test/karma/test-freegeoip-service.js", included: true},
+            {pattern: "test/karma/test-informationHolder.js", included: true},
+            {pattern: "test/karma/test-yahoo-quotes.js", included: true}
         ],
 
 
@@ -52,9 +52,9 @@ module.exports = function (config) {
 
 
         // test results reporter to use
-        // possible values: 'dots', 'progress'
+        // possible values: "dots", "progress"
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ["progress"],
 
 
         // web server port
@@ -76,9 +76,9 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Firefox'],
+        browsers: ["Firefox"],
 
-        plugins : ['karma-firefox-launcher', 'karma-phantomjs-launcher', 'karma-chai', 'karma-mocha'],
+        plugins : ["karma-firefox-launcher", "karma-phantomjs-launcher", "karma-chai", "karma-mocha"],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

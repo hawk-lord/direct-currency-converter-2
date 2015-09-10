@@ -25,4 +25,18 @@ describe("FirefoxChromeInterface", function() {
             const firefoxChromeInterface = new FirefoxChromeInterface(_, MockPanel, ToggleButton, eventAggregator);
         });
     });
+    describe("#enabled", function() {
+        const enabled = true;
+        it("enabled", function () {
+            const firefoxChromeInterface = new FirefoxChromeInterface(_, MockPanel, ToggleButton, eventAggregator);
+            firefoxChromeInterface.setConversionButtonState(enabled);
+        });
+    });
+    describe("#toolsButtonText", function() {
+        const toolsButtonText = "DCC";
+        it("toolsButtonText", function () {
+            const firefoxChromeInterface = new FirefoxChromeInterface(_, MockPanel, ToggleButton, eventAggregator);
+            firefoxChromeInterface.setToolsButtonText(toolsButtonText);
+        });
+    });
 });

@@ -23,6 +23,7 @@ module.exports = function (config) {
             {pattern: "lib/ff-contentInterface.js", included: true},
             {pattern: "lib/ff-freegeoip-service.js", included: true},
             {pattern: "lib/ff-storage-service.js", included: true},
+            {pattern: "lib/dcc-common-lib/contentScriptParams.js", included: true},
             {pattern: "lib/dcc-common-lib/freegeoip-service.js", included: true},
             {pattern: "lib/dcc-common-lib/informationHolder.js", included: true},
             {pattern: "lib/dcc-common-lib/yahoo-quotes.js", included: true},

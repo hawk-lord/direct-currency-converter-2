@@ -6,8 +6,8 @@ const informationHolder = new MockInformationHolder();
  */
 describe("ContentScriptParams", ()  => {
     "use strict";
-    it("Testing ContentScriptParams", function () {
-        const contentScriptParams = new MockContentScriptParams(null, informationHolder);
+    it("should not fail", function () {
+        const contentScriptParams = new ContentScriptParams(null, informationHolder);
     })
 });
 

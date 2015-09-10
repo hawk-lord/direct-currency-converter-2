@@ -2,11 +2,26 @@
  * Created by per on 2015-09-10.
  */
 
+
+const MockRequest = function(urlString, fn) {
+    "use strict";
+};
+MockRequest.prototype.get = function() {};
+
+
+
 describe("FirefoxFreegeoipServiceProvider", function() {
     "use strict";
     describe("#new", function() {
-        it("new", function () {
-            const freegeoipServiceProvider = new FirefoxFreegeoipServiceProvider();
+        it("should not fail", function () {
+            const freegeoipServiceProvider = new FirefoxFreegeoipServiceProvider(MockRequest, eventAggregator);
+        });
+    });
+    describe("#findCountry", function() {
+        it("should not fail", function () {
+            const urlString = "";
+            const freegeoipServiceProvider = new FirefoxFreegeoipServiceProvider(MockRequest, eventAggregator);
+            freegeoipServiceProvider.findCountry(urlString);
         });
     })
 });

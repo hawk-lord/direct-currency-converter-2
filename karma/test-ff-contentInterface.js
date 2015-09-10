@@ -3,15 +3,6 @@
  */
 
 
-
-/*
-const MockPanel = function() {
-    "use strict";
-};
-MockPanel.prototype.port = {};
-MockPanel.prototype.port.on = function() {};
-*/
-
 const PageMod = function() {
     "use strict";
 
@@ -23,16 +14,6 @@ const tabs = function() {
 tabs.on = function (what, fn) {};
 tabs.open = function () {};
 tabs.activeTab = {};
-
-/*
- watchForPages: watchForPages,
- toggleConversion: toggleConversion, conversionEnabled
- showSettingsTab: showSettingsTab,
- showTestTab: showTestTab,
- //registerToTabsEvents: registerToTabsEvents,
- closeSettingsTab: closeSettingsTab
-
- */
 
 describe("FirefoxContentInterface", function() {
     "use strict";

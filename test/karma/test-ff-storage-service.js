@@ -12,7 +12,7 @@ describe("FirefoxStorageServiceProvider", function() {
 
     const storage = new MockStorage();
     describe("#init", function() {
-        it("should not fail", function () {
+        it("should have default values", function () {
             const firefoxStorageServiceProvider = new FirefoxStorageServiceProvider(storage);
             firefoxStorageServiceProvider.init(defaultEnabledCurrencies, defaultExcludedDomains);
             assert.isUndefined(firefoxStorageServiceProvider.convertToCurrency, "convertToCurrency");

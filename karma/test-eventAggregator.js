@@ -1,21 +1,18 @@
-
-describe("eventAggregator", function() {
+/**
+ * TODO use new EventAggregator()?
+ */
+describe("eventAggregator", () => {
     "use strict";
-    const eventName = "EVENT";
-    const eventArgs = {test: "DONE"};
-    const handler = (args) => {
-        console.log(args.test);
-        return 0;
-    };
-    describe("#publish()", function() {
-        it("test", function () {
-            eventAggregator.publish(eventName, eventArgs);
-        });
+    it("should not fail", () => {
+        var called = false;
+        const eventName = "message";
+        const eventArgs = { foo : "bar" };
+        const callback = (data) => {
+                called = (data === eventArgs);
+            };
+        eventAggregator.subscribe(eventName, callback);
+        eventAggregator.publish(eventName, eventArgs);
+        assert(called);
     });
-    describe("#subscribe()", function() {
-        it("test", function () {
-            eventAggregator.subscribe(eventName, handler);
-        });
-    })
 });
 

@@ -666,10 +666,10 @@ const DirectCurrencyContent = (function() {
         quoteAdjustmentPercent = +contentScriptParams.quoteAdjustmentPercent;
 
         enabledCurrenciesWithRegexes.length = 0;
-        for (var currency in contentScriptParams.enabledCurrencies) {
+        for (var currency of contentScriptParams.convertFroms) {
             // Add enabled currencies to enabledCurrenciesWithRegexes
-            if (contentScriptParams.enabledCurrencies[currency]) {
-                enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency, regex1[currency], regex2[currency]));
+            if (currency.enabled) {
+                enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency.isoName, regex1[currency.isoName], regex2[currency.isoName]));
             }
         }
         if (tempConvertUnits) {

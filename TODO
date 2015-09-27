@@ -1,3 +1,7 @@
+require SDK to an own module
+
+
+
 console.error: direct-currency-converter-2:
   Message: TypeError: originalNode is null
   Stack:

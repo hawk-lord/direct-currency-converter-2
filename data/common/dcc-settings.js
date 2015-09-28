@@ -88,16 +88,16 @@ const DirectCurrencySettings = (function() {
                 excludedLines = [];
             }
             excludedDomains = excludedLines;
-            enabledCurrencies = {};
+            convertFroms = [];
             const liFromCurrencies = jQuery("#fromCurrencies").find("li");
             liFromCurrencies.each(function () {
                 var inputs = jQuery(this).find("input");
                 var input = jQuery(inputs)[0];
                 if (input && input.checked) {
-                    enabledCurrencies[jQuery(this).attr("id")] = true;
+                    convertFroms.push({"isoName": jQuery(this).attr("id"), "enabled": true});
                 }
                 else {
-                    enabledCurrencies[jQuery(this).attr("id")] = false;
+                    convertFroms.push({"isoName": jQuery(this).attr("id"), "enabled": false});
                 }
             });
             const contentScriptParams = {};
@@ -109,8 +109,8 @@ const DirectCurrencySettings = (function() {
             contentScriptParams.enableOnStart = enableOnStart;
             contentScriptParams.excludedDomains = excludedDomains;
             Object.keys(contentScriptParams.excludedDomains).forEach(escapeHtml);
-            contentScriptParams.enabledCurrencies = enabledCurrencies;
-            Object.keys(contentScriptParams.enabledCurrencies).forEach(escapeHtml);
+            contentScriptParams.convertFroms = convertFroms;
+            //Object.keys(contentScriptParams.convertFroms).forEach(escapeHtml);
             contentScriptParams.quoteAdjustmentPercent = escapeHtml(quoteAdjustmentPercent);
             contentScriptParams.roundAmounts = roundAmounts;
             contentScriptParams.currencySpacing = currencySpacing? "\u00a0" : "";
@@ -131,7 +131,7 @@ const DirectCurrencySettings = (function() {
     var monetarySeparatorSymbol = null;
     var enableOnStart = null;
     var excludedDomains = [];
-    var enabledCurrencies = {};
+    var convertFroms = [];
     var quoteAdjustmentPercent = null;
     var roundAmounts = null;
     var currencySpacing = null;
@@ -151,15 +151,15 @@ const DirectCurrencySettings = (function() {
         jQuery("#enable_conversion").prop("checked", enableOnStart);
         const excludedText = excludedDomains.join("\n").replace(/\n/g, "\r\n");
         jQuery("#excluded_domains").val(excludedText);
-        for (var currency in enabledCurrencies) {
+        for (var currency of convertFroms) {
             var li = jQuery(document.createElement("li")).attr({
                 class: "ui-state-default",
-                id: currency
+                id: currency.isoName
             });
             jQuery("#fromCurrencies").append(li);
             var label = jQuery(document.createElement("label"));
             li.append(label);
-            if (enabledCurrencies[currency]) {
+            if (currency.enabled) {
                 label.append(jQuery(document.createElement("input")).attr({
                     type: "checkbox",
                     checked: "checked"
@@ -170,7 +170,7 @@ const DirectCurrencySettings = (function() {
                     type: "checkbox"
                 }));
             }
-            label.append(currencyNames[currency]);
+            label.append(currencyNames[currency.isoName]);
         }
         jQuery("#adjustment_percentage").val(quoteAdjustmentPercent);
         jQuery("#always_round").prop("checked", roundAmounts);
@@ -260,8 +260,8 @@ const DirectCurrencySettings = (function() {
         enableOnStart = contentScriptParams.enableOnStart;
         excludedDomains = contentScriptParams.excludedDomains;
         excludedDomains.map(escapeHtml);
-        enabledCurrencies = contentScriptParams.enabledCurrencies;
-        Object.keys(enabledCurrencies).forEach(escapeHtml);
+        convertFroms = contentScriptParams.convertFroms;
+        //Object.keys(convertFroms).forEach(escapeHtml);
         quoteAdjustmentPercent = escapeHtml(contentScriptParams.quoteAdjustmentPercent);
         roundAmounts = contentScriptParams.roundAmounts;
         currencySpacing = contentScriptParams.currencySpacing;

@@ -6,5 +6,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sdk" level="application" />
     <orderEntry type="library" name="JsTestDriver Assertion Framework" level="application" />
+    <orderEntry type="library" name="direct-currency-converter-2 node_modules" level="project" />
   </component>
 </module>

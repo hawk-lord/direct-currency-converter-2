@@ -1,3 +1,38 @@
+// Start jpm run
+ReferenceError: reference to undefined property storage.dccPrefs.convertToCurrency ff-storage-service.js:101:13
+
+// Settings jpm run
+ReferenceError: reference to undefined property customSymbols[currencyVal] dcc-settings.js:204:9
+ReferenceError: reference to undefined property customSymbols[convertToCurrency] dcc-settings.js:146:9
+
+// Settings jpm xpi
+TypeError: jQuery(...).sortable is not a function dcc-settings.js:23:1
+
+direct-currency-converter-2:TypeError: setting a property that has only a getter
+Stack trace:
+FirefoxContentInterface/watchForPages/releaseTab@resource://gre/modules/commonjs/toolkit/loader.js -> resource://dcc-at-joint-dot-ax/lib/ff-contentInterface.js:142:21
+emitOnObject@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:112:9
+emit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:89:38
+emitOnObject@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:112:9
+emit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:89:38
+emitOnObject@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:123:45
+emit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:89:38
+tabEmit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/tabs/tab-firefox.js:244:31
+tabEventListener@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/tabs/tab-firefox.js:299:23
+emitOnObject@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:112:9
+emit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:89:38
+emitOnObject@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:123:45
+emit@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/event/core.js:89:38
+handleEvent@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/tabs/observer.js:109:5
+_beginRemoveTab@chrome://browser/content/tabbrowser.xml:2203:13
+removeTab@chrome://browser/content/tabbrowser.xml:2086:18
+removeCurrentTab@chrome://browser/content/tabbrowser.xml:2057:13
+BrowserCloseTabOrWindow@chrome://browser/content/browser.js:13350:3
+oncommand@chrome://browser/content/browser.xul:1:1
+
+
+
+
 require SDK to an own module
 
 

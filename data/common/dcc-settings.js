@@ -143,7 +143,9 @@ const DirectCurrencySettings = (function() {
     const setUIFromPreferences = function() {
         jQuery("#convert_to_currency").val(convertToCurrency + "_" + convertToCountry);
         onCurrencyChange(convertToCurrency);
-        jQuery("#custom_symbol").val(escapeHtml(customSymbols[convertToCurrency]));
+        if (customSymbols[convertToCurrency]) {
+            jQuery("#custom_symbol").val(escapeHtml(customSymbols[convertToCurrency]));
+        }
         jQuery("#monetary_separator_symbol").val(monetarySeparatorSymbol);
         jQuery("#preview_monetary_separator_symbol").html(monetarySeparatorSymbol);
         jQuery("#monetary_grouping_separator_symbol").val(monetaryGroupingSeparatorSymbol);
@@ -201,7 +203,9 @@ const DirectCurrencySettings = (function() {
     };
     const onCurrencyChange = function(val) {
         var currencyVal = escapeHtml(val);
-        jQuery("#custom_symbol").val(customSymbols[currencyVal]);
+        if (customSymbols[currencyVal]) {
+            jQuery("#custom_symbol").val(customSymbols[currencyVal]);
+        }
         const allCurrencySymbols = jQuery.extend({}, currencySymbols, customSymbols);
         if (currencyVal in allCurrencySymbols) {
             currencyVal = allCurrencySymbols[currencyVal];

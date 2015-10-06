@@ -75,10 +75,10 @@ const InformationHolder = function(aDefaultExcludedDomains, aStorageService, aCu
         return numberOfReadCurrencies >= aConvertFroms.length;
     };
     const makeQuoteString = function(aConvertFromCurrency) {
-        const quote = conversionQuotes[aConvertFromCurrency];
+        const quote = conversionQuotes[aConvertFromCurrency.isoName];
         const conversionQuote = (parseFloat(quote)).toFixed(4);
-        if (aConvertFromCurrency != aStorageService.convertToCurrency) {
-            const quoteString = "1 " + aConvertFromCurrency + " = " + conversionQuote.replace(".", aStorageService.monetarySeparatorSymbol) + " " + aStorageService.convertToCurrency;
+        if (aConvertFromCurrency.isoName != aStorageService.convertToCurrency) {
+            const quoteString = "1 " + aConvertFromCurrency.isoName + " = " + conversionQuote.replace(".", aStorageService.monetarySeparatorSymbol) + " " + aStorageService.convertToCurrency;
             quoteStrings.push(quoteString);
         }
     };

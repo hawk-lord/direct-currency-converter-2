@@ -75,11 +75,17 @@ const InformationHolder = function(aDefaultExcludedDomains, aStorageService, aCu
         return numberOfReadCurrencies >= aConvertFroms.length;
     };
     const makeQuoteString = function(aConvertFromCurrency) {
-        const quote = conversionQuotes[aConvertFromCurrency.isoName];
-        const conversionQuote = (parseFloat(quote)).toFixed(4);
         if (aConvertFromCurrency.isoName != aStorageService.convertToCurrency) {
-            const quoteString = "1 " + aConvertFromCurrency.isoName + " = " + conversionQuote.replace(".", aStorageService.monetarySeparatorSymbol) + " " + aStorageService.convertToCurrency;
-            quoteStrings.push(quoteString);
+            const quote = parseFloat(conversionQuotes[aConvertFromCurrency.isoName]);
+            if (isNaN(quote)) {
+                const quoteString = "1 " + aConvertFromCurrency.isoName + " = - " + aStorageService.convertToCurrency;
+                quoteStrings.push(quoteString);
+            }
+            else {
+                const conversionQuote = quote.toFixed(4);
+                const quoteString = "1 " + aConvertFromCurrency.isoName + " = " + conversionQuote.replace(".", aStorageService.monetarySeparatorSymbol) + " " + aStorageService.convertToCurrency;
+                quoteStrings.push(quoteString);
+            }
         }
     };
     const getQuoteString = function () {

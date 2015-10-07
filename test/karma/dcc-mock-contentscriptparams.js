@@ -10,7 +10,5 @@ MockContentScriptParams.prototype.currencySymbols = () => {
 MockContentScriptParams.prototype.customSymbols = () => {
     return [];
 };
-MockContentScriptParams.prototype.enabledCurrencies = () => {
-    return {};
-};
+MockContentScriptParams.prototype.convertFroms = [];
 

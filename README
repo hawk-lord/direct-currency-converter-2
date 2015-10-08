@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.2.0+0
-Date: 2015-08-11
+Version: 2.3.0+0
+Date: 2015-10-08
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -158,3 +158,13 @@ Version: 2.1.2+2
 Date: 2015-07-12
 Internal change: new build.
 
+Version: 2.2.0+0
+Date: 2015-08-11
+Improved the settings window.
+Internal change: merged code with the SeaMonkey version.
+
+Version: 2.3.0+0
+Date: 2015-10-08
+Fix: the priority order of currencies to convert from. Users will have to save the currency list again. Sorry for that.
+Fix: write "-" instead of "NaN" if there is no conversion quote available.
+Better support for euro currency recognition in various languages.

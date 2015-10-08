@@ -1,3 +1,28 @@
+// Start jpm run
+// catched error when no reply
+direct-currency-converter-2:err SyntaxError: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data ff-freegeoip-service.js:23
+// right after the above error
+ReferenceError: reference to undefined property storage.dccPrefs.convertToCurrency ff-storage-service.js:101:13
+
+// Settings jpm run
+// ReferenceError: reference to undefined property customSymbols[currencyVal] dcc-settings.js:204:9
+// ReferenceError: reference to undefined property customSymbols[convertToCurrency] dcc-settings.js:146:9
+
+Quote list jpm run and jpm XPI
+// 1 [object Object] = NaN EUR
+
+// Settings jpm xpi
+        jQuery("#fromCurrencies").sortable({
+TypeError: jQuery(...).sortable is not a function dcc-settings.js:23:1
+
+// testPageWorker.tab = null;
+//direct-currency-converter-2:TypeError: setting a property that has only a getter
+//Stack trace:
+//FirefoxContentInterface/watchForPages/releaseTab@resource://gre/modules/commonjs/toolkit/loader.js -> resource://dcc-at-joint-dot-ax/lib/ff-contentInterface.js:142:21
+
+
+
+
 require SDK to an own module
 
 

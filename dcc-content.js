@@ -26,12 +26,11 @@ const DirectCurrencyContent = (function() {
     const regex2 = {};
     const enabledCurrenciesWithRegexes = [];
     var roundAmounts = false;
-    var showOriginal = false;
+    var showOriginalPrices = false;
+    var showOriginalCurrencies = false;
     const skippedElements = ["audio", "button", "embed", "head", "img", "noscript", "object", "script", "select", "style", "textarea", "video"];
     const subUnits = {"EUR" : "cent", "RUB" : "коп."};
 
-    // console.error("Promise !== undefined " + Promise !== "undefined");
-    // console.error("Promise.toString().indexOf(\"[native code]\") " + Promise.toString().indexOf("[native code]"));
     /**
      * This is to check that PriceRegexes exists in SeaMonkey and Firefox
      *
@@ -47,11 +46,9 @@ const DirectCurrencyContent = (function() {
         );
         promise.then(
             function(aPriceRegexes) {
-                // console.error("Promise fulfilled aPriceRegexes " + aPriceRegexes + " aData " +  aData);
                 aPriceRegexes.makePriceRegexes(regex1, regex2)
             },
             function (err) {
-                // console.error("promise then "  + err);
             }
         ).catch(
             function (err) {
@@ -62,8 +59,6 @@ const DirectCurrencyContent = (function() {
     else {
         PriceRegexes.makePriceRegexes(regex1, regex2);
     }
-    //
-    //
     const replaceCurrency = function(aNode) {
         // convertedContent goes here if callback functions are declared inside replaceCurrency
         var convertedContent = "";
@@ -103,8 +98,6 @@ const DirectCurrencyContent = (function() {
                     tempConversionQuote = 0.73549875;
                 }
                 const convertedAmount = convertAmount(aPrice.amount, tempConversionQuote);
-                    // console.log("aPrice.amount " + aPrice.amount);
-                    // console.log("convertedAmount " + convertedAmount);
                 var multiplicator = "";
                 if (replacedUnit === "SEK") {
                     multiplicator = getSekMultiplicator(aPrice.full.toLowerCase());
@@ -143,62 +136,27 @@ const DirectCurrencyContent = (function() {
                 else {
                     convertedPrice = formatPrice(convertedAmount, currencySymbol, multiplicator);
                 }
-                if (showOriginal) {
-                    if (convertedContent.indexOf(replacedUnit) > -1 ) {
-                        convertedPrice = convertedPrice + " (##__##)";
-                    }
-                    else {
+                if (showOriginalPrices) {
+                    console.log("showOriginalCurrencies " + showOriginalCurrencies);
+                    if (convertedContent.indexOf(replacedUnit) === -1 && showOriginalCurrencies) {
                         convertedPrice = convertedPrice + " (##__## [¤¤¤])";
                     }
+                    else {
+                        convertedPrice = convertedPrice + " (##__##)";
+                    }
                 }
-                // console.log("convertedContent " + convertedContent);
-                // aPrice.full 50.000 krónur
-                // console.log("aPrice.full " + aPrice.full);
-                // convertedPrice 6 700,00 € (##__##)
-                // console.log("convertedPrice " + convertedPrice);
-                // var tempConvertedContent = convertedContent.replace(aPrice.full, convertedPrice);
                 var tempConvertedContent = convertedContent.substring(0, aPrice.index) +
-                   convertedContent.substring(aPrice.index, convertedContent.length).replace(aPrice.full, convertedPrice);
-                // console.log("tempConvertedContent " + tempConvertedContent);
-                //fix US $100
-                // if (replacedUnit === "USD") {
-                    // // fix converting of $123.00 USD, so it will not show USD after conversion
-                    // tempConvertedContent = tempConvertedContent.replace(replacedUnit, "");
-                    // if (convertedContent.substring(0, 4).toLowerCase() === "us $" || convertedContent.contains(" US $")) {
-                        // tempConvertedContent = tempConvertedContent.replace(/US/i, "");
-                    // }
-                    // //fix US$100
-                    // if (convertedContent.substring(0, 3).toLowerCase() === "us$" || convertedContent.contains(" US$")) {
-                        // tempConvertedContent = tempConvertedContent.replace(/US/i, "");
-                    // }
-                // }
-                if (showOriginal) {
-                    // console.log("tempConvertedContent " + tempConvertedContent);
+                    convertedContent.substring(aPrice.index, convertedContent.length).replace(aPrice.full, convertedPrice);
+                if (showOriginalPrices) {
                     tempConvertedContent = tempConvertedContent.replace("##__##", aPrice.full);
-                    // console.log("tempConvertedContent " + tempConvertedContent);
                     tempConvertedContent = tempConvertedContent.replace("¤¤¤", replacedUnit);
-                    // console.log("tempConvertedContent " + tempConvertedContent);
                 }
-                // if (replacedUnit === "USD") {
-                    // // console.log("replacedUnit === USD")
-                    // const otherDollarSigns = ["ARS", "CLD", "COP", "CUP", "DOP", "MXN", "PHP", "UYU", "AUD", "BBD", "BMD", "BND", "BSD", "BZD", "CAD", "FJD", "GYD", "HKD", "JMD", "KYD", "LRD", "NAD", "NZD", "SBD", "SGD", "SRD", "TTD", "TWD", "XCD"];
-                    // const ignoreOtherDollars = function(aCurrency, anIndex, anArray) {
-                            // const dollarIndex = convertedContent.indexOf("$");
-                            // const cIndex = convertedContent.indexOf(aCurrency);
-                            // // console.log(cIndex + "  " + dollarIndex + " ");
-                            // return dollarIndex > -1 && cIndex > -1;
-                    // };
-                    // if (otherDollarSigns.some(ignoreOtherDollars)) {
-                        // tempConvertedContent = convertedContent;
-                    // }
-                // }
                 convertedContent = tempConvertedContent;
                 elementTitleText += "~" + aPrice.full;
             };
-                    // console.log("checkRegex.this " + this);
             replacedUnit = aCurrencyRegex.currency;
             if (currencyCode === replacedUnit) {
-               return false;
+                return false;
             }
             var prices = findPrices(aCurrencyRegex.regex1, aNode.textContent, 3);
             if (prices.length === 0) {
@@ -215,20 +173,8 @@ const DirectCurrencyContent = (function() {
             prices.forEach(makeReplacement);
             return true;
         };
-        // aReplacedUnit removed, taken from closure
         const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent) {
-            // console.log("aNode.textContent " + aNode.textContent);
-            // console.log("anElementTitleText " + anElementTitleText);
-            // console.log("aConvertedContent " + aConvertedContent);
-            // console.log: direct-currency-converter: aNode.textContent
-            //            100 SEK
-            // console.log: direct-currency-converter: aConvertedContent
-                // 11,12 € (100 SEK)
             const documentFragment = document.createDocumentFragment();
-            // if (DirectCurrencyContent.isEnabled) {
-                // // aNode.parentNode.title = anElementTitleText;
-                // // aNode.textContent = aConvertedContent;
-            // }
             var title;
             if (anElementTitleText === "" || anElementTitleText.indexOf(replacedUnit) > -1) {
                 title = anElementTitleText;
@@ -245,18 +191,16 @@ const DirectCurrencyContent = (function() {
         matchFound = false;
         // Don't check text without numbers
         if (/\d/.exec(aNode.textContent)) {
-            // console.log("/[0-9]/");
             // Modifies convertedContent and elementTitleText
             enabledCurrenciesWithRegexes.some(checkRegex);
         }
         else {
-            // console.log("!/[0-9]/");
         }
         if (!matchFound) {
             return;
         }
         elementTitleText = elementTitleText.substring(1);
-        if (showOriginal) {
+        if (showOriginalPrices) {
             elementTitleText = "";
         }
         aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent), aNode);
@@ -273,7 +217,6 @@ const DirectCurrencyContent = (function() {
             substitute(aNode, false);
         }
     };
-    //
     const getSekMultiplicator = function(aUnit) {
         if (aUnit.indexOf("miljoner") > -1) {
             return "miljoner ";
@@ -349,7 +292,6 @@ const DirectCurrencyContent = (function() {
     // Stores prices that will be replaced with converted prices
     const findPrices = function(aRegex, aText, anAmountPosition) {
         const prices = [];
-        // aRegex may be undefined in SM...
         if (aRegex == null) {
             return prices;
         }
@@ -358,15 +300,10 @@ const DirectCurrencyContent = (function() {
             price.amount = aMatch[anAmountPosition].trim();
             price.full = aMatch[0];
             price.index = aMatch.index;
-            // console.log(price.amount + ";" + price.full + ";" + price.index);
             return price;
         };
         var match;
-        //console.error(aRegex.source);
         while ((match = aRegex.exec(aText)) !== null) {
-            // console.log(anAmountPosition);
-            // console.log(match.index);
-            // console.log(match);
             prices.push(makePrice(match));
         }
         return prices;
@@ -389,7 +326,6 @@ const DirectCurrencyContent = (function() {
         if (spaceIndex < 0) {
             spaceIndex = amount.indexOf("\u00A0");
         }
-        // 1 234,56; 1,234.56; 1.234,56; 1,23; 1.23; 1,234
         if (spaceIndex > -1) {
             amount = amount.replace(/,/g,".");
             amount = amount.replace(/\s/g,"");
@@ -397,76 +333,54 @@ const DirectCurrencyContent = (function() {
         else {
             if (commaIndex > -1 && pointIndex > -1) {
                 if (commaIndex < pointIndex) {
-                    // 1,000.00
                     amount = amount.replace(/,/g,"");
-                    // 1000.00
                 }
                 else {
-                    // 1.000,00
                     amount = amount.replace(/\./g,"");
-                    // 1000,00
                     amount = amount.replace(/,/g,".");
-                    // 1000.00
                 }
             }
             else if (apoIndex > -1 && pointIndex > -1) {
                 if (apoIndex < pointIndex) {
-                    // 1'000.00
                     amount = amount.replace(/'/g,"");
-                    // 1000.00
                 }
                 else {
-                    // 1.000'00
                     amount = amount.replace(/\./g,"");
-                    // 1000'00
                     amount = amount.replace(/'/g,".");
-                    // 1000.00
                 }
             }
             else if (apoIndex > -1 && commaIndex > -1) {
                 if (apoIndex < commaIndex) {
-                    // 1'000,00
                     amount = amount.replace(/'/g,"");
-                    // 1000,00
                     amount = amount.replace(/,/g,".");
-                    // 1000.00
                 }
                 else {
-                    // 1,000'00
                     amount = amount.replace(/,/g,"");
-                    // 1000'00
                     amount = amount.replace(/'/g,".");
-                    // 1000.00
                 }
             }
             else if (apoIndex > -1) {
-                   // only apo
                 const apoCount = amount.split("'").length - 1;
                 var checkValidity = (amount.length - apoIndex - apoCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
-                        // CHF 10'000.-.
                 }
                 else {
                     amount = amount.replace(/'/g,"");
                 }
             }
             else if (pointIndex > -1) {
-                   // only point
                 const pointCount = amount.split(".").length - 1;
                 var checkValidity = (amount.length - pointIndex - pointCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
-                        //if < 1 or NOT of form 1,234,567 {
                 }
                 else {
                     amount = amount.replace(/\./g,"");
                 }
             }
             else if (commaIndex > -1) {
-                   // only commas
                 const commaCount = amount.split(",").length - 1;
                 var checkValidity = (amount.length - commaIndex - commaCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
-                       //if < 1 or NOT of form 1,234,567
                     amount = amount.replace(/,/g,".");
                 }
                 else {
@@ -474,7 +388,6 @@ const DirectCurrencyContent = (function() {
                 }
             }
             else if (colonIndex > -1) {
-                // only colons
                 const colonCount = amount.split(":").length - 1;
                 var checkValidity = (amount.length - colonIndex - colonCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
@@ -490,7 +403,6 @@ const DirectCurrencyContent = (function() {
     const formatPrice = function(anAmount, aUnit, aMultiplicator) {
         var unit = aUnit;
         const fractionDigits = (roundAmounts && anAmount > 1) || unit === "mm" || unit === "kJ" ? 0 : 2;
-        // 12.34 or 12
         const amountString = anAmount.toFixed(fractionDigits);
         const amountParts = amountString.split(".");
         const amountIntegralPart = amountParts[0];
@@ -541,8 +453,6 @@ const DirectCurrencyContent = (function() {
         }
         const mutationHandler = function(aMutationRecord) {
             if (aMutationRecord.type === "childList") {
-                // Can't use forEach on NodeList
-                // Can't use const here - SyntaxError: invalid for/in left-hand side
                 for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
                     var node = aMutationRecord.addedNodes[i];
                     traverseDomTree(node);
@@ -569,9 +479,6 @@ const DirectCurrencyContent = (function() {
         }
     };
     const traverseDomTree = function(aNode) {
-        // console.log("traverseDomTree.this " + this);
-        // console.log("traverseDomTree.this.test " + this.test);
-        // console.log("traverseDomTree.this.test.length " + this.test.length);
         if (aNode !== null) {
             // The third check takes care of Google Images code "<div class=rg_meta>{"cb":3, ..."
             if (aNode.nodeType === Node.TEXT_NODE && !/^\s*$/.test(aNode.nodeValue) && !/\{/.test(aNode.nodeValue)) {
@@ -599,15 +506,12 @@ const DirectCurrencyContent = (function() {
         var nodeList = aNode.parentNode.querySelectorAll(className);
         for (var i = 0; i < nodeList.length; ++i) {
             var node = nodeList[i];
-            // Must be var, not const, in Chrome
             var originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
             originalNode.textContent = node.value;
             originalNode.parentNode.title = node.title;
         }
     };
     const onSendEnabledStatus = function(aStatus) {
-        // console.log("content  onSendEnabledStatus ");
-        // console.log("onSendEnabledStatus.this " + this);
         const isEnabled = aStatus.isEnabled;
         const hasConvertedElements = aStatus.hasConvertedElements;
         var message = "...";
@@ -631,20 +535,15 @@ const DirectCurrencyContent = (function() {
             else {
                 message = "Converted from scratch...";
                 startObserve();
-                // console.log("line 553 ");
                 traverseDomTree(document.body);
             }
-            // console.log("message " + message);
             substitute(document.body, !isEnabled);
         }
     };
     const onUpdateSettings = function(contentScriptParams) {
-        // console.log("content  onUpdateSettings ");
-        // console.log("onUpdateSettings.this " + this);
         const tempConvertUnits = contentScriptParams.tempConvertUnits;
         var message = "...";
         var hasConvertedElements = false;
-        // TODO show original again, but only if currency was changed
         substitute(document.body, true);
         resetDomTree(document.body);
         conversionQuotes = contentScriptParams.conversionQuotes;
@@ -662,12 +561,12 @@ const DirectCurrencyContent = (function() {
         customFormat.monetarySeparatorSymbol = contentScriptParams.monetarySeparatorSymbol;
         customFormat.currencySpacing = contentScriptParams.currencySpacing;
         roundAmounts = contentScriptParams.roundAmounts;
-        showOriginal = contentScriptParams.showOriginalPrices;
+        showOriginalPrices = contentScriptParams.showOriginalPrices;
+        showOriginalCurrencies = contentScriptParams.showOriginalCurrencies;
         quoteAdjustmentPercent = +contentScriptParams.quoteAdjustmentPercent;
 
         enabledCurrenciesWithRegexes.length = 0;
         for (var currency of contentScriptParams.convertFroms) {
-            // Add enabled currencies to enabledCurrenciesWithRegexes
             if (currency.enabled) {
                 enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency.isoName, regex1[currency.isoName], regex2[currency.isoName]));
             }
@@ -710,7 +609,6 @@ const DirectCurrencyContent = (function() {
                 hasConvertedElements = true;
             }
         }
-        // console.log(message);
         ContentAdapter.finish(hasConvertedElements);
         isEnabled = contentScriptParams.isEnabled;
     };

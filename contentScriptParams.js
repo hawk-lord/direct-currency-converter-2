@@ -6,31 +6,29 @@
  */
 const ContentScriptParams = function(aTab, anInformationHolder) {
     "use strict";
-    const contentScriptParams = {};
-    contentScriptParams.conversionQuotes = anInformationHolder.getConversionQuotes();
-    contentScriptParams.convertToCurrency = anInformationHolder.convertToCurrency;
-    contentScriptParams.convertToCountry = anInformationHolder.convertToCountry;
-    contentScriptParams.currencySymbols = anInformationHolder.getCurrencySymbols();
-    contentScriptParams.customSymbols = anInformationHolder.customSymbols;
-    contentScriptParams.monetarySeparatorSymbol = anInformationHolder.monetarySeparatorSymbol;
-    contentScriptParams.enableOnStart = anInformationHolder.enableOnStart;
-    contentScriptParams.excludedDomains = anInformationHolder.excludedDomains;
-    contentScriptParams.convertFroms = anInformationHolder.convertFroms;
-    contentScriptParams.quoteAdjustmentPercent = anInformationHolder.quoteAdjustmentPercent;
-    contentScriptParams.roundAmounts = anInformationHolder.roundPrices;
-    contentScriptParams.currencySpacing = anInformationHolder.currencySpacing;
-    contentScriptParams.showOriginalPrices = anInformationHolder.showOriginalPrices;
-    contentScriptParams.beforeCurrencySymbol = anInformationHolder.beforeCurrencySymbol;
-    contentScriptParams.tempConvertUnits = anInformationHolder.tempConvertUnits;
-    contentScriptParams.monetaryGroupingSeparatorSymbol = anInformationHolder.monetaryGroupingSeparatorSymbol;
+    this.conversionQuotes = anInformationHolder.getConversionQuotes();
+    this.convertToCurrency = anInformationHolder.convertToCurrency;
+    this.convertToCountry = anInformationHolder.convertToCountry;
+    this.currencySymbols = anInformationHolder.getCurrencySymbols();
+    this.customSymbols = anInformationHolder.customSymbols;
+    this.monetarySeparatorSymbol = anInformationHolder.monetarySeparatorSymbol;
+    this.enableOnStart = anInformationHolder.enableOnStart;
+    this.excludedDomains = anInformationHolder.excludedDomains;
+    this.convertFroms = anInformationHolder.convertFroms;
+    this.quoteAdjustmentPercent = anInformationHolder.quoteAdjustmentPercent;
+    this.roundAmounts = anInformationHolder.roundPrices;
+    this.currencySpacing = anInformationHolder.currencySpacing;
+    this.showOriginalPrices = anInformationHolder.showOriginalPrices;
+    this.beforeCurrencySymbol = anInformationHolder.beforeCurrencySymbol;
+    this.tempConvertUnits = anInformationHolder.tempConvertUnits;
+    this.monetaryGroupingSeparatorSymbol = anInformationHolder.monetaryGroupingSeparatorSymbol;
     if (aTab && typeof aTab.isEnabled != "undefined")  {
-        contentScriptParams.isEnabled = aTab.isEnabled;
+        this.isEnabled = aTab.isEnabled;
     }
     else {
-        contentScriptParams.isEnabled = anInformationHolder.conversionEnabled;
+        this.isEnabled = anInformationHolder.conversionEnabled;
     }
-    contentScriptParams.currencyNames = anInformationHolder.getCurrencyNames();
-    return contentScriptParams;
+    this.currencyNames = anInformationHolder.getCurrencyNames();
 };
 
 if (typeof exports === "object") {

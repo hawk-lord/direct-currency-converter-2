@@ -64,6 +64,9 @@ const DirectCurrencySettings = (function() {
         jQuery("#show_original_prices").change(function() {
             showOriginalPrices = jQuery(this).is(":checked");
         });
+        jQuery("#showOriginalCurrencies").change(function() {
+            showOriginalCurrencies = jQuery(this).is(":checked");
+        });
         jQuery("#beforeCurrencySymbol").change(function() {
             beforeCurrencySymbol = jQuery(this).is(":checked");
             onBeforeCurrencySymbolChange(beforeCurrencySymbol);
@@ -115,6 +118,7 @@ const DirectCurrencySettings = (function() {
             contentScriptParams.roundAmounts = roundAmounts;
             contentScriptParams.currencySpacing = currencySpacing? "\u00a0" : "";
             contentScriptParams.showOriginalPrices = showOriginalPrices;
+            contentScriptParams.showOriginalCurrencies = showOriginalCurrencies;
             contentScriptParams.beforeCurrencySymbol = beforeCurrencySymbol;
             contentScriptParams.tempConvertUnits = tempConvertUnits;
             contentScriptParams.monetaryGroupingSeparatorSymbol = monetaryGroupingSeparatorSymbol;
@@ -136,6 +140,7 @@ const DirectCurrencySettings = (function() {
     var roundAmounts = null;
     var currencySpacing = null;
     var showOriginalPrices = null;
+    var showOriginalCurrencies = null;
     var beforeCurrencySymbol = true;
     var tempConvertUnits = null;
     var monetaryGroupingSeparatorSymbol = null;
@@ -178,6 +183,7 @@ const DirectCurrencySettings = (function() {
         jQuery("#always_round").prop("checked", roundAmounts);
         onCurrencySpacingChange(currencySpacing !== "");
         jQuery("#show_original_prices").prop("checked", showOriginalPrices);
+        jQuery("#showOriginalCurrencies").prop("checked", showOriginalCurrencies);
         jQuery("#beforeCurrencySymbol").prop("checked", beforeCurrencySymbol);
         jQuery("#unitBefore").prop("checked", !beforeCurrencySymbol);
         onBeforeCurrencySymbolChange(beforeCurrencySymbol);
@@ -270,6 +276,7 @@ const DirectCurrencySettings = (function() {
         roundAmounts = contentScriptParams.roundAmounts;
         currencySpacing = contentScriptParams.currencySpacing;
         showOriginalPrices = contentScriptParams.showOriginalPrices;
+        showOriginalCurrencies = contentScriptParams.showOriginalCurrencies;
         beforeCurrencySymbol = contentScriptParams.beforeCurrencySymbol;
         tempConvertUnits = contentScriptParams.tempConvertUnits;
         monetaryGroupingSeparatorSymbol = contentScriptParams.monetaryGroupingSeparatorSymbol;

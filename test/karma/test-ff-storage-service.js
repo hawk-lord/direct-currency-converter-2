@@ -22,6 +22,7 @@ describe("FirefoxStorageServiceProvider", function() {
             assert.strictEqual(firefoxStorageServiceProvider.quoteAdjustmentPercent, 0, "quoteAdjustmentPercent");
             assert.isUndefined(firefoxStorageServiceProvider.roundAmounts, "roundAmounts");
             assert.isTrue(firefoxStorageServiceProvider.showOriginalPrices, "showOriginalPrices");
+            assert.isTrue(firefoxStorageServiceProvider.showOriginalCurrencies, "showOriginalCurrencies");
             assert.isTrue(firefoxStorageServiceProvider.beforeCurrencySymbol, "beforeCurrencySymbol");
             assert.strictEqual(firefoxStorageServiceProvider.currencySpacing, " ", "currencySpacing");
             assert.strictEqual(firefoxStorageServiceProvider.monetarySeparatorSymbol, ",", "monetarySeparatorSymbol");
@@ -42,6 +43,7 @@ describe("FirefoxStorageServiceProvider", function() {
             assert.strictEqual(firefoxStorageServiceProvider.quoteAdjustmentPercent, 0, "quoteAdjustmentPercent");
             assert.isUndefined(firefoxStorageServiceProvider.roundAmounts, "roundAmounts");
             assert.isTrue(firefoxStorageServiceProvider.showOriginalPrices, "showOriginalPrices");
+            assert.isTrue(firefoxStorageServiceProvider.showOriginalCurrencies, "showOriginalCurrencies");
             assert.isTrue(firefoxStorageServiceProvider.beforeCurrencySymbol, "beforeCurrencySymbol");
             assert.strictEqual(firefoxStorageServiceProvider.currencySpacing, " ", "currencySpacing");
             assert.strictEqual(firefoxStorageServiceProvider.monetarySeparatorSymbol, ",", "monetarySeparatorSymbol");

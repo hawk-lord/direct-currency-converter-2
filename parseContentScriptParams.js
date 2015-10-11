@@ -24,6 +24,7 @@ const ParseContentScriptParams = function(aContentScriptParams, anInformationHol
     anInformationHolder.roundPrices = aContentScriptParams.roundAmounts;
     anInformationHolder.currencySpacing = aContentScriptParams.currencySpacing;
     anInformationHolder.showOriginalPrices = aContentScriptParams.showOriginalPrices;
+    anInformationHolder.showOriginalCurrencies = aContentScriptParams.showOriginalCurrencies;
     anInformationHolder.beforeCurrencySymbol = aContentScriptParams.beforeCurrencySymbol;
     anInformationHolder.tempConvertUnits = aContentScriptParams.tempConvertUnits;
     anInformationHolder.monetaryGroupingSeparatorSymbol = aContentScriptParams.monetaryGroupingSeparatorSymbol;

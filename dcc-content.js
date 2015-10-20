@@ -31,6 +31,12 @@ const DirectCurrencyContent = (function() {
     const skippedElements = ["audio", "button", "embed", "head", "img", "noscript", "object", "script", "select", "style", "textarea", "video"];
     const subUnits = {"EUR" : "cent", "RUB" : "коп."};
 
+    // hover element showing conversion
+    const style = document.createElement("style");
+    document.head.appendChild(style);
+    const sheet = style.sheet;
+    sheet.insertRule("[data-dcctitle]:hover:after {white-space: pre-line;color: white;font-size: 15px;font-family: sans-serif;list-style-type:none;padding: 10px;background-color: burlywood;border-style: solid;border-color: papayawhip; position: fixed;content: attr(data-dcctitle);left: 0;top: 0;width: 300px;height: 100px;z-index: 111;}", 0);
+
     /**
      * This is to check that PriceRegexes exists in SeaMonkey and Firefox
      *
@@ -137,7 +143,6 @@ const DirectCurrencyContent = (function() {
                     convertedPrice = formatPrice(convertedAmount, currencySymbol, multiplicator);
                 }
                 if (showOriginalPrices) {
-                    console.log("showOriginalCurrencies " + showOriginalCurrencies);
                     if (convertedContent.indexOf(replacedUnit) === -1 && showOriginalCurrencies) {
                         convertedPrice = convertedPrice + " (##__## [¤¤¤])";
                     }
@@ -152,7 +157,7 @@ const DirectCurrencyContent = (function() {
                     tempConvertedContent = tempConvertedContent.replace("¤¤¤", replacedUnit);
                 }
                 convertedContent = tempConvertedContent;
-                elementTitleText += "~" + aPrice.full;
+                elementTitleText += " ~ " + aPrice.full;
             };
             replacedUnit = aCurrencyRegex.currency;
             if (currencyCode === replacedUnit) {
@@ -173,17 +178,18 @@ const DirectCurrencyContent = (function() {
             prices.forEach(makeReplacement);
             return true;
         };
-        const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent) {
-            const documentFragment = document.createDocumentFragment();
-            var title;
+        const addOriginalUnit = function (anElementTitleText) {
             if (anElementTitleText === "" || anElementTitleText.indexOf(replacedUnit) > -1) {
-                title = anElementTitleText;
+                return anElementTitleText;
             }
             else {
-                title = anElementTitleText + " [" + replacedUnit + "]";
+                return anElementTitleText + " [" + replacedUnit + "]";
             }
+        };
+        const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent) {
+            const documentFragment = document.createDocumentFragment();
             documentFragment.appendChild(makeCacheNode("originalText", aNode.textContent, ""));
-            documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent, title));
+            documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent, addOriginalUnit(anElementTitleText)));
             return documentFragment;
         };
         convertedContent = aNode.textContent;
@@ -199,7 +205,7 @@ const DirectCurrencyContent = (function() {
         if (!matchFound) {
             return;
         }
-        elementTitleText = elementTitleText.substring(1);
+        elementTitleText = elementTitleText.substring(3);
         if (showOriginalPrices) {
             elementTitleText = "";
         }
@@ -503,12 +509,16 @@ const DirectCurrencyContent = (function() {
             return;
         }
         const className = isShowOriginal ? ".originalText" : ".convertedText";
-        var nodeList = aNode.parentNode.querySelectorAll(className);
-        for (var i = 0; i < nodeList.length; ++i) {
-            var node = nodeList[i];
+        const nodeList = aNode.parentNode.querySelectorAll(className);
+        for (var node of nodeList) {
             var originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
             originalNode.textContent = node.value;
-            originalNode.parentNode.title = node.title;
+            var dccTitle = "Converted to: ";
+            dccTitle += currencyCode + "\n";
+            dccTitle += node.title + "";
+            //dccTitle += "Replaced unit: " + replacedUnit + "\n";
+            originalNode.parentNode.dataset.dcctitle = dccTitle;
+            //originalNode.parentNode.style.position = "relative";
         }
     };
     const onSendEnabledStatus = function(aStatus) {

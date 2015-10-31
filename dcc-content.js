@@ -65,151 +65,144 @@ const DirectCurrencyContent = (function() {
     else {
         PriceRegexes.makePriceRegexes(regex1, regex2);
     }
-    const replaceCurrency = function(aNode) {
-        // convertedContent goes here if callback functions are declared inside replaceCurrency
-        var convertedContent = "";
-        var matchFound = false;
-        var replacedUnit = "";
-        var elementTitleText = "";
-        const checkRegex = function(aCurrencyRegex) {
-            var conversionQuote = 1;
-            const makeReplacement = function(aPrice) {
-                var tempConversionQuote = conversionQuote;
-                if (replacedUnit === "SEK" && aPrice.full.toLowerCase().indexOf("öre") > -1) {
-                    tempConversionQuote = conversionQuote / 100;
-                }
-                else if (replacedUnit === "USD"
-                    && (aPrice.full.toLowerCase().indexOf("¢") > -1 || aPrice.full.toLowerCase().indexOf("￠") > -1)) {
-                    tempConversionQuote = conversionQuote / 100;
-                }
-                else if (replacedUnit === "inch") {
-                    tempConversionQuote = 25.4;
-                }
-                else if (replacedUnit === "kcal") {
-                    tempConversionQuote = 4.184;
-                }
-                else if (replacedUnit === "nmi") {
-                    tempConversionQuote = 1.852;
-                }
-                else if (replacedUnit === "mile") {
-                    tempConversionQuote = 1.602;
-                }
-                else if (replacedUnit === "mil") {
-                    tempConversionQuote = 10;
-                }
-                else if (replacedUnit === "knots") {
-                    tempConversionQuote = 1.852;
-                }
-                else if (replacedUnit === "hp") {
-                    tempConversionQuote = 0.73549875;
-                }
-                const convertedAmount = convertAmount(aPrice.amount, tempConversionQuote);
-                var multiplicator = "";
-                if (replacedUnit === "SEK") {
-                    multiplicator = getSekMultiplicator(aPrice.full.toLowerCase());
-                }
-                else if (replacedUnit === "DKK") {
-                    multiplicator = getDkkMultiplicator(aPrice.full.toLowerCase());
-                }
-                else if (replacedUnit === "ISK") {
-                    multiplicator = getIskMultiplicator(aPrice.full.toLowerCase());
-                }
-                else if (replacedUnit === "NOK") {
-                    multiplicator = getNokMultiplicator(aPrice.full.toLowerCase());
-                }
-                var convertedPrice = "";
-                if (replacedUnit === "inch"){
-                    convertedPrice = formatPrice(convertedAmount, "mm", multiplicator);
-                }
-                else if (replacedUnit === "kcal"){
-                    convertedPrice = formatPrice(convertedAmount, "kJ", multiplicator);
-                }
-                else if (replacedUnit === "nmi"){
-                    convertedPrice = formatPrice(convertedAmount, "km", multiplicator);
-                }
-                else if (replacedUnit === "mile"){
-                    convertedPrice = formatPrice(convertedAmount, "km", multiplicator);
-                }
-                else if (replacedUnit === "mil"){
-                    convertedPrice = formatPrice(convertedAmount, "km", multiplicator);
-                }
-                else if (replacedUnit === "knots"){
-                    convertedPrice = formatPrice(convertedAmount, "km/h", multiplicator);
-                }
-                else if (replacedUnit === "hp"){
-                    convertedPrice = formatPrice(convertedAmount, "kW", multiplicator);
-                }
-                else {
-                    convertedPrice = formatPrice(convertedAmount, currencySymbol, multiplicator);
-                }
-                if (showOriginalPrices) {
-                    if (convertedContent.indexOf(replacedUnit) === -1 && showOriginalCurrencies) {
-                        convertedPrice = convertedPrice + " (##__## [¤¤¤])";
-                    }
-                    else {
-                        convertedPrice = convertedPrice + " (##__##)";
-                    }
-                }
-                var tempConvertedContent = convertedContent.substring(0, aPrice.index) +
-                    convertedContent.substring(aPrice.index, convertedContent.length).replace(aPrice.full, convertedPrice);
-                if (showOriginalPrices) {
-                    tempConvertedContent = tempConvertedContent.replace("##__##", aPrice.full);
-                    tempConvertedContent = tempConvertedContent.replace("¤¤¤", replacedUnit);
-                }
-                convertedContent = tempConvertedContent;
-                elementTitleText += " ~ " + aPrice.full;
-            };
-            replacedUnit = aCurrencyRegex.currency;
-            if (currencyCode === replacedUnit) {
-                return false;
-            }
-            var prices = findPrices(aCurrencyRegex.regex1, aNode.textContent, 3);
-            if (prices.length === 0) {
-                prices = findPrices(aCurrencyRegex.regex2, aNode.textContent, 1);
-            }
-            if (prices.length === 0) {
-                return false;
-            }
-            else {
-                matchFound = true;
-            }
-            conversionQuote = conversionQuotes[replacedUnit];
-            conversionQuote = conversionQuote * (1 + quoteAdjustmentPercent / 100);
-            prices.forEach(makeReplacement);
-            return true;
-        };
-        const addOriginalUnit = function (anElementTitleText) {
-            if (anElementTitleText === "" || anElementTitleText.indexOf(replacedUnit) > -1) {
-                return anElementTitleText;
-            }
-            else {
-                return anElementTitleText + " [" + replacedUnit + "]";
-            }
-        };
-        const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent) {
-            const documentFragment = document.createDocumentFragment();
-            documentFragment.appendChild(makeCacheNode("originalText", aNode.textContent, ""));
-            documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent, addOriginalUnit(anElementTitleText)));
-            return documentFragment;
-        };
-        convertedContent = aNode.textContent;
-        elementTitleText = "";
-        matchFound = false;
-        // Don't check text without numbers
-        if (/\d/.exec(aNode.textContent)) {
-            // Modifies convertedContent and elementTitleText
-            enabledCurrenciesWithRegexes.some(checkRegex);
+    const checkSubUnit = function (aPrice, aReplacedUnit, aConversionQuote) {
+        if (aReplacedUnit === "SEK" && aPrice.full.toLowerCase().indexOf("öre") > -1) {
+            return aConversionQuote / 100;
+        }
+        else if (aReplacedUnit === "USD"
+            && (aPrice.full.toLowerCase().indexOf("¢") > -1 || aPrice.full.toLowerCase().indexOf("￠") > -1)) {
+            return aConversionQuote / 100;
+        }
+        return 0;
+    };
+    const checkOtherUnit = function (aReplacedUnit, aConversionQuote) {
+        if (aReplacedUnit === "inch") {
+            return 25.4;
+        }
+        else if (aReplacedUnit === "kcal") {
+            return 4.184;
+        }
+        else if (aReplacedUnit === "nmi") {
+            return 1.852;
+        }
+        else if (aReplacedUnit === "mile") {
+            return 1.602;
+        }
+        else if (aReplacedUnit === "mil") {
+            return 10;
+        }
+        else if (aReplacedUnit === "knots") {
+            return 1.852;
+        }
+        else if (aReplacedUnit === "hp") {
+            return 0.73549875;
+        }
+        return 0;
+    };
+    const formatAlsoOtherUnit = function (aReplacedUnit, aConvertedAmount, aMultiplicator) {
+        if (aReplacedUnit === "inch") {
+            return formatPrice(aConvertedAmount, "mm", aMultiplicator);
+        }
+        else if (aReplacedUnit === "kcal") {
+            return formatPrice(aConvertedAmount, "kJ", aMultiplicator);
+        }
+        else if (aReplacedUnit === "nmi") {
+            return formatPrice(aConvertedAmount, "km", aMultiplicator);
+        }
+        else if (aReplacedUnit === "mile") {
+            return formatPrice(aConvertedAmount, "km", aMultiplicator);
+        }
+        else if (aReplacedUnit === "mil") {
+            return formatPrice(aConvertedAmount, "km", aMultiplicator);
+        }
+        else if (aReplacedUnit === "knots") {
+            return formatPrice(aConvertedAmount, "km/h", aMultiplicator);
+        }
+        else if (aReplacedUnit === "hp") {
+            return formatPrice(aConvertedAmount, "kW", aMultiplicator);
         }
         else {
+            return formatPrice(aConvertedAmount, currencySymbol, aMultiplicator);
         }
-        if (!matchFound) {
+    };
+    const addOriginalUnit = function (anElementTitleText, aReplacedUnit) {
+        if (anElementTitleText === "" || anElementTitleText.indexOf(aReplacedUnit) > -1) {
+            return anElementTitleText;
+        }
+        else {
+            return anElementTitleText + " [" + aReplacedUnit + "]";
+        }
+    };
+    const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent, aReplacedUnit) {
+        const documentFragment = document.createDocumentFragment();
+        documentFragment.appendChild(makeCacheNode("originalText", aNode.textContent, ""));
+        documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent, addOriginalUnit(anElementTitleText, aReplacedUnit)));
+        return documentFragment;
+    };
+    const replaceCurrency = function(aNode) {
+        // convertedContent goes here if callback functions are declared inside replaceCurrency
+        var convertedContent = aNode.textContent;
+        var replacedUnit = "";
+        var elementTitleText = "";
+        // Don't check text without numbers
+        if (!/\d/.exec(aNode.textContent)) {
             return;
+        }
+        // Instead of checkRegex
+        for (var currencyRegex of enabledCurrenciesWithRegexes) {
+            if (currencyRegex.currency === currencyCode) {
+                continue;
+            }
+            var prices = findPrices(currencyRegex.regex1, aNode.textContent, 3);
+            if (prices.length === 0) {
+                prices = findPrices(currencyRegex.regex2, aNode.textContent, 1);
+            }
+            if (prices.length === 0) {
+                continue;
+            }
+            else {
+                replacedUnit = currencyRegex.currency;
+            }
+        }
+        if (replacedUnit === "") {
+            return;
+        }
+        var conversionQuote = conversionQuotes[replacedUnit];
+        conversionQuote = conversionQuote * (1 + quoteAdjustmentPercent / 100);
+        for (var price of prices) {
+            var tempConversionQuote = checkSubUnit(price, replacedUnit, conversionQuote);
+            if (tempConversionQuote === 0) {
+                tempConversionQuote = checkOtherUnit(replacedUnit, conversionQuote);
+            }
+            if (tempConversionQuote === 0) {
+                tempConversionQuote = conversionQuote;
+            }
+            const convertedAmount = convertAmount(price.amount, tempConversionQuote);
+            const multiplicator = getMultiplicator(replacedUnit, price.full.toLowerCase());
+            var convertedPrice = formatAlsoOtherUnit(replacedUnit, convertedAmount, multiplicator);
+            if (showOriginalPrices) {
+                if (convertedContent.indexOf(replacedUnit) === -1 && showOriginalCurrencies) {
+                    convertedPrice = convertedPrice + " (##__## [¤¤¤])";
+                }
+                else {
+                    convertedPrice = convertedPrice + " (##__##)";
+                }
+            }
+            convertedContent = convertedContent.substring(0, price.index) +
+                convertedContent.substring(price.index, convertedContent.length).replace(price.full, convertedPrice);
+            if (showOriginalPrices) {
+                convertedContent = convertedContent.replace("##__##", price.full);
+                convertedContent = convertedContent.replace("¤¤¤", replacedUnit);
+            }
+        }
+        for (var price of prices) {
+            elementTitleText += " ~ " + price.full;
         }
         elementTitleText = elementTitleText.substring(3);
         if (showOriginalPrices) {
             elementTitleText = "";
         }
-        aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent), aNode);
+        aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent), aNode, replacedUnit);
         if (aNode.baseURI.indexOf("pdf.js") > -1) {
             if (aNode.parentNode) {
                 aNode.parentNode.style.color = "black";
@@ -220,8 +213,23 @@ const DirectCurrencyContent = (function() {
             }
         }
         if (isEnabled) {
-            substitute(aNode, false);
+            substitute(aNode, false, replacedUnit);
         }
+    };
+    const getMultiplicator = function(aReplacedUnit, aPrice) {
+        if (aReplacedUnit === "SEK") {
+            return getSekMultiplicator(aPrice);
+        }
+        else if (aReplacedUnit === "DKK") {
+            return getDkkMultiplicator(aPrice);
+        }
+        else if (aReplacedUnit === "ISK") {
+            return getIskMultiplicator(aPrice);
+        }
+        else if (aReplacedUnit === "NOK") {
+            return getNokMultiplicator(aPrice);
+        }
+        return "";
     };
     const getSekMultiplicator = function(aUnit) {
         if (aUnit.indexOf("miljoner") > -1) {
@@ -504,7 +512,10 @@ const DirectCurrencyContent = (function() {
             }
         }
     };
-    const substitute = function(aNode, isShowOriginal) {
+    const substitute = function(aNode, isShowOriginal, aReplacedUnit) {
+        //console.log(aNode.nodeName);
+        //console.log(isShowOriginal);
+        //console.log(aReplacedUnit);
         if (aNode === null) {
             return;
         }
@@ -513,12 +524,16 @@ const DirectCurrencyContent = (function() {
         for (var node of nodeList) {
             var originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
             originalNode.textContent = node.value;
-            var dccTitle = "Converted to: ";
-            dccTitle += currencyCode + "\n";
-            dccTitle += node.title + "";
-            //dccTitle += "Replaced unit: " + replacedUnit + "\n";
-            originalNode.parentNode.dataset.dcctitle = dccTitle;
-            //originalNode.parentNode.style.position = "relative";
+            if (aReplacedUnit) {
+                var dccTitle = "Converted value: ";
+                dccTitle += currencyCode + "\n";
+                dccTitle += "Original value: ";
+                dccTitle += node.title + " " + aReplacedUnit + "\n";
+                dccTitle += "Conversion quote " + aReplacedUnit + "/" + currencyCode + " = " + 1.1111111 + "\n";
+                dccTitle += "Conversion quote " + currencyCode + "/" + aReplacedUnit + " = " + 0.9000000;
+                originalNode.parentNode.dataset.dcctitle = dccTitle;
+                //originalNode.parentNode.style.position = "relative";
+            }
         }
     };
     const onSendEnabledStatus = function(aStatus) {

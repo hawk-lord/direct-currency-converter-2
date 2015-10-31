@@ -145,10 +145,9 @@ const DirectCurrencyContent = (function() {
         var replacedUnit = "";
         var elementTitleText = "";
         // Don't check text without numbers
-        if (!/\d/.exec(aNode.textContent)) {
+        if (!/\d/.exec(convertedContent)) {
             return;
         }
-        // Instead of checkRegex
         for (var currencyRegex of enabledCurrenciesWithRegexes) {
             if (currencyRegex.currency === currencyCode) {
                 continue;
@@ -163,6 +162,7 @@ const DirectCurrencyContent = (function() {
             else {
                 replacedUnit = currencyRegex.currency;
             }
+            break;
         }
         if (replacedUnit === "") {
             return;
@@ -303,22 +303,22 @@ const DirectCurrencyContent = (function() {
         }
         return "";
     };
+    const makePrice = function(aMatch, anAmountPosition) {
+        const price = {};
+        price.amount = aMatch[anAmountPosition].trim();
+        price.full = aMatch[0];
+        price.index = aMatch.index;
+        return price;
+    };
     // Stores prices that will be replaced with converted prices
     const findPrices = function(aRegex, aText, anAmountPosition) {
         const prices = [];
         if (aRegex == null) {
             return prices;
         }
-        const makePrice = function(aMatch) {
-            const price = {};
-            price.amount = aMatch[anAmountPosition].trim();
-            price.full = aMatch[0];
-            price.index = aMatch.index;
-            return price;
-        };
         var match;
         while ((match = aRegex.exec(aText)) !== null) {
-            prices.push(makePrice(match));
+            prices.push(makePrice(match, anAmountPosition));
         }
         return prices;
     };
@@ -460,22 +460,23 @@ const DirectCurrencyContent = (function() {
         }
         return destination;
     };
+    const mutationHandler = function(aMutationRecord) {
+        if (aMutationRecord.type === "childList") {
+            for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
+                var node = aMutationRecord.addedNodes[i];
+                console.log(node.nodeName);
+                traverseDomTree(node);
+            }
+        }
+    };
+    const mutationsHandler = function(aMutations) {
+        aMutations.forEach(mutationHandler);
+    };
     const startObserve = function() {
         const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
         if (document === null || MutationObserver == null) {
             return;
         }
-        const mutationHandler = function(aMutationRecord) {
-            if (aMutationRecord.type === "childList") {
-                for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
-                    var node = aMutationRecord.addedNodes[i];
-                    traverseDomTree(node);
-                }
-            }
-        };
-        const mutationsHandler = function(mutations) {
-            mutations.forEach(mutationHandler);
-        };
         const mutationObserver = new MutationObserver(mutationsHandler);
         const mutationObserverInit = { attributes: true, childList: true, subtree: true, characterData: true };
         if (document.body !== null) {

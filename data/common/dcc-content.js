@@ -464,8 +464,7 @@ const DirectCurrencyContent = (function() {
     };
     const mutationHandler = function(aMutationRecord) {
         if (aMutationRecord.type === "childList") {
-            for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
-                var node = aMutationRecord.addedNodes[i];
+            for (var node of aMutationRecord.addedNodes.length) {
                 console.log(node.nodeName);
                 traverseDomTree(node);
             }
@@ -490,8 +489,7 @@ const DirectCurrencyContent = (function() {
             return;
         }
         var nodeList = aNode.querySelectorAll(".convertedText, .originalText");
-        for (var i = 0; i < nodeList.length; ++i) {
-            var node = nodeList[i];
+        for (var node of nodeList) {
             node.parentNode.removeChild(node);
         }
     };
@@ -506,11 +504,10 @@ const DirectCurrencyContent = (function() {
                 }
             }
             const originalChildNodes = [];
-            for (var i = 0; i < aNode.childNodes.length; ++i) {
-                originalChildNodes.push(aNode.childNodes[i]);
+            for (var node of aNode.childNodes) {
+                originalChildNodes.push(node);
             }
-            for (var i = 0; i < originalChildNodes.length; ++i) {
-                var node = originalChildNodes[i];
+            for (var node of originalChildNodes) {
                 traverseDomTree(node);
             }
         }
@@ -544,9 +541,8 @@ const DirectCurrencyContent = (function() {
         const hasConvertedElements = aStatus.hasConvertedElements;
         var message = "...";
         var process = true;
-        const excludedLen = excludedDomains.length;
-        for (var i = 0; i < excludedLen; i++) {
-            const matcher = new RegExp(excludedDomains[i], "g");
+        for (var excludedDomain of excludedDomains) {
+            const matcher = new RegExp(excludedDomain, "g");
             const found = matcher.test(document.URL);
             if (found) {
                 process = false;
@@ -617,8 +613,8 @@ const DirectCurrencyContent = (function() {
         }
         var process = true;
         const excludedLen = contentScriptParams.excludedDomains.length;
-        for (var i = 0; i < excludedLen; i++) {
-            const matcher = new RegExp(contentScriptParams.excludedDomains[i], "g");
+        for (var excludedDomain of contentScriptParams.excludedDomains) {
+            const matcher = new RegExp(excludedDomain, "g");
             const found = matcher.test(document.URL);
             if (found) {
                 process = false;

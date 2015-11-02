@@ -167,8 +167,7 @@ const DirectCurrencyContent = (function() {
         if (replacedUnit === "") {
             return;
         }
-        var conversionQuote = conversionQuotes[replacedUnit];
-        conversionQuote = conversionQuote * (1 + quoteAdjustmentPercent / 100);
+        const conversionQuote = conversionQuotes[replacedUnit] * (1 + quoteAdjustmentPercent / 100);
         for (var price of prices) {
             var tempConversionQuote = checkSubUnit(price, replacedUnit, conversionQuote);
             if (tempConversionQuote === 0) {
@@ -188,8 +187,8 @@ const DirectCurrencyContent = (function() {
                     convertedPrice = convertedPrice + " (##__##)";
                 }
             }
-            convertedContent = convertedContent.substring(0, price.index) +
-                convertedContent.substring(price.index, convertedContent.length).replace(price.full, convertedPrice);
+            convertedContent = convertedContent.substring(0, price.positionInString) +
+                convertedContent.substring(price.positionInString, convertedContent.length).replace(price.full, convertedPrice);
             if (showOriginalPrices) {
                 convertedContent = convertedContent.replace("##__##", price.full);
                 convertedContent = convertedContent.replace("¤¤¤", replacedUnit);
@@ -305,9 +304,15 @@ const DirectCurrencyContent = (function() {
     };
     const makePrice = function(aMatch, anAmountPosition) {
         const price = {};
+        // 848,452.63
         price.amount = aMatch[anAmountPosition].trim();
+        // 848,452.63 NOK
         price.full = aMatch[0];
-        price.index = aMatch.index;
+        // 1 (position in the string where the price was found)
+        price.positionInString = aMatch.index;
+        console.log(price.amount);
+        console.log(price.full);
+        console.log(price.positionInString);
         return price;
     };
     // Stores prices that will be replaced with converted prices

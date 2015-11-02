@@ -41,7 +41,7 @@ const DirectCurrencyContent = (function() {
      * This is to check that PriceRegexes exists in SeaMonkey and Firefox
      *
      */
-    if(typeof Promise !== "undefined" && Promise.toString().indexOf("[native code]") !== -1){
+    if(typeof Promise !== "undefined" && Promise.toString().contains("[native code]")){
         const promise = new Promise(
             function(resolve, reject) {
                 if (PriceRegexes)
@@ -66,11 +66,11 @@ const DirectCurrencyContent = (function() {
         PriceRegexes.makePriceRegexes(regex1, regex2);
     }
     const checkSubUnit = function (aPrice, aReplacedUnit, aConversionQuote) {
-        if (aReplacedUnit === "SEK" && aPrice.full.toLowerCase().indexOf("öre") > -1) {
+        if (aReplacedUnit === "SEK" && aPrice.full.toLowerCase().contains("öre")) {
             return aConversionQuote / 100;
         }
         else if (aReplacedUnit === "USD"
-            && (aPrice.full.toLowerCase().indexOf("¢") > -1 || aPrice.full.toLowerCase().indexOf("￠") > -1)) {
+            && (aPrice.full.toLowerCase().contains("¢") || aPrice.full.toLowerCase().contains("￠"))) {
             return aConversionQuote / 100;
         }
         return 0;
@@ -126,7 +126,7 @@ const DirectCurrencyContent = (function() {
         }
     };
     const addOriginalUnit = function (anElementTitleText, aReplacedUnit) {
-        if (anElementTitleText === "" || anElementTitleText.indexOf(aReplacedUnit) > -1) {
+        if (anElementTitleText === "" || anElementTitleText.contains(aReplacedUnit)) {
             return anElementTitleText;
         }
         else {
@@ -180,7 +180,7 @@ const DirectCurrencyContent = (function() {
             const multiplicator = getMultiplicator(replacedUnit, price.full.toLowerCase());
             var convertedPrice = formatAlsoOtherUnit(replacedUnit, convertedAmount, multiplicator);
             if (showOriginalPrices) {
-                if (convertedContent.indexOf(replacedUnit) === -1 && showOriginalCurrencies) {
+                if (!convertedContent.contains(replacedUnit) && showOriginalCurrencies) {
                     convertedPrice = convertedPrice + " (##__## [¤¤¤])";
                 }
                 else {
@@ -202,7 +202,7 @@ const DirectCurrencyContent = (function() {
             elementTitleText = "";
         }
         aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent), aNode, replacedUnit);
-        if (aNode.baseURI.indexOf("pdf.js") > -1) {
+        if (aNode.baseURI.contains("pdf.js")) {
             if (aNode.parentNode) {
                 aNode.parentNode.style.color = "black";
                 aNode.parentNode.style.backgroundColor = "lightyellow";
@@ -231,73 +231,73 @@ const DirectCurrencyContent = (function() {
         return "";
     };
     const getSekMultiplicator = function(aUnit) {
-        if (aUnit.indexOf("miljoner") > -1) {
+        if (aUnit.contains("miljoner")) {
             return "miljoner ";
         }
-        else if (aUnit.indexOf("miljon") > -1) {
+        else if (aUnit.contains("miljon")) {
             return "miljon ";
         }
-        else if (aUnit.indexOf("miljarder") > -1) {
+        else if (aUnit.contains("miljarder")) {
             return "miljarder ";
         }
-        else if (aUnit.indexOf("miljard") > -1) {
+        else if (aUnit.contains("miljard")) {
             return "miljard ";
         }
-        else if (aUnit.indexOf("mnkr") > -1) {
+        else if (aUnit.contains("mnkr")) {
             return "mn ";
         }
-        else if (aUnit.indexOf("mdkr") > -1) {
+        else if (aUnit.contains("mdkr")) {
             return "md ";
         }
-        else if (aUnit.toLowerCase().indexOf("mkr") > -1) {
+        else if (aUnit.toLowerCase().contains("mkr")) {
             return "mn ";
         }
-        else if (aUnit.indexOf("ksek") > -1) {
+        else if (aUnit.contains("ksek")) {
             return "k";
         }
-        else if (aUnit.indexOf("msek") > -1) {
+        else if (aUnit.contains("msek")) {
             return "M";
         }
-        else if (aUnit.indexOf("gsek") > -1) {
+        else if (aUnit.contains("gsek")) {
             return "G";
         }
         return "";
     };
     const getDkkMultiplicator = function(aUnit) {
-        if (aUnit.indexOf("millión") > -1) {
+        if (aUnit.contains("millión")) {
             return "millión ";
         }
-        else if (aUnit.indexOf("miljón") > -1) {
+        else if (aUnit.contains("miljón")) {
             return "miljón ";
         }
-        else if (aUnit.indexOf("milliard") > -1) {
+        else if (aUnit.contains("milliard")) {
             return "milliard ";
         }
-        if (aUnit.indexOf("mia.") > -1) {
+        if (aUnit.contains("mia.")) {
             return "mia. ";
         }
-        if (aUnit.indexOf("mio.") > -1) {
+        if (aUnit.contains("mio.")) {
             return "mio. ";
         }
-        else if (aUnit.indexOf("million") > -1) {
+        else if (aUnit.contains("million")) {
             return "million ";
         }
         return "";
     };
     const getIskMultiplicator = function(aUnit) {
-        if (aUnit.indexOf("milljón") > -1) {
+        if (aUnit.contains("milljón")) {
             return "milljón ";
         }
-        else if (aUnit.indexOf("milljarð") > -1) {
+        else if (aUnit.contains("milljarð")) {
             return "milljarð ";
         }
         return "";
     };
     const getNokMultiplicator = function(aUnit) {
-        if (aUnit.indexOf("milliard") > -1) {
+        if (aUnit.contains("milliard")) {
             return "milliard";
         }
-        else if (aUnit.indexOf("million") > -1) {
+        else if (aUnit.contains("million")) {
             return "million ";
         }
         return "";
@@ -337,21 +337,18 @@ const DirectCurrencyContent = (function() {
     };
     const convertAmount = function(anAmount, aConversionQuote) {
         var amount = anAmount;
-        const commaIndex = amount.indexOf(",");
-        const pointIndex = amount.indexOf(".");
-        const apoIndex = amount.indexOf("'");
-        const colonIndex = amount.indexOf(":");
-        var spaceIndex = amount.indexOf(" ");
-        if (spaceIndex < 0) {
-            spaceIndex = amount.indexOf("\u00A0");
-        }
-        if (spaceIndex > -1) {
+        const comma = amount.contains(",");
+        const point = amount.contains(".");
+        const apo = amount.contains("'");
+        const colon = amount.contains(":");
+        const space = amount.contains(" ") || amount.contains("\u00A0");
+        if (space) {
             amount = amount.replace(/,/g,".");
             amount = amount.replace(/\s/g,"");
         }
         else {
-            if (commaIndex > -1 && pointIndex > -1) {
-                if (commaIndex < pointIndex) {
+            if (comma && point) {
+                if (amount.indexOf(",") < amount.indexOf(".")) {
                     amount = amount.replace(/,/g,"");
                 }
                 else {
@@ -359,8 +356,8 @@ const DirectCurrencyContent = (function() {
                     amount = amount.replace(/,/g,".");
                 }
             }
-            else if (apoIndex > -1 && pointIndex > -1) {
-                if (apoIndex < pointIndex) {
+            else if (apo && point) {
+                if (amount.indexOf("'") < amount.indexOf(".")) {
                     amount = amount.replace(/'/g,"");
                 }
                 else {
@@ -368,8 +365,8 @@ const DirectCurrencyContent = (function() {
                     amount = amount.replace(/'/g,".");
                 }
             }
-            else if (apoIndex > -1 && commaIndex > -1) {
-                if (apoIndex < commaIndex) {
+            else if (apo && comma) {
+                if (amount.indexOf("'") < amount.indexOf(",")) {
                     amount = amount.replace(/'/g,"");
                     amount = amount.replace(/,/g,".");
                 }
@@ -378,27 +375,27 @@ const DirectCurrencyContent = (function() {
                     amount = amount.replace(/'/g,".");
                 }
             }
-            else if (apoIndex > -1) {
+            else if (apo) {
                 const apoCount = amount.split("'").length - 1;
-                var checkValidity = (amount.length - apoIndex - apoCount) % 3;
+                var checkValidity = (amount.length - amount.indexOf("'") - apoCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                 }
                 else {
                     amount = amount.replace(/'/g,"");
                 }
             }
-            else if (pointIndex > -1) {
+            else if (point) {
                 const pointCount = amount.split(".").length - 1;
-                var checkValidity = (amount.length - pointIndex - pointCount) % 3;
+                var checkValidity = (amount.length - amount.indexOf(".") - pointCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                 }
                 else {
                     amount = amount.replace(/\./g,"");
                 }
             }
-            else if (commaIndex > -1) {
+            else if (comma) {
                 const commaCount = amount.split(",").length - 1;
-                var checkValidity = (amount.length - commaIndex - commaCount) % 3;
+                var checkValidity = (amount.length - amount.indexOf(",") - commaCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                     amount = amount.replace(/,/g,".");
                 }
@@ -406,9 +403,9 @@ const DirectCurrencyContent = (function() {
                     amount = amount.replace(/,/g,"");
                 }
             }
-            else if (colonIndex > -1) {
+            else if (colon) {
                 const colonCount = amount.split(":").length - 1;
-                var checkValidity = (amount.length - colonIndex - colonCount) % 3;
+                var checkValidity = (amount.length - amount.indexOf(":") - colonCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                     amount = amount.replace(/:/g,".");
                 }

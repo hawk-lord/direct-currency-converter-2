@@ -35,7 +35,31 @@ const DirectCurrencyContent = (function() {
     const style = document.createElement("style");
     document.head.appendChild(style);
     const sheet = style.sheet;
-    sheet.insertRule("[data-dcctitle]:hover:after {white-space: pre-line;color: white;font-size: 15px;font-family: sans-serif;list-style-type:none;padding: 10px;background-color: burlywood;border-style: solid;border-color: papayawhip; position: fixed;content: attr(data-dcctitle);left: 0;top: 0;width: 300px;height: 100px;z-index: 111;}", 0);
+    sheet.insertRule("[data-dcctitle]:hover:after {" +
+        "content: attr(data-dcctitle);" +
+        "white-space: pre-line;" +
+        "font-style: normal;" +
+        "font-variant: normal;" +
+        "font-weight: normal;" +
+        "font-stretch: normal;" +
+        "font-size: medium;" +
+        "line-height: normal;" +
+        "font-family: sans-serif;" +
+        "text-align: left;" +
+        "text-transform: none;" +
+        "list-style-type:none;" +
+        "padding: 10px;" +
+        "background-color: burlywood;" +
+        "border-style: solid;" +
+        "border-color: papayawhip;" +
+        "color: white;font-size: 15px;" +
+        "position: fixed;" +
+        "left: 200px;" +
+        "top: 200px;" +
+        "width: 300px;" +
+        "height: 100px;" +
+        "z-index: 2147483647;" +
+        "}", 0);
 
     /**
      * This is to check that PriceRegexes exists in SeaMonkey and Firefox
@@ -75,7 +99,7 @@ const DirectCurrencyContent = (function() {
         }
         return 0;
     };
-    const checkOtherUnit = function (aReplacedUnit, aConversionQuote) {
+    const checkOtherUnit = function (aReplacedUnit) {
         if (aReplacedUnit === "inch") {
             return 25.4;
         }
@@ -168,15 +192,17 @@ const DirectCurrencyContent = (function() {
             return;
         }
         const conversionQuote = conversionQuotes[replacedUnit] * (1 + quoteAdjustmentPercent / 100);
+        var tempAmount;
+        var tempConvertedAmount;
         for (var price of prices) {
             var tempConversionQuote = checkSubUnit(price, replacedUnit, conversionQuote);
             if (tempConversionQuote === 0) {
-                tempConversionQuote = checkOtherUnit(replacedUnit, conversionQuote);
+                tempConversionQuote = checkOtherUnit(replacedUnit);
             }
             if (tempConversionQuote === 0) {
                 tempConversionQuote = conversionQuote;
             }
-            const convertedAmount = convertAmount(price.amount, tempConversionQuote);
+            const convertedAmount = tempConversionQuote * parseAmount(price.amount);
             const multiplicator = getMultiplicator(replacedUnit, price.full.toLowerCase());
             var convertedPrice = formatAlsoOtherUnit(replacedUnit, convertedAmount, multiplicator);
             if (showOriginalPrices) {
@@ -193,6 +219,8 @@ const DirectCurrencyContent = (function() {
                 convertedContent = convertedContent.replace("##__##", price.full);
                 convertedContent = convertedContent.replace("¤¤¤", replacedUnit);
             }
+            tempAmount = parseAmount(price.amount);
+            tempConvertedAmount = convertedAmount;
         }
         for (var price of prices) {
             elementTitleText += " ~ " + price.full;
@@ -212,7 +240,17 @@ const DirectCurrencyContent = (function() {
             }
         }
         if (isEnabled) {
-            substitute(aNode, false, replacedUnit);
+            var dccTitle = "Converted value: ";
+            dccTitle += formatPrice(tempConvertedAmount, currencyCode, "") + "\n";
+            //dccTitle += tempConvertedAmount + " " + currencyCode + "\n";
+            dccTitle += "Original value: ";
+            dccTitle += formatPrice(tempAmount, replacedUnit, "") + "\n";
+            //dccTitle += tempAmount + " " + replacedUnit + "\n";
+            //dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " + Math.round(10000 * conversionQuote) / 10000 + "\n";
+            //dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " + Math.round(10000 / conversionQuote) / 10000;
+            dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " + formatPrice(conversionQuote, "", "") + "\n";
+            dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " + formatPrice(1/conversionQuote, "", "");
+            substitute(aNode, false, dccTitle);
         }
     };
     const getMultiplicator = function(aReplacedUnit, aPrice) {
@@ -310,9 +348,9 @@ const DirectCurrencyContent = (function() {
         price.full = aMatch[0];
         // 1 (position in the string where the price was found)
         price.positionInString = aMatch.index;
-        console.log(price.amount);
-        console.log(price.full);
-        console.log(price.positionInString);
+        //console.log(price.amount);
+        //console.log(price.full);
+        //console.log(price.positionInString);
         return price;
     };
     // Stores prices that will be replaced with converted prices
@@ -335,7 +373,7 @@ const DirectCurrencyContent = (function() {
         element.title = aTitle;
         return element;
     };
-    const convertAmount = function(anAmount, aConversionQuote) {
+    const parseAmount = function(anAmount) {
         var amount = anAmount;
         const comma = amount.contains(",");
         const point = amount.contains(".");
@@ -377,7 +415,7 @@ const DirectCurrencyContent = (function() {
             }
             else if (apo) {
                 const apoCount = amount.split("'").length - 1;
-                var checkValidity = (amount.length - amount.indexOf("'") - apoCount) % 3;
+                const checkValidity = (amount.length - amount.indexOf("'") - apoCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                 }
                 else {
@@ -386,7 +424,7 @@ const DirectCurrencyContent = (function() {
             }
             else if (point) {
                 const pointCount = amount.split(".").length - 1;
-                var checkValidity = (amount.length - amount.indexOf(".") - pointCount) % 3;
+                const checkValidity = (amount.length - amount.indexOf(".") - pointCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                 }
                 else {
@@ -395,7 +433,7 @@ const DirectCurrencyContent = (function() {
             }
             else if (comma) {
                 const commaCount = amount.split(",").length - 1;
-                var checkValidity = (amount.length - amount.indexOf(",") - commaCount) % 3;
+                const checkValidity = (amount.length - amount.indexOf(",") - commaCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                     amount = amount.replace(/,/g,".");
                 }
@@ -405,7 +443,7 @@ const DirectCurrencyContent = (function() {
             }
             else if (colon) {
                 const colonCount = amount.split(":").length - 1;
-                var checkValidity = (amount.length - amount.indexOf(":") - colonCount) % 3;
+                const checkValidity = (amount.length - amount.indexOf(":") - colonCount) % 3;
                 if (amount.charAt(0) === "0" || checkValidity !== 0) {
                     amount = amount.replace(/:/g,".");
                 }
@@ -414,7 +452,7 @@ const DirectCurrencyContent = (function() {
                 }
             }
         }
-        return aConversionQuote * amount;
+        return parseFloat(amount);
     };
     const formatPrice = function(anAmount, aUnit, aMultiplicator) {
         var unit = aUnit;
@@ -464,7 +502,7 @@ const DirectCurrencyContent = (function() {
     };
     const mutationHandler = function(aMutationRecord) {
         if (aMutationRecord.type === "childList") {
-            for (var node of aMutationRecord.addedNodes.length) {
+            for (var node of aMutationRecord.addedNodes) {
                 console.log(node.nodeName);
                 traverseDomTree(node);
             }
@@ -512,7 +550,7 @@ const DirectCurrencyContent = (function() {
             }
         }
     };
-    const substitute = function(aNode, isShowOriginal, aReplacedUnit) {
+    const substitute = function(aNode, isShowOriginal, aDccTitle) {
         //console.log(aNode.nodeName);
         //console.log(isShowOriginal);
         //console.log(aReplacedUnit);
@@ -522,17 +560,10 @@ const DirectCurrencyContent = (function() {
         const className = isShowOriginal ? ".originalText" : ".convertedText";
         const nodeList = aNode.parentNode.querySelectorAll(className);
         for (var node of nodeList) {
-            var originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
+            const originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
             originalNode.textContent = node.value;
-            if (aReplacedUnit) {
-                var dccTitle = "Converted value: ";
-                dccTitle += currencyCode + "\n";
-                dccTitle += "Original value: ";
-                dccTitle += node.title + " " + aReplacedUnit + "\n";
-                dccTitle += "Conversion quote " + aReplacedUnit + "/" + currencyCode + " = " + 1.1111111 + "\n";
-                dccTitle += "Conversion quote " + currencyCode + "/" + aReplacedUnit + " = " + 0.9000000;
-                originalNode.parentNode.dataset.dcctitle = dccTitle;
-                //originalNode.parentNode.style.position = "relative";
+            if (aDccTitle) {
+                originalNode.parentNode.dataset.dcctitle = aDccTitle;
             }
         }
     };
@@ -612,7 +643,6 @@ const DirectCurrencyContent = (function() {
             enabledCurrenciesWithRegexes.push(regexObj_hp);
         }
         var process = true;
-        const excludedLen = contentScriptParams.excludedDomains.length;
         for (var excludedDomain of contentScriptParams.excludedDomains) {
             const matcher = new RegExp(excludedDomain, "g");
             const found = matcher.test(document.URL);

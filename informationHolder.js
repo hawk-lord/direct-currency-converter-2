@@ -200,6 +200,12 @@ const InformationHolder = function(aDefaultExcludedDomains, aStorageService, aCu
         set showOriginalCurrencies (aShowOriginalCurrencies) {
             aStorageService.showOriginalCurrencies = aShowOriginalCurrencies;
         },
+        get showTooltip () {
+            return aStorageService.showTooltip;
+        },
+        set showTooltip (aShowTooltip) {
+            aStorageService.showTooltip = aShowTooltip;
+        },
         get beforeCurrencySymbol () {
             return aStorageService.beforeCurrencySymbol;
         },

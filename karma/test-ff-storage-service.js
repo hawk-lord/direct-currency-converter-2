@@ -21,8 +21,9 @@ describe("FirefoxStorageServiceProvider", function() {
             assert.isTrue(firefoxStorageServiceProvider.enableOnStart, "enableOnStart");
             assert.strictEqual(firefoxStorageServiceProvider.quoteAdjustmentPercent, 0, "quoteAdjustmentPercent");
             assert.isUndefined(firefoxStorageServiceProvider.roundAmounts, "roundAmounts");
-            assert.isTrue(firefoxStorageServiceProvider.showOriginalPrices, "showOriginalPrices");
-            assert.isTrue(firefoxStorageServiceProvider.showOriginalCurrencies, "showOriginalCurrencies");
+            assert.isFalse(firefoxStorageServiceProvider.showOriginalPrices, "showOriginalPrices");
+            assert.isFalse(firefoxStorageServiceProvider.showOriginalCurrencies, "showOriginalCurrencies");
+            assert.isTrue(firefoxStorageServiceProvider.showTooltip, "showTooltip");
             assert.isTrue(firefoxStorageServiceProvider.beforeCurrencySymbol, "beforeCurrencySymbol");
             assert.strictEqual(firefoxStorageServiceProvider.currencySpacing, " ", "currencySpacing");
             assert.strictEqual(firefoxStorageServiceProvider.monetarySeparatorSymbol, ",", "monetarySeparatorSymbol");
@@ -42,8 +43,9 @@ describe("FirefoxStorageServiceProvider", function() {
             assert.isTrue(firefoxStorageServiceProvider.enableOnStart, "enableOnStart");
             assert.strictEqual(firefoxStorageServiceProvider.quoteAdjustmentPercent, 0, "quoteAdjustmentPercent");
             assert.isUndefined(firefoxStorageServiceProvider.roundAmounts, "roundAmounts");
-            assert.isTrue(firefoxStorageServiceProvider.showOriginalPrices, "showOriginalPrices");
-            assert.isTrue(firefoxStorageServiceProvider.showOriginalCurrencies, "showOriginalCurrencies");
+            assert.isFalse(firefoxStorageServiceProvider.showOriginalPrices, "showOriginalPrices");
+            assert.isFalse(firefoxStorageServiceProvider.showOriginalCurrencies, "showOriginalCurrencies");
+            assert.isTrue(firefoxStorageServiceProvider.showTooltip, "showTooltip");
             assert.isTrue(firefoxStorageServiceProvider.beforeCurrencySymbol, "beforeCurrencySymbol");
             assert.strictEqual(firefoxStorageServiceProvider.currencySpacing, " ", "currencySpacing");
             assert.strictEqual(firefoxStorageServiceProvider.monetarySeparatorSymbol, ",", "monetarySeparatorSymbol");

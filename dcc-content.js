@@ -54,8 +54,8 @@ const DirectCurrencyContent = (function() {
         "border-color: papayawhip;" +
         "color: white;font-size: 15px;" +
         "position: fixed;" +
-        "left: 200px;" +
-        "top: 200px;" +
+        "left: 0;" +
+        "top: 0;" +
         "width: 300px;" +
         "height: 100px;" +
         "z-index: 2147483647;" +

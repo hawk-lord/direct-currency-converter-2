@@ -503,7 +503,6 @@ const DirectCurrencyContent = (function() {
     const mutationHandler = function(aMutationRecord) {
         if (aMutationRecord.type === "childList") {
             for (var node of aMutationRecord.addedNodes) {
-                console.log(node.nodeName);
                 traverseDomTree(node);
             }
         }

@@ -20,11 +20,122 @@ TypeError: jQuery(...).sortable is not a function dcc-settings.js:23:1
 //Stack trace:
 //FirefoxContentInterface/watchForPages/releaseTab@resource://gre/modules/commonjs/toolkit/loader.js -> resource://dcc-at-joint-dot-ax/lib/ff-contentInterface.js:142:21
 
+New setting showTooltip
+
+Check convertToCurrency initialisation at program start.
+
+Room for more than one converted price.
+
+Blocket: fix z-order.
+
+https://www.tivoli.dk/en/praktisk/priser/   z-order etc
+
+http://www.citydental.se/priser.asp
+
+CHF 10'000
+
+---------
+Converted to: CHF
+1.23 [USD]
+---------
+Original value: 1,23 USD
+Converted value: 1,17 CHF
+Conversion quote USD/CHF = 0,9551
+Conversion quote CHF/USD = 1,0470
+---------
+
+console.log: direct-currency-converter-2: BODY
+console.log: direct-currency-converter-2: true
+console.log: direct-currency-converter-2: null
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: BODY
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: null
+console.log: direct-currency-converter-2: BODY
+console.log: direct-currency-converter-2: true
+console.log: direct-currency-converter-2: null
+console.log: direct-currency-converter-2: BODY
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: null
 
 
+Must be more reliable when freegeoip is offline.
 
 require SDK to an own module
 
+
+
+
+const DirectCurrencyContent = (function() {
+    const CurrencyRegex = function (aCurrency, aRegex1, aRegex2){
+            function(resolve, reject) {
+            function(aPriceRegexes) {
+            function (err) {
+            function (err) {
+    const checkSubUnit = function (aPrice, aReplacedUnit, aConversionQuote) {
+    const checkOtherUnit = function (aReplacedUnit, aConversionQuote) {
+    // reads currencySymbol
+    const formatAlsoOtherUnit = function (aReplacedUnit, aConvertedAmount, aMultiplicator) {
+    const addOriginalUnit = function (anElementTitleText, aReplacedUnit) {
+    const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent, aReplacedUnit) {
+    // reads conversionQuotes, currencyCode, enabledCurrenciesWithRegexes, isEnabled, quoteAdjustmentPercent, showOriginalPrices, showOriginalCurrencies
+    const replaceCurrency = function(aNode) {
+    const getMultiplicator = function(aReplacedUnit, aPrice) {
+    const getSekMultiplicator = function(aUnit) {
+    const getDkkMultiplicator = function(aUnit) {
+    const getIskMultiplicator = function(aUnit) {
+    const getNokMultiplicator = function(aUnit) {
+    const makePrice = function(aMatch, anAmountPosition) {
+    const findPrices = function(aRegex, aText, anAmountPosition) {
+    const makeCacheNode = function(aClassName, aValue, aTitle) {
+    const convertAmount = function(anAmount, aConversionQuote) {
+    // reads currencyCode, customFormat, roundAmounts, subUnits
+    const formatPrice = function(anAmount, aUnit, aMultiplicator) {
+    const addMonetaryGroupingSeparatorSymbol = function(anAmount, aMonetaryGroupingSeparatorSymbol) {
+    const mergeArrays = function(destination, source) {
+    const mutationHandler = function(aMutationRecord) {
+    const mutationsHandler = function(aMutations) {
+    const startObserve = function() {
+    const resetDomTree = function(aNode) {
+    // reads skippedElements
+    const traverseDomTree = function(aNode) {
+    // reads currencyCode
+    const substitute = function(aNode, isShowOriginal, aReplacedUnit) {
+    // reads excludedDomains
+    // has its own isEnabled!
+    const onSendEnabledStatus = function(aStatus) {
+    // writes conversionQuotes, currencyCode, currencySymbol, customFormat, enabledCurrenciesWithRegexes, excludedDomains, isEnabled, quoteAdjustmentPercent, roundAmounts, showOriginalPrices, showOriginalCurrencies
+    // reads regex1, regex2
+    const onUpdateSettings = function(contentScriptParams) {
 
 
 console.error: direct-currency-converter-2:

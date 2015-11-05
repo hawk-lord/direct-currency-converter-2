@@ -28,6 +28,7 @@ const DirectCurrencyContent = (function() {
     var roundAmounts = false;
     var showOriginalPrices = false;
     var showOriginalCurrencies = false;
+    var showTooltip = true;
     const skippedElements = ["audio", "button", "embed", "head", "img", "noscript", "object", "script", "select", "style", "textarea", "video"];
     const subUnits = {"EUR" : "cent", "RUB" : "коп."};
 
@@ -239,15 +240,11 @@ const DirectCurrencyContent = (function() {
                 }
             }
         }
-        if (isEnabled) {
+        if (isEnabled && showTooltip) {
             var dccTitle = "Converted value: ";
             dccTitle += formatPrice(tempConvertedAmount, currencyCode, "") + "\n";
-            //dccTitle += tempConvertedAmount + " " + currencyCode + "\n";
             dccTitle += "Original value: ";
             dccTitle += formatPrice(tempAmount, replacedUnit, "") + "\n";
-            //dccTitle += tempAmount + " " + replacedUnit + "\n";
-            //dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " + Math.round(10000 * conversionQuote) / 10000 + "\n";
-            //dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " + Math.round(10000 / conversionQuote) / 10000;
             dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " + formatPrice(conversionQuote, "", "") + "\n";
             dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " + formatPrice(1/conversionQuote, "", "");
             substitute(aNode, false, dccTitle);
@@ -617,6 +614,7 @@ const DirectCurrencyContent = (function() {
         roundAmounts = contentScriptParams.roundAmounts;
         showOriginalPrices = contentScriptParams.showOriginalPrices;
         showOriginalCurrencies = contentScriptParams.showOriginalCurrencies;
+        showTooltip = contentScriptParams.showTooltip;
         quoteAdjustmentPercent = +contentScriptParams.quoteAdjustmentPercent;
 
         enabledCurrenciesWithRegexes.length = 0;

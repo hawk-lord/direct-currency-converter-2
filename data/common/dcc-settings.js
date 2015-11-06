@@ -23,7 +23,7 @@ const DirectCurrencySettings = (function() {
         jQuery("#fromCurrencies").sortable({
             revert: true
         });
-        jQuery("ol, li").disableSelection();
+// Why was this used?        jQuery("ol, li").disableSelection();
         jQuery("#convert_to_currency").change(function() {
             const currencyCountry = jQuery(this).val();
             convertToCurrency = currencyCountry.substr(0, 3);
@@ -66,6 +66,9 @@ const DirectCurrencySettings = (function() {
         });
         jQuery("#showOriginalCurrencies").change(function() {
             showOriginalCurrencies = jQuery(this).is(":checked");
+        });
+        jQuery("#showTooltip").change(function() {
+            showTooltip = jQuery(this).is(":checked");
         });
         jQuery("#beforeCurrencySymbol").change(function() {
             beforeCurrencySymbol = jQuery(this).is(":checked");
@@ -119,6 +122,7 @@ const DirectCurrencySettings = (function() {
             contentScriptParams.currencySpacing = currencySpacing? "\u00a0" : "";
             contentScriptParams.showOriginalPrices = showOriginalPrices;
             contentScriptParams.showOriginalCurrencies = showOriginalCurrencies;
+            contentScriptParams.showTooltip = showTooltip;
             contentScriptParams.beforeCurrencySymbol = beforeCurrencySymbol;
             contentScriptParams.tempConvertUnits = tempConvertUnits;
             contentScriptParams.monetaryGroupingSeparatorSymbol = monetaryGroupingSeparatorSymbol;
@@ -141,6 +145,7 @@ const DirectCurrencySettings = (function() {
     var currencySpacing = null;
     var showOriginalPrices = null;
     var showOriginalCurrencies = null;
+    var showTooltip = null;
     var beforeCurrencySymbol = true;
     var tempConvertUnits = null;
     var monetaryGroupingSeparatorSymbol = null;
@@ -184,6 +189,8 @@ const DirectCurrencySettings = (function() {
         onCurrencySpacingChange(currencySpacing !== "");
         jQuery("#show_original_prices").prop("checked", showOriginalPrices);
         jQuery("#showOriginalCurrencies").prop("checked", showOriginalCurrencies);
+        jQuery("#showTooltip").prop("checked", showTooltip);
+        jQuery("#showTooltip").prop("checked", showTooltip);
         jQuery("#beforeCurrencySymbol").prop("checked", beforeCurrencySymbol);
         jQuery("#unitBefore").prop("checked", !beforeCurrencySymbol);
         onBeforeCurrencySymbolChange(beforeCurrencySymbol);
@@ -277,6 +284,7 @@ const DirectCurrencySettings = (function() {
         currencySpacing = contentScriptParams.currencySpacing;
         showOriginalPrices = contentScriptParams.showOriginalPrices;
         showOriginalCurrencies = contentScriptParams.showOriginalCurrencies;
+        showTooltip = contentScriptParams.showTooltip;
         beforeCurrencySymbol = contentScriptParams.beforeCurrencySymbol;
         tempConvertUnits = contentScriptParams.tempConvertUnits;
         monetaryGroupingSeparatorSymbol = contentScriptParams.monetaryGroupingSeparatorSymbol;

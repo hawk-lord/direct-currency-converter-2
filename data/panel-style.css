@@ -14,3 +14,38 @@ li {
     border-style: solid;
     border-color: papayawhip;
 }
+/* conversion hover, used in code only */
+[data-dcctitle]:hover:after {
+    color: white;
+    font-size: 15px;
+    font-family: sans-serif;
+    list-style-type: none;
+    padding: 10px;
+    background-color: burlywood;
+    border-style: solid;
+    border-color: papayawhip;
+    position: fixed;
+    content: attr(data-dcctitle);
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100px;
+    z-index: 111;
+}
+[data-dcctitle2]:hover:after {
+    color: white;
+    font-size: 15px;
+    font-family: sans-serif;
+    list-style-type: none;
+    padding: 10px;
+    background-color: burlywood;
+    border-style: solid;
+    border-color: papayawhip;
+    position: fixed;
+    content: attr(data-dcctitle2);
+    left: 0;
+    top: 100px;
+    width: 200px;
+    height: 100px;
+    z-index: 111;
+}

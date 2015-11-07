@@ -1,6 +1,8 @@
-InformationHolderTest = TestCase("InformationHolderTest");
+const InformationHolder = require("../../lib/dcc-common-lib/informationHolder").InformationHolder;
+const assert = require("assert");
 
-InformationHolderTest.prototype.test = () => {
+
+describe("InformationHolder", function() {
     "use strict";
     const StorageService = function() {};
     StorageService.prototype.init = () => {
@@ -9,6 +11,9 @@ InformationHolderTest.prototype.test = () => {
     const defaultEnabledCurrencies = {"SEK":true, "CHF":true, "DKK":true, "EUR":true, "GBP":true, "ISK":true, "JPY":true, "NOK":true, "RUB":true, "USD":true};
     const storageService = new StorageService();
     const iso4217Currencies = [];
-    const informationHolder = new InformationHolder(defaultEnabledCurrencies, defaultExcludedDomains, storageService, null, null, iso4217Currencies, null, null);
-};
-
+    describe("#new", function() {
+        it("test", function () {
+            const informationHolder = new InformationHolder(defaultEnabledCurrencies, defaultExcludedDomains, storageService, null, null, iso4217Currencies, null, null);
+        });
+    })
+});

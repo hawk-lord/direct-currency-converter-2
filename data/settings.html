@@ -19,33 +19,7 @@
     <body>
     	<h1 data-l10n-id="Settings">Settings</h1>
         <!-- http://jqueryui.com/sortable/#connect-lists -->
-        <p class="caption" data-l10n-id="caption">Drag and drop currencies between the boxes below to enable, disable and reorder them. If an ambiguous currency such as "kroner" (could be DKK or NOK) is found, it is converted to the first possible currency in the "Convert from" list.</p>
-        <!--
-        <fieldset class="currencies minimised" >
-            <legend data-l10n-id="enabled-legend">
-                Convert from, in this order:
-            </legend>
-            <ol id="enabledCurrencies" class="connectedSortable"> </ol>
-        </fieldset>
-        <fieldset class="arrows">
-            <ul>
-                <li class="arrow">⇋</li>
-                <li>
-                    <div id="toggleCurrencies">
-                        <span id="toggleCurrencies_text" class="loc" data-l10n-id="Expand/Compress lists"></span>
-                    </div>
-                </li>
-
-            </ul>
-        </fieldset>
-        <fieldset class="currencies minimised">
-            <legend data-l10n-id="disabled-legend">
-                Don't convert from:
-            </legend>
-            <ul id="disabledCurrencies" class="connectedSortable"> </ul>
-        </fieldset>
-        <div class="clear"> </div>
-        -->
+    <p class="caption" data-l10n-id="caption">Drag and drop currencies to reorder them. If an ambiguous currency such as "kroner" (could be DKK or NOK) is found, it is converted to the first possible currency in the list.</p>
         <fieldset>
             <legend data-l10n-id="enabled-legend">
                 Convert from, in this order:
@@ -356,6 +330,14 @@
                     <input type="checkbox" id="show_original_prices" />
                     <label for="show_original_prices" data-l10n-id="Show original amounts in parentheses">Show original amounts in parentheses: 6,12 € (55 SEK).
                     If unselected, original amounts are shown in the element titles (tooltips).</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="showOriginalCurrencies" />
+                    <label for="showOriginalCurrencies" data-l10n-id="Show original currency in brackets">Show original currencies in brackets if needed: 6,12 € (55 kr [SEK]).</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="showTooltip" />
+                    <label for="showTooltip" data-l10n-id="Show tooltip">Show tooltip.</label>
                 </li>
                 <li>
                     <select class="options-combo" id="adjustment_percentage">

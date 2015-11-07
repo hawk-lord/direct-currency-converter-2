@@ -23,11 +23,7 @@ const DirectCurrencySettings = (function() {
         jQuery("#fromCurrencies").sortable({
             revert: true
         });
-<<<<<<< HEAD
-        jQuery("ol, li").disableSelection();
-=======
 // Why was this used?        jQuery("ol, li").disableSelection();
->>>>>>> 1312dbbc8fddb55a7817d1df5dee8e813216e621
         jQuery("#convert_to_currency").change(function() {
             const currencyCountry = jQuery(this).val();
             convertToCurrency = currencyCountry.substr(0, 3);
@@ -98,27 +94,16 @@ const DirectCurrencySettings = (function() {
                 excludedLines = [];
             }
             excludedDomains = excludedLines;
-<<<<<<< HEAD
-            enabledCurrencies = {};
-=======
             convertFroms = [];
->>>>>>> 1312dbbc8fddb55a7817d1df5dee8e813216e621
             const liFromCurrencies = jQuery("#fromCurrencies").find("li");
             liFromCurrencies.each(function () {
                 var inputs = jQuery(this).find("input");
                 var input = jQuery(inputs)[0];
                 if (input && input.checked) {
-<<<<<<< HEAD
-                    enabledCurrencies[jQuery(this).attr("id")] = true;
-                }
-                else {
-                    enabledCurrencies[jQuery(this).attr("id")] = false;
-=======
                     convertFroms.push({"isoName": jQuery(this).attr("id"), "enabled": true});
                 }
                 else {
                     convertFroms.push({"isoName": jQuery(this).attr("id"), "enabled": false});
->>>>>>> 1312dbbc8fddb55a7817d1df5dee8e813216e621
                 }
             });
             const contentScriptParams = {};
@@ -178,26 +163,15 @@ const DirectCurrencySettings = (function() {
         jQuery("#enable_conversion").prop("checked", enableOnStart);
         const excludedText = excludedDomains.join("\n").replace(/\n/g, "\r\n");
         jQuery("#excluded_domains").val(excludedText);
-<<<<<<< HEAD
-        for (var currency in enabledCurrencies) {
-            var li = jQuery(document.createElement("li")).attr({
-                class: "ui-state-default",
-                id: currency
-=======
         for (var currency of convertFroms) {
             var li = jQuery(document.createElement("li")).attr({
                 class: "ui-state-default",
                 id: currency.isoName
->>>>>>> 1312dbbc8fddb55a7817d1df5dee8e813216e621
             });
             jQuery("#fromCurrencies").append(li);
             var label = jQuery(document.createElement("label"));
             li.append(label);
-<<<<<<< HEAD
-            if (enabledCurrencies[currency]) {
-=======
             if (currency.enabled) {
->>>>>>> 1312dbbc8fddb55a7817d1df5dee8e813216e621
                 label.append(jQuery(document.createElement("input")).attr({
                     type: "checkbox",
                     checked: "checked"
@@ -208,11 +182,7 @@ const DirectCurrencySettings = (function() {
                     type: "checkbox"
                 }));
             }
-<<<<<<< HEAD
-            label.append(currencyNames[currency]);
-=======
             label.append(currencyNames[currency.isoName]);
->>>>>>> 1312dbbc8fddb55a7817d1df5dee8e813216e621
         }
         jQuery("#adjustment_percentage").val(quoteAdjustmentPercent);
         jQuery("#always_round").prop("checked", roundAmounts);

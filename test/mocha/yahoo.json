@@ -1,0 +1,723 @@
+{
+  "query": {
+    "count": 178,
+    "created": "2015-05-25T20:39:03Z",
+    "lang": "en-US",
+    "results": {
+      "row": [
+        {
+          "rate": "0.0151",
+          "symbol": "AFNEUR=X"
+        },
+        {
+          "rate": "0.2479",
+          "symbol": "AEDEUR=X"
+        },
+        {
+          "rate": "0.0071",
+          "symbol": "ALLEUR=X"
+        },
+        {
+          "rate": "0.0019",
+          "symbol": "AMDEUR=X"
+        },
+        {
+          "rate": "0.5088",
+          "symbol": "ANGEUR=X"
+        },
+        {
+          "rate": "0.0083",
+          "symbol": "AOAEUR=X"
+        },
+        {
+          "rate": "0.1011",
+          "symbol": "ARSEUR=X"
+        },
+        {
+          "rate": "0.7126",
+          "symbol": "AUDEUR=X"
+        },
+        {
+          "rate": "0.5088",
+          "symbol": "AWGEUR=X"
+        },
+        {
+          "rate": "0.8674",
+          "symbol": "AZNEUR=X"
+        },
+        {
+          "rate": "0.5128",
+          "symbol": "BAMEUR=X"
+        },
+        {
+          "rate": "0.4554",
+          "symbol": "BBDEUR=X"
+        },
+        {
+          "rate": "0.0117",
+          "symbol": "BDTEUR=X"
+        },
+        {
+          "rate": "0.5113",
+          "symbol": "BGNEUR=X"
+        },
+        {
+          "rate": "2.4158",
+          "symbol": "BHDEUR=X"
+        },
+        {
+          "rate": "0.0006",
+          "symbol": "BIFEUR=X"
+        },
+        {
+          "rate": "0.9107",
+          "symbol": "BMDEUR=X"
+        },
+        {
+          "rate": "0.6813",
+          "symbol": "BNDEUR=X"
+        },
+        {
+          "rate": "0.1318",
+          "symbol": "BOBEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "BOVEUR=X"
+        },
+        {
+          "rate": "0.2940",
+          "symbol": "BRLEUR=X"
+        },
+        {
+          "rate": "0.9107",
+          "symbol": "BSDEUR=X"
+        },
+        {
+          "rate": "0.0143",
+          "symbol": "BTNEUR=X"
+        },
+        {
+          "rate": "0.0928",
+          "symbol": "BWPEUR=X"
+        },
+        {
+          "rate": "0.0001",
+          "symbol": "BYREUR=X"
+        },
+        {
+          "rate": "0.4565",
+          "symbol": "BZDEUR=X"
+        },
+        {
+          "rate": "0.7397",
+          "symbol": "CADEUR=X"
+        },
+        {
+          "rate": "0.0010",
+          "symbol": "CDFEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "CHEEUR=X"
+        },
+        {
+          "rate": "0.9638",
+          "symbol": "CHFEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "CHWEUR=X"
+        },
+        {
+          "rate": "37.0229",
+          "symbol": "CLFEUR=X"
+        },
+        {
+          "rate": "0.0015",
+          "symbol": "CLPEUR=X"
+        },
+        {
+          "rate": "0.1469",
+          "symbol": "CNYEUR=X"
+        },
+        {
+          "rate": "0.0004",
+          "symbol": "COPEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "COUEUR=X"
+        },
+        {
+          "rate": "0.0017",
+          "symbol": "CRCEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "CUCEUR=X"
+        },
+        {
+          "rate": "0.9107",
+          "symbol": "CUPEUR=X"
+        },
+        {
+          "rate": "0.0091",
+          "symbol": "CVEEUR=X"
+        },
+        {
+          "rate": "0.0366",
+          "symbol": "CZKEUR=X"
+        },
+        {
+          "rate": "0.0051",
+          "symbol": "DJFEUR=X"
+        },
+        {
+          "rate": "0.1341",
+          "symbol": "DKKEUR=X"
+        },
+        {
+          "rate": "0.0203",
+          "symbol": "DOPEUR=X"
+        },
+        {
+          "rate": "0.0092",
+          "symbol": "DZDEUR=X"
+        },
+        {
+          "rate": "0.1193",
+          "symbol": "EGPEUR=X"
+        },
+        {
+          "rate": "0.0596",
+          "symbol": "ERNEUR=X"
+        },
+        {
+          "rate": "0.0443",
+          "symbol": "ETBEUR=X"
+        },
+        {
+          "rate": "1.0000",
+          "symbol": "EUREUR=X"
+        },
+        {
+          "rate": "0.4445",
+          "symbol": "FJDEUR=X"
+        },
+        {
+          "rate": "1.4268",
+          "symbol": "FKPEUR=X"
+        },
+        {
+          "rate": "1.4090",
+          "symbol": "GBPEUR=X"
+        },
+        {
+          "rate": "0.3998",
+          "symbol": "GELEUR=X"
+        },
+        {
+          "rate": "0.2271",
+          "symbol": "GHSEUR=X"
+        },
+        {
+          "rate": "1.4085",
+          "symbol": "GIPEUR=X"
+        },
+        {
+          "rate": "0.0212",
+          "symbol": "GMDEUR=X"
+        },
+        {
+          "rate": "0.0001",
+          "symbol": "GNFEUR=X"
+        },
+        {
+          "rate": "0.1187",
+          "symbol": "GTQEUR=X"
+        },
+        {
+          "rate": "0.0044",
+          "symbol": "GYDEUR=X"
+        },
+        {
+          "rate": "0.1175",
+          "symbol": "HKDEUR=X"
+        },
+        {
+          "rate": "0.0416",
+          "symbol": "HNLEUR=X"
+        },
+        {
+          "rate": "0.1325",
+          "symbol": "HRKEUR=X"
+        },
+        {
+          "rate": "0.0191",
+          "symbol": "HTGEUR=X"
+        },
+        {
+          "rate": "0.0032",
+          "symbol": "HUFEUR=X"
+        },
+        {
+          "rate": "0.0001",
+          "symbol": "IDREUR=X"
+        },
+        {
+          "rate": "0.2353",
+          "symbol": "ILSEUR=X"
+        },
+        {
+          "rate": "0.0143",
+          "symbol": "INREUR=X"
+        },
+        {
+          "rate": "0.0008",
+          "symbol": "IQDEUR=X"
+        },
+        {
+          "rate": "0.0000",
+          "symbol": "IRREUR=X"
+        },
+        {
+          "rate": "0.0068",
+          "symbol": "ISKEUR=X"
+        },
+        {
+          "rate": "0.0079",
+          "symbol": "JMDEUR=X"
+        },
+        {
+          "rate": "1.2856",
+          "symbol": "JODEUR=X"
+        },
+        {
+          "rate": "0.0075",
+          "symbol": "JPYEUR=X"
+        },
+        {
+          "rate": "0.0093",
+          "symbol": "KESEUR=X"
+        },
+        {
+          "rate": "0.0156",
+          "symbol": "KGSEUR=X"
+        },
+        {
+          "rate": "0.0002",
+          "symbol": "KHREUR=X"
+        },
+        {
+          "rate": "0.0020",
+          "symbol": "KMFEUR=X"
+        },
+        {
+          "rate": "0.0010",
+          "symbol": "KPWEUR=X"
+        },
+        {
+          "rate": "0.0008",
+          "symbol": "KRWEUR=X"
+        },
+        {
+          "rate": "3.0096",
+          "symbol": "KWDEUR=X"
+        },
+        {
+          "rate": "1.1107",
+          "symbol": "KYDEUR=X"
+        },
+        {
+          "rate": "0.0049",
+          "symbol": "KZTEUR=X"
+        },
+        {
+          "rate": "0.0001",
+          "symbol": "LAKEUR=X"
+        },
+        {
+          "rate": "0.0006",
+          "symbol": "LBPEUR=X"
+        },
+        {
+          "rate": "0.0068",
+          "symbol": "LKREUR=X"
+        },
+        {
+          "rate": "0.0108",
+          "symbol": "LRDEUR=X"
+        },
+        {
+          "rate": "0.0766",
+          "symbol": "LSLEUR=X"
+        },
+        {
+          "rate": "0.6653",
+          "symbol": "LYDEUR=X"
+        },
+        {
+          "rate": "0.0929",
+          "symbol": "MADEUR=X"
+        },
+        {
+          "rate": "0.0508",
+          "symbol": "MDLEUR=X"
+        },
+        {
+          "rate": "0.0003",
+          "symbol": "MGAEUR=X"
+        },
+        {
+          "rate": "0.0163",
+          "symbol": "MKDEUR=X"
+        },
+        {
+          "rate": "0.0008",
+          "symbol": "MMKEUR=X"
+        },
+        {
+          "rate": "0.0005",
+          "symbol": "MNTEUR=X"
+        },
+        {
+          "rate": "0.1141",
+          "symbol": "MOPEUR=X"
+        },
+        {
+          "rate": "0.0029",
+          "symbol": "MROEUR=X"
+        },
+        {
+          "rate": "0.0260",
+          "symbol": "MUREUR=X"
+        },
+        {
+          "rate": "0.0593",
+          "symbol": "MVREUR=X"
+        },
+        {
+          "rate": "0.0021",
+          "symbol": "MWKEUR=X"
+        },
+        {
+          "rate": "0.0597",
+          "symbol": "MXNEUR=X"
+        },
+        {
+          "rate": "0.3241",
+          "symbol": "MXVEUR=X"
+        },
+        {
+          "rate": "0.2519",
+          "symbol": "MYREUR=X"
+        },
+        {
+          "rate": "0.0243",
+          "symbol": "MZNEUR=X"
+        },
+        {
+          "rate": "0.0766",
+          "symbol": "NADEUR=X"
+        },
+        {
+          "rate": "0.0046",
+          "symbol": "NGNEUR=X"
+        },
+        {
+          "rate": "0.0336",
+          "symbol": "NIOEUR=X"
+        },
+        {
+          "rate": "0.1192",
+          "symbol": "NOKEUR=X"
+        },
+        {
+          "rate": "0.0090",
+          "symbol": "NPREUR=X"
+        },
+        {
+          "rate": "0.6658",
+          "symbol": "NZDEUR=X"
+        },
+        {
+          "rate": "2.3656",
+          "symbol": "OMREUR=X"
+        },
+        {
+          "rate": "0.9107",
+          "symbol": "PABEUR=X"
+        },
+        {
+          "rate": "0.2894",
+          "symbol": "PENEUR=X"
+        },
+        {
+          "rate": "0.3347",
+          "symbol": "PGKEUR=X"
+        },
+        {
+          "rate": "0.0204",
+          "symbol": "PHPEUR=X"
+        },
+        {
+          "rate": "0.0089",
+          "symbol": "PKREUR=X"
+        },
+        {
+          "rate": "0.2436",
+          "symbol": "PLNEUR=X"
+        },
+        {
+          "rate": "0.0002",
+          "symbol": "PYGEUR=X"
+        },
+        {
+          "rate": "0.2502",
+          "symbol": "QAREUR=X"
+        },
+        {
+          "rate": "0.2246",
+          "symbol": "RONEUR=X"
+        },
+        {
+          "rate": "0.0083",
+          "symbol": "RSDEUR=X"
+        },
+        {
+          "rate": "0.0182",
+          "symbol": "RUBEUR=X"
+        },
+        {
+          "rate": "0.0013",
+          "symbol": "RWFEUR=X"
+        },
+        {
+          "rate": "0.2428",
+          "symbol": "SAREUR=X"
+        },
+        {
+          "rate": "0.1177",
+          "symbol": "SBDEUR=X"
+        },
+        {
+          "rate": "0.0679",
+          "symbol": "SCREUR=X"
+        },
+        {
+          "rate": "0.1531",
+          "symbol": "SDGEUR=X"
+        },
+        {
+          "rate": "0.1082",
+          "symbol": "SEKEUR=X"
+        },
+        {
+          "rate": "0.6788",
+          "symbol": "SGDEUR=X"
+        },
+        {
+          "rate": "1.4085",
+          "symbol": "SHPEUR=X"
+        },
+        {
+          "rate": "0.0002",
+          "symbol": "SLLEUR=X"
+        },
+        {
+          "rate": "0.0013",
+          "symbol": "SOSEUR=X"
+        },
+        {
+          "rate": "0.2760",
+          "symbol": "SRDEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "SSPEUR=X"
+        },
+        {
+          "rate": "0.0000",
+          "symbol": "STDEUR=X"
+        },
+        {
+          "rate": "0.1041",
+          "symbol": "SVCEUR=X"
+        },
+        {
+          "rate": "0.0048",
+          "symbol": "SYPEUR=X"
+        },
+        {
+          "rate": "0.0766",
+          "symbol": "SZLEUR=X"
+        },
+        {
+          "rate": "0.0271",
+          "symbol": "THBEUR=X"
+        },
+        {
+          "rate": "0.1453",
+          "symbol": "TJSEUR=X"
+        },
+        {
+          "rate": "0.2602",
+          "symbol": "TMTEUR=X"
+        },
+        {
+          "rate": "0.4645",
+          "symbol": "TNDEUR=X"
+        },
+        {
+          "rate": "0.4593",
+          "symbol": "TOPEUR=X"
+        },
+        {
+          "rate": "0.3482",
+          "symbol": "TRYEUR=X"
+        },
+        {
+          "rate": "0.1434",
+          "symbol": "TTDEUR=X"
+        },
+        {
+          "rate": "0.0299",
+          "symbol": "TWDEUR=X"
+        },
+        {
+          "rate": "0.0004",
+          "symbol": "TZSEUR=X"
+        },
+        {
+          "rate": "0.0439",
+          "symbol": "UAHEUR=X"
+        },
+        {
+          "rate": "0.0003",
+          "symbol": "UGXEUR=X"
+        },
+        {
+          "rate": "0.9107",
+          "symbol": "USDEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "USNEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "UYIEUR=X"
+        },
+        {
+          "rate": "0.0341",
+          "symbol": "UYUEUR=X"
+        },
+        {
+          "rate": "0.0004",
+          "symbol": "UZSEUR=X"
+        },
+        {
+          "rate": "0.1434",
+          "symbol": "VEFEUR=X"
+        },
+        {
+          "rate": "0.0000",
+          "symbol": "VNDEUR=X"
+        },
+        {
+          "rate": "0.0085",
+          "symbol": "VUVEUR=X"
+        },
+        {
+          "rate": "0.3684",
+          "symbol": "WSTEUR=X"
+        },
+        {
+          "rate": "0.0015",
+          "symbol": "XAFEUR=X"
+        },
+        {
+          "rate": "15.5100",
+          "symbol": "XAGEUR=X"
+        },
+        {
+          "rate": "1096.9490",
+          "symbol": "XAUEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "XBAEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "XBBEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "XBCEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "XBDEUR=X"
+        },
+        {
+          "rate": "0.3373",
+          "symbol": "XCDEUR=X"
+        },
+        {
+          "rate": "1.2726",
+          "symbol": "XDREUR=X"
+        },
+        {
+          "rate": "0.0015",
+          "symbol": "XOFEUR=X"
+        },
+        {
+          "rate": "714.0255",
+          "symbol": "XPDEUR=X"
+        },
+        {
+          "rate": "0.0084",
+          "symbol": "XPFEUR=X"
+        },
+        {
+          "rate": "1045.4463",
+          "symbol": "XPTEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "XSUEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "XTSEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "XUAEUR=X"
+        },
+        {
+          "rate": "N/A",
+          "symbol": "XXXEUR=X"
+        },
+        {
+          "rate": "0.0042",
+          "symbol": "YEREUR=X"
+        },
+        {
+          "rate": "0.0763",
+          "symbol": "ZAREUR=X"
+        },
+        {
+          "rate": "0.1274",
+          "symbol": "ZMWEUR=X"
+        },
+        {
+          "rate": "0.0028",
+          "symbol": "ZWLEUR=X"
+        }
+      ]
+    }
+  }
+}

@@ -1,9 +1,9 @@
 Direct Currency Converter
 
-Version: 2.2.0+0
-Date: 2015-08-11
+Version: 2.4.1+0
+Date: 2015-11-13
 
-After installation, you'll have two new buttons in the Firefox toolbar.
+After installation, you'll have two new buttons in the browser toolbar.
 
 Conversion is enabled or disabled by the "Toggle currency conversion" button.
 
@@ -92,8 +92,7 @@ Improved settings window.
 Internal change: using Add-On SDK and shared code with the Firefox version.
 
 Version: 2.4.0+1
-Date: 2015-11-06
-Added an improved tooltip in the upper left corner that shows the conversion used for each element. It won't hide the original tooltip any more.
- It can be turned off and on in the settings.
+Date: 2015-11-13
+Added an improved tooltip in the upper left corner that shows the conversion used for each element. It won't hide the original tooltip any more. It can be turned off and on in the settings.
 Original price and original currency in brackets can now be hidden and shown separately in the settings.
 Fix: some settings had been disabled.

@@ -37,7 +37,6 @@ module.exports = function (config) {
             {pattern: "test/karma/test-dcc-content.js", included: true},
             {pattern: "test/karma/test-dcc-regexes.js", included: true},
             {pattern: "test/karma/test-dcc-settings.js", included: true},
-            {pattern: "test/karma/test-dcc-firefox-content-adapter.js", included: true},
             {pattern: "test/karma/test-eventAggregator.js", included: true},
             {pattern: "test/karma/test-sm-chromeInterface.js", included: true},
             {pattern: "test/karma/test-ff-contentInterface.js", included: true},

@@ -23,7 +23,7 @@ const DirectCurrencySettings = (function() {
         jQuery("#fromCurrencies").sortable({
             revert: true
         });
-        jQuery("ol, li").disableSelection();
+// Why was this used?        jQuery("ol, li").disableSelection();
         jQuery("#convert_to_currency").change(function() {
             const currencyCountry = jQuery(this).val();
             convertToCurrency = currencyCountry.substr(0, 3);
@@ -64,6 +64,12 @@ const DirectCurrencySettings = (function() {
         jQuery("#show_original_prices").change(function() {
             showOriginalPrices = jQuery(this).is(":checked");
         });
+        jQuery("#showOriginalCurrencies").change(function() {
+            showOriginalCurrencies = jQuery(this).is(":checked");
+        });
+        jQuery("#showTooltip").change(function() {
+            showTooltip = jQuery(this).is(":checked");
+        });
         jQuery("#beforeCurrencySymbol").change(function() {
             beforeCurrencySymbol = jQuery(this).is(":checked");
             onBeforeCurrencySymbolChange(beforeCurrencySymbol);
@@ -88,16 +94,16 @@ const DirectCurrencySettings = (function() {
                 excludedLines = [];
             }
             excludedDomains = excludedLines;
-            enabledCurrencies = {};
+            convertFroms = [];
             const liFromCurrencies = jQuery("#fromCurrencies").find("li");
             liFromCurrencies.each(function () {
                 var inputs = jQuery(this).find("input");
                 var input = jQuery(inputs)[0];
                 if (input && input.checked) {
-                    enabledCurrencies[jQuery(this).attr("id")] = true;
+                    convertFroms.push({"isoName": jQuery(this).attr("id"), "enabled": true});
                 }
                 else {
-                    enabledCurrencies[jQuery(this).attr("id")] = false;
+                    convertFroms.push({"isoName": jQuery(this).attr("id"), "enabled": false});
                 }
             });
             const contentScriptParams = {};
@@ -109,12 +115,14 @@ const DirectCurrencySettings = (function() {
             contentScriptParams.enableOnStart = enableOnStart;
             contentScriptParams.excludedDomains = excludedDomains;
             Object.keys(contentScriptParams.excludedDomains).forEach(escapeHtml);
-            contentScriptParams.enabledCurrencies = enabledCurrencies;
-            Object.keys(contentScriptParams.enabledCurrencies).forEach(escapeHtml);
+            contentScriptParams.convertFroms = convertFroms;
+            //Object.keys(contentScriptParams.convertFroms).forEach(escapeHtml);
             contentScriptParams.quoteAdjustmentPercent = escapeHtml(quoteAdjustmentPercent);
             contentScriptParams.roundAmounts = roundAmounts;
             contentScriptParams.currencySpacing = currencySpacing? "\u00a0" : "";
             contentScriptParams.showOriginalPrices = showOriginalPrices;
+            contentScriptParams.showOriginalCurrencies = showOriginalCurrencies;
+            contentScriptParams.showTooltip = showTooltip;
             contentScriptParams.beforeCurrencySymbol = beforeCurrencySymbol;
             contentScriptParams.tempConvertUnits = tempConvertUnits;
             contentScriptParams.monetaryGroupingSeparatorSymbol = monetaryGroupingSeparatorSymbol;
@@ -131,11 +139,13 @@ const DirectCurrencySettings = (function() {
     var monetarySeparatorSymbol = null;
     var enableOnStart = null;
     var excludedDomains = [];
-    var enabledCurrencies = {};
+    var convertFroms = [];
     var quoteAdjustmentPercent = null;
     var roundAmounts = null;
     var currencySpacing = null;
     var showOriginalPrices = null;
+    var showOriginalCurrencies = null;
+    var showTooltip = null;
     var beforeCurrencySymbol = true;
     var tempConvertUnits = null;
     var monetaryGroupingSeparatorSymbol = null;
@@ -143,7 +153,9 @@ const DirectCurrencySettings = (function() {
     const setUIFromPreferences = function() {
         jQuery("#convert_to_currency").val(convertToCurrency + "_" + convertToCountry);
         onCurrencyChange(convertToCurrency);
-        jQuery("#custom_symbol").val(escapeHtml(customSymbols[convertToCurrency]));
+        if (customSymbols[convertToCurrency]) {
+            jQuery("#custom_symbol").val(escapeHtml(customSymbols[convertToCurrency]));
+        }
         jQuery("#monetary_separator_symbol").val(monetarySeparatorSymbol);
         jQuery("#preview_monetary_separator_symbol").html(monetarySeparatorSymbol);
         jQuery("#monetary_grouping_separator_symbol").val(monetaryGroupingSeparatorSymbol);
@@ -151,15 +163,15 @@ const DirectCurrencySettings = (function() {
         jQuery("#enable_conversion").prop("checked", enableOnStart);
         const excludedText = excludedDomains.join("\n").replace(/\n/g, "\r\n");
         jQuery("#excluded_domains").val(excludedText);
-        for (var currency in enabledCurrencies) {
+        for (var currency of convertFroms) {
             var li = jQuery(document.createElement("li")).attr({
                 class: "ui-state-default",
-                id: currency
+                id: currency.isoName
             });
             jQuery("#fromCurrencies").append(li);
             var label = jQuery(document.createElement("label"));
             li.append(label);
-            if (enabledCurrencies[currency]) {
+            if (currency.enabled) {
                 label.append(jQuery(document.createElement("input")).attr({
                     type: "checkbox",
                     checked: "checked"
@@ -170,12 +182,15 @@ const DirectCurrencySettings = (function() {
                     type: "checkbox"
                 }));
             }
-            label.append(currencyNames[currency]);
+            label.append(currencyNames[currency.isoName]);
         }
         jQuery("#adjustment_percentage").val(quoteAdjustmentPercent);
         jQuery("#always_round").prop("checked", roundAmounts);
         onCurrencySpacingChange(currencySpacing !== "");
         jQuery("#show_original_prices").prop("checked", showOriginalPrices);
+        jQuery("#showOriginalCurrencies").prop("checked", showOriginalCurrencies);
+        jQuery("#showTooltip").prop("checked", showTooltip);
+        jQuery("#showTooltip").prop("checked", showTooltip);
         jQuery("#beforeCurrencySymbol").prop("checked", beforeCurrencySymbol);
         jQuery("#unitBefore").prop("checked", !beforeCurrencySymbol);
         onBeforeCurrencySymbolChange(beforeCurrencySymbol);
@@ -201,7 +216,9 @@ const DirectCurrencySettings = (function() {
     };
     const onCurrencyChange = function(val) {
         var currencyVal = escapeHtml(val);
-        jQuery("#custom_symbol").val(customSymbols[currencyVal]);
+        if (customSymbols[currencyVal]) {
+            jQuery("#custom_symbol").val(customSymbols[currencyVal]);
+        }
         const allCurrencySymbols = jQuery.extend({}, currencySymbols, customSymbols);
         if (currencyVal in allCurrencySymbols) {
             currencyVal = allCurrencySymbols[currencyVal];
@@ -260,12 +277,14 @@ const DirectCurrencySettings = (function() {
         enableOnStart = contentScriptParams.enableOnStart;
         excludedDomains = contentScriptParams.excludedDomains;
         excludedDomains.map(escapeHtml);
-        enabledCurrencies = contentScriptParams.enabledCurrencies;
-        Object.keys(enabledCurrencies).forEach(escapeHtml);
+        convertFroms = contentScriptParams.convertFroms;
+        //Object.keys(convertFroms).forEach(escapeHtml);
         quoteAdjustmentPercent = escapeHtml(contentScriptParams.quoteAdjustmentPercent);
         roundAmounts = contentScriptParams.roundAmounts;
         currencySpacing = contentScriptParams.currencySpacing;
         showOriginalPrices = contentScriptParams.showOriginalPrices;
+        showOriginalCurrencies = contentScriptParams.showOriginalCurrencies;
+        showTooltip = contentScriptParams.showTooltip;
         beforeCurrencySymbol = contentScriptParams.beforeCurrencySymbol;
         tempConvertUnits = contentScriptParams.tempConvertUnits;
         monetaryGroupingSeparatorSymbol = contentScriptParams.monetaryGroupingSeparatorSymbol;

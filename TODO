@@ -1,5 +1,61 @@
+Reset removes currency:
+387.238,50 null to 3.872.385,00 null
+
 Toggle button: show state.
+
 
 Title in Customise window?
 
 Remove urlProvider?
+
+SM 2.33
+installs with cfx.xpi
+DCC 2.4.1 works fully
+
+SM 2.35
+installs with jpm.xpi and cfx.xpi
+DCC 2.4.1/2.2.0 conversion works, (toggle button does not toggle???,) tools button opens tab but does not show anything.
+
+
+SM 2.38
+installs with jpm.xpi and cfx.xpi
+
+
+FF
+installs with jpm.xpi and cfx.xpi
+DCC 2.4.1 works fully
+
+// SM 2.35
+(addon-sdk-1.17)Macbook:direct-currency-converter-2 per$ console.error: direct-currency-converter-2-sm:
+  onToolsButtonChange
+console.error: direct-currency-converter-2-sm:
+  const showSettingsTab
+console.error: direct-currency-converter-2-sm:
+  settingsWorker null
+console.error: direct-currency-converter-2-sm:
+  isOpen null
+console.error: direct-currency-converter-2-sm:
+  tabs.open undefined
+
+
+// FF
+Macbook:direct-currency-converter-2 per$ console.error: direct-currency-converter-2-sm:
+  onToolsButtonChange
+console.error: direct-currency-converter-2-sm:
+  const showSettingsTab
+console.error: direct-currency-converter-2-sm:
+  settingsWorker null
+console.error: direct-currency-converter-2-sm:
+  isOpen null
+console.error: direct-currency-converter-2-sm:
+  tabs.open undefined
+console.error: direct-currency-converter-2-sm:
+  activateTab aTab.url about:blank
+console.error: direct-currency-converter-2-sm:
+  aStatus true
+console.error: direct-currency-converter-2-sm:
+  toggleConversion
+console.error: direct-currency-converter-2-sm:
+  tabs.activeTab.customTabObject undefined
+console.error: direct-currency-converter-2-sm:
+  setTab aTab.url resource://dcc-sm-at-joint-dot-ax/data/settings.html

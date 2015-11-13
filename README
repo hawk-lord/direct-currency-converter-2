@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.2.0+3
-Date: 2015-08-13
+Version: 2.4.1+0
+Date: 2015-11-13
 
 After installation, you'll have a new submenu in the browser menu.
 
@@ -28,17 +28,16 @@ The conversion is made according to a best guess, checking for ISO currency code
 Also, currency names in several languages are checked, for example Arabic, Thai and Mongol.
 Ambiguous currencies are converted in the priority order you want. For instance, "kr" can mean SEK, DKK, NOK or ISK, and is converted to the first possible currency
 in the currency list in the settings tab.
-The "from currency" code is shown in brackets after the original value like this: 6,67 € (60 kr [SEK]).
+A tooltip containing original price, converted price and conversion quote is optionally shown in the upper left corner of the browser area.
+The "from currency" code is optionally shown in brackets after the original value like this: 6,67 € (60 kr [SEK]).
 
 Amounts without units are not converted.
 Also, if amount and unit are in different HTML elements (for example when they have different colours or sizes) conversion cannot be done.
 
 Optionally, if selected in the settings tab, some traditional units of measurement (such as miles and calories) are converted to SI units (such as kilometres and kilojoules).
 
-Partially based on code from Simple Currency Converter.
+DCC is forked from Simple Currency Converter
 https://addons.mozilla.org/addon/simple-currency-converter/
-
-Runs on Firefox 39 and later versions.
 
 External libraries used:
 jQuery 2.1.3
@@ -67,3 +66,9 @@ Internal change: merged repository with Firefox.
 Version: 2.2.0+2
 Date: 2015-08-10
 Internal change: merged repository with Firefox and SeaMonkey.
+
+Version: 2.4.1+0
+Date: 2015-11-13
+Added an improved tooltip in the upper left corner that shows the conversion used for each element. It won't hide the original tooltip any more. It can be turned off and on in the settings.
+Original price and original currency in brackets can now be hidden and shown separately in the settings.
+Fix: some settings had been disabled.

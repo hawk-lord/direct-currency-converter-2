@@ -8,7 +8,40 @@
  *
  * Module pattern is used.
  */
-const DirectCurrencyContent = (function() {
+const DccFunctions = (function(){
+    "use strict";
+    const checkSubUnit = (aPrice, aReplacedUnit, aConversionQuote) => {
+        if (aReplacedUnit === "SEK" && aPrice.full.toLowerCase().contains("öre")) {
+            return aConversionQuote / 100;
+        }
+        else if (aReplacedUnit === "USD"
+            && (aPrice.full.toLowerCase().contains("¢") || aPrice.full.toLowerCase().contains("￠"))) {
+            return aConversionQuote / 100;
+        }
+        else if (aReplacedUnit === "EUR"
+            && (aPrice.full.toLowerCase().contains("cent"))) {
+            return aConversionQuote / 100;
+        }
+        else if (aReplacedUnit === "RUB"
+            && (aPrice.full.toLowerCase().contains("коп"))) {
+            return aConversionQuote / 100;
+        }
+        return aConversionQuote;
+    };
+    return {
+        checkSubUnit : checkSubUnit
+    }
+})();
+
+
+const CurrencyRegex = function (aCurrency, aRegex1, aRegex2){
+    this.currency = aCurrency;
+    this.regex1 = aRegex1;
+    this.regex2 = aRegex2;
+};
+
+
+const DirectCurrencyContent = (function(aDccFunctions) {
     "use strict";
     var conversionQuotes = [];
     var currencyCode = "";
@@ -17,11 +50,6 @@ const DirectCurrencyContent = (function() {
     var excludedDomains = [];
     var isEnabled = true;
     var quoteAdjustmentPercent = 0;
-    const CurrencyRegex = function (aCurrency, aRegex1, aRegex2){
-        this.currency = aCurrency;
-        this.regex1 = aRegex1;
-        this.regex2 = aRegex2;
-    };
     const regex1 = {};
     const regex2 = {};
     const enabledCurrenciesWithRegexes = [];
@@ -90,40 +118,6 @@ const DirectCurrencyContent = (function() {
     else {
         PriceRegexes.makePriceRegexes(regex1, regex2);
     }
-    const checkSubUnit = function (aPrice, aReplacedUnit, aConversionQuote) {
-        if (aReplacedUnit === "SEK" && aPrice.full.toLowerCase().contains("öre")) {
-            return aConversionQuote / 100;
-        }
-        else if (aReplacedUnit === "USD"
-            && (aPrice.full.toLowerCase().contains("¢") || aPrice.full.toLowerCase().contains("￠"))) {
-            return aConversionQuote / 100;
-        }
-        return 0;
-    };
-    const checkOtherUnit = function (aReplacedUnit) {
-        if (aReplacedUnit === "inch") {
-            return 25.4;
-        }
-        else if (aReplacedUnit === "kcal") {
-            return 4.184;
-        }
-        else if (aReplacedUnit === "nmi") {
-            return 1.852;
-        }
-        else if (aReplacedUnit === "mile") {
-            return 1.602;
-        }
-        else if (aReplacedUnit === "mil") {
-            return 10;
-        }
-        else if (aReplacedUnit === "knots") {
-            return 1.852;
-        }
-        else if (aReplacedUnit === "hp") {
-            return 0.73549875;
-        }
-        return 0;
-    };
     const formatAlsoOtherUnit = function (aReplacedUnit, aConvertedAmount, aMultiplicator) {
         if (aReplacedUnit === "inch") {
             return formatPrice(aConvertedAmount, "mm", aMultiplicator);
@@ -196,13 +190,7 @@ const DirectCurrencyContent = (function() {
         var tempAmount;
         var tempConvertedAmount;
         for (var price of prices) {
-            var tempConversionQuote = checkSubUnit(price, replacedUnit, conversionQuote);
-            if (tempConversionQuote === 0) {
-                tempConversionQuote = checkOtherUnit(replacedUnit);
-            }
-            if (tempConversionQuote === 0) {
-                tempConversionQuote = conversionQuote;
-            }
+            var tempConversionQuote = aDccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
             const convertedAmount = tempConversionQuote * parseAmount(price.amount);
             const multiplicator = getMultiplicator(replacedUnit, price.full.toLowerCase());
             var convertedPrice = formatAlsoOtherUnit(replacedUnit, convertedAmount, multiplicator);
@@ -667,4 +655,4 @@ const DirectCurrencyContent = (function() {
         onSendEnabledStatus : onSendEnabledStatus,
         onUpdateSettings : onUpdateSettings
     };
-})();
+})(DccFunctions);

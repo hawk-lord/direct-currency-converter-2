@@ -21,7 +21,7 @@ describe("DirectCurrencyContent", function () {
     });
     describe("#checkSubUnit", function() {
         it("should be same", function() {
-            const price = null;
+            const price = {full: "50000 ariary"};
             const replacedUnit = "MGA";
             const conversionQuote = 12.34;
             const actual = DccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
@@ -33,6 +33,13 @@ describe("DirectCurrencyContent", function () {
             const conversionQuote = 13.57;
             const actual = DccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
             assert.equal(actual, conversionQuote/100, "is 1/100");
+        });
+        it("should be same", function() {
+            const price = {full: "50 kr"};
+            const replacedUnit = "SEK";
+            const conversionQuote = 13.57;
+            const actual = DccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
+            assert.equal(actual, conversionQuote, "is same");
         })
     });
 /*

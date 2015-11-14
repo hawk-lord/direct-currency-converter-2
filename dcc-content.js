@@ -10,21 +10,19 @@
  */
 const DccFunctions = (function(){
     "use strict";
+    const allSubUnits = {
+        "DKK": ["øre"],
+        "SEK": ["öre"],
+        "USD": ["¢", "￠"]
+    };
     const checkSubUnit = (aPrice, aReplacedUnit, aConversionQuote) => {
-        if (aReplacedUnit === "SEK" && aPrice.full.toLowerCase().contains("öre")) {
-            return aConversionQuote / 100;
-        }
-        else if (aReplacedUnit === "USD"
-            && (aPrice.full.toLowerCase().contains("¢") || aPrice.full.toLowerCase().contains("￠"))) {
-            return aConversionQuote / 100;
-        }
-        else if (aReplacedUnit === "EUR"
-            && (aPrice.full.toLowerCase().contains("cent"))) {
-            return aConversionQuote / 100;
-        }
-        else if (aReplacedUnit === "RUB"
-            && (aPrice.full.toLowerCase().contains("коп"))) {
-            return aConversionQuote / 100;
+        const currencySubUnits = allSubUnits[aReplacedUnit];
+        if (currencySubUnits) {
+            for (var subUnit of currencySubUnits) {
+                if (aPrice.full.includes(subUnit)) {
+                    return aConversionQuote / 100;
+                }
+            }
         }
         return aConversionQuote;
     };
@@ -496,7 +494,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         aMutations.forEach(mutationHandler);
     };
     const startObserve = function() {
-        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+        const MutationObserver = window.MutationObserver;
         if (document === null || MutationObserver == null) {
             return;
         }

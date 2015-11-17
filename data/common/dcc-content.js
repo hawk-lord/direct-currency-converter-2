@@ -32,6 +32,13 @@ const DccFunctions = (function(){
 })();
 
 
+const Price = function() {
+    currency: "";
+    amount: 0;
+    full: "";
+    positionInString: 0;
+};
+
 const CurrencyRegex = function (aCurrency, aRegex1, aRegex2){
     this.currency = aCurrency;
     this.regex1 = aRegex1;
@@ -169,9 +176,9 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             if (currencyRegex.currency === currencyCode) {
                 continue;
             }
-            var prices = findPrices(currencyRegex.regex1, aNode.textContent, 3);
+            var prices = findPrices(currencyRegex.currency, currencyRegex.regex1, aNode.textContent, 3);
             if (prices.length === 0) {
-                prices = findPrices(currencyRegex.regex2, aNode.textContent, 1);
+                prices = findPrices(currencyRegex.currency, currencyRegex.regex2, aNode.textContent, 1);
             }
             if (prices.length === 0) {
                 continue;
@@ -190,7 +197,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         for (var price of prices) {
             var tempConversionQuote = aDccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
             const convertedAmount = tempConversionQuote * parseAmount(price.amount);
-            const multiplicator = getMultiplicator(replacedUnit, price.full.toLowerCase());
+            const multiplicator = getMultiplicator(price);
             var convertedPrice = formatAlsoOtherUnit(replacedUnit, convertedAmount, multiplicator);
             if (showOriginalPrices) {
                 if (!convertedContent.contains(replacedUnit) && showOriginalCurrencies) {
@@ -236,18 +243,18 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             substitute(aNode, false, dccTitle);
         }
     };
-    const getMultiplicator = function(aReplacedUnit, aPrice) {
-        if (aReplacedUnit === "SEK") {
-            return getSekMultiplicator(aPrice);
+    const getMultiplicator = function(aPrice) {
+        if (aPrice.currency === "SEK") {
+            return getSekMultiplicator(aPrice.full.toLowerCase());
         }
-        else if (aReplacedUnit === "DKK") {
-            return getDkkMultiplicator(aPrice);
+        else if (aPrice.currency === "DKK") {
+            return getDkkMultiplicator(aPrice.full.toLowerCase());
         }
-        else if (aReplacedUnit === "ISK") {
-            return getIskMultiplicator(aPrice);
+        else if (aPrice.currency === "ISK") {
+            return getIskMultiplicator(aPrice.full.toLowerCase());
         }
-        else if (aReplacedUnit === "NOK") {
-            return getNokMultiplicator(aPrice);
+        else if (aPrice.currency === "NOK") {
+            return getNokMultiplicator(aPrice.full.toLowerCase());
         }
         return "";
     };
@@ -323,8 +330,9 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         }
         return "";
     };
-    const makePrice = function(aMatch, anAmountPosition) {
-        const price = {};
+    const makePrice = function(aCurrency, aMatch, anAmountPosition) {
+        const price = new Price();
+        price.currency = aCurrency;
         // 848,452.63
         price.amount = aMatch[anAmountPosition].trim();
         // 848,452.63 NOK
@@ -337,14 +345,14 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         return price;
     };
     // Stores prices that will be replaced with converted prices
-    const findPrices = function(aRegex, aText, anAmountPosition) {
+    const findPrices = function(aCurrency, aRegex, aText, anAmountPosition) {
         const prices = [];
         if (aRegex == null) {
             return prices;
         }
         var match;
         while ((match = aRegex.exec(aText)) !== null) {
-            prices.push(makePrice(match, anAmountPosition));
+            prices.push(makePrice(aCurrency, match, anAmountPosition));
         }
         return prices;
     };

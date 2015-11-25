@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.0+0
-Date: 2015-11-06
+Version: 2.4.1+0
+Date: 2015-11-13
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -174,3 +174,8 @@ Added an improved tooltip in the upper left corner that shows the conversion use
  It can be turned off and on in the settings.
 Original price and original currency in brackets can now be hidden and shown separately in the settings.
 Fix: some settings had been disabled.
+
+Version: 2.4.1+0
+Date: 2015-11-13
+Fix: do not replace the original titles (tooltips) for HTML elements.
+Fix: CHF and SEK conversion.

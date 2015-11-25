@@ -68,16 +68,18 @@ const DirectCurrencyContent = (function() {
         "}", 0);
 
     /**
-     * This is to check that PriceRegexes exists in SeaMonkey and Firefox
+     * This is to check that PriceRegexes exists
      *
      */
     if(typeof Promise !== "undefined" && Promise.toString().includes("[native code]")){
         const promise = new Promise(
             function(resolve, reject) {
-                if (PriceRegexes)
+                if (PriceRegexes) {
                     resolve(PriceRegexes);
-                else
+                }
+                else {
                     reject(Error("promise NOK"));
+                }
             }
         );
         promise.then(
@@ -85,6 +87,7 @@ const DirectCurrencyContent = (function() {
                 aPriceRegexes.makePriceRegexes(regex1, regex2)
             },
             function (err) {
+                console.error("promise then " + err);
             }
         ).catch(
             function (err) {
@@ -503,7 +506,7 @@ const DirectCurrencyContent = (function() {
     };
     const mutationHandler = function(aMutationRecord) {
         if (aMutationRecord.type === "childList") {
-            for (var i = 0; i < aMutationRecord.addedNodes; ++i) {
+            for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
                 var node = aMutationRecord.addedNodes[i];
                 traverseDomTree(node);
             }
@@ -513,7 +516,7 @@ const DirectCurrencyContent = (function() {
         aMutations.forEach(mutationHandler);
     };
     const startObserve = function() {
-        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+        const MutationObserver = window.MutationObserver;
         if (document === null || MutationObserver == null) {
             return;
         }
@@ -626,51 +629,82 @@ const DirectCurrencyContent = (function() {
         showTooltip = contentScriptParams.showTooltip;
         quoteAdjustmentPercent = +contentScriptParams.quoteAdjustmentPercent;
 
-        enabledCurrenciesWithRegexes.length = 0;
-        for (var currency of contentScriptParams.convertFroms) {
-            if (currency.enabled) {
-                enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency.isoName, regex1[currency.isoName], regex2[currency.isoName]));
-            }
-        }
-        if (tempConvertUnits) {
-            const regexObj_inch = new CurrencyRegex("inch", regex1["inch"], regex2["inch"]);
-            enabledCurrenciesWithRegexes.push(regexObj_inch);
-            const regexObj_kcal = new CurrencyRegex("kcal", regex1["kcal"], regex2["kcal"]);
-            enabledCurrenciesWithRegexes.push(regexObj_kcal);
-            const regexObj_nmi = new CurrencyRegex("nmi", regex1["nmi"], regex2["nmi"]);
-            enabledCurrenciesWithRegexes.push(regexObj_nmi);
-            const regexObj_mile = new CurrencyRegex("mile", regex1["mile"], regex2["mile"]);
-            enabledCurrenciesWithRegexes.push(regexObj_mile);
-            const regexObj_mil = new CurrencyRegex("mil", regex1["mil"], regex2["mil"]);
-            enabledCurrenciesWithRegexes.push(regexObj_mil);
-            const regexObj_knots = new CurrencyRegex("knots", regex1["knots"], regex2["knots"]);
-            enabledCurrenciesWithRegexes.push(regexObj_knots);
-            const regexObj_hp = new CurrencyRegex("hp", regex1["hp"], regex2["hp"]);
-            enabledCurrenciesWithRegexes.push(regexObj_hp);
-        }
-        var process = true;
-        for (var excludedDomain of contentScriptParams.excludedDomains) {
-            const matcher = new RegExp(excludedDomain, "g");
-            const found = matcher.test(document.URL);
-            if (found) {
-                process = false;
-                break;
-            }
-        }
-        if (!contentScriptParams.isEnabled || !process) {
-            message = "Did nothing. Conversion is turned off...";
+        if(typeof Promise !== "undefined" && Promise.toString().includes("[native code]")){
+            const promise2 = new Promise(
+                function(resolve, reject) {
+                    if (PriceRegexes) {
+                        resolve();
+                    }
+                    else {
+                        reject(Error("promise2 NOK"));
+                    }
+                }
+            );
+            promise2.then(
+                function() {
+                    afterRegexesCreated();
+                },
+                function (err) {
+                    console.error("promise2 then " + err);
+                }
+            ).catch(
+                function (err) {
+                    console.error("promise2 catch " + err);
+                }
+            );
         }
         else {
-            message = "Content was converted...";
-            startObserve();
-            if (document !== null) {
-                traverseDomTree(document.body);
-                substitute(document.body, false);
-                hasConvertedElements = true;
-            }
+            afterRegexesCreated();
         }
-        ContentAdapter.finish(hasConvertedElements);
-        isEnabled = contentScriptParams.isEnabled;
+
+        const afterRegexesCreated = function() {
+            // "use strict";
+            enabledCurrenciesWithRegexes.length = 0;
+            for (var currency of contentScriptParams.convertFroms) {
+                if (currency.enabled) {
+                    enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency.isoName, regex1[currency.isoName], regex2[currency.isoName]));
+                }
+            }
+            if (tempConvertUnits) {
+                const regexObj_inch = new CurrencyRegex("inch", regex1["inch"], regex2["inch"]);
+                enabledCurrenciesWithRegexes.push(regexObj_inch);
+                const regexObj_kcal = new CurrencyRegex("kcal", regex1["kcal"], regex2["kcal"]);
+                enabledCurrenciesWithRegexes.push(regexObj_kcal);
+                const regexObj_nmi = new CurrencyRegex("nmi", regex1["nmi"], regex2["nmi"]);
+                enabledCurrenciesWithRegexes.push(regexObj_nmi);
+                const regexObj_mile = new CurrencyRegex("mile", regex1["mile"], regex2["mile"]);
+                enabledCurrenciesWithRegexes.push(regexObj_mile);
+                const regexObj_mil = new CurrencyRegex("mil", regex1["mil"], regex2["mil"]);
+                enabledCurrenciesWithRegexes.push(regexObj_mil);
+                const regexObj_knots = new CurrencyRegex("knots", regex1["knots"], regex2["knots"]);
+                enabledCurrenciesWithRegexes.push(regexObj_knots);
+                const regexObj_hp = new CurrencyRegex("hp", regex1["hp"], regex2["hp"]);
+                enabledCurrenciesWithRegexes.push(regexObj_hp);
+            }
+            var process = true;
+            for (var excludedDomain of contentScriptParams.excludedDomains) {
+                const matcher = new RegExp(excludedDomain, "g");
+                const found = matcher.test(document.URL);
+                if (found) {
+                    process = false;
+                    break;
+                }
+            }
+            if (!contentScriptParams.isEnabled || !process) {
+                message = "Did nothing. Conversion is turned off...";
+            }
+            else {
+                message = "Content was converted...";
+                startObserve();
+                if (document !== null) {
+                    traverseDomTree(document.body);
+                    substitute(document.body, false);
+                    hasConvertedElements = true;
+                }
+            }
+            ContentAdapter.finish(hasConvertedElements);
+            isEnabled = contentScriptParams.isEnabled;
+        };
     };
     return {
         onSendEnabledStatus : onSendEnabledStatus,

@@ -48,6 +48,11 @@ const CurrencyRegex = function (aCurrency, aRegex1, aRegex2){
 
 const DirectCurrencyContent = (function(aDccFunctions) {
     "use strict";
+    if (!String.prototype.includes) {
+        String.prototype.includes = function() {'use strict';
+            return String.prototype.indexOf.apply(this, arguments) !== -1;
+        };
+    }
     var conversionQuotes = [];
     var currencyCode = "";
     var currencySymbol = "¤";
@@ -99,7 +104,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
      * This is to check that PriceRegexes exists in SeaMonkey and Firefox
      *
      */
-    if(typeof Promise !== "undefined" && Promise.toString().contains("[native code]")){
+    if(typeof Promise !== "undefined" && Promise.toString().includes("[native code]")){
         const promise = new Promise(
             function(resolve, reject) {
                 if (PriceRegexes)
@@ -150,7 +155,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         }
     };
     const addOriginalUnit = function (anElementTitleText, aReplacedUnit) {
-        if (anElementTitleText === "" || anElementTitleText.contains(aReplacedUnit)) {
+        if (anElementTitleText === "" || anElementTitleText.includes(aReplacedUnit)) {
             return anElementTitleText;
         }
         else {
@@ -159,8 +164,8 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
     const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent, aReplacedUnit) {
         const documentFragment = document.createDocumentFragment();
-        documentFragment.appendChild(makeCacheNode("originalText", aNode.textContent, ""));
-        documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent, addOriginalUnit(anElementTitleText, aReplacedUnit)));
+        documentFragment.appendChild(makeCacheNode("originalText", aNode.textContent));
+        documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent));
         return documentFragment;
     };
     const replaceCurrency = function(aNode) {
@@ -200,7 +205,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             const multiplicator = getMultiplicator(price);
             var convertedPrice = formatAlsoOtherUnit(replacedUnit, convertedAmount, multiplicator);
             if (showOriginalPrices) {
-                if (!convertedContent.contains(replacedUnit) && showOriginalCurrencies) {
+                if (!convertedContent.includes(replacedUnit) && showOriginalCurrencies) {
                     convertedPrice = convertedPrice + " (##__## [¤¤¤])";
                 }
                 else {
@@ -224,7 +229,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             elementTitleText = "";
         }
         aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent), aNode, replacedUnit);
-        if (aNode.baseURI.contains("pdf.js")) {
+        if (aNode.baseURI.includes("pdf.js")) {
             if (aNode.parentNode) {
                 aNode.parentNode.style.color = "black";
                 aNode.parentNode.style.backgroundColor = "lightyellow";
@@ -259,73 +264,73 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         return "";
     };
     const getSekMultiplicator = function(aUnit) {
-        if (aUnit.contains("miljoner")) {
+        if (aUnit.includes("miljoner")) {
             return "miljoner ";
         }
-        else if (aUnit.contains("miljon")) {
+        else if (aUnit.includes("miljon")) {
             return "miljon ";
         }
-        else if (aUnit.contains("miljarder")) {
+        else if (aUnit.includes("miljarder")) {
             return "miljarder ";
         }
-        else if (aUnit.contains("miljard")) {
+        else if (aUnit.includes("miljard")) {
             return "miljard ";
         }
-        else if (aUnit.contains("mnkr")) {
+        else if (aUnit.includes("mnkr")) {
             return "mn ";
         }
-        else if (aUnit.contains("mdkr")) {
+        else if (aUnit.includes("mdkr")) {
             return "md ";
         }
-        else if (aUnit.toLowerCase().contains("mkr")) {
+        else if (aUnit.toLowerCase().includes("mkr")) {
             return "mn ";
         }
-        else if (aUnit.contains("ksek")) {
+        else if (aUnit.includes("ksek")) {
             return "k";
         }
-        else if (aUnit.contains("msek")) {
+        else if (aUnit.includes("msek")) {
             return "M";
         }
-        else if (aUnit.contains("gsek")) {
+        else if (aUnit.includes("gsek")) {
             return "G";
         }
         return "";
     };
     const getDkkMultiplicator = function(aUnit) {
-        if (aUnit.contains("millión")) {
+        if (aUnit.includes("millión")) {
             return "millión ";
         }
-        else if (aUnit.contains("miljón")) {
+        else if (aUnit.includes("miljón")) {
             return "miljón ";
         }
-        else if (aUnit.contains("milliard")) {
+        else if (aUnit.includes("milliard")) {
             return "milliard ";
         }
-        if (aUnit.contains("mia.")) {
+        if (aUnit.includes("mia.")) {
             return "mia. ";
         }
-        if (aUnit.contains("mio.")) {
+        if (aUnit.includes("mio.")) {
             return "mio. ";
         }
-        else if (aUnit.contains("million")) {
+        else if (aUnit.includes("million")) {
             return "million ";
         }
         return "";
     };
     const getIskMultiplicator = function(aUnit) {
-        if (aUnit.contains("milljón")) {
+        if (aUnit.includes("milljón")) {
             return "milljón ";
         }
-        else if (aUnit.contains("milljarð")) {
+        else if (aUnit.includes("milljarð")) {
             return "milljarð ";
         }
         return "";
     };
     const getNokMultiplicator = function(aUnit) {
-        if (aUnit.contains("milliard")) {
+        if (aUnit.includes("milliard")) {
             return "milliard";
         }
-        else if (aUnit.contains("million")) {
+        else if (aUnit.includes("million")) {
             return "million ";
         }
         return "";
@@ -356,21 +361,20 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         }
         return prices;
     };
-    const makeCacheNode = function(aClassName, aValue, aTitle) {
+    const makeCacheNode = function(aClassName, aValue) {
         const element = document.createElement("input");
         element.setAttribute("type", "hidden");
         element.className = aClassName;
         element.value = aValue;
-        element.title = aTitle;
         return element;
     };
     const parseAmount = function(anAmount) {
         var amount = anAmount;
-        const comma = amount.contains(",");
-        const point = amount.contains(".");
-        const apo = amount.contains("'");
-        const colon = amount.contains(":");
-        const space = amount.contains(" ") || amount.contains("\u00A0");
+        const comma = amount.includes(",");
+        const point = amount.includes(".");
+        const apo = amount.includes("'");
+        const colon = amount.includes(":");
+        const space = amount.includes(" ") || amount.includes("\u00A0");
         if (space) {
             amount = amount.replace(/,/g,".");
             amount = amount.replace(/\s/g,"");
@@ -493,7 +497,8 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
     const mutationHandler = function(aMutationRecord) {
         if (aMutationRecord.type === "childList") {
-            for (var node of aMutationRecord.addedNodes) {
+            for (var i = 0; i < aMutationRecord.addedNodes; ++i) {
+                var node = aMutationRecord.addedNodes[i];
                 traverseDomTree(node);
             }
         }
@@ -517,7 +522,8 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             return;
         }
         var nodeList = aNode.querySelectorAll(".convertedText, .originalText");
-        for (var node of nodeList) {
+        for (var i = 0; i < nodeList.length; ++i) {
+            var node = nodeList[i];
             node.parentNode.removeChild(node);
         }
     };
@@ -532,10 +538,12 @@ const DirectCurrencyContent = (function(aDccFunctions) {
                 }
             }
             const originalChildNodes = [];
-            for (var node of aNode.childNodes) {
+            for (var i = 0; i < aNode.childNodes.length; ++i) {
+                var node = aNode.childNodes[i];
                 originalChildNodes.push(node);
             }
-            for (var node of originalChildNodes) {
+            for (var i = 0; i < originalChildNodes.length; ++i) {
+                var node = originalChildNodes[i];
                 traverseDomTree(node);
             }
         }
@@ -549,7 +557,8 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         }
         const className = isShowOriginal ? ".originalText" : ".convertedText";
         const nodeList = aNode.parentNode.querySelectorAll(className);
-        for (var node of nodeList) {
+        for (var i = 0; i < nodeList.length; ++i) {
+            var node = nodeList[i];
             const originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
             originalNode.textContent = node.value;
             if (aDccTitle) {

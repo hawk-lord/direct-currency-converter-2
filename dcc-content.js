@@ -497,7 +497,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
     const mutationHandler = function(aMutationRecord) {
         if (aMutationRecord.type === "childList") {
-            for (var i = 0; i < aMutationRecord.addedNodes; ++i) {
+            for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
                 var node = aMutationRecord.addedNodes[i];
                 traverseDomTree(node);
             }

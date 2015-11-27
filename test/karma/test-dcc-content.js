@@ -25,38 +25,43 @@ describe("DirectCurrencyContent", () => {
             const replacedUnit = "MGA";
             const conversionQuote = 12.34;
             const actual = DccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
-            assert.equal(actual, conversionQuote, "is same");
+            assert.strictEqual(actual, conversionQuote, "is same");
         });
         it("should be one hundreth", () => {
             const price = {full: "50 öre"};
             const replacedUnit = "SEK";
             const conversionQuote = 13.57;
             const actual = DccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
-            assert.equal(actual, conversionQuote/100, "is 1/100");
+            assert.strictEqual(actual, conversionQuote/100, "is 1/100");
         });
         it("should be same", () => {
             const price = {full: "50 kr"};
             const replacedUnit = "SEK";
             const conversionQuote = 13.57;
             const actual = DccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
-            assert.equal(actual, conversionQuote, "is same");
+            assert.strictEqual(actual, conversionQuote, "is same");
         })
     });
     describe("#mult", () => {
         it("should be empty", () => {
             const expected = "";
-            const actual = DccFunctions.sekMult("xxx");
-            assert.equal(actual, expected, "is empty");
-        });
-        it("should be same", () => {
-            const expected = "mn ";
-            const actual = DccFunctions.sekMult("mkr");
-            assert.equal(actual, expected, "is same");
+            const actual = DccFunctions.multi["SEK"].func(expected);
+            assert.strictEqual(actual, expected, "is empty");
         });
         it("should be same", () => {
             const expected = "miljon ";
-            const actual = DccFunctions.sekMult("miljon");
-            assert.equal(actual, expected, "is same");
+            const actual = DccFunctions.multi["SEK"].func("miljon");
+            assert.strictEqual(actual, expected, "is same");
+        });
+        it("should be same", () => {
+            const expected = "mn ";
+            const actual = DccFunctions.multi["SEK"].func("mkr");
+            assert.strictEqual(actual, expected, "is same");
+        });
+        it("should be same", () => {
+            const expected = "G";
+            const actual = DccFunctions.multi["SEK"].func("gsek");
+            assert.strictEqual(actual, expected, "is same");
         });
     });
 /*
@@ -65,13 +70,13 @@ describe("DirectCurrencyContent", () => {
             const replacedUnit = "MGA";
             const conversionQuote = 12.34;
             const actual = DccFunctions.checkOtherUnit(replacedUnit, conversionQuote);
-            assert.equal(actual, conversionQuote, "is same");
+            assert.strictEqual(actual, conversionQuote, "is same");
         });
         it("should be one hundreth", () => {
             const replacedUnit = "inch";
             const conversionQuote = 0;
             const actual = DccFunctions.checkOtherUnit(replacedUnit, conversionQuote);
-            assert.equal(actual, 25.4, "is 25.4");
+            assert.strictEqual(actual, 25.4, "is 25.4");
         })
     })
 */

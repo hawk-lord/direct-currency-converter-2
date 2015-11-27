@@ -26,8 +26,84 @@ const DccFunctions = (function(){
         }
         return aConversionQuote;
     };
+    const sekMult = function(aUnit) {
+        const seks = new Map([
+            ["miljoner", "miljoner "],
+            ["miljon", "miljon "],
+            ["miljarder", "miljarder "],
+            ["miljard", "miljard "],
+            ["mnkr", "mn "],
+            ["mdkr", "md "],
+            ["mkr", "mn "],
+            ["ksek", "k"],
+            ["msek", "M"],
+            ["gsek", "G"]
+        ]);
+        const seksIter = seks.keys();
+        var entry = seksIter.next();
+        while (!entry.done) {
+            if (aUnit.includes(entry.value)) {
+                return seks.get(entry.value);
+            }
+            entry = seksIter.next();
+        }
+        return "";
+    };
+    const dkkMult = function(aUnit) {
+        const seks = new Map([
+            ["millión", "millión "],
+            ["miljón", "miljón "],
+            ["milliard", "milliard "],
+            ["mia.", "mia. "],
+            ["mio.", "mio. "],
+            ["million", "million "]
+        ]);
+        const seksIter = seks.keys();
+        var entry = seksIter.next();
+        while (!entry.done) {
+            if (aUnit.includes(entry.value)) {
+                return seks.get(entry.value);
+            }
+            entry = seksIter.next();
+        }
+        return "";
+    };
+    const iskMult = function(aUnit) {
+        const seks = new Map([
+            ["milljón", "milljón "],
+            ["milljarð", "milljarð "]
+        ]);
+        const seksIter = seks.keys();
+        var entry = seksIter.next();
+        while (!entry.done) {
+            if (aUnit.includes(entry.value)) {
+                return seks.get(entry.value);
+            }
+            entry = seksIter.next();
+        }
+        return "";
+    };
+    const nokMult = function(aUnit) {
+        const seks = new Map([
+            ["milliard", "milliard "],
+            ["million", "million "]
+        ]);
+        const seksIter = seks.keys();
+        var entry = seksIter.next();
+        while (!entry.done) {
+            if (aUnit.includes(entry.value)) {
+                return seks.get(entry.value);
+            }
+            entry = seksIter.next();
+        }
+        return "";
+    };
     return {
-        checkSubUnit : checkSubUnit
+        checkSubUnit : checkSubUnit,
+        sekMult: sekMult,
+        dkkMult: dkkMult,
+        iskMult: iskMult,
+        nokMult: nokMult
     }
 })();
 
@@ -253,88 +329,16 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
     const getMultiplicator = function(aPrice) {
         if (aPrice.currency === "SEK") {
-            return getSekMultiplicator(aPrice.full.toLowerCase());
+            return aDccFunctions.sekMult(aPrice.full.toLowerCase());
         }
         else if (aPrice.currency === "DKK") {
-            return getDkkMultiplicator(aPrice.full.toLowerCase());
+            return aDccFunctions.dkkMult(aPrice.full.toLowerCase());
         }
         else if (aPrice.currency === "ISK") {
-            return getIskMultiplicator(aPrice.full.toLowerCase());
+            return aDccFunctions.iskMult(aPrice.full.toLowerCase());
         }
         else if (aPrice.currency === "NOK") {
-            return getNokMultiplicator(aPrice.full.toLowerCase());
-        }
-        return "";
-    };
-    const getSekMultiplicator = function(aUnit) {
-        if (aUnit.includes("miljoner")) {
-            return "miljoner ";
-        }
-        else if (aUnit.includes("miljon")) {
-            return "miljon ";
-        }
-        else if (aUnit.includes("miljarder")) {
-            return "miljarder ";
-        }
-        else if (aUnit.includes("miljard")) {
-            return "miljard ";
-        }
-        else if (aUnit.includes("mnkr")) {
-            return "mn ";
-        }
-        else if (aUnit.includes("mdkr")) {
-            return "md ";
-        }
-        else if (aUnit.toLowerCase().includes("mkr")) {
-            return "mn ";
-        }
-        else if (aUnit.includes("ksek")) {
-            return "k";
-        }
-        else if (aUnit.includes("msek")) {
-            return "M";
-        }
-        else if (aUnit.includes("gsek")) {
-            return "G";
-        }
-        return "";
-    };
-    const getDkkMultiplicator = function(aUnit) {
-        if (aUnit.includes("millión")) {
-            return "millión ";
-        }
-        else if (aUnit.includes("miljón")) {
-            return "miljón ";
-        }
-        else if (aUnit.includes("milliard")) {
-            return "milliard ";
-        }
-        if (aUnit.includes("mia.")) {
-            return "mia. ";
-        }
-        if (aUnit.includes("mio.")) {
-            return "mio. ";
-        }
-        else if (aUnit.includes("million")) {
-            return "million ";
-        }
-        return "";
-    };
-    const getIskMultiplicator = function(aUnit) {
-        if (aUnit.includes("milljón")) {
-            return "milljón ";
-        }
-        else if (aUnit.includes("milljarð")) {
-            return "milljarð ";
-        }
-        return "";
-    };
-    const getNokMultiplicator = function(aUnit) {
-        if (aUnit.includes("milliard")) {
-            return "milliard";
-        }
-        else if (aUnit.includes("million")) {
-            return "million ";
+            return aDccFunctions.nokMult(aPrice.full.toLowerCase());
         }
         return "";
     };
@@ -490,14 +494,6 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         }
         return x1 + x2;
     };
-    const mergeArrays = function(destination, source) {
-        for (var property in source) {
-            if (source.hasOwnProperty(property)) {
-                destination[property] = source[property];
-            }
-        }
-        return destination;
-    };
     const mutationHandler = function(aMutationRecord) {
         if (aMutationRecord.type === "childList") {
             for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
@@ -606,7 +602,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         conversionQuotes = contentScriptParams.conversionQuotes;
         excludedDomains = contentScriptParams.excludedDomains;
         currencyCode = contentScriptParams.convertToCurrency;
-        const allCurrencySymbols = mergeArrays(contentScriptParams.currencySymbols, contentScriptParams.customSymbols);
+        const allCurrencySymbols = Object.assign({}, contentScriptParams.currencySymbols, contentScriptParams.customSymbols);
         if (currencyCode in allCurrencySymbols) {
             currencySymbol = allCurrencySymbols[currencyCode];
         }

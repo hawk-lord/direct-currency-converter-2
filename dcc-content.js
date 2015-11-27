@@ -26,84 +26,57 @@ const DccFunctions = (function(){
         }
         return aConversionQuote;
     };
-    const sekMult = function(aUnit) {
-        const seks = new Map([
-            ["miljoner", "miljoner "],
-            ["miljon", "miljon "],
-            ["miljarder", "miljarder "],
-            ["miljard", "miljard "],
-            ["mnkr", "mn "],
-            ["mdkr", "md "],
-            ["mkr", "mn "],
-            ["ksek", "k"],
-            ["msek", "M"],
-            ["gsek", "G"]
-        ]);
-        const seksIter = seks.keys();
-        var entry = seksIter.next();
-        while (!entry.done) {
-            if (aUnit.includes(entry.value)) {
-                return seks.get(entry.value);
+    const seks = [
+        ["miljoner", "miljoner "],
+        ["miljon", "miljon "],
+        ["miljarder", "miljarder "],
+        ["miljard", "miljard "],
+        ["mnkr", "mn "],
+        ["mdkr", "md "],
+        ["mkr", "mn "],
+        ["ksek", "k"],
+        ["msek", "M"],
+        ["gsek", "G"]
+    ];
+    const dkks = [
+        ["millión", "millión "],
+        ["miljón", "miljón "],
+        ["milliard", "milliard "],
+        ["mia.", "mia. "],
+        ["mio.", "mio. "],
+        ["million", "million "]
+    ];
+    const isks = [
+        ["milljón", "milljón "],
+        ["milljarð", "milljarð "]
+    ];
+    const noks = [
+        ["milliard", "milliard "],
+        ["million", "million "]
+    ];
+    const Mult = function(aMults) {
+        this.mults = new Map(aMults);
+        this.func = function(aUnit) {
+            this.multsIter = this.mults.keys();
+            var entry = this.multsIter.next();
+            while (!entry.done) {
+                if (aUnit.includes(entry.value)) {
+                    return this.mults.get(entry.value);
+                }
+                entry = this.multsIter.next();
             }
-            entry = seksIter.next();
+            return "";
         }
-        return "";
     };
-    const dkkMult = function(aUnit) {
-        const seks = new Map([
-            ["millión", "millión "],
-            ["miljón", "miljón "],
-            ["milliard", "milliard "],
-            ["mia.", "mia. "],
-            ["mio.", "mio. "],
-            ["million", "million "]
-        ]);
-        const seksIter = seks.keys();
-        var entry = seksIter.next();
-        while (!entry.done) {
-            if (aUnit.includes(entry.value)) {
-                return seks.get(entry.value);
-            }
-            entry = seksIter.next();
-        }
-        return "";
-    };
-    const iskMult = function(aUnit) {
-        const seks = new Map([
-            ["milljón", "milljón "],
-            ["milljarð", "milljarð "]
-        ]);
-        const seksIter = seks.keys();
-        var entry = seksIter.next();
-        while (!entry.done) {
-            if (aUnit.includes(entry.value)) {
-                return seks.get(entry.value);
-            }
-            entry = seksIter.next();
-        }
-        return "";
-    };
-    const nokMult = function(aUnit) {
-        const seks = new Map([
-            ["milliard", "milliard "],
-            ["million", "million "]
-        ]);
-        const seksIter = seks.keys();
-        var entry = seksIter.next();
-        while (!entry.done) {
-            if (aUnit.includes(entry.value)) {
-                return seks.get(entry.value);
-            }
-            entry = seksIter.next();
-        }
-        return "";
-    };
+    const multies = {};
+    multies["SEK"] = new Mult(seks);
+    multies["DKK"] = new Mult(dkks);
+    multies["ISK"] = new Mult(isks);
+    multies["NOK"] = new Mult(noks);
+
     return {
         checkSubUnit : checkSubUnit,
-        sekMult: sekMult,
-        dkkMult: dkkMult,
-        iskMult: iskMult,
-        nokMult: nokMult
+        multi: multies
     }
 })();
 
@@ -328,17 +301,8 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         }
     };
     const getMultiplicator = function(aPrice) {
-        if (aPrice.currency === "SEK") {
-            return aDccFunctions.sekMult(aPrice.full.toLowerCase());
-        }
-        else if (aPrice.currency === "DKK") {
-            return aDccFunctions.dkkMult(aPrice.full.toLowerCase());
-        }
-        else if (aPrice.currency === "ISK") {
-            return aDccFunctions.iskMult(aPrice.full.toLowerCase());
-        }
-        else if (aPrice.currency === "NOK") {
-            return aDccFunctions.nokMult(aPrice.full.toLowerCase());
+        if (aDccFunctions.multi[aPrice.currency]) {
+            return aDccFunctions.multi[aPrice.currency].func(aPrice.full.toLowerCase());
         }
         return "";
     };
@@ -351,9 +315,6 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         price.full = aMatch[0];
         // 1 (position in the string where the price was found)
         price.positionInString = aMatch.index;
-        //console.log(price.amount);
-        //console.log(price.full);
-        //console.log(price.positionInString);
         return price;
     };
     // Stores prices that will be replaced with converted prices

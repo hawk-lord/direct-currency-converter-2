@@ -24,22 +24,22 @@ describe("DirectCurrencyContent", () => {
             const price = {full: "50000 ariary"};
             const replacedUnit = "MGA";
             const conversionQuote = 12.34;
-            const actual = DccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
-            assert.strictEqual(actual, conversionQuote, "is same");
+            const actual = DccFunctions.checkSubUnit(price, replacedUnit);
+            assert.strictEqual(actual, false, "is same");
         });
         it("should be one hundreth", () => {
             const price = {full: "50 öre"};
             const replacedUnit = "SEK";
             const conversionQuote = 13.57;
-            const actual = DccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
-            assert.strictEqual(actual, conversionQuote/100, "is 1/100");
+            const actual = DccFunctions.checkSubUnit(price, replacedUnit);
+            assert.strictEqual(actual, true, "is 1/100");
         });
         it("should be same", () => {
             const price = {full: "50 kr"};
             const replacedUnit = "SEK";
             const conversionQuote = 13.57;
-            const actual = DccFunctions.checkSubUnit(price, replacedUnit, conversionQuote);
-            assert.strictEqual(actual, conversionQuote, "is same");
+            const actual = DccFunctions.checkSubUnit(price, replacedUnit);
+            assert.strictEqual(actual, false, "is same");
         })
     });
     describe("#mult", () => {
@@ -104,56 +104,45 @@ describe("DirectCurrencyContent", () => {
             const anAmountIntegralPart = "1";
             const anAmountFractionalPart = "23";
             const aMultiplicator = "";
-            const aUnit = "€";
-            const aCurrencyCode = "EUR";
+            const isSubUnit = false;
             const aMonetaryGroupingSeparatorSymbol = ".";
             const aMonetarySeparatorSymbol = ",";
-            const expected = {formattedPrice: "1,23", unit: aUnit};
-            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, aUnit, aCurrencyCode, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
-            // console.log(actual);
-            assert.strictEqual(actual.unit, expected.unit, "is same");
-            assert.strictEqual(actual.formattedPrice, expected.formattedPrice, "is same");
+            const expected = "1,23";
+            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
+            assert.strictEqual(actual, expected, "is same");
         });
         it("should be same", () => {
             const anAmountIntegralPart = "0";
             const anAmountFractionalPart = "23";
             const aMultiplicator = "";
-            const aUnit = "€";
-            const aCurrencyCode = "EUR";
+            const isSubUnit = true;
             const aMonetaryGroupingSeparatorSymbol = ".";
             const aMonetarySeparatorSymbol = ",";
-            const expected = {formattedPrice: "23", unit: "cent"};
-            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, aUnit, aCurrencyCode, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
-            // console.log(actual);
-            assert.strictEqual(actual.unit, expected.unit, "is same");
-            assert.strictEqual(actual.formattedPrice, expected.formattedPrice, "is same");
+            const expected = "23";
+            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
+            assert.strictEqual(actual, expected, "is same");
         });
         it("should be same", () => {
             const anAmountIntegralPart = "0";
             const anAmountFractionalPart = "03";
             const aMultiplicator = "";
-            const aUnit = "kr";
-            const aCurrencyCode = "SEK";
+            const isSubUnit = true;
             const aMonetaryGroupingSeparatorSymbol = ".";
             const aMonetarySeparatorSymbol = ",";
-            const expected = {formattedPrice: "3", unit: "öre"};
-            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, aUnit, aCurrencyCode, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
-            // console.log(actual);
-            assert.strictEqual(actual.unit, expected.unit, "is same");
-            assert.strictEqual(actual.formattedPrice, expected.formattedPrice, "is same");
+            const expected = "3";
+            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
+            assert.strictEqual(actual, expected, "is same");
         });
         it("should be same", () => {
             const anAmountIntegralPart = "0";
             const anAmountFractionalPart = "23";
             const aMultiplicator = "";
-            const aUnit = "";
-            const aCurrencyCode = "SEK";
+            const isSubUnit = false;
             const aMonetaryGroupingSeparatorSymbol = ".";
             const aMonetarySeparatorSymbol = ",";
-            const expected = {formattedPrice: "0,23", unit: ""};
-            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, aUnit, aCurrencyCode, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
-            assert.strictEqual(actual.unit, expected.unit, "is same");
-            assert.strictEqual(actual.formattedPrice, expected.formattedPrice, "is same");
+            const expected = "0,23";
+            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
+            assert.strictEqual(actual, expected, "is same");
         });
     });
 
@@ -164,11 +153,22 @@ describe("DirectCurrencyContent", () => {
             const aUnit = "€";
             const aRoundAmounts = false;
             const aCurrencyCode = "EUR";
-            const aMonetaryGroupingSeparatorSymbol = ".";
-            const aMonetarySeparatorSymbol = ",";
             const aCustomFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
+            const anAllowSubUnit = false;
             const expected = " 1\u00A0234,56\u2009€";
-            const actual = DccFunctions.formatPrice(anAmount, aUnit, aMultiplicator, aRoundAmounts, aCurrencyCode, aCustomFormat);
+            const actual = DccFunctions.formatPrice(anAmount, aUnit, aMultiplicator, aRoundAmounts, aCurrencyCode, aCustomFormat, anAllowSubUnit);
+            assert.strictEqual(actual, expected, "is same");
+        });
+        it("should be same", () => {
+            const anAmount = 0.56;
+            const aMultiplicator = "";
+            const aUnit = "€";
+            const aRoundAmounts = false;
+            const aCurrencyCode = "EUR";
+            const aCustomFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
+            const anAllowSubUnit = false;
+            const expected = " 0,56\u2009€";
+            const actual = DccFunctions.formatPrice(anAmount, aUnit, aMultiplicator, aRoundAmounts, aCurrencyCode, aCustomFormat, anAllowSubUnit);
             assert.strictEqual(actual, expected, "is same");
         });
     });

@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.1+0
-Date: 2015-11-13
+Version: 2.4.2+0
+Date: 2015-11-26
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -179,3 +179,8 @@ Version: 2.4.1+0
 Date: 2015-11-13
 Fix: do not replace the original titles (tooltips) for HTML elements.
 Fix: CHF and SEK conversion.
+
+Version: 2.4.2+0
+Date: 2015-11-26
+Improved support for subunits (cents etc.).
+Fix: works with dynamically changed data (again).

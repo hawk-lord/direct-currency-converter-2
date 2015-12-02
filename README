@@ -182,4 +182,5 @@ Fix: CHF and SEK conversion.
 
 Version: 2.4.2+0
 Date: 2015-11-26
+Improved support for subunits (cents etc.).
 Fix: works with dynamically changed data (again).

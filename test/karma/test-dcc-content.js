@@ -23,21 +23,18 @@ describe("DirectCurrencyContent", () => {
         it("should be same", () => {
             const price = {full: "50000 ariary"};
             const replacedUnit = "MGA";
-            const conversionQuote = 12.34;
             const actual = DccFunctions.checkSubUnit(price, replacedUnit);
             assert.strictEqual(actual, false, "is same");
         });
         it("should be one hundreth", () => {
             const price = {full: "50 öre"};
             const replacedUnit = "SEK";
-            const conversionQuote = 13.57;
             const actual = DccFunctions.checkSubUnit(price, replacedUnit);
             assert.strictEqual(actual, true, "is 1/100");
         });
         it("should be same", () => {
             const price = {full: "50 kr"};
             const replacedUnit = "SEK";
-            const conversionQuote = 13.57;
             const actual = DccFunctions.checkSubUnit(price, replacedUnit);
             assert.strictEqual(actual, false, "is same");
         })

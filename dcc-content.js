@@ -77,8 +77,8 @@ const DccFunctions = (function(){
     multies["NOK"] = new Mult(noks);
 
     const getMultiplicator = function(aPrice) {
-        if (multies[aPrice.currency]) {
-            return multies[aPrice.currency].func(aPrice.full.toLowerCase());
+        if (multies[aPrice.originalCurrency]) {
+            return multies[aPrice.originalCurrency].func(aPrice.full.toLowerCase());
         }
         return "";
     };
@@ -264,6 +264,37 @@ const DccFunctions = (function(){
         return convertedContent;
     };
 
+    // Stores prices that will be replaced with converted prices
+    const findPricesInCurrency = function(anOriginalCurrency, aCurrency, aRegex, aText, anAmountPosition) {
+        const prices = [];
+        if (aRegex == null) {
+            return prices;
+        }
+        var match;
+        while ((match = aRegex.exec(aText)) !== null) {
+            prices.push(new Price(anOriginalCurrency, aCurrency, match, anAmountPosition));
+        }
+        return prices;
+    };
+
+    const findPrices = function(anEnabledCurrenciesWithRegexes, aCurrencyCode, aTextContent) {
+        let prices;
+        for (var currencyRegex of anEnabledCurrenciesWithRegexes) {
+            if (currencyRegex.currency === aCurrencyCode) {
+                continue;
+            }
+            prices = findPricesInCurrency(aCurrencyCode, currencyRegex.currency, currencyRegex.regex1, aTextContent, 3);
+            if (prices.length === 0) {
+                prices = findPricesInCurrency(aCurrencyCode, currencyRegex.currency, currencyRegex.regex2, aTextContent, 1);
+            }
+            if (prices.length === 0) {
+                continue;
+            }
+            break;
+        }
+        return prices;
+    };
+
     return {
         checkSubUnit: checkSubUnit,
         multies: multies,
@@ -274,16 +305,31 @@ const DccFunctions = (function(){
         useUnit: useUnit,
         parseAmount: parseAmount,
         convertAmount: convertAmount,
-        convertContent: convertContent
+        convertContent: convertContent,
+        findPricesInCurrency: findPricesInCurrency,
+        findPrices: findPrices
     }
 })();
 
+const Price = function(aCurrency, anOriginalCurrency, aMatch, anAmountPosition) {
+    this.originalCurrency = anOriginalCurrency;
+    this.currency = aCurrency;
+    // 848,452.63
+    this.amount = aMatch[anAmountPosition].trim();
+    // 848,452.63 NOK
+    this.full = aMatch[0];
+    // 1 (position in the string where the price was found)
+    this.positionInString = aMatch.index;
+};
+/*
 const Price = function() {
+    originalCurrency: "";
     currency: "";
     amount: 0;
     full: "";
     positionInString: 0;
 };
+*/
 
 const CurrencyRegex = function (aCurrency, aRegex1, aRegex2){
     this.currency = aCurrency;
@@ -375,45 +421,24 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     else {
         PriceRegexes.makePriceRegexes(regex1, regex2);
     }
-    const addOriginalUnit = function (anElementTitleText, aReplacedUnit) {
-        if (anElementTitleText === "" || anElementTitleText.includes(aReplacedUnit)) {
-            return anElementTitleText;
-        }
-        else {
-            return anElementTitleText + " [" + aReplacedUnit + "]";
-        }
-    };
+
     const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent) {
         const documentFragment = document.createDocumentFragment();
         documentFragment.appendChild(makeCacheNode("originalText", aNode.textContent));
         documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent));
         return documentFragment;
     };
+
     const replaceCurrency = function(aNode) {
         // Don't check text without numbers
         if (!/\d/.exec(aNode.textContent)) {
             return;
         }
-        var replacedUnit = "";
-        for (var currencyRegex of enabledCurrenciesWithRegexes) {
-            if (currencyRegex.currency === currencyCode) {
-                continue;
-            }
-            var prices = findPrices(currencyRegex.currency, currencyRegex.regex1, aNode.textContent, 3);
-            if (prices.length === 0) {
-                prices = findPrices(currencyRegex.currency, currencyRegex.regex2, aNode.textContent, 1);
-            }
-            if (prices.length === 0) {
-                continue;
-            }
-            else {
-                replacedUnit = currencyRegex.currency;
-            }
-            break;
-        }
-        if (replacedUnit === "") {
+        const prices = aDccFunctions.findPrices(enabledCurrenciesWithRegexes, currencyCode, aNode.textContent);
+        if (prices.length === 0) {
             return;
         }
+        const replacedUnit = prices[0].originalCurrency;
         const conversionQuote = conversionQuotes[replacedUnit] * (1 + quoteAdjustmentPercent / 100);
         var tempAmount;
         var tempConvertedAmount;
@@ -459,40 +484,18 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         }
         if (isEnabled && showTooltip) {
             var dccTitle = "Converted value: ";
-//            const formatPrice = function(aCurrencyCode, aRoundAmounts, anAmount, aUnit, anAllowSubUnit, aCustomFormat, aMultiplicator) {
             dccTitle += aDccFunctions.formatPrice(currencyCode, roundAmounts, tempConvertedAmount, currencyCode, false, customFormat, "") + "\n";
             dccTitle += "Original value: ";
             dccTitle += aDccFunctions.formatPrice(replacedUnit, roundAmounts, tempAmount, replacedUnit, false, customFormat, "") + "\n";
             dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " +
-                aDccFunctions.formatPrice("", roundAmounts, conversionQuote, replacedUnit, false, customFormat, "") + "\n";
+                aDccFunctions.formatPrice("", roundAmounts, conversionQuote, "", false, customFormat, "") + "\n";
             dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " +
-                aDccFunctions.formatPrice("", roundAmounts, 1/conversionQuote, replacedUnit, false, customFormat, "");
+                aDccFunctions.formatPrice("", roundAmounts, 1/conversionQuote, "", false, customFormat, "");
             substitute(aNode, false, dccTitle);
         }
     };
-    const makePrice = function(aCurrency, aMatch, anAmountPosition) {
-        const price = new Price();
-        price.currency = aCurrency;
-        // 848,452.63
-        price.amount = aMatch[anAmountPosition].trim();
-        // 848,452.63 NOK
-        price.full = aMatch[0];
-        // 1 (position in the string where the price was found)
-        price.positionInString = aMatch.index;
-        return price;
-    };
-    // Stores prices that will be replaced with converted prices
-    const findPrices = function(aCurrency, aRegex, aText, anAmountPosition) {
-        const prices = [];
-        if (aRegex == null) {
-            return prices;
-        }
-        var match;
-        while ((match = aRegex.exec(aText)) !== null) {
-            prices.push(makePrice(aCurrency, match, anAmountPosition));
-        }
-        return prices;
-    };
+
+
     const makeCacheNode = function(aClassName, aValue) {
         const element = document.createElement("input");
         element.setAttribute("type", "hidden");
@@ -500,6 +503,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         element.value = aValue;
         return element;
     };
+
     const mutationHandler = function(aMutationRecord) {
         if (aMutationRecord.type === "childList") {
             for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
@@ -508,9 +512,11 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             }
         }
     };
+
     const mutationsHandler = function(aMutations) {
         aMutations.forEach(mutationHandler);
     };
+
     const startObserve = function() {
         const MutationObserver = window.MutationObserver;
         if (document === null || MutationObserver == null) {
@@ -522,6 +528,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             mutationObserver.observe(document.body, mutationObserverInit);
         }
     };
+
     const resetDomTree = function(aNode) {
         if (aNode === null) {
             return;
@@ -532,6 +539,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             node.parentNode.removeChild(node);
         }
     };
+
     const traverseDomTree = function(aNode) {
         if (aNode !== null) {
             // The third check takes care of Google Images code "<div class=rg_meta>{"cb":3, ..."
@@ -553,6 +561,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             }
         }
     };
+
     const substitute = function(aNode, isShowOriginal, aDccTitle) {
         //console.log(aNode.nodeName);
         //console.log(isShowOriginal);
@@ -571,6 +580,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             }
         }
     };
+
     const onSendEnabledStatus = function(aStatus) {
         const isEnabled = aStatus.isEnabled;
         const hasConvertedElements = aStatus.hasConvertedElements;
@@ -599,6 +609,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             substitute(document.body, !isEnabled);
         }
     };
+
     const onUpdateSettings = function(contentScriptParams) {
         const tempConvertUnits = contentScriptParams.tempConvertUnits;
         var message = "...";

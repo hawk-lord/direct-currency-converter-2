@@ -295,6 +295,16 @@ const DccFunctions = (function(){
         return prices;
     };
 
+    const isExcludedDomain = function(anExcludedDomains, anUrl) {
+        for (var excludedDomain of anExcludedDomains) {
+            const matcher = new RegExp(excludedDomain, "g");
+            if (matcher.test(anUrl)){
+                return true;
+            }
+        }
+        return false;
+    };
+
     return {
         checkSubUnit: checkSubUnit,
         multies: multies,
@@ -307,11 +317,13 @@ const DccFunctions = (function(){
         convertAmount: convertAmount,
         convertContent: convertContent,
         findPricesInCurrency: findPricesInCurrency,
-        findPrices: findPrices
+        findPrices: findPrices,
+        isExcludedDomain: isExcludedDomain
     }
 })();
 
 const Price = function(aCurrency, anOriginalCurrency, aMatch, anAmountPosition) {
+    "use strict";
     this.originalCurrency = anOriginalCurrency;
     this.currency = aCurrency;
     // 848,452.63
@@ -321,17 +333,9 @@ const Price = function(aCurrency, anOriginalCurrency, aMatch, anAmountPosition) 
     // 1 (position in the string where the price was found)
     this.positionInString = aMatch.index;
 };
-/*
-const Price = function() {
-    originalCurrency: "";
-    currency: "";
-    amount: 0;
-    full: "";
-    positionInString: 0;
-};
-*/
 
 const CurrencyRegex = function (aCurrency, aRegex1, aRegex2){
+    "use strict";
     this.currency = aCurrency;
     this.regex1 = aRegex1;
     this.regex2 = aRegex2;
@@ -412,10 +416,10 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             function (err) {
                 console.error("promise then " + err);
             }
-        //).catch(
-        //    function (err) {
-        //        console.error("promise catch " + err);
-        //    }
+        ).catch(
+            function (err) {
+                console.error("promise catch " + err);
+            }
         );
     }
     else {
@@ -584,32 +588,14 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
 
     const onSendEnabledStatus = function(aStatus) {
-        const isEnabled = aStatus.isEnabled;
-        const hasConvertedElements = aStatus.hasConvertedElements;
-        var message = "...";
-        var process = true;
-        for (var excludedDomain of excludedDomains) {
-            const matcher = new RegExp(excludedDomain, "g");
-            const found = matcher.test(document.URL);
-            if (found) {
-                process = false;
-                break;
-            }
+        if (aDccFunctions.isExcludedDomain(excludedDomains, document.URL)) {
+            return;
         }
-        if (process) {
-            if (!isEnabled) {
-                message = "Roll back...";
-            }
-            else if (hasConvertedElements) {
-                message = "Converted from converted elements cache...";
-            }
-            else {
-                message = "Converted from scratch...";
-                startObserve();
-                traverseDomTree(document.body);
-            }
-            substitute(document.body, !isEnabled);
+        if (aStatus.isEnabled && !aStatus.hasConvertedElements) {
+            startObserve();
+            traverseDomTree(document.body);
         }
+        substitute(document.body, !aStatus.isEnabled);
     };
 
     const onUpdateSettings = function(contentScriptParams) {
@@ -656,10 +642,10 @@ const DirectCurrencyContent = (function(aDccFunctions) {
                 function (err) {
                     console.error("promise2 then " + err);
                 }
-            ).catch(
-                function (err) {
-                    console.error("promise2 catch " + err);
-                }
+            //).catch(
+            //    function (err) {
+            //        console.error("promise2 catch " + err);
+            //    }
             );
         }
         else {

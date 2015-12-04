@@ -80,7 +80,7 @@ describe("DirectCurrencyContent", () => {
         it("should have a non-breaking space", () => {
             const monetaryGroupingSeparatorSymbol = " ";
             const value = "1111";
-            const expected = "1\u00a0111";
+            const expected = "1 111";
             const actual = DccFunctions.addMonetaryGroupingSeparatorSymbol(value, monetaryGroupingSeparatorSymbol);
             assert.strictEqual(actual, expected, "is same");
         });
@@ -103,45 +103,41 @@ describe("DirectCurrencyContent", () => {
         it("should be same", () => {
             const anAmountIntegralPart = "1";
             const anAmountFractionalPart = "23";
-            const aMultiplicator = "";
             const isSubUnit = false;
             const aMonetaryGroupingSeparatorSymbol = ".";
             const aMonetarySeparatorSymbol = ",";
             const expected = "1,23";
-            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
+            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
             assert.strictEqual(actual, expected, "is same");
         });
         it("should be same", () => {
             const anAmountIntegralPart = "0";
             const anAmountFractionalPart = "23";
-            const aMultiplicator = "";
             const isSubUnit = true;
             const aMonetaryGroupingSeparatorSymbol = ".";
             const aMonetarySeparatorSymbol = ",";
             const expected = "23";
-            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
+            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
             assert.strictEqual(actual, expected, "is same");
         });
         it("should be same", () => {
             const anAmountIntegralPart = "0";
             const anAmountFractionalPart = "03";
-            const aMultiplicator = "";
             const isSubUnit = true;
             const aMonetaryGroupingSeparatorSymbol = ".";
             const aMonetarySeparatorSymbol = ",";
             const expected = "3";
-            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
+            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
             assert.strictEqual(actual, expected, "is same");
         });
         it("should be same", () => {
             const anAmountIntegralPart = "0";
             const anAmountFractionalPart = "23";
-            const aMultiplicator = "";
             const isSubUnit = false;
             const aMonetaryGroupingSeparatorSymbol = ".";
             const aMonetarySeparatorSymbol = ",";
             const expected = "0,23";
-            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, aMultiplicator, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
+            const actual = DccFunctions.formatAmount(anAmountIntegralPart, anAmountFractionalPart, isSubUnit, aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol);
             assert.strictEqual(actual, expected, "is same");
         });
     });
@@ -156,7 +152,7 @@ describe("DirectCurrencyContent", () => {
             const aCustomFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
             const anAllowSubUnit = false;
             const expected = " 1\u00A0234,56\u2009€";
-            const actual = DccFunctions.formatPrice(anAmount, aUnit, aMultiplicator, aRoundAmounts, aCurrencyCode, aCustomFormat, anAllowSubUnit);
+            const actual = DccFunctions.formatPrice(aCurrencyCode, aRoundAmounts, anAmount, aUnit, anAllowSubUnit, aCustomFormat, aMultiplicator);
             assert.strictEqual(actual, expected, "is same");
         });
         it("should be same", () => {
@@ -168,7 +164,7 @@ describe("DirectCurrencyContent", () => {
             const aCustomFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
             const anAllowSubUnit = false;
             const expected = " 0,56\u2009€";
-            const actual = DccFunctions.formatPrice(anAmount, aUnit, aMultiplicator, aRoundAmounts, aCurrencyCode, aCustomFormat, anAllowSubUnit);
+            const actual = DccFunctions.formatPrice(aCurrencyCode, aRoundAmounts, anAmount, aUnit, anAllowSubUnit, aCustomFormat, aMultiplicator);
             assert.strictEqual(actual, expected, "is same");
         });
     });

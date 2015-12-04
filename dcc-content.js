@@ -278,7 +278,7 @@ const DccFunctions = (function(){
     };
 
     const findPrices = function(anEnabledCurrenciesWithRegexes, aCurrencyCode, aTextContent) {
-        let prices;
+        var prices;
         for (var currencyRegex of anEnabledCurrenciesWithRegexes) {
             if (currencyRegex.currency === aCurrencyCode) {
                 continue;
@@ -422,7 +422,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         PriceRegexes.makePriceRegexes(regex1, regex2);
     }
 
-    const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent) {
+    const makeCacheNodes = function(aNode, aConvertedContent) {
         const documentFragment = document.createDocumentFragment();
         documentFragment.appendChild(makeCacheNode("originalText", aNode.textContent));
         documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent));
@@ -464,6 +464,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             const convertedAmount = conversionQuote * aDccFunctions.parseAmount(price.amount) * (isFromSubUnit ? 1/100 : 1);
             tempConvertedAmount = convertedAmount;
         }
+        /* FIXME use this old title creation
         var elementTitleText = "";
         for (var price of prices) {
             elementTitleText += " ~ " + price.full;
@@ -472,7 +473,8 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         if (showOriginalPrices) {
             elementTitleText = "";
         }
-        aNode.parentNode.insertBefore(makeCacheNodes(aNode, elementTitleText, convertedContent), aNode, replacedUnit);
+        */
+        aNode.parentNode.insertBefore(makeCacheNodes(aNode, convertedContent), aNode, replacedUnit);
         if (aNode.baseURI.includes("pdf.js")) {
             if (aNode.parentNode) {
                 aNode.parentNode.style.color = "black";

@@ -6,6 +6,11 @@ const contentScriptParams = new MockContentScriptParams();
 
 describe("DirectCurrencyContent", () => {
     "use strict";
+    describe("A test suite", function() {
+        beforeEach(function() { });
+        afterEach(function() { });
+        it('should be OK', function() { expect(false).to.be.false; });
+    });
     describe("#onSendEnabledStatus()", () => {
         const status = new MockStatus();
         it("should not fail", () => {
@@ -20,6 +25,11 @@ describe("DirectCurrencyContent", () => {
         });
     });
     describe("#checkSubUnit", () => {
+        it("should be false", () => {
+            const price = {full: "50000 ariary"};
+            const replacedUnit = "MGA";
+            expect(DccFunctions.checkSubUnit(price, replacedUnit)).to.be.false;
+        });
         it("should be same", () => {
             const price = {full: "50000 ariary"};
             const replacedUnit = "MGA";
@@ -59,6 +69,30 @@ describe("DirectCurrencyContent", () => {
             const expected = "G";
             const actual = DccFunctions.multies["SEK"].func("gsek");
             assert.strictEqual(actual, expected, "is G");
+        });
+    });
+    describe("#getMultiplicator", () => {
+        it("should throw an error due to a missing parameter", () => {
+            expect(DccFunctions.getMultiplicator).to.throw(Error, /aPrice is undefined/);
+        });
+        it("should throw an error due to a null parameter", () => {
+            expect(() => {DccFunctions.getMultiplicator(null)} ).to.throw(Error, /aPrice is null/);
+        });
+        it("should return an empty string", () => {
+            const aCurrency = "EUR";
+            const anOriginalCurrency = "SEK";
+            const aMatch = ["848,452.63 SEK", "", "848,452.63"];
+            const anAmountPosition = 2;
+            const price = new Price(aCurrency, anOriginalCurrency, aMatch, anAmountPosition);
+            expect(DccFunctions.getMultiplicator(price) ).to.equal("");
+        });
+        it("should return 'miljon '", () => {
+            const aCurrency = "EUR";
+            const anOriginalCurrency = "SEK";
+            const aMatch = ["1 miljon SEK", "", "1 miljon"];
+            const anAmountPosition = 2;
+            const price = new Price(aCurrency, anOriginalCurrency, aMatch, anAmountPosition);
+            expect(DccFunctions.getMultiplicator(price) ).to.equal("miljon ");
         });
     });
     describe("#addMonetaryGroupingSeparatorSymbol", () => {

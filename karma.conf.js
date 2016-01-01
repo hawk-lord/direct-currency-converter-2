@@ -37,7 +37,6 @@ module.exports = function (config) {
             {pattern: "test/karma/test-dcc-content.js", included: true},
             {pattern: "test/karma/test-dcc-regexes.js", included: true},
             {pattern: "test/karma/test-dcc-settings.js", included: true},
-            {pattern: "test/karma/test-dcc-firefox-content-adapter.js", included: true},
             {pattern: "test/karma/test-eventAggregator.js", included: true},
             {pattern: "test/karma/test-ff-chromeInterface.js", included: true},
             {pattern: "test/karma/test-ff-contentInterface.js", included: true},
@@ -55,13 +54,19 @@ module.exports = function (config) {
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {},
+        preprocessors: {
+            '**/*.js': ['coverage']
+        },
 
+        coverageReporter:{
+            type:'html',
+            dir:'/Users/per'
+        },
 
         // test results reporter to use
         // possible values: "dots", "progress"
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ["progress"],
+        reporters: ["progress", "coverage"],
 
 
         // web server port
@@ -86,7 +91,7 @@ module.exports = function (config) {
         browsers: ["Firefox"],
         //browsers: ["PhantomJS2"],
 
-        plugins : ["karma-firefox-launcher", "karma-phantomjs-launcher", "karma-phantomjs2-launcher", "karma-chai", "karma-mocha"],
+        plugins : ["karma-firefox-launcher", "karma-phantomjs-launcher", "karma-phantomjs2-launcher", "karma-chai", "karma-mocha", "karma-coverage"],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

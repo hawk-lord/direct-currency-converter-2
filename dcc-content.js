@@ -12,6 +12,7 @@ const DccFunctions = (function(){
     "use strict";
     const allSubUnits = {
         "DKK": ["øre"],
+        "NOK": ["øre"],
         "SEK": ["öre"],
         "USD": ["¢", "￠"]
     };

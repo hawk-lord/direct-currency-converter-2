@@ -8,7 +8,6 @@
 /**
  * Stereotype Information holder
  *
- * @param aDefaultExcludedDomains
  * @param aStorageService
  * @param aCurrencyData
  * @param aCurrencySymbols
@@ -18,7 +17,7 @@
  * @returns {{conversionEnabled, conversionEnabled, convertToCountry, convertToCountry, convertToCurrency, convertToCurrency, getConversionQuotes: Function, setConversionQuote: Function, getCurrencySymbols: Function, customSymbols, customSymbols, monetarySeparatorSymbol, monetarySeparatorSymbol, excludedDomains, excludedDomains, enabledCurrencies, enabledCurrencies, enableOnStart, enableOnStart, quoteAdjustmentPercent, quoteAdjustmentPercent, roundPrices, roundPrices, currencySpacing, currencySpacing, showOriginalPrices, showOriginalPrices, beforeCurrencySymbol, beforeCurrencySymbol, tempConvertUnits, tempConvertUnits, monetaryGroupingSeparatorSymbol, monetaryGroupingSeparatorSymbol, getCurrencyNames: Function, getConvertFroms: Function, isAllCurrenciesRead: Function, getQuoteString: Function, resetReadCurrencies: Function, resetSettings: Function}}
  * @constructor
  */
-const InformationHolder = function(aDefaultExcludedDomains, aStorageService, aCurrencyData, aCurrencySymbols, aConvertFroms, aRegionFormats, _) {
+const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymbols, aConvertFroms, aRegionFormats, _) {
     "use strict";
     const conversionQuotes = {
         "inch": 25.4,

@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.1+0
-Date: 2015-11-13
+Version: 2.4.3+0
+Date: 2016-03-06
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -96,3 +96,12 @@ Date: 2015-11-13
 Added an improved tooltip in the upper left corner that shows the conversion used for each element. It won't hide the original tooltip any more. It can be turned off and on in the settings.
 Original price and original currency in brackets can now be hidden and shown separately in the settings.
 Fix: some settings had been disabled.
+
+Version: 2.4.2+0
+Date: 2015-11-26
+Improved support for subunits (cents etc.).
+Fix: works with dynamically changed data (again).
+
+Version: 2.4.3+0
+Date: 2016-03-06
+Updated to ISO 4217 Amendment Number 162

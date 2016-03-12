@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.1+2
-Date: 2016-03-09
+Version: 2.4.3+0
+Date: 2016-03-11
 
 After installation, you'll have a new submenu in the browser menu.
 
@@ -75,3 +75,7 @@ Fix: some settings had been disabled.
 
 Version: 2.4.1+2
 Internal change: rebuilt with JPM.
+
+Version: 2.4.3+0
+Date: 2016-03-11
+Updated to ISO 4217 Amendment Number 162

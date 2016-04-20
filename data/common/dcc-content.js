@@ -479,7 +479,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             elementTitleText = "";
         }
         */
-        aNode.parentNode.insertBefore(makeCacheNodes(aNode, convertedContent), aNode, replacedUnit);
+        aNode.parentNode.insertBefore(makeCacheNodes(aNode, convertedContent), aNode);
         if (aNode.baseURI.includes("pdf.js")) {
             if (aNode.parentNode) {
                 aNode.parentNode.style.color = "black";
@@ -525,12 +525,16 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
 
     const startObserve = function() {
-        const MutationObserver = window.MutationObserver;
-        if (document === null || MutationObserver == null) {
-            return;
-        }
         const mutationObserver = new MutationObserver(mutationsHandler);
-        const mutationObserverInit = { attributes: true, childList: true, subtree: true, characterData: true };
+        const mutationObserverInit = {
+            childList: true,
+            attributes: true,
+            characterData: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: false,
+            attributeFilter: []
+        };
         if (document.body !== null) {
             mutationObserver.observe(document.body, mutationObserverInit);
         }
@@ -625,34 +629,6 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         showTooltip = contentScriptParams.showTooltip;
         quoteAdjustmentPercent = +contentScriptParams.quoteAdjustmentPercent;
 
-        if(typeof Promise !== "undefined" && Promise.toString().includes("[native code]")){
-            const promise2 = new Promise(
-                function(resolve, reject) {
-                    if (PriceRegexes) {
-                        resolve();
-                    }
-                    else {
-                        reject(Error("promise2 NOK"));
-                    }
-                }
-            );
-            promise2.then(
-                function() {
-                    afterRegexesCreated();
-                },
-                function (err) {
-                    console.error("promise2 then " + err);
-                }
-            //).catch(
-            //    function (err) {
-            //        console.error("promise2 catch " + err);
-            //    }
-            );
-        }
-        else {
-            afterRegexesCreated();
-        }
-
         const afterRegexesCreated = function() {
             "use strict";
             enabledCurrenciesWithRegexes.length = 0;
@@ -701,6 +677,35 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             ContentAdapter.finish(hasConvertedElements);
             isEnabled = contentScriptParams.isEnabled;
         };
+
+        if(typeof Promise !== "undefined" && Promise.toString().includes("[native code]")){
+            const promise2 = new Promise(
+                function(resolve, reject) {
+                    if (PriceRegexes) {
+                        resolve();
+                    }
+                    else {
+                        reject(Error("promise2 NOK"));
+                    }
+                }
+            );
+            promise2.then(
+                function() {
+                    afterRegexesCreated();
+                },
+                function (err) {
+                    console.error("promise2 then " + err);
+                }
+            //).catch(
+            //    function (err) {
+            //        console.error("promise2 catch " + err);
+            //    }
+            );
+        }
+        else {
+            afterRegexesCreated();
+        }
+
     };
     return {
         onSendEnabledStatus : onSendEnabledStatus,

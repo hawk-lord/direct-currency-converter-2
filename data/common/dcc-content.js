@@ -427,12 +427,6 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         PriceRegexes.makePriceRegexes(regex1, regex2);
     }
 
-    const makeCacheNodes = function(aNode, aConvertedContent) {
-        const documentFragment = document.createDocumentFragment();
-        documentFragment.appendChild(makeCacheNode("originalText", aNode.textContent));
-        documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent));
-        return documentFragment;
-    };
 
     const replaceCurrency = function(aNode) {
         // Don't check text without numbers
@@ -479,7 +473,14 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             elementTitleText = "";
         }
         */
-        aNode.parentNode.insertBefore(makeCacheNodes(aNode, convertedContent), aNode);
+
+        aNode.parentNode.dataset.dccConvertedContent = convertedContent;
+        aNode.parentNode.dataset.dccOriginalContent = aNode.textContent;
+        if (!aNode.parentNode.className.includes("dccConverted")) {
+            aNode.parentNode.className += " dccConverted";
+        }
+
+        
         if (aNode.baseURI.includes("pdf.js")) {
             if (aNode.parentNode) {
                 aNode.parentNode.style.color = "black";
@@ -502,14 +503,6 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         }
     };
 
-
-    const makeCacheNode = function(aClassName, aValue) {
-        const element = document.createElement("input");
-        element.setAttribute("type", "hidden");
-        element.className = aClassName;
-        element.value = aValue;
-        return element;
-    };
 
     const mutationHandler = function(aMutationRecord) {
         if (aMutationRecord.type === "childList") {
@@ -544,10 +537,16 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         if (aNode === null) {
             return;
         }
-        var nodeList = aNode.querySelectorAll(".convertedText, .originalText");
+        const nodeList = aNode.parentNode.querySelectorAll(".dccConverted");
+        // console.log(nodeList.length);
         for (var i = 0; i < nodeList.length; ++i) {
             var node = nodeList[i];
-            node.parentNode.removeChild(node);
+            if (node.dataset && node.dataset.dccOriginalContent) {
+                delete node.dataset.dccOriginalContent;
+            }
+            if (node.dataset && node.dataset.dccConvertedContent) {
+                delete node.dataset.dccConvertedContent;
+            }
         }
     };
 
@@ -556,9 +555,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             // The third check takes care of Google Images code "<div class=rg_meta>{"cb":3, ..."
             if (aNode.nodeType === Node.TEXT_NODE && !/^\s*$/.test(aNode.nodeValue) && !/\{/.test(aNode.nodeValue)) {
                 if (aNode.parentNode !== null && skippedElements.indexOf(aNode.parentNode.tagName.toLowerCase()) === -1) {
-                    if (aNode.previousSibling === null || aNode.previousSibling.className !== "convertedText") {
-                        replaceCurrency(aNode);
-                    }
+                    replaceCurrency(aNode);
                 }
             }
             const originalChildNodes = [];
@@ -574,22 +571,36 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
 
     const substitute = function(aNode, isShowOriginal, aDccTitle) {
-        //console.log(aNode.nodeName);
-        //console.log(isShowOriginal);
-        //console.log(aReplacedUnit);
         if (aNode === null) {
             return;
         }
-        const className = isShowOriginal ? ".originalText" : ".convertedText";
-        const nodeList = aNode.parentNode.querySelectorAll(className);
-        for (var i = 0; i < nodeList.length; ++i) {
-            var node = nodeList[i];
-            const originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
-            originalNode.textContent = node.value;
+        // console.log("aDccTitle " + aDccTitle);
+        // console.log("aNode.nodeName " + aNode.nodeName);
+        // console.log("aNode.textContent " + aNode.textContent);
+        // console.log("aNode.parentNode.nodeName " + aNode.parentNode.nodeName);
+        // console.log("aNode.parentNode.textContent " + aNode.parentNode.textContent);
+        if (aNode.parentNode.dataset && aNode.parentNode.dataset.dccOriginalContent) {
+            // console.log("aNode.parentNode.dataset.dccOriginalContent " + aNode.parentNode.dataset.dccOriginalContent);
             if (aDccTitle) {
-                originalNode.parentNode.dataset.dcctitle = aDccTitle;
+                aNode.parentNode.dataset.dcctitle = aDccTitle;
             }
         }
+        //console.log(isShowOriginal);
+        //console.log(aReplacedUnit);
+
+        const nodeList = aNode.parentNode.querySelectorAll(".dccConverted");
+        // console.log(nodeList.length);
+        for (var i = 0; i < nodeList.length; ++i) {
+            var node = nodeList[i];
+            if (node.dataset && node.dataset.dccOriginalContent && node.dataset.dccConvertedContent) {
+                node.textContent = isShowOriginal ? node.dataset.dccOriginalContent : node.dataset.dccConvertedContent;
+                // TODO this won't happen
+                if (aDccTitle) {
+                    node.dataset.dcctitle = aDccTitle;
+                }
+            }
+        }
+
     };
 
     const onSendEnabledStatus = function(aStatus) {

@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.3+0
-Date: 2016-03-06
+Version: 2.4.4+1
+Date: 2016-05-05
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -14,7 +14,7 @@ You can also open a test page with various price examples for all currencies.
 
 Currency rates are taken from Yahoo Finance and updated when you start the browser or when you switch currency.
 
-Your location is used to set your default region and currency (for example Finland - euro). It is guessed using the freegeoip.net service.
+Your location is used to set your default region and currency (for example Finland - euro). It is guessed using the freegeoip.net or geoip.nekudo.com service.
 
 If conversion does not work, it probably means that there was no reply from Yahoo. Try to reload the browser (F5 button) and check the internet connection. Also, force a reload by switching "to currency" from settings tab, save, and reload the web pages.
 
@@ -188,3 +188,9 @@ Fix: works with dynamically changed data (again).
 Version: 2.4.3+0
 Date: 2016-03-06
 Updated to ISO 4217 Amendment Number 162
+
+Version: 2.4.4+1
+Date: 2016-05-05
+Added geoip.nekudo.com to find user's location an default currency.
+Internal change: Using HTML 5 data instead of hidden input nodes to store original and converted data.
+

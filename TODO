@@ -1,3 +1,85 @@
+Replace <input> with data-dcc-converted.
+<td data-dcctitle="Converted value:  482,11&nbsp;EUR
+Original value:  4.423,00&nbsp;SEK
+Conversion quote SEK/EUR =  0,11&nbsp;
+Conversion quote EUR/SEK =  9,17&nbsp;" class="grey">
+
+<input value="
+4&nbsp;423:-
+" class="originalText" type="hidden">
+
+<input value="
+ 482,11&nbsp;€ (4&nbsp;423:- [SEK])
+" class="convertedText" type="hidden">
+
+ 482,11&nbsp;€ (4&nbsp;423:- [SEK])
+
+</td>
+
+
+<span data-dcctitle="Converted value:  49,67 EUR
+Original value:  56,20 USD
+Conversion quote USD/EUR =  0,88
+Conversion quote EUR/USD =  1,13 " data-dcc-original-content="$56,20.-" data-dcc-converted-content=" 49,67 €.-">
+<input value="$56,20.-" class="originalText" type="hidden">
+<input value=" 49,67 €.-" class="convertedText" type="hidden"> 49,67 €.-
+</span>
+
+// aNode = textnode, parentNode = <td> or whatever
+
+//                originalNode.parentNode.dataset.dcctitle = aDccTitle;
+
+        aNode.parentNode.insertBefore(makeCacheNodes(aNode, convertedContent), aNode);
+
+    const makeCacheNodes = function(aNode, aConvertedContent) {
+        const documentFragment = document.createDocumentFragment();
+        documentFragment.appendChild(makeCacheNode("originalText", aNode.textContent));
+        documentFragment.appendChild(makeCacheNode("convertedText", aConvertedContent));
+        return documentFragment;
+    };
+
+    const makeCacheNode = function(aClassName, aValue) {
+        const element = document.createElement("input");
+        element.setAttribute("type", "hidden");
+        element.className = aClassName;
+        element.value = aValue;
+        return element;
+    };
+
+        if (isEnabled && showTooltip) {
+            var dccTitle = "Converted value: ";
+            dccTitle += aDccFunctions.formatPrice(currencyCode, roundAmounts, tempConvertedAmount, currencyCode, false, customFormat, "") + "\n";
+            dccTitle += "Original value: ";
+            dccTitle += aDccFunctions.formatPrice(replacedUnit, roundAmounts, tempAmount, replacedUnit, false, customFormat, "") + "\n";
+            dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " +
+                aDccFunctions.formatPrice("", roundAmounts, conversionQuote, "", false, customFormat, "") + "\n";
+            dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " +
+                aDccFunctions.formatPrice("", roundAmounts, 1/conversionQuote, "", false, customFormat, "");
+            substitute(aNode, false, dccTitle);
+        }
+
+
+    const substitute = function(aNode, isShowOriginal, aDccTitle) {
+        //console.log(aNode.nodeName);
+        //console.log(isShowOriginal);
+        //console.log(aReplacedUnit);
+        if (aNode === null) {
+            return;
+        }
+        const className = isShowOriginal ? ".originalText" : ".convertedText";
+        const nodeList = aNode.parentNode.querySelectorAll(className);
+        for (var i = 0; i < nodeList.length; ++i) {
+            var node = nodeList[i];
+            const originalNode = isShowOriginal ? node.nextSibling.nextSibling : node.nextSibling;
+            originalNode.textContent = node.value;
+            if (aDccTitle) {
+                originalNode.parentNode.dataset.dcctitle = aDccTitle;
+            }
+        }
+    };
+
+
+
 // Start jpm run
 // catched error when no reply
 direct-currency-converter-2:err SyntaxError: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data ff-freegeoip-service.js:23

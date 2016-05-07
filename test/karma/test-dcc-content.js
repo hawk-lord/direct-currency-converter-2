@@ -200,6 +200,52 @@ describe("DirectCurrencyContent", () => {
         });
     });
 
+    describe("#useUnit", () => {
+            it("should be mm", () => {
+                const expected = "mm";
+                const actual = DccFunctions.useUnit("inch", "");
+                assert.strictEqual(actual, expected, "is same");
+            });
+            it("is empty", () => {
+                const expected = "SEK";
+                const actual = DccFunctions.useUnit("", "SEK");
+                assert.strictEqual(actual, expected, "is same");
+            });
+            it("is empty", () => {
+                const expected = "SEK";
+                const actual = DccFunctions.useUnit("xxx", "SEK");
+                assert.strictEqual(actual, expected, "is same");
+            })
+    });
+
+    describe("#parseAmount", () => {
+            it("should be 0", () => {
+                const expected = 0;
+                const actual = DccFunctions.parseAmount("0");
+                assert.strictEqual(actual, expected, "is same");
+            });
+            it("should be 1", () => {
+                const expected = 1;
+                const actual = DccFunctions.parseAmount("1.00");
+                assert.strictEqual(actual, expected, "is same");
+            });
+            it("should be 1", () => {
+                const expected = 1;
+                const actual = DccFunctions.parseAmount("1,00");
+                assert.strictEqual(actual, expected, "is same");
+            });
+            it("should be 1000", () => {
+                const expected = 1000;
+                const actual = DccFunctions.parseAmount("1,000.00");
+                assert.strictEqual(actual, expected, "is same");
+            });
+            it("should be 1000", () => {
+                const expected = 1000;
+                const actual = DccFunctions.parseAmount("1'000");
+                assert.strictEqual(actual, expected, "is same");
+            });
+    });
+
 });
 
 

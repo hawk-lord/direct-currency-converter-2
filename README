@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.4+1
-Date: 2016-05-05
+Version: 2.4.4+3
+Date: 2016-05-07
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -193,4 +193,8 @@ Version: 2.4.4+1
 Date: 2016-05-05
 Added geoip.nekudo.com to find user's location an default currency.
 Internal change: Using HTML 5 data instead of hidden input nodes to store original and converted data.
+
+Version: 2.4.4+3
+Date: 2016-05-07
+Bugfix: original value was not removed correctly when disabling conversion
 

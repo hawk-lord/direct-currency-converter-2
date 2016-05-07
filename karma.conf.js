@@ -1,6 +1,3 @@
-/**
- * Created by per on 2015-11-13.
- */
 // Karma configuration
 // Generated on Sun Aug 30 2015 21:09:48 GMT+0300 (EEST)
 
@@ -22,7 +19,7 @@ module.exports = function (config) {
             {pattern: "data/common/dcc-regexes.js", included: true},
             {pattern: "data/common/dcc-settings.js", included: true},
             {pattern: "lib/dcc-common-lib/eventAggregator.js", included: true},
-            {pattern: "lib/sm-chromeInterface.js", included: true},
+            {pattern: "lib/ff-chromeInterface.js", included: true},
             {pattern: "lib/ff-contentInterface.js", included: true},
             {pattern: "lib/ff-freegeoip-service.js", included: true},
             {pattern: "lib/ff-storage-service.js", included: true},
@@ -41,7 +38,7 @@ module.exports = function (config) {
             {pattern: "test/karma/test-dcc-regexes.js", included: true},
             {pattern: "test/karma/test-dcc-settings.js", included: true},
             {pattern: "test/karma/test-eventAggregator.js", included: true},
-            {pattern: "test/karma/test-androidChromeInterface.js", included: true},
+            {pattern: "test/karma/test-ff-chromeInterface.js", included: true},
             {pattern: "test/karma/test-ff-contentInterface.js", included: true},
             {pattern: "test/karma/test-ff-freegeoip-service.js", included: true},
             {pattern: "test/karma/test-ff-storage-service.js", included: true},
@@ -57,13 +54,19 @@ module.exports = function (config) {
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {},
+        preprocessors: {
+            '**/*.js': ['coverage']
+        },
 
+        coverageReporter:{
+            type:'html',
+            dir:'/Users/per'
+        },
 
         // test results reporter to use
         // possible values: "dots", "progress"
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ["progress"],
+        reporters: ["progress", "coverage"],
 
 
         // web server port
@@ -86,8 +89,9 @@ module.exports = function (config) {
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: ["Firefox"],
+        //browsers: ["PhantomJS2"],
 
-        plugins : ["karma-firefox-launcher", "karma-phantomjs-launcher", "karma-chai", "karma-mocha"],
+        plugins : ["karma-firefox-launcher", "karma-phantomjs-launcher", "karma-phantomjs2-launcher", "karma-chai", "karma-mocha", "karma-coverage"],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

@@ -475,7 +475,9 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         */
 
         aNode.parentNode.dataset.dccConvertedContent = convertedContent;
-        aNode.parentNode.dataset.dccOriginalContent = aNode.textContent;
+        if (!aNode.parentNode.dataset.dccOriginalContent) {
+            aNode.parentNode.dataset.dccOriginalContent = aNode.textContent;
+        }
         if (!aNode.parentNode.className.includes("dccConverted")) {
             aNode.parentNode.className += " dccConverted";
         }

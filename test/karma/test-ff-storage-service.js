@@ -15,8 +15,8 @@ describe("FirefoxStorageServiceProvider", function() {
         it("should have default values", function () {
             const firefoxStorageServiceProvider = new FirefoxStorageServiceProvider(storage);
             firefoxStorageServiceProvider.init(iso4217Currencies, defaultExcludedDomains);
-            assert.isUndefined(firefoxStorageServiceProvider.convertToCurrency, "convertToCurrency");
-            assert.isUndefined(firefoxStorageServiceProvider.convertToCountry, "convertToCountry");
+            assert.isNull(firefoxStorageServiceProvider.convertToCurrency, "convertToCurrency");
+            assert.isNull(firefoxStorageServiceProvider.convertToCountry, "convertToCountry");
             assert.strictEqual(Object.keys(firefoxStorageServiceProvider.customSymbols).length, 0, "customSymbols");
             assert.isTrue(firefoxStorageServiceProvider.enableOnStart, "enableOnStart");
             assert.strictEqual(firefoxStorageServiceProvider.quoteAdjustmentPercent, 0, "quoteAdjustmentPercent");

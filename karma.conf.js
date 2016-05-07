@@ -33,17 +33,16 @@ module.exports = function (config) {
             {pattern: "test/karma/dcc-mock-informationholder.js", included: true},
             {pattern: "test/karma/dcc-mock-status.js", included: true},
             {pattern: "test/karma/test-contentScriptParams.js", included: true},
-            {pattern: "test/karma/test-parseContentScriptParams.js", included: true},
             {pattern: "test/karma/test-dcc-content.js", included: true},
             {pattern: "test/karma/test-dcc-regexes.js", included: true},
             {pattern: "test/karma/test-dcc-settings.js", included: true},
             {pattern: "test/karma/test-eventAggregator.js", included: true},
-            {pattern: "test/karma/test-ff-chromeInterface.js", included: true},
             {pattern: "test/karma/test-ff-contentInterface.js", included: true},
             {pattern: "test/karma/test-ff-freegeoip-service.js", included: true},
             {pattern: "test/karma/test-ff-storage-service.js", included: true},
             {pattern: "test/karma/test-freegeoip-service.js", included: true},
             {pattern: "test/karma/test-informationHolder.js", included: true},
+            {pattern: "test/karma/test-parseContentScriptParams.js", included: true},
             {pattern: "test/karma/test-yahoo-quotes.js", included: true}
         ],
 

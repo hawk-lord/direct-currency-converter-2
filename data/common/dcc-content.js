@@ -522,13 +522,12 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     const startObserve = function() {
         const mutationObserver = new MutationObserver(mutationsHandler);
         const mutationObserverInit = {
-            childList: true,
-            attributes: true,
+            childList: false,
+            attributes: false,
             characterData: true,
             subtree: true,
             attributeOldValue: false,
-            characterDataOldValue: false,
-            attributeFilter: []
+            characterDataOldValue: false
         };
         if (document.body !== null) {
             mutationObserver.observe(document.body, mutationObserverInit);

@@ -293,6 +293,7 @@ const DccFunctions = (function(){
             }
             break;
         }
+        // console.log("findPrices prices.length " + prices.length);
         return prices;
     };
 
@@ -429,8 +430,12 @@ const DirectCurrencyContent = (function(aDccFunctions) {
 
 
     const replaceCurrency = function(aNode) {
+        // console.log("replaceCurrency");
         // Don't check text without numbers
         if (!/\d/.exec(aNode.textContent)) {
+            return;
+        }
+        if (aNode.parentNode.className.includes("dccConverted")) {
             return;
         }
         const prices = aDccFunctions.findPrices(enabledCurrenciesWithRegexes, currencyCode, aNode.textContent);
@@ -451,6 +456,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
                 true, customFormat, multiplicator);
             convertedContent = aDccFunctions.convertContent(convertedPrice, convertedContent, showOriginalPrices,
                 replacedUnit, showOriginalCurrencies, price);
+            // console.log("convertedContent " + convertedContent);
         }
         for (var price of prices) {
             // FIXME show all amounts
@@ -507,6 +513,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
 
 
     const mutationHandler = function(aMutationRecord) {
+        // console.log("aMutationRecord.type " + aMutationRecord.type);
         if (aMutationRecord.type === "childList") {
             for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
                 var node = aMutationRecord.addedNodes[i];
@@ -520,11 +527,12 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
 
     const startObserve = function() {
+        // console.log("startObserve");
         const mutationObserver = new MutationObserver(mutationsHandler);
         const mutationObserverInit = {
-            childList: false,
+            childList: true,
             attributes: false,
-            characterData: true,
+            characterData: false,
             subtree: true,
             attributeOldValue: false,
             characterDataOldValue: false
@@ -548,10 +556,12 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             if (node.dataset && node.dataset.dccConvertedContent) {
                 delete node.dataset.dccConvertedContent;
             }
+            aNode.parentNode.className.replace("dccConverted", "");
         }
     };
 
     const traverseDomTree = function(aNode) {
+        // console.log("traverseDomTree");
         if (aNode !== null) {
             // The third check takes care of Google Images code "<div class=rg_meta>{"cb":3, ..."
             if (aNode.nodeType === Node.TEXT_NODE && !/^\s*$/.test(aNode.nodeValue) && !/\{/.test(aNode.nodeValue)) {
@@ -572,6 +582,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
 
     const substitute = function(aNode, isShowOriginal, aDccTitle) {
+        // console.log("substitute");
         if (aNode === null) {
             return;
         }
@@ -601,14 +612,16 @@ const DirectCurrencyContent = (function(aDccFunctions) {
                 }
             }
         }
-
+        // console.log("substitute done");
     };
 
     const onSendEnabledStatus = function(aStatus) {
+        // console.log("onSendEnabledStatus");
         if (aDccFunctions.isExcludedDomain(excludedDomains, document.URL)) {
             return;
         }
         if (aStatus.isEnabled && !aStatus.hasConvertedElements) {
+            // console.log("aStatus.isEnabled && !aStatus.hasConvertedElements");
             startObserve();
             traverseDomTree(document.body);
         }
@@ -616,6 +629,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
 
     const onUpdateSettings = function(contentScriptParams) {
+        // console.log("onUpdateSettings");
         const tempConvertUnits = contentScriptParams.tempConvertUnits;
         var message = "...";
         var hasConvertedElements = false;
@@ -679,6 +693,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             }
             else {
                 message = "Content was converted...";
+                // console.log("afterRegexesCreated");
                 startObserve();
                 if (document !== null) {
                     traverseDomTree(document.body);
@@ -693,6 +708,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         if(typeof Promise !== "undefined" && Promise.toString().includes("[native code]")){
             const promise2 = new Promise(
                 function(resolve, reject) {
+                    // console.log("promise2");
                     if (PriceRegexes) {
                         resolve();
                     }

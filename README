@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.4+3
-Date: 2016-05-07
+Version: 2.4.4+4
+Date: 2016-05-12
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -187,7 +187,7 @@ Fix: works with dynamically changed data (again).
 
 Version: 2.4.3+0
 Date: 2016-03-06
-Updated to ISO 4217 Amendment Number 162
+Updated to ISO 4217 Amendment Number 162.
 
 Version: 2.4.4+1
 Date: 2016-05-05
@@ -196,5 +196,9 @@ Internal change: Using HTML 5 data instead of hidden input nodes to store origin
 
 Version: 2.4.4+3
 Date: 2016-05-07
-Bugfix: original value was not removed correctly when disabling conversion
+Bugfix: original value was not removed correctly when disabling conversion.
+
+Version: 2.4.4+4
+Date: 2016-05-09
+Bugfix: repeated values were shown.
 

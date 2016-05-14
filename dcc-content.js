@@ -10,6 +10,7 @@
  */
 const DccFunctions = (function(){
     "use strict";
+    //console.log("DccFunctions");
     const allSubUnits = {
         "DKK": ["øre"],
         "NOK": ["øre"],
@@ -435,9 +436,22 @@ const DirectCurrencyContent = (function(aDccFunctions) {
         if (!/\d/.exec(aNode.textContent)) {
             return;
         }
-        if (aNode.parentNode.className.includes("dccConverted")) {
+        // console.log("aNode.parentNode " + aNode.parentNode);
+        // console.log("aNode.parentNode.className " + aNode.parentNode.className);
+        // console.log("typeof aNode.parentNode.className " + typeof aNode.parentNode.className);
+        // Can be [object SVGAnimatedString]
+        // console.log("aNode.parentNode.className === string " + (typeof aNode.parentNode.className === "string"));
+        // if (typeof aNode.parentNode.className === "string") {
+        //     console.log("aNode.parentNode.className.includes(\"dccConverted\") " + aNode.parentNode.className.includes("dccConverted"));
+        // };
+        // Extra check of "string" for Chrome
+        if (aNode.parentNode
+            && aNode.parentNode.className
+            && typeof aNode.parentNode.className === "string"
+            && aNode.parentNode.className.includes("dccConverted")) {
             return;
         }
+        // console.log("replaceCurrency continues");
         const prices = aDccFunctions.findPrices(enabledCurrenciesWithRegexes, currencyCode, aNode.textContent);
         if (prices.length === 0) {
             return;
@@ -543,6 +557,7 @@ const DirectCurrencyContent = (function(aDccFunctions) {
     };
 
     const resetDomTree = function(aNode) {
+        // console.log("resetDomTree");
         if (aNode === null) {
             return;
         }
@@ -556,7 +571,8 @@ const DirectCurrencyContent = (function(aDccFunctions) {
             if (node.dataset && node.dataset.dccConvertedContent) {
                 delete node.dataset.dccConvertedContent;
             }
-            aNode.parentNode.className.replace("dccConverted", "");
+            node.className = node.className.replace("dccConverted", "");
+            // console.log(node.className);
         }
     };
 

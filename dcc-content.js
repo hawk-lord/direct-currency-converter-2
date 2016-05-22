@@ -585,7 +585,9 @@ const DirectCurrencyContent = (function(aDccFunctions) {
                     replaceCurrency(aNode);
                 }
             }
-            const originalChildNodes = [];
+            // Not optimized: unsupported phi use of const variable
+            // const originalChildNodes = [];
+            var originalChildNodes = [];
             for (var i = 0; i < aNode.childNodes.length; ++i) {
                 var node = aNode.childNodes[i];
                 originalChildNodes.push(node);

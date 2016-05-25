@@ -21,7 +21,7 @@ if (!this.DccFunctions) {
         const checkSubUnit = function(aPrice, aUnit) {
             const currencySubUnits = allSubUnits[aUnit];
             if (currencySubUnits) {
-                for (var subUnit of currencySubUnits) {
+                for (let subUnit of currencySubUnits) {
                     if (aPrice.full.includes(subUnit)) {
                         return true;
                     }
@@ -62,7 +62,7 @@ if (!this.DccFunctions) {
             this.mults = new Map(aMults);
             this.func = function(aUnit) {
                 this.multsIter = this.mults.keys();
-                var entry = this.multsIter.next();
+                let entry = this.multsIter.next();
                 while (!entry.done) {
                     if (aUnit.includes(entry.value)) {
                         return this.mults.get(entry.value);
@@ -87,7 +87,7 @@ if (!this.DccFunctions) {
         };
 
         const addMonetaryGroupingSeparatorSymbol = function(anAmount, aMonetaryGroupingSeparatorSymbol) {
-            var amount = anAmount;
+            let amount = anAmount;
             const regex = /(\d+)(\d{3})/;
             while (regex.test(amount)) {
                 amount = amount.replace(regex, "$1" + aMonetaryGroupingSeparatorSymbol + "$2");
@@ -104,7 +104,7 @@ if (!this.DccFunctions) {
             // console.log("aMonetarySeparatorSymbol         " + aMonetarySeparatorSymbol);
             // console.log("-----------------------------------");
 
-            var formattedPrice;
+            let formattedPrice;
             const hasFractionalPart = anAmountFractionalPart !== "";
             if (anAmountIntegralPart === "0" && hasFractionalPart && isSubUnit) {
                 formattedPrice = anAmountFractionalPart.replace(/^0+/, "");
@@ -136,7 +136,7 @@ if (!this.DccFunctions) {
             const amountIntegralPart = amountParts[0];
             const amountFractionalPart = amountParts.length > 1 ? amountParts[1] : "";
             const isSubUnit = anAllowSubUnit && (subUnit !== undefined) && amountIntegralPart === "0" && amountFractionalPart !== "";
-            var formattedPrice = formatAmount(amountIntegralPart, amountFractionalPart, isSubUnit,
+            let formattedPrice = formatAmount(amountIntegralPart, amountFractionalPart, isSubUnit,
                 aCustomFormat.monetaryGroupingSeparatorSymbol, aCustomFormat.monetarySeparatorSymbol);
             if (aCustomFormat.beforeCurrencySymbol) {
                 formattedPrice = formattedPrice + aCustomFormat.currencySpacing + aMultiplicator + (isSubUnit ? subUnit : aUnit);
@@ -161,7 +161,7 @@ if (!this.DccFunctions) {
         };
 
         const parseAmount = function(anAmount) {
-            var amount = anAmount;
+            let amount = anAmount;
             const comma = amount.includes(",");
             const point = amount.includes(".");
             const apo = amount.includes("'");
@@ -248,8 +248,8 @@ if (!this.DccFunctions) {
 
         const convertContent = function(aConvertedPrice, aConvertedContent, aShowOriginalPrices, aReplacedUnit,
                                         aShowOriginalCurrencies, aPrice) {
-            var convertedPrice = aConvertedPrice;
-            var convertedContent = aConvertedContent;
+            let convertedPrice = aConvertedPrice;
+            let convertedContent = aConvertedContent;
             if (aShowOriginalPrices) {
                 if (!convertedContent.includes(aReplacedUnit) && aShowOriginalCurrencies) {
                     convertedPrice = convertedPrice + " (##__## [¤¤¤])";
@@ -273,7 +273,7 @@ if (!this.DccFunctions) {
             if (aRegex == null) {
                 return prices;
             }
-            var match;
+            let match;
             while ((match = aRegex.exec(aText)) !== null) {
                 prices.push(new Price(anOriginalCurrency, aCurrency, match, anAmountPosition));
             }
@@ -281,8 +281,8 @@ if (!this.DccFunctions) {
         };
 
         const findPrices = function(anEnabledCurrenciesWithRegexes, aCurrencyCode, aTextContent) {
-            var prices;
-            for (var currencyRegex of anEnabledCurrenciesWithRegexes) {
+            let prices;
+            for (let currencyRegex of anEnabledCurrenciesWithRegexes) {
                 if (currencyRegex.currency === aCurrencyCode) {
                     continue;
                 }
@@ -300,7 +300,7 @@ if (!this.DccFunctions) {
         };
 
         const isExcludedDomain = function(anExcludedDomains, anUrl) {
-            for (var excludedDomain of anExcludedDomains) {
+            for (let excludedDomain of anExcludedDomains) {
                 const matcher = new RegExp(excludedDomain, "g");
                 if (matcher.test(anUrl)){
                     return true;
@@ -361,20 +361,20 @@ if (!this.DirectCurrencyContent) {
                 return String.prototype.indexOf.apply(this, arguments) !== -1;
             };
         }
-        var conversionQuotes = [];
-        var currencyCode = "";
-        var currencySymbol = "¤";
+        let conversionQuotes = [];
+        let currencyCode = "";
+        let currencySymbol = "¤";
         const customFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
-        var excludedDomains = [];
-        var isEnabled = true;
-        var quoteAdjustmentPercent = 0;
+        let excludedDomains = [];
+        let isEnabled = true;
+        let quoteAdjustmentPercent = 0;
         const regex1 = {};
         const regex2 = {};
         const enabledCurrenciesWithRegexes = [];
-        var roundAmounts = false;
-        var showOriginalPrices = false;
-        var showOriginalCurrencies = false;
-        var showTooltip = true;
+        let roundAmounts = false;
+        let showOriginalPrices = false;
+        let showOriginalCurrencies = false;
+        let showTooltip = true;
         const skippedElements = ["audio", "button", "embed", "head", "img", "noscript", "object", "script", "select", "style", "textarea", "video"];
 
         // hover element showing conversion
@@ -468,10 +468,10 @@ if (!this.DirectCurrencyContent) {
             }
             const replacedUnit = prices[0].originalCurrency;
             const conversionQuote = conversionQuotes[replacedUnit] * (1 + quoteAdjustmentPercent / 100);
-            var tempAmount;
-            var tempConvertedAmount;
-            var convertedContent = aNode.textContent;
-            for (var price of prices) {
+            let tempAmount;
+            let tempConvertedAmount;
+            let convertedContent = aNode.textContent;
+            for (let price of prices) {
                 const parsedAmount = aDccFunctions.parseAmount(price.amount);
                 const convertedAmount = aDccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit);
                 const usedUnit = aDccFunctions.useUnit(replacedUnit, currencySymbol);
@@ -482,20 +482,20 @@ if (!this.DirectCurrencyContent) {
                     replacedUnit, showOriginalCurrencies, price);
                 // console.log("convertedContent " + convertedContent);
             }
-            for (var price of prices) {
+            for (let price of prices) {
                 // FIXME show all amounts
                 const isFromSubUnit = aDccFunctions.checkSubUnit(price, replacedUnit);
                 tempAmount = aDccFunctions.parseAmount(price.amount)  * (isFromSubUnit ? 1/100 : 1) ;
             }
-            for (var price of prices) {
+            for (let price of prices) {
                 // FIXME show all amounts
                 const isFromSubUnit = aDccFunctions.checkSubUnit(price, replacedUnit);
                 const convertedAmount = conversionQuote * aDccFunctions.parseAmount(price.amount) * (isFromSubUnit ? 1/100 : 1);
                 tempConvertedAmount = convertedAmount;
             }
             /* FIXME use this old title creation
-            var elementTitleText = "";
-            for (var price of prices) {
+            let elementTitleText = "";
+            for (let price of prices) {
                 elementTitleText += " ~ " + price.full;
             }
             elementTitleText = elementTitleText.substring(3);
@@ -523,7 +523,7 @@ if (!this.DirectCurrencyContent) {
                 }
             }
             if (isEnabled && showTooltip) {
-                var dccTitle = "Converted value: ";
+                let dccTitle = "Converted value: ";
                 dccTitle += aDccFunctions.formatPrice(currencyCode, roundAmounts, tempConvertedAmount, currencyCode, false, customFormat, "") + "\n";
                 dccTitle += "Original value: ";
                 dccTitle += aDccFunctions.formatPrice(replacedUnit, roundAmounts, tempAmount, replacedUnit, false, customFormat, "") + "\n";
@@ -539,8 +539,8 @@ if (!this.DirectCurrencyContent) {
         const mutationHandler = function(aMutationRecord) {
             // console.log("aMutationRecord.type " + aMutationRecord.type);
             if (aMutationRecord.type === "childList") {
-                for (var i = 0; i < aMutationRecord.addedNodes.length; ++i) {
-                    var node = aMutationRecord.addedNodes[i];
+                for (let i = 0; i < aMutationRecord.addedNodes.length; ++i) {
+                    let node = aMutationRecord.addedNodes[i];
                     traverseDomTree(node);
                 }
             }
@@ -573,8 +573,8 @@ if (!this.DirectCurrencyContent) {
             }
             const nodeList = aNode.parentNode.querySelectorAll(".dccConverted");
             // console.log(nodeList.length);
-            for (var i = 0; i < nodeList.length; ++i) {
-                var node = nodeList[i];
+            for (let i = 0; i < nodeList.length; ++i) {
+                let node = nodeList[i];
                 if (node.dataset && node.dataset.dccOriginalContent) {
                     delete node.dataset.dccOriginalContent;
                 }
@@ -597,13 +597,13 @@ if (!this.DirectCurrencyContent) {
                 }
                 // Not optimized: unsupported phi use of const variable
                 // const originalChildNodes = [];
-                var originalChildNodes = [];
-                for (var i = 0; i < aNode.childNodes.length; ++i) {
-                    var node = aNode.childNodes[i];
+                let originalChildNodes = [];
+                for (let i = 0; i < aNode.childNodes.length; ++i) {
+                    let node = aNode.childNodes[i];
                     originalChildNodes.push(node);
                 }
-                for (var i = 0; i < originalChildNodes.length; ++i) {
-                    var node = originalChildNodes[i];
+                for (let i = 0; i < originalChildNodes.length; ++i) {
+                    let node = originalChildNodes[i];
                     traverseDomTree(node);
                 }
             }
@@ -630,8 +630,8 @@ if (!this.DirectCurrencyContent) {
 
             const nodeList = aNode.parentNode.querySelectorAll(".dccConverted");
             // console.log(nodeList.length);
-            for (var i = 0; i < nodeList.length; ++i) {
-                var node = nodeList[i];
+            for (let i = 0; i < nodeList.length; ++i) {
+                let node = nodeList[i];
                 if (node.dataset && node.dataset.dccOriginalContent && node.dataset.dccConvertedContent) {
                     node.textContent = isShowOriginal ? node.dataset.dccOriginalContent : node.dataset.dccConvertedContent;
                     // TODO this won't happen
@@ -659,8 +659,8 @@ if (!this.DirectCurrencyContent) {
         const onUpdateSettings = function(contentScriptParams) {
             // console.log("onUpdateSettings");
             const tempConvertUnits = contentScriptParams.tempConvertUnits;
-            var message = "...";
-            var hasConvertedElements = false;
+            let message = "...";
+            let hasConvertedElements = false;
             substitute(document.body, true);
             resetDomTree(document.body);
             conversionQuotes = contentScriptParams.conversionQuotes;
@@ -686,7 +686,7 @@ if (!this.DirectCurrencyContent) {
             const afterRegexesCreated = function() {
                 "use strict";
                 enabledCurrenciesWithRegexes.length = 0;
-                for (var currency of contentScriptParams.convertFroms) {
+                for (let currency of contentScriptParams.convertFroms) {
                     if (currency.enabled) {
                         enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency.isoName, regex1[currency.isoName], regex2[currency.isoName]));
                     }
@@ -707,8 +707,8 @@ if (!this.DirectCurrencyContent) {
                     const regexObj_hp = new CurrencyRegex("hp", regex1["hp"], regex2["hp"]);
                     enabledCurrenciesWithRegexes.push(regexObj_hp);
                 }
-                var process = true;
-                for (var excludedDomain of contentScriptParams.excludedDomains) {
+                let process = true;
+                for (let excludedDomain of contentScriptParams.excludedDomains) {
                     const matcher = new RegExp(excludedDomain, "g");
                     const found = matcher.test(document.URL);
                     if (found) {

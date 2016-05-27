@@ -10,7 +10,7 @@
     }
   ],
   "author": "Per Johansson",
-  "version": "2.4.4+4",
+  "version": "2.4.5+0",
   "main": "./lib/ff-main",
   "homepage": "http://www.joint.ax/",
   "description": "Converts prices from any currency to prices in a selectable currency automatically while browsing. Supports $, £, ¥, ؋, ৳, ฿, ៛, ₡, ₦, ₨, ₩, ₪, ₫, €, ₭, ₮, ₱, ₲, ₴, ₵, ₸, ₹, ₺, ₼, ₽, ﷼, etc.",
@@ -26,7 +26,6 @@
   "name": "direct-currency-converter-2",
   "license": "MPL 2.0",
   "translators": "",
-  "icon": "data/images/1402781537_currency_exchange_1.png",
   "engines": {
     "firefox": ">=38.0a1"
   },

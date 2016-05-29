@@ -1,3 +1,7 @@
+Detta tillägg kunde i verifieras av Firefox
+about:config
+xpinstall.signatures.required false
+
 Conversion state from the program state.
 
 // DONE Settings: new help text.

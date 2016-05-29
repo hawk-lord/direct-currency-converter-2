@@ -1,7 +1,7 @@
-Direct Currency Converter
+# Direct Currency Converter
 
-Version: 2.4.4+4
-Date: 2016-05-12
+Version: 2.4.5+0
+Date: 2016-05-29
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -37,8 +37,7 @@ Currencies in PDF files shown in the browser (using pdf.js) are converted too, i
 
 Optionally, if selected in the settings tab, some traditional units of measurement (such as miles and calories) are converted to SI units (such as kilometres and kilojoules).
 
-DCC is forked from Simple Currency Converter
-https://addons.mozilla.org/addon/simple-currency-converter/
+DCC is forked from [https://addons.mozilla.org/addon/simple-currency-converter/] (Simple Currency Converter)
 
 External libraries used:
 jQuery 2.1.3
@@ -202,3 +201,9 @@ Version: 2.4.4+4
 Date: 2016-05-12
 Bugfix: repeated values were shown.
 
+Version: 2.4.5+0
+Date: 2016-05-29
+Workaround: added icon.png so the icon will be shown in the add-ons list, pending a
+[https://bugzilla.mozilla.org/show_bug.cgi?id=1141839](Firefox fix).
+Fix: dynamically changed values were sometimes not shown as converted.
+Internal change: some Chrome specific changes in common code.

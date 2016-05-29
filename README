@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.3+0
-Date: 2016-03-11
+Version: 2.4.5+0
+Date: 2016-05-29
 
 After installation, you'll have a new submenu in the browser menu.
 
@@ -36,8 +36,7 @@ Also, if amount and unit are in different HTML elements (for example when they h
 
 Optionally, if selected in the settings tab, some traditional units of measurement (such as miles and calories) are converted to SI units (such as kilometres and kilojoules).
 
-DCC is forked from Simple Currency Converter
-https://addons.mozilla.org/addon/simple-currency-converter/
+DCC is forked from <a href="https://addons.mozilla.org/addon/simple-currency-converter/">Simple Currency Converter</a>
 
 External libraries used:
 jQuery 2.1.3
@@ -79,3 +78,23 @@ Internal change: rebuilt with JPM.
 Version: 2.4.3+0
 Date: 2016-03-11
 Updated to ISO 4217 Amendment Number 162
+
+Version: 2.4.4+1
+Date: 2016-05-05
+Added geoip.nekudo.com to find user's location an default currency.
+Internal change: Using HTML 5 data instead of hidden input nodes to store original and converted data.
+
+Version: 2.4.4+3
+Date: 2016-05-07
+Bugfix: original value was not removed correctly when disabling conversion.
+
+Version: 2.4.4+4
+Date: 2016-05-12
+Bugfix: repeated values were shown.
+
+Version: 2.4.5+0
+Date: 2016-05-29
+Workaround: added icon.png so the icon will be shown in the add-ons list, pending a
+<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1141839">Firefox fix</a>.
+Fix: dynamically changed values were sometimes not shown as converted.
+Internal change: some Chrome specific changes in common code.

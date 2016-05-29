@@ -494,15 +494,15 @@ if (!this.DirectCurrencyContent) {
                 tempConvertedAmount = convertedAmount;
             }
             /* FIXME use this old title creation
-            let elementTitleText = "";
-            for (let price of prices) {
-                elementTitleText += " ~ " + price.full;
-            }
-            elementTitleText = elementTitleText.substring(3);
-            if (showOriginalPrices) {
-                elementTitleText = "";
-            }
-            */
+             let elementTitleText = "";
+             for (let price of prices) {
+             elementTitleText += " ~ " + price.full;
+             }
+             elementTitleText = elementTitleText.substring(3);
+             if (showOriginalPrices) {
+             elementTitleText = "";
+             }
+             */
 
             aNode.parentNode.dataset.dccConvertedContent = convertedContent;
             if (!aNode.parentNode.dataset.dccOriginalContent) {
@@ -595,15 +595,8 @@ if (!this.DirectCurrencyContent) {
                         replaceCurrency(aNode);
                     }
                 }
-                // Not optimized: unsupported phi use of const variable
-                // const originalChildNodes = [];
-                let originalChildNodes = [];
                 for (let i = 0; i < aNode.childNodes.length; ++i) {
                     let node = aNode.childNodes[i];
-                    originalChildNodes.push(node);
-                }
-                for (let i = 0; i < originalChildNodes.length; ++i) {
-                    let node = originalChildNodes[i];
                     traverseDomTree(node);
                 }
             }
@@ -628,7 +621,11 @@ if (!this.DirectCurrencyContent) {
             //console.log(isShowOriginal);
             //console.log(aReplacedUnit);
 
-            const nodeList = aNode.parentNode.querySelectorAll(".dccConverted");
+            let nodeList = aNode.parentNode.querySelectorAll(".dccConverted");
+            if (nodeList && nodeList.length === 0 && aNode.parentNode.parentNode) {
+                nodeList = aNode.parentNode.parentNode.querySelectorAll(".dccConverted");
+            }
+                
             // console.log(nodeList.length);
             for (let i = 0; i < nodeList.length; ++i) {
                 let node = nodeList[i];
@@ -753,10 +750,10 @@ if (!this.DirectCurrencyContent) {
                     function (err) {
                         console.error("promise2 then " + err);
                     }
-                //).catch(
-                //    function (err) {
-                //        console.error("promise2 catch " + err);
-                //    }
+                    //).catch(
+                    //    function (err) {
+                    //        console.error("promise2 catch " + err);
+                    //    }
                 );
             }
             else {

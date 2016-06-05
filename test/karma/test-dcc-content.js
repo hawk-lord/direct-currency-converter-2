@@ -2,7 +2,17 @@
 
  */
 
+const convertFroms = [];
+convertFroms.push({"isoName": "USD", "enabled": true});
+const conversionQuotes = {
+    "USD": 1.2
+};
+const convertToCurrency2 = "EUR";
+
 const contentScriptParams = new MockContentScriptParams();
+contentScriptParams.convertFroms = convertFroms;
+contentScriptParams.convertToCurrency = convertToCurrency2;
+contentScriptParams.conversionQuotes = conversionQuotes;
 
 describe("DirectCurrencyContent", () => {
     "use strict";
@@ -11,16 +21,28 @@ describe("DirectCurrencyContent", () => {
         afterEach(function() { });
         it('should be OK', function() { expect(false).to.be.false; });
     });
+    describe("#onUpdateSettings()", () => {
+        it("should not fail", () => {
+            document.body.className = "Test";
+            document.body.style.background = "red";
+            document.body.style.color = "blue";
+            console.log(document.body.className);
+            const newtext = document.createTextNode("100 USD");
+            newtext.id = "id1";
+            document.body.appendChild(newtext);
+            DirectCurrencyContent.onUpdateSettings(contentScriptParams);
+            // TODO use Promise PriceRegexes
+            var unixtime_ms = new Date().getTime();
+            while(new Date().getTime() < unixtime_ms + 1000) {}
+            console.log(newtext);
+            console.log(document.body.className);
+            assert(true);
+        });
+    });
     describe("#onSendEnabledStatus()", () => {
         const status = new MockStatus();
         it("should not fail", () => {
             DirectCurrencyContent.onSendEnabledStatus(status);
-            assert(true);
-        });
-    });
-    describe("#onUpdateSettings()", () => {
-        it("should not fail", () => {
-            DirectCurrencyContent.onUpdateSettings(contentScriptParams);
             assert(true);
         });
     });

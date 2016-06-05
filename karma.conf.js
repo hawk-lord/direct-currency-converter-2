@@ -15,8 +15,8 @@ module.exports = function (config) {
         files: [
             // default was false
             {pattern: "data/common/jquery-2.1.3.min.js", included: true},
-            {pattern: "data/common/dcc-content.js", included: true},
             {pattern: "data/common/dcc-regexes.js", included: true},
+            {pattern: "data/common/dcc-content.js", included: true},
             {pattern: "data/common/dcc-settings.js", included: true},
             {pattern: "lib/dcc-common-lib/eventAggregator.js", included: true},
             {pattern: "lib/ff-chromeInterface.js", included: true},
@@ -33,7 +33,6 @@ module.exports = function (config) {
             {pattern: "test/karma/dcc-mock-informationholder.js", included: true},
             {pattern: "test/karma/dcc-mock-status.js", included: true},
             {pattern: "test/karma/test-contentScriptParams.js", included: true},
-            {pattern: "test/karma/test-parseContentScriptParams.js", included: true},
             {pattern: "test/karma/test-dcc-content.js", included: true},
             {pattern: "test/karma/test-dcc-regexes.js", included: true},
             {pattern: "test/karma/test-dcc-settings.js", included: true},
@@ -44,6 +43,7 @@ module.exports = function (config) {
             {pattern: "test/karma/test-ff-storage-service.js", included: true},
             {pattern: "test/karma/test-freegeoip-service.js", included: true},
             {pattern: "test/karma/test-informationHolder.js", included: true},
+            {pattern: "test/karma/test-parseContentScriptParams.js", included: true},
             {pattern: "test/karma/test-yahoo-quotes.js", included: true}
         ],
 

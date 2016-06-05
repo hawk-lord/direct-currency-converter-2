@@ -11,7 +11,6 @@
 if (!this.DccFunctions) {
     const DccFunctions = (function(){
         "use strict";
-        //console.log("DccFunctions");
         const allSubUnits = {
             "DKK": ["øre"],
             "NOK": ["øre"],
@@ -104,13 +103,6 @@ if (!this.DccFunctions) {
 
         const formatAmount = (anAmountIntegralPart, anAmountFractionalPart, isSubUnit,
                                       aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol) => {
-            // console.log("anAmountIntegralPart             " + anAmountIntegralPart);
-            // console.log("anAmountFractionalPart           " + anAmountFractionalPart);
-            // console.log("isSubUnit                        " + isSubUnit);
-            // console.log("aMonetaryGroupingSeparatorSymbol " + aMonetaryGroupingSeparatorSymbol);
-            // console.log("aMonetarySeparatorSymbol         " + aMonetarySeparatorSymbol);
-            // console.log("-----------------------------------");
-
             let formattedPrice;
             const hasFractionalPart = anAmountFractionalPart !== "";
             if (anAmountIntegralPart === "0" && hasFractionalPart && isSubUnit) {
@@ -128,13 +120,6 @@ if (!this.DccFunctions) {
 
         const formatPrice = (aCurrencyCode, aRoundAmounts, anAmount, aUnit, anAllowSubUnit, aCustomFormat,
                                      aMultiplicator) => {
-            // console.log("anAmount              " + anAmount);
-            // console.log("aUnit                 " + aUnit);
-            // console.log("aMultiplicator        " + aMultiplicator);
-            // console.log("aRoundAmounts         " + aRoundAmounts);
-            // console.log("aCurrencyCode         " + aCurrencyCode);
-            // console.log("aCustomFormat         " + aCustomFormat);
-            // console.log("-----------------------------------");
             const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
             const subUnit = subUnits[aCurrencyCode];
             const fractionDigits = (aRoundAmounts && anAmount > 1) || aUnit === "mm" || aUnit === "kJ" ? 0 : 2;
@@ -302,7 +287,6 @@ if (!this.DccFunctions) {
                 }
                 break;
             }
-            // console.log("findPrices prices.length " + prices.length);
             return prices;
         };
 
@@ -434,9 +418,6 @@ if (!this.DirectCurrencyContent) {
 
 
         const replaceCurrency = (aNode) => {
-            // console.log("replaceCurrency");
-//            if (aNode.nodeType === Node.TEXT_NODE && !/^\s*$/.test(aNode.nodeValue) && !/\{/.test(aNode.nodeValue)) {
-//                if (aNode.parentNode !== null && skippedElements.indexOf(aNode.parentNode.tagName.toLowerCase()) === -1) {
             if (!aNode) {
                 return;
             }
@@ -458,14 +439,7 @@ if (!this.DirectCurrencyContent) {
             if (!/\d/.test(aNode.textContent)) {
                 return;
             }
-            // console.log("aNode.parentNode " + aNode.parentNode);
-            // console.log("aNode.parentNode.className " + aNode.parentNode.className);
-            // console.log("typeof aNode.parentNode.className " + typeof aNode.parentNode.className);
             // Can be [object SVGAnimatedString]
-            // console.log("aNode.parentNode.className === string " + (typeof aNode.parentNode.className === "string"));
-            if (typeof aNode.parentNode.className === "string") {
-                // console.log("aNode.parentNode.className.includes(\"dccConverted\") " + aNode.parentNode.className.includes("dccConverted"));
-            };
             // Extra check of "string" for Chrome
             if (aNode.parentNode
                 && aNode.parentNode.className
@@ -473,7 +447,6 @@ if (!this.DirectCurrencyContent) {
                 && aNode.parentNode.className.includes("dccConverted")) {
                 return;
             }
-            // console.log("replaceCurrency continues");
             const prices = aDccFunctions.findPrices(enabledCurrenciesWithRegexes, currencyCode, aNode.textContent);
             if (prices.length === 0) {
                 return;
@@ -492,7 +465,6 @@ if (!this.DirectCurrencyContent) {
                     true, customFormat, multiplicator);
                 convertedContent = aDccFunctions.convertContent(convertedPrice, convertedContent, showOriginalPrices,
                     replacedUnit, showOriginalCurrencies, price);
-                // console.log("convertedContent " + convertedContent);
             }
             for (let price of prices) {
                 // FIXME show all amounts
@@ -549,12 +521,9 @@ if (!this.DirectCurrencyContent) {
 
 
         const mutationHandler = (aMutationRecord) => {
-            // console.log("aMutationRecord.type " + aMutationRecord.type);
             if (aMutationRecord.type === "childList") {
                 for (let i = 0; i < aMutationRecord.addedNodes.length; ++i) {
                     let node = aMutationRecord.addedNodes[i];
-                    // console.log("aMutationRecord.addedNodes[" + i + "] " + node.textContent);
-                    // console.log("mutationHandler traverseDomTree " + node);
                     traverseDomTree(node);
                 }
             }
@@ -565,7 +534,6 @@ if (!this.DirectCurrencyContent) {
         };
 
         const startObserve = () => {
-            // console.log("startObserve");
             const mutationObserver = new MutationObserver(mutationsHandler);
             const mutationObserverInit = {
                 childList: true,
@@ -581,12 +549,10 @@ if (!this.DirectCurrencyContent) {
         };
 
         const resetDomTree = (aNode) => {
-            // console.log("resetDomTree");
             if (!aNode) {
                 return;
             }
             const nodeList = aNode.querySelectorAll(".dccConverted");
-            // console.log(nodeList.length);
             for (let i = 0; i < nodeList.length; ++i) {
                 let node = nodeList[i];
                 if (node.dataset && node.dataset.dccOriginalContent) {
@@ -596,37 +562,21 @@ if (!this.DirectCurrencyContent) {
                     delete node.dataset.dccConvertedContent;
                 }
                 node.className = node.className.replace("dccConverted", "");
-                // console.log(node.className);
             }
         };
 
         const traverseDomTree = (aNode) => {
-            // console.log("traverseDomTree");
             if (!aNode) {
                 return
             }
-            // console.log("traverseDomTree aNode.nodeType " + aNode.nodeType);
-            // console.log("traverseDomTree aNode.nodeValue " + aNode.nodeValue);
-            // console.log("traverseDomTree aNode.parentNode " + aNode.parentNode);
-            // console.log("traverseDomTree aNode.parentNode.tagName " + aNode.parentNode.tagName);
-            // The third check takes care of Google Images code "<div class=rg_meta>{"cb":3, ..."
-/*
-                if (aNode.nodeType === Node.TEXT_NODE && !/^\s*$/.test(aNode.nodeValue) && !/\{/.test(aNode.nodeValue)) {
-                    if (aNode.parentNode !== null && skippedElements.indexOf(aNode.parentNode.tagName.toLowerCase()) === -1) {
-                        replaceCurrency(aNode);
-                    }
-                }
-*/
             replaceCurrency(aNode);
             for (let i = 0; i < aNode.childNodes.length; ++i) {
                 let node = aNode.childNodes[i];
-                // console.log("traverseDomTree traverseDomTree " + node);
                 traverseDomTree(node);
             }
         };
 
         const substituteOne = (aNode, isShowOriginal, aDccTitle) => {
-            // console.log("substituteOne");
             if (!aNode) {
                 return;
             }
@@ -636,13 +586,7 @@ if (!this.DirectCurrencyContent) {
             if (aNode.nodeType !== Node.TEXT_NODE) {
                 return;
             }
-            // console.log("aDccTitle " + aDccTitle);
-            // console.log("substituteOne aNode.nodeName " + aNode.nodeName);
-            // console.log("substituteOne aNode.textContent " + aNode.textContent);
-            // console.log("aNode.parentNode.nodeName " + aNode.parentNode.nodeName);
-            // console.log("aNode.parentNode.textContent " + aNode.parentNode.textContent);
             if (aNode.parentNode.dataset && aNode.parentNode.dataset.dccOriginalContent) {
-                // console.log("aNode.parentNode.dataset.dccOriginalContent " + aNode.parentNode.dataset.dccOriginalContent);
                 if (aDccTitle) {
                     aNode.parentNode.dataset.dcctitle = aDccTitle;
                 }
@@ -650,19 +594,14 @@ if (!this.DirectCurrencyContent) {
                     aNode.textContent = isShowOriginal ? aNode.parentNode.dataset.dccOriginalContent : aNode.parentNode.dataset.dccConvertedContent;
                 }
             }
-            // console.log(isShowOriginal);
-            //console.log(aReplacedUnit);
-            // console.log("substituteOne done");
         };
 
         const substituteAll = (aNode, isShowOriginal) => {
-            // console.log("substituteAll");
             if (!aNode) {
                 return;
             }
             let nodeList = aNode.querySelectorAll(".dccConverted");
 
-            // console.log(nodeList.length);
             for (let i = 0; i < nodeList.length; ++i) {
                 let node = nodeList[i];
                 if (node.dataset && node.dataset.dccOriginalContent && node.dataset.dccConvertedContent) {
@@ -672,14 +611,11 @@ if (!this.DirectCurrencyContent) {
         };
 
         const onSendEnabledStatus = (aStatus) => {
-            // console.log("onSendEnabledStatus");
             if (aDccFunctions.isExcludedDomain(excludedDomains, document.URL)) {
                 return;
             }
             if (aStatus.isEnabled && !aStatus.hasConvertedElements) {
-                // console.log("aStatus.isEnabled && !aStatus.hasConvertedElements");
                 startObserve();
-                // console.log("onSendEnabledStatus traverseDomTree ");
                 traverseDomTree(document.body);
             }
             substituteAll(document.body, !aStatus.isEnabled);
@@ -718,7 +654,6 @@ if (!this.DirectCurrencyContent) {
                     enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency.isoName, regex1[currency.isoName], regex2[currency.isoName]));
                 }
             }
-            // console.log(enabledCurrenciesWithRegexes.length);
             if (contentScriptParams.tempConvertUnits) {
                 const regexObj_inch = new CurrencyRegex("inch", regex1["inch"], regex2["inch"]);
                 enabledCurrenciesWithRegexes.push(regexObj_inch);
@@ -742,13 +677,11 @@ if (!this.DirectCurrencyContent) {
          * @param contentScriptParams
          */
         const onUpdateSettings = (contentScriptParams) => {
-            // console.log("onUpdateSettings");
             substituteAll(document.body, true);
             resetDomTree(document.body);
             readParameters(contentScriptParams);
 
             const startConversion = () => {
-                // console.log("startConversion");
                 readEnabledCurrencies(contentScriptParams);
                 let process = true;
                 for (let excludedDomain of contentScriptParams.excludedDomains) {
@@ -763,7 +696,6 @@ if (!this.DirectCurrencyContent) {
                 if (contentScriptParams.isEnabled && process) {
                     startObserve();
                     if (document !== null) {
-                        // console.log("startConversion traverseDomTree ");
                         traverseDomTree(document.body);
                         substituteAll(document.body, false);
                         hasConvertedElements = true;

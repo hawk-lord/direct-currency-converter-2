@@ -396,6 +396,7 @@ if (!this.DirectCurrencyContent) {
             "width: 300px;" +
             "height: 100px;" +
             "z-index: 2147483647;" +
+            "overflow-y: scroll;" +
             "}", 0);
 
 
@@ -427,27 +428,28 @@ if (!this.DirectCurrencyContent) {
             if (aNode.nodeType !== Node.TEXT_NODE) {
                 return;
             }
+            const dataNode = aNode.previousSibling ? aNode.previousSibling : aNode.parentNode;
             if (skippedElements.indexOf(aNode.parentNode.tagName.toLowerCase()) !== -1) {
                 return;
             }
-            if (/^\s*$/.test(aNode.textContent)) {
+            if (/^\s*$/.test(aNode.nodeValue)) {
                 return;
             }
-            if (/\{/.test(aNode.textContent)) {
+            if (/\{/.test(aNode.nodeValue)) {
                 return;
             }
-            if (!/\d/.test(aNode.textContent)) {
+            if (!/\d/.test(aNode.nodeValue)) {
                 return;
             }
             // Can be [object SVGAnimatedString]
             // Extra check of "string" for Chrome
-            if (aNode.parentNode
-                && aNode.parentNode.className
-                && typeof aNode.parentNode.className === "string"
-                && aNode.parentNode.className.includes("dccConverted")) {
+            if (dataNode
+                && dataNode.className
+                && typeof dataNode.className === "string"
+                && dataNode.className.includes("dccConverted")) {
                 return;
             }
-            const prices = aDccFunctions.findPrices(enabledCurrenciesWithRegexes, currencyCode, aNode.textContent);
+            const prices = aDccFunctions.findPrices(enabledCurrenciesWithRegexes, currencyCode, aNode.nodeValue);
             if (prices.length === 0) {
                 return;
             }
@@ -455,7 +457,7 @@ if (!this.DirectCurrencyContent) {
             const conversionQuote = conversionQuotes[replacedUnit] * (1 + quoteAdjustmentPercent / 100);
             let tempAmount;
             let tempConvertedAmount;
-            let convertedContent = aNode.textContent;
+            let convertedContent = aNode.nodeValue;
             for (let price of prices) {
                 const parsedAmount = aDccFunctions.parseAmount(price.amount);
                 const convertedAmount = aDccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit);
@@ -488,12 +490,12 @@ if (!this.DirectCurrencyContent) {
              }
              */
 
-            aNode.parentNode.dataset.dccConvertedContent = convertedContent;
-            if (!aNode.parentNode.dataset.dccOriginalContent) {
-                aNode.parentNode.dataset.dccOriginalContent = aNode.textContent;
+            dataNode.dataset.dccConvertedContent = convertedContent;
+            if (!dataNode.dataset.dccOriginalContent) {
+                dataNode.dataset.dccOriginalContent = aNode.nodeValue;
             }
-            if (!aNode.parentNode.className.includes("dccConverted")) {
-                aNode.parentNode.className += " dccConverted";
+            if (!dataNode.className.includes("dccConverted")) {
+                dataNode.className += " dccConverted";
             }
 
 
@@ -514,7 +516,7 @@ if (!this.DirectCurrencyContent) {
                 dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " +
                     aDccFunctions.formatPrice("", roundAmounts, conversionQuote, "", false, customFormat, "") + "\n";
                 dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " +
-                    aDccFunctions.formatPrice("", roundAmounts, 1/conversionQuote, "", false, customFormat, "");
+                    aDccFunctions.formatPrice("", roundAmounts, 1/conversionQuote, "", false, customFormat, "") + "\n";
                 substituteOne(aNode, false, dccTitle);
             }
         };
@@ -523,7 +525,7 @@ if (!this.DirectCurrencyContent) {
         const mutationHandler = (aMutationRecord) => {
             if (aMutationRecord.type === "childList") {
                 for (let i = 0; i < aMutationRecord.addedNodes.length; ++i) {
-                    let node = aMutationRecord.addedNodes[i];
+                    const node = aMutationRecord.addedNodes[i];
                     traverseDomTree(node);
                 }
             }
@@ -554,7 +556,7 @@ if (!this.DirectCurrencyContent) {
             }
             const nodeList = aNode.querySelectorAll(".dccConverted");
             for (let i = 0; i < nodeList.length; ++i) {
-                let node = nodeList[i];
+                const node = nodeList[i];
                 if (node.dataset && node.dataset.dccOriginalContent) {
                     delete node.dataset.dccOriginalContent;
                 }
@@ -571,7 +573,7 @@ if (!this.DirectCurrencyContent) {
             }
             replaceCurrency(aNode);
             for (let i = 0; i < aNode.childNodes.length; ++i) {
-                let node = aNode.childNodes[i];
+                const node = aNode.childNodes[i];
                 traverseDomTree(node);
             }
         };
@@ -586,12 +588,14 @@ if (!this.DirectCurrencyContent) {
             if (aNode.nodeType !== Node.TEXT_NODE) {
                 return;
             }
-            if (aNode.parentNode.dataset && aNode.parentNode.dataset.dccOriginalContent) {
+            const dataNode = aNode.previousSibling ? aNode.previousSibling : aNode.parentNode;
+            if (dataNode.dataset && dataNode.dataset.dccOriginalContent) {
                 if (aDccTitle) {
-                    aNode.parentNode.dataset.dcctitle = aDccTitle;
+                    aNode.parentNode.dataset.dcctitle = aNode.parentNode.dataset.dcctitle ? aNode.parentNode.dataset.dcctitle : "";
+                    aNode.parentNode.dataset.dcctitle += aDccTitle + "\n";
                 }
-                if (aNode.parentNode.dataset.dccConvertedContent) {
-                    aNode.textContent = isShowOriginal ? aNode.parentNode.dataset.dccOriginalContent : aNode.parentNode.dataset.dccConvertedContent;
+                if (dataNode.dataset.dccConvertedContent) {
+                    aNode.nodeValue = isShowOriginal ? dataNode.dataset.dccOriginalContent : dataNode.dataset.dccConvertedContent;
                 }
             }
         };
@@ -600,12 +604,13 @@ if (!this.DirectCurrencyContent) {
             if (!aNode) {
                 return;
             }
-            let nodeList = aNode.querySelectorAll(".dccConverted");
+            const nodeList = aNode.querySelectorAll(".dccConverted");
 
             for (let i = 0; i < nodeList.length; ++i) {
-                let node = nodeList[i];
+                const node = nodeList[i];
+                const textNode = node.firstChild ? node.firstChild : node.nextSibling;
                 if (node.dataset && node.dataset.dccOriginalContent && node.dataset.dccConvertedContent) {
-                    node.textContent = isShowOriginal ? node.dataset.dccOriginalContent : node.dataset.dccConvertedContent;
+                    textNode.nodeValue = isShowOriginal ? node.dataset.dccOriginalContent : node.dataset.dccConvertedContent;
                 }
             }
         };

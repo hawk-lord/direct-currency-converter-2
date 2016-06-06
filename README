@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.5+0
-Date: 2016-05-29
+Version: 2.4.6+0
+Date: 2016-06-06
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -207,3 +207,10 @@ Workaround: added icon.png so the icon will be shown in the add-ons list, pendin
 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1141839">Firefox fix</a>.
 Fix: dynamically changed values were sometimes not shown as converted.
 Internal change: some Chrome specific changes in common code.
+
+Version: 2.4.6+0
+Date: 2016-06-06
+Improved title of conversion so all conversions in an element are shown.
+Fix: some text was disappearing in converted elements.
+Fix: reset settings did not load location.
+Internal change: reworked the main content script to make it more reliable.

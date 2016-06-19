@@ -1,3 +1,9 @@
+// Text confused
+http://www.svd.se/darfor-tror-yellen-inte-langre-pa-rantehojning/i/senaste/om/naringsliv
+
+"3 öre" => " cent"
+
+
 // Start jpm run
 // catched error when no reply
 direct-currency-converter-2:err SyntaxError: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data ff-freegeoip-service.js:23

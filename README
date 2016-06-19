@@ -212,5 +212,5 @@ Version: 2.4.6+0
 Date: 2016-06-06
 Improved title of conversion so all conversions in an element are shown.
 Fix: some text was disappearing in converted elements.
-Fix: reset settings did not load location.
-Internal change: reworked the main content script to make it more reliable.
+Fix: reset settings did not load the location.
+Internal change: refactored and cleaned the main content script.

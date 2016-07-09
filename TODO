@@ -1,5 +1,16 @@
+// Parenthesis before "(500 USD)"
+
+// Shows same title everywhere
+http://www.dollartimes.com/inflation/inflation.php?amount=5&year=1960
+
 // Text confused
 http://www.svd.se/darfor-tror-yellen-inte-langre-pa-rantehojning/i/senaste/om/naringsliv
+
+p                       attributes = data-dcctitle
+-strong.dccConverted    attributes = data-dcc-converted-content, class
+--text                  " i de månadsvisa..."       should be "Allt syns heller inte..."
+-text                   " i de månadsvisa..."
+
 
 "3 öre" => " cent"
 

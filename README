@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.6+0
-Date: 2016-06-06
+Version: 2.4.7+0
+Date: 2016-07-09
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -214,3 +214,9 @@ Improved title of conversion so all conversions in an element are shown.
 Fix: some text was disappearing in converted elements.
 Fix: reset settings did not load the location.
 Internal change: refactored and cleaned the main content script.
+
+Version: 2.4.7+0
+Date: 2016-07-09
+Replaced old Belarusian rouble BYR with BYN (ISO 4217 amendment number 160).
+Fix: some converted text was written to the wrong element.
+Fix: conversion of amount with an immediately preceding parenthesis, such as "(500 USD)"

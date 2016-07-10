@@ -217,6 +217,10 @@ Internal change: refactored and cleaned the main content script.
 
 Version: 2.4.7+0
 Date: 2016-07-09
-Replaced old Belarusian rouble BYR with BYN (ISO 4217 amendment number 160).
+Replaced old Belarusian ruble BYR with BYN (ISO 4217 amendment number 160).
 Fix: some converted text was written to the wrong element.
 Fix: conversion of amount with an immediately preceding parenthesis, such as "(500 USD)"
+
+Version: 2.4.8+0
+Date: 2016-07-10
+Fix: some text was disappearing in converted elements.

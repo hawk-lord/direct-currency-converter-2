@@ -428,7 +428,8 @@ if (!this.DirectCurrencyContent) {
             if (aNode.nodeType !== Node.TEXT_NODE) {
                 return;
             }
-            const dataNode = aNode.parentNode;
+            const isSibling = aNode.previousSibling;
+            const dataNode = isSibling ? aNode.previousSibling : aNode.parentNode;
             if (skippedElements.indexOf(aNode.parentNode.tagName.toLowerCase()) !== -1) {
                 return;
             }
@@ -490,12 +491,23 @@ if (!this.DirectCurrencyContent) {
              }
              */
 
-            dataNode.dataset.dccConvertedContent = convertedContent;
-            if (!dataNode.dataset.dccOriginalContent) {
-                dataNode.dataset.dccOriginalContent = aNode.nodeValue;
+            if (isSibling) {
+                dataNode.dataset.dccConvertedContentSibling = convertedContent;
+                if (!dataNode.dataset.dccOriginalContentSibling) {
+                    dataNode.dataset.dccOriginalContentSibling = aNode.nodeValue;
+                }
+                if (!dataNode.className.includes("dccConvertedSibling")) {
+                    dataNode.className += " dccConvertedSibling";
+                }
             }
-            if (!dataNode.className.includes("dccConverted")) {
-                dataNode.className += " dccConverted";
+            else {
+                dataNode.dataset.dccConvertedContent = convertedContent;
+                if (!dataNode.dataset.dccOriginalContent) {
+                    dataNode.dataset.dccOriginalContent = aNode.nodeValue;
+                }
+                if (!dataNode.className.includes("dccConverted")) {
+                    dataNode.className += " dccConverted";
+                }
             }
 
 
@@ -589,14 +601,28 @@ if (!this.DirectCurrencyContent) {
             if (aNode.nodeType !== Node.TEXT_NODE) {
                 return;
             }
-            const dataNode = aNode.parentNode;
-            if (dataNode.dataset && dataNode.dataset.dccOriginalContent) {
-                if (aDccTitle) {
-                    aNode.parentNode.dataset.dcctitle = aNode.parentNode.dataset.dcctitle ? aNode.parentNode.dataset.dcctitle : "";
-                    aNode.parentNode.dataset.dcctitle += aDccTitle + "\n";
+            const isSibling = aNode.previousSibling;
+            const dataNode = isSibling ? aNode.previousSibling : aNode.parentNode;
+            if (isSibling) {
+                if (dataNode.dataset && dataNode.dataset.dccOriginalContentSibling) {
+                    if (aDccTitle) {
+                        aNode.parentNode.dataset.dcctitle = aNode.parentNode.dataset.dcctitle ? aNode.parentNode.dataset.dcctitle : "";
+                        aNode.parentNode.dataset.dcctitle += aDccTitle + "\n";
+                    }
+                    if (dataNode.dataset.dccConvertedContentSibling) {
+                        aNode.nodeValue = isShowOriginal ? dataNode.dataset.dccOriginalContentSibling : dataNode.dataset.dccConvertedContentSibling;
+                    }
                 }
-                if (dataNode.dataset.dccConvertedContent) {
-                    aNode.nodeValue = isShowOriginal ? dataNode.dataset.dccOriginalContent : dataNode.dataset.dccConvertedContent;
+            }
+            else {
+                if (dataNode.dataset && dataNode.dataset.dccOriginalContent) {
+                    if (aDccTitle) {
+                        aNode.parentNode.dataset.dcctitle = aNode.parentNode.dataset.dcctitle ? aNode.parentNode.dataset.dcctitle : "";
+                        aNode.parentNode.dataset.dcctitle += aDccTitle + "\n";
+                    }
+                    if (dataNode.dataset.dccConvertedContent) {
+                        aNode.nodeValue = isShowOriginal ? dataNode.dataset.dccOriginalContent : dataNode.dataset.dccConvertedContent;
+                    }
                 }
             }
         };

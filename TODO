@@ -6,6 +6,9 @@ http://www.dollartimes.com/inflation/inflation.php?amount=5&year=1960
 // Text confused
 http://www.svd.se/darfor-tror-yellen-inte-langre-pa-rantehojning/i/senaste/om/naringsliv
 
+// Text disappears in 2.4.7
+https://en.wikipedia.org/wiki/New_Belarusian_ruble
+
 p                       attributes = data-dcctitle
 -strong.dccConverted    attributes = data-dcc-converted-content, class
 --text                  " i de månadsvisa..."       should be "Allt syns heller inte..."

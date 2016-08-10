@@ -419,9 +419,11 @@ if (!this.DirectCurrencyContent) {
 
 
         const replaceCurrency = (aNode) => {
+            console.log("replaceCurrency");
             if (!aNode) {
                 return;
             }
+            console.log("aNode " + aNode.className);
             if (!aNode.parentNode) {
                 return;
             }
@@ -491,23 +493,28 @@ if (!this.DirectCurrencyContent) {
              }
              */
 
-            if (isSibling) {
-                dataNode.dataset.dccConvertedContentSibling = convertedContent;
-                if (!dataNode.dataset.dccOriginalContentSibling) {
-                    dataNode.dataset.dccOriginalContentSibling = aNode.nodeValue;
+            if (dataNode.dataset) {
+                if (isSibling) {
+                    dataNode.dataset.dccConvertedContentSibling = convertedContent;
+                    if (!dataNode.dataset.dccOriginalContentSibling) {
+                        dataNode.dataset.dccOriginalContentSibling = aNode.nodeValue;
+                    }
+                    if (!dataNode.className.includes("dccConvertedSibling")) {
+                        dataNode.className += " dccConvertedSibling";
+                    }
                 }
-                if (!dataNode.className.includes("dccConvertedSibling")) {
-                    dataNode.className += " dccConvertedSibling";
+                else {
+                    dataNode.dataset.dccConvertedContent = convertedContent;
+                    if (!dataNode.dataset.dccOriginalContent) {
+                        dataNode.dataset.dccOriginalContent = aNode.nodeValue;
+                    }
+                    if (!dataNode.className.includes("dccConverted")) {
+                        dataNode.className += " dccConverted";
+                    }
                 }
             }
             else {
-                dataNode.dataset.dccConvertedContent = convertedContent;
-                if (!dataNode.dataset.dccOriginalContent) {
-                    dataNode.dataset.dccOriginalContent = aNode.nodeValue;
-                }
-                if (!dataNode.className.includes("dccConverted")) {
-                    dataNode.className += " dccConverted";
-                }
+                console.error("dataNode.dataset is undefined or null");
             }
 
 

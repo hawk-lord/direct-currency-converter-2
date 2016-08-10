@@ -1,7 +1,7 @@
 # Direct Currency Converter
 
-Version: 2.4.7+0
-Date: 2016-07-09
+Version: 2.4.9+0
+Date: 2016-08-10
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -224,3 +224,8 @@ Fix: conversion of amount with an immediately preceding parenthesis, such as "(5
 Version: 2.4.8+0
 Date: 2016-07-10
 Fix: some text was disappearing in converted elements.
+
+Version: 2.4.9+0
+Date: 2016-08-10
+Selection of all currencies or no currencies.
+Upgraded versions of jQuery to 2.2.4 and jQuery UI to 1.12.0

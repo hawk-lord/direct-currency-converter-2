@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.8+0
-Date: 2016-07-10
+Version: 2.4.9+0
+Date: 2016-08-10
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -40,8 +40,8 @@ Optionally, if selected in the settings tab, some traditional units of measureme
 DCC is forked from <a href="https://addons.mozilla.org/addon/simple-currency-converter/">Simple Currency Converter</a>
 
 External libraries used:
-jQuery 2.1.3
-jQuery UI 1.11.2
+jQuery 2.2.4
+jQuery UI 1.12.0
 jQuery UI Touch Punch 0.2.3
 
 currencyData.json source, element <currencyData>:
@@ -224,3 +224,8 @@ Fix: conversion of amount with an immediately preceding parenthesis, such as "(5
 Version: 2.4.8+0
 Date: 2016-07-10
 Fix: some text was disappearing in converted elements.
+
+Version: 2.4.9+0
+Date: 2016-08-10
+Selection of all currencies or no currencies.
+Upgraded versions of jQuery to 2.2.4 and jQuery UI to 1.12.0

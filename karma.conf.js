@@ -14,7 +14,7 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             // default was false
-            {pattern: "data/common/jquery-2.1.3.min.js", included: true},
+            {pattern: "data/common/jquery-2.2.4.min.js", included: true},
             {pattern: "data/common/dcc-regexes.js", included: true},
             {pattern: "data/common/dcc-content.js", included: true},
             {pattern: "data/common/dcc-settings.js", included: true},

@@ -40,8 +40,8 @@ Optionally, if selected in the settings tab, some traditional units of measureme
 DCC is forked from [https://addons.mozilla.org/addon/simple-currency-converter/] (Simple Currency Converter)
 
 External libraries used:
-jQuery 2.1.3
-jQuery UI 1.11.2
+jQuery 2.2.4
+jQuery UI 1.12.0
 jQuery UI Touch Punch 0.2.3
 
 currencyData.json source, element <currencyData>:

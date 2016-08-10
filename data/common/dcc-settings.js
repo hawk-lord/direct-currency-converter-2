@@ -132,6 +132,26 @@ if (!this.DirectCurrencySettings) {
             jQuery("#reset-button").click(function() {
                 SettingsAdapter.reset();
             });
+            jQuery("#select-all-button").click(function() {
+                const liFromCurrencies = jQuery("#fromCurrencies").find("li");
+                liFromCurrencies.each(function () {
+                    let inputs = jQuery(this).find("input");
+                    let input = jQuery(inputs)[0];
+                    if (input) {
+                        jQuery(input).prop("checked", true);
+                    }
+                });
+            });
+            jQuery("#select-none-button").click(function() {
+                const liFromCurrencies = jQuery("#fromCurrencies").find("li");
+                liFromCurrencies.each(function () {
+                    let inputs = jQuery(this).find("input");
+                    let input = jQuery(inputs)[0];
+                    if (input) {
+                        jQuery(input).prop("checked", false);
+                    }
+                });
+            });
         });
         let convertToCurrency = null;
         let convertToCountry = null;

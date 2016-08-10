@@ -13,6 +13,7 @@ const contentScriptParams = new MockContentScriptParams();
 contentScriptParams.convertFroms = convertFroms;
 contentScriptParams.convertToCurrency = convertToCurrency2;
 contentScriptParams.conversionQuotes = conversionQuotes;
+contentScriptParams.isEnabled = true;
 
 describe("DirectCurrencyContent", () => {
     "use strict";
@@ -23,29 +24,36 @@ describe("DirectCurrencyContent", () => {
     });
     describe("#onUpdateSettings()", () => {
         it("should not fail", () => {
-            document.body.className = "Test";
+            document.body.className = "documentclass";
             document.body.style.background = "red";
             document.body.style.color = "blue";
-            console.log(document.body.className);
+            console.log("document.body.className before: " + document.body.className);
             const newtext = document.createTextNode("100 USD");
             newtext.id = "id1";
-            document.body.appendChild(newtext);
+            const paragraph = document.createElement("p");
+            paragraph.className = "paragraphclass";
+            console.log("paragraph.className before: " + paragraph.className);
+            paragraph.appendChild(newtext);
+            document.body.appendChild(paragraph);
             DirectCurrencyContent.onUpdateSettings(contentScriptParams);
             // TODO use Promise PriceRegexes
             var unixtime_ms = new Date().getTime();
-            while(new Date().getTime() < unixtime_ms + 1000) {}
-            console.log(newtext);
-            console.log(document.body.className);
+            // while(new Date().getTime() < unixtime_ms + 5000) {
+            //     //console.log("waiting");
+            // }
+            console.log("newtext " + newtext);
+            console.log("document.body.className after: " + document.body.className);
+            console.log("paragraph.className after: " + paragraph.className);
             assert(true);
         });
     });
-    describe("#onSendEnabledStatus()", () => {
-        const status = new MockStatus();
-        it("should not fail", () => {
-            DirectCurrencyContent.onSendEnabledStatus(status);
-            assert(true);
-        });
-    });
+    // describe("#onSendEnabledStatus()", () => {
+    //     const status = new MockStatus();
+    //     it("should not fail", () => {
+    //         DirectCurrencyContent.onSendEnabledStatus(status);
+    //         assert(true);
+    //     });
+    // });
     describe("#checkSubUnit", () => {
         it("should be false", () => {
             const price = {full: "50000 ariary"};

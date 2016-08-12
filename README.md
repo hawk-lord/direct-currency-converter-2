@@ -1,7 +1,7 @@
 # Direct Currency Converter
 
-Version: 2.4.9+0
-Date: 2016-08-10
+Version: 2.4.9+1
+Date: 2016-08-13
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -229,3 +229,7 @@ Version: 2.4.9+0
 Date: 2016-08-10
 Selection of all currencies or no currencies.
 Upgraded versions of jQuery to 2.2.4 and jQuery UI to 1.12.0
+
+Version: 2.4.9+1
+Date: 2016-08-13
+Internal change: enabled multiprocess

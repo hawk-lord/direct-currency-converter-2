@@ -27,12 +27,10 @@ describe("DirectCurrencyContent", () => {
             document.body.className = "documentclass";
             document.body.style.background = "red";
             document.body.style.color = "blue";
-            console.log("document.body.className before: " + document.body.className);
             const newtext = document.createTextNode("100 USD");
             newtext.id = "id1";
             const paragraph = document.createElement("p");
             paragraph.className = "paragraphclass";
-            console.log("paragraph.className before: " + paragraph.className);
             paragraph.appendChild(newtext);
             document.body.appendChild(paragraph);
             DirectCurrencyContent.onUpdateSettings(contentScriptParams);
@@ -41,9 +39,6 @@ describe("DirectCurrencyContent", () => {
             // while(new Date().getTime() < unixtime_ms + 5000) {
             //     //console.log("waiting");
             // }
-            console.log("newtext " + newtext);
-            console.log("document.body.className after: " + document.body.className);
-            console.log("paragraph.className after: " + paragraph.className);
             assert(true);
         });
     });

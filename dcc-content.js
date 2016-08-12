@@ -419,11 +419,9 @@ if (!this.DirectCurrencyContent) {
 
 
         const replaceCurrency = (aNode) => {
-            console.log("replaceCurrency");
             if (!aNode) {
                 return;
             }
-            console.log("aNode " + aNode.className);
             if (!aNode.parentNode) {
                 return;
             }

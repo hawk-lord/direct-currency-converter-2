@@ -2,7 +2,18 @@
 
  */
 
+const convertFroms = [];
+convertFroms.push({"isoName": "USD", "enabled": true});
+const conversionQuotes = {
+    "USD": 1.2
+};
+const convertToCurrency2 = "EUR";
+
 const contentScriptParams = new MockContentScriptParams();
+contentScriptParams.convertFroms = convertFroms;
+contentScriptParams.convertToCurrency = convertToCurrency2;
+contentScriptParams.conversionQuotes = conversionQuotes;
+contentScriptParams.isEnabled = true;
 
 describe("DirectCurrencyContent", () => {
     "use strict";
@@ -11,19 +22,33 @@ describe("DirectCurrencyContent", () => {
         afterEach(function() { });
         it('should be OK', function() { expect(false).to.be.false; });
     });
-    describe("#onSendEnabledStatus()", () => {
-        const status = new MockStatus();
-        it("should not fail", () => {
-            DirectCurrencyContent.onSendEnabledStatus(status);
-            assert(true);
-        });
-    });
     describe("#onUpdateSettings()", () => {
         it("should not fail", () => {
+            document.body.className = "documentclass";
+            document.body.style.background = "red";
+            document.body.style.color = "blue";
+            const newtext = document.createTextNode("100 USD");
+            newtext.id = "id1";
+            const paragraph = document.createElement("p");
+            paragraph.className = "paragraphclass";
+            paragraph.appendChild(newtext);
+            document.body.appendChild(paragraph);
             DirectCurrencyContent.onUpdateSettings(contentScriptParams);
+            // TODO use Promise PriceRegexes
+            var unixtime_ms = new Date().getTime();
+            // while(new Date().getTime() < unixtime_ms + 5000) {
+            //     //console.log("waiting");
+            // }
             assert(true);
         });
     });
+    // describe("#onSendEnabledStatus()", () => {
+    //     const status = new MockStatus();
+    //     it("should not fail", () => {
+    //         DirectCurrencyContent.onSendEnabledStatus(status);
+    //         assert(true);
+    //     });
+    // });
     describe("#checkSubUnit", () => {
         it("should be false", () => {
             const price = {full: "50000 ariary"};

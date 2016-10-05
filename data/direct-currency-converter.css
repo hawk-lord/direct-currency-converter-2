@@ -44,13 +44,13 @@ legend {
     background-color:silver;
 }
 
-#save-button, #reset-button, #custom_symbol_reset-button, #toggleCurrencies {
+#save-button, #reset-button, #select-all-button, #select-none-button, #custom_symbol_reset-button, #toggleCurrencies {
     background-color:burlywood;
     border-color:brown;
     color:white;
 }
 
-#save-button:hover, #reset-button:hover, #custom_symbol_reset-button:hover {
+#save-button:hover, #reset-button:hover, #select-all-button:hover, #select-none-button:hover, #custom_symbol_reset-button:hover {
     background-color:black;
 }
 
@@ -179,7 +179,7 @@ li {
     width:300px;
 }
 
-#footer1, #footer2 {
+.footer {
     bottom:0;
     float:left;
     height:45px;
@@ -199,7 +199,7 @@ li {
     width:100px;
 }
 
-#save-button, #reset-button {
+#save-button, #reset-button, #select-all-button, #select-none-button {
     margin-left:10px !important;
     width:120px;
 }
@@ -208,7 +208,7 @@ li {
     height:45px !important;
 }
 
-#save-button, #reset-button, #custom_symbol_reset-button, #toggleCurrencies {
+#save-button, #reset-button, #select-all-button, #select-none-button, #custom_symbol_reset-button, #toggleCurrencies {
     border-radius:0;
     border: 1px solid;
     box-shadow:0 2px 0 0 rgba(255, 255, 255, .06) inset, 0 1px 3px 0 rgba(0, 0, 0, .2);
@@ -222,12 +222,12 @@ li {
     text-align:center;
 }
 
-#save-button:hover, #reset-button:hover, #custom_symbol_reset-button:hover {
+#save-button:hover, #reset-button:hover, #select-all-button:hover, #select-none-button:hover, #custom_symbol_reset-button:hover {
     box-shadow:0 2px 0 0 rgba(255, 255, 255, .06) inset, 0 1px 3px 0 rgba(0, 0, 0, .2);
     text-decoration:none;
 }
 
-#save-button span, #reset-button span, #custom_symbol_reset-button span {
+#save-button span, #reset-button span, #select-all-button span, #select-none-button span, #custom_symbol_reset-button span {
     position:relative;
     top:7px;
 }

@@ -1,7 +1,7 @@
 # Direct Currency Converter
 
-Version: 2.4.5+0
-Date: 2016-05-29
+Version: 2.4.9+1
+Date: 2016-08-13
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -40,8 +40,8 @@ Optionally, if selected in the settings tab, some traditional units of measureme
 DCC is forked from [https://addons.mozilla.org/addon/simple-currency-converter/] (Simple Currency Converter)
 
 External libraries used:
-jQuery 2.1.3
-jQuery UI 1.11.2
+jQuery 2.2.4
+jQuery UI 1.12.0
 jQuery UI Touch Punch 0.2.3
 
 currencyData.json source, element <currencyData>:
@@ -207,3 +207,29 @@ Workaround: added icon.png so the icon will be shown in the add-ons list, pendin
 [https://bugzilla.mozilla.org/show_bug.cgi?id=1141839](Firefox fix).
 Fix: dynamically changed values were sometimes not shown as converted.
 Internal change: some Chrome specific changes in common code.
+
+Version: 2.4.6+0
+Date: 2016-06-06
+Improved title of conversion so all conversions in an element are shown.
+Fix: some text was disappearing in converted elements.
+Fix: reset settings did not load the location.
+Internal change: refactored and cleaned the main content script.
+
+Version: 2.4.7+0
+Date: 2016-07-09
+Replaced old Belarusian ruble BYR with BYN (ISO 4217 amendment number 160).
+Fix: some converted text was written to the wrong element.
+Fix: conversion of amount with an immediately preceding parenthesis, such as "(500 USD)"
+
+Version: 2.4.8+0
+Date: 2016-07-10
+Fix: some text was disappearing in converted elements.
+
+Version: 2.4.9+0
+Date: 2016-08-10
+Selection of all currencies or no currencies.
+Upgraded versions of jQuery to 2.2.4 and jQuery UI to 1.12.0
+
+Version: 2.4.9+1
+Date: 2016-08-13
+Internal change: enabled multiprocess

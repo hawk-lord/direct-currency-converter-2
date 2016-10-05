@@ -11,14 +11,13 @@
 if (!this.DccFunctions) {
     const DccFunctions = (function(){
         "use strict";
-        //console.log("DccFunctions");
         const allSubUnits = {
             "DKK": ["øre"],
             "NOK": ["øre"],
             "SEK": ["öre"],
             "USD": ["¢", "￠"]
         };
-        const checkSubUnit = function(aPrice, aUnit) {
+        const checkSubUnit = (aPrice, aUnit) => {
             const currencySubUnits = allSubUnits[aUnit];
             if (currencySubUnits) {
                 for (let subUnit of currencySubUnits) {
@@ -57,10 +56,17 @@ if (!this.DccFunctions) {
             ["milliard", "milliard "],
             ["million", "million "]
         ];
+
+        /**
+         * Multiples of money: million, etc.
+         *
+         * @param aMults
+         * @constructor
+         */
         const Mult = function(aMults) {
             "use strict";
             this.mults = new Map(aMults);
-            this.func = function(aUnit) {
+            this.func = (aUnit) => {
                 this.multsIter = this.mults.keys();
                 let entry = this.multsIter.next();
                 while (!entry.done) {
@@ -79,14 +85,14 @@ if (!this.DccFunctions) {
         multies["ISK"] = new Mult(isks);
         multies["NOK"] = new Mult(noks);
 
-        const getMultiplicator = function(aPrice) {
+        const getMultiplicator = (aPrice) => {
             if (multies[aPrice.originalCurrency]) {
                 return multies[aPrice.originalCurrency].func(aPrice.full.toLowerCase());
             }
             return "";
         };
 
-        const addMonetaryGroupingSeparatorSymbol = function(anAmount, aMonetaryGroupingSeparatorSymbol) {
+        const addMonetaryGroupingSeparatorSymbol = (anAmount, aMonetaryGroupingSeparatorSymbol) => {
             let amount = anAmount;
             const regex = /(\d+)(\d{3})/;
             while (regex.test(amount)) {
@@ -95,15 +101,8 @@ if (!this.DccFunctions) {
             return amount;
         };
 
-        const formatAmount = function(anAmountIntegralPart, anAmountFractionalPart, isSubUnit,
-                                      aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol) {
-            // console.log("anAmountIntegralPart             " + anAmountIntegralPart);
-            // console.log("anAmountFractionalPart           " + anAmountFractionalPart);
-            // console.log("isSubUnit                        " + isSubUnit);
-            // console.log("aMonetaryGroupingSeparatorSymbol " + aMonetaryGroupingSeparatorSymbol);
-            // console.log("aMonetarySeparatorSymbol         " + aMonetarySeparatorSymbol);
-            // console.log("-----------------------------------");
-
+        const formatAmount = (anAmountIntegralPart, anAmountFractionalPart, isSubUnit,
+                                      aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol) => {
             let formattedPrice;
             const hasFractionalPart = anAmountFractionalPart !== "";
             if (anAmountIntegralPart === "0" && hasFractionalPart && isSubUnit) {
@@ -119,15 +118,8 @@ if (!this.DccFunctions) {
             return formattedPrice;
         };
 
-        const formatPrice = function(aCurrencyCode, aRoundAmounts, anAmount, aUnit, anAllowSubUnit, aCustomFormat,
-                                     aMultiplicator) {
-            // console.log("anAmount              " + anAmount);
-            // console.log("aUnit                 " + aUnit);
-            // console.log("aMultiplicator        " + aMultiplicator);
-            // console.log("aRoundAmounts         " + aRoundAmounts);
-            // console.log("aCurrencyCode         " + aCurrencyCode);
-            // console.log("aCustomFormat         " + aCustomFormat);
-            // console.log("-----------------------------------");
+        const formatPrice = (aCurrencyCode, aRoundAmounts, anAmount, aUnit, anAllowSubUnit, aCustomFormat,
+                                     aMultiplicator) => {
             const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
             const subUnit = subUnits[aCurrencyCode];
             const fractionDigits = (aRoundAmounts && anAmount > 1) || aUnit === "mm" || aUnit === "kJ" ? 0 : 2;
@@ -147,7 +139,7 @@ if (!this.DccFunctions) {
             return " " + formattedPrice;
         };
 
-        const useUnit = function (aReplacedUnit, aCurrencySymbol){
+        const useUnit = (aReplacedUnit, aCurrencySymbol) => {
             const otherUnits = {
                 "inch": "mm",
                 "kcal": "kJ",
@@ -160,7 +152,7 @@ if (!this.DccFunctions) {
             return otherUnits[aReplacedUnit] ? otherUnits[aReplacedUnit] : aCurrencySymbol;
         };
 
-        const parseAmount = function(anAmount) {
+        const parseAmount = (anAmount) => {
             let amount = anAmount;
             const comma = amount.includes(",");
             const point = amount.includes(".");
@@ -242,12 +234,12 @@ if (!this.DccFunctions) {
             return parseFloat(amount);
         };
 
-        const convertAmount = function(aConversionQuote, aParsedAmount, aPrice, aReplacedUnit) {
+        const convertAmount = (aConversionQuote, aParsedAmount, aPrice, aReplacedUnit) => {
             return aConversionQuote * aParsedAmount * (checkSubUnit(aPrice, aReplacedUnit) ? 1/100 : 1);
         };
 
-        const convertContent = function(aConvertedPrice, aConvertedContent, aShowOriginalPrices, aReplacedUnit,
-                                        aShowOriginalCurrencies, aPrice) {
+        const convertContent = (aConvertedPrice, aConvertedContent, aShowOriginalPrices, aReplacedUnit,
+                                        aShowOriginalCurrencies, aPrice) => {
             let convertedPrice = aConvertedPrice;
             let convertedContent = aConvertedContent;
             if (aShowOriginalPrices) {
@@ -268,20 +260,20 @@ if (!this.DccFunctions) {
         };
 
         // Stores prices that will be replaced with converted prices
-        const findPricesInCurrency = function(anOriginalCurrency, aCurrency, aRegex, aText, anAmountPosition) {
+        const findPricesInCurrency = (anOriginalCurrency, aCurrency, aRegex, aText, anAmountPosition) => {
             const prices = [];
-            if (aRegex == null) {
+            if (!aRegex) {
                 return prices;
             }
             let match;
-            while ((match = aRegex.exec(aText)) !== null) {
+            while (match = aRegex.exec(aText)) {
                 prices.push(new Price(anOriginalCurrency, aCurrency, match, anAmountPosition));
             }
             return prices;
         };
 
-        const findPrices = function(anEnabledCurrenciesWithRegexes, aCurrencyCode, aTextContent) {
-            let prices;
+        const findPrices = (anEnabledCurrenciesWithRegexes, aCurrencyCode, aTextContent) => {
+            let prices = [];
             for (let currencyRegex of anEnabledCurrenciesWithRegexes) {
                 if (currencyRegex.currency === aCurrencyCode) {
                     continue;
@@ -295,11 +287,10 @@ if (!this.DccFunctions) {
                 }
                 break;
             }
-            // console.log("findPrices prices.length " + prices.length);
             return prices;
         };
 
-        const isExcludedDomain = function(anExcludedDomains, anUrl) {
+        const isExcludedDomain = (anExcludedDomains, anUrl) => {
             for (let excludedDomain of anExcludedDomains) {
                 const matcher = new RegExp(excludedDomain, "g");
                 if (matcher.test(anUrl)){
@@ -357,7 +348,7 @@ if (!this.DirectCurrencyContent) {
     const DirectCurrencyContent = (function(aDccFunctions) {
         "use strict";
         if (!String.prototype.includes) {
-            String.prototype.includes = function() {'use strict';
+            String.prototype.includes = () => {
                 return String.prototype.indexOf.apply(this, arguments) !== -1;
             };
         }
@@ -405,64 +396,61 @@ if (!this.DirectCurrencyContent) {
             "width: 300px;" +
             "height: 100px;" +
             "z-index: 2147483647;" +
+            "overflow-y: scroll;" +
             "}", 0);
 
-        /**
-         * This is to check that PriceRegexes exists
-         *
+
+        /*
+         * Wait for PriceRegexes to be created before running makePriceRegexes.
+         * Should be executed once only.
          */
-        if(typeof Promise !== "undefined" && Promise.toString().includes("[native code]")){
-            const promise = new Promise(
-                function(resolve, reject) {
-                    if (PriceRegexes) {
-                        resolve(PriceRegexes);
-                    }
-                    else {
-                        reject(Error("promise NOK"));
-                    }
-                }
-            );
-            promise.then(
-                function(aPriceRegexes) {
-                    aPriceRegexes.makePriceRegexes(regex1, regex2)
-                },
-                function (err) {
-                    console.error("promise then " + err);
-                }
+        const makePriceRegexes = () => {
+            new Promise(
+                (resolve, reject) => PriceRegexes? resolve(PriceRegexes): reject(Error("makePriceRegexes rejected"))
+            ).then(
+                (aPriceRegexes) => aPriceRegexes.makePriceRegexes(regex1, regex2),
+                (err) => console.error("makePriceRegexes then error " + err)
             ).catch(
-                function (err) {
-                    console.error("promise catch " + err);
-                }
+                (err) => console.error("makePriceRegexes catch error " + err)
             );
-        }
-        else {
-            PriceRegexes.makePriceRegexes(regex1, regex2);
-        }
+        };
+
+        makePriceRegexes();
 
 
-        const replaceCurrency = function(aNode) {
-            // console.log("replaceCurrency");
-            // Don't check text without numbers
-            if (!/\d/.exec(aNode.textContent)) {
+        const replaceCurrency = (aNode) => {
+            if (!aNode) {
                 return;
             }
-            // console.log("aNode.parentNode " + aNode.parentNode);
-            // console.log("aNode.parentNode.className " + aNode.parentNode.className);
-            // console.log("typeof aNode.parentNode.className " + typeof aNode.parentNode.className);
+            if (!aNode.parentNode) {
+                return;
+            }
+            if (aNode.nodeType !== Node.TEXT_NODE) {
+                return;
+            }
+            const isSibling = aNode.previousSibling;
+            const dataNode = isSibling ? aNode.previousSibling : aNode.parentNode;
+            if (skippedElements.indexOf(aNode.parentNode.tagName.toLowerCase()) !== -1) {
+                return;
+            }
+            if (/^\s*$/.test(aNode.nodeValue)) {
+                return;
+            }
+            if (/\{/.test(aNode.nodeValue)) {
+                return;
+            }
+            if (!/\d/.test(aNode.nodeValue)) {
+                return;
+            }
             // Can be [object SVGAnimatedString]
-            // console.log("aNode.parentNode.className === string " + (typeof aNode.parentNode.className === "string"));
-            // if (typeof aNode.parentNode.className === "string") {
-            //     console.log("aNode.parentNode.className.includes(\"dccConverted\") " + aNode.parentNode.className.includes("dccConverted"));
-            // };
             // Extra check of "string" for Chrome
-            if (aNode.parentNode
-                && aNode.parentNode.className
-                && typeof aNode.parentNode.className === "string"
-                && aNode.parentNode.className.includes("dccConverted")) {
+            if (dataNode
+                && dataNode.className
+                && typeof dataNode.className === "string"
+                && dataNode.className.includes("dccConverted")) {
                 return;
             }
-            // console.log("replaceCurrency continues");
-            const prices = aDccFunctions.findPrices(enabledCurrenciesWithRegexes, currencyCode, aNode.textContent);
+            const prices = aDccFunctions.findPrices(enabledCurrenciesWithRegexes, currencyCode, aNode.nodeValue);
             if (prices.length === 0) {
                 return;
             }
@@ -470,7 +458,7 @@ if (!this.DirectCurrencyContent) {
             const conversionQuote = conversionQuotes[replacedUnit] * (1 + quoteAdjustmentPercent / 100);
             let tempAmount;
             let tempConvertedAmount;
-            let convertedContent = aNode.textContent;
+            let convertedContent = aNode.nodeValue;
             for (let price of prices) {
                 const parsedAmount = aDccFunctions.parseAmount(price.amount);
                 const convertedAmount = aDccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit);
@@ -480,7 +468,6 @@ if (!this.DirectCurrencyContent) {
                     true, customFormat, multiplicator);
                 convertedContent = aDccFunctions.convertContent(convertedPrice, convertedContent, showOriginalPrices,
                     replacedUnit, showOriginalCurrencies, price);
-                // console.log("convertedContent " + convertedContent);
             }
             for (let price of prices) {
                 // FIXME show all amounts
@@ -504,12 +491,28 @@ if (!this.DirectCurrencyContent) {
              }
              */
 
-            aNode.parentNode.dataset.dccConvertedContent = convertedContent;
-            if (!aNode.parentNode.dataset.dccOriginalContent) {
-                aNode.parentNode.dataset.dccOriginalContent = aNode.textContent;
+            if (dataNode.dataset) {
+                if (isSibling) {
+                    dataNode.dataset.dccConvertedContentSibling = convertedContent;
+                    if (!dataNode.dataset.dccOriginalContentSibling) {
+                        dataNode.dataset.dccOriginalContentSibling = aNode.nodeValue;
+                    }
+                    if (!dataNode.className.includes("dccConvertedSibling")) {
+                        dataNode.className += " dccConvertedSibling";
+                    }
+                }
+                else {
+                    dataNode.dataset.dccConvertedContent = convertedContent;
+                    if (!dataNode.dataset.dccOriginalContent) {
+                        dataNode.dataset.dccOriginalContent = aNode.nodeValue;
+                    }
+                    if (!dataNode.className.includes("dccConverted")) {
+                        dataNode.className += " dccConverted";
+                    }
+                }
             }
-            if (!aNode.parentNode.className.includes("dccConverted")) {
-                aNode.parentNode.className += " dccConverted";
+            else {
+                console.error("dataNode.dataset is undefined or null");
             }
 
 
@@ -530,28 +533,27 @@ if (!this.DirectCurrencyContent) {
                 dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " +
                     aDccFunctions.formatPrice("", roundAmounts, conversionQuote, "", false, customFormat, "") + "\n";
                 dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " +
-                    aDccFunctions.formatPrice("", roundAmounts, 1/conversionQuote, "", false, customFormat, "");
-                substitute(aNode, false, dccTitle);
+                    aDccFunctions.formatPrice("", roundAmounts, 1/conversionQuote, "", false, customFormat, "") + "\n";
+                const showOriginal = false;
+                substituteOne(aNode, showOriginal, dccTitle);
             }
         };
 
 
-        const mutationHandler = function(aMutationRecord) {
-            // console.log("aMutationRecord.type " + aMutationRecord.type);
+        const mutationHandler = (aMutationRecord) => {
             if (aMutationRecord.type === "childList") {
                 for (let i = 0; i < aMutationRecord.addedNodes.length; ++i) {
-                    let node = aMutationRecord.addedNodes[i];
+                    const node = aMutationRecord.addedNodes[i];
                     traverseDomTree(node);
                 }
             }
         };
 
-        const mutationsHandler = function(aMutations) {
+        const mutationsHandler = (aMutations) => {
             aMutations.forEach(mutationHandler);
         };
 
-        const startObserve = function() {
-            // console.log("startObserve");
+        const startObserve = () => {
             const mutationObserver = new MutationObserver(mutationsHandler);
             const mutationObserverInit = {
                 childList: true,
@@ -561,20 +563,18 @@ if (!this.DirectCurrencyContent) {
                 attributeOldValue: false,
                 characterDataOldValue: false
             };
-            if (document.body !== null) {
+            if (document.body) {
                 mutationObserver.observe(document.body, mutationObserverInit);
             }
         };
 
-        const resetDomTree = function(aNode) {
-            // console.log("resetDomTree");
-            if (aNode === null) {
+        const resetDomTree = (aNode) => {
+            if (!aNode) {
                 return;
             }
-            const nodeList = aNode.parentNode.querySelectorAll(".dccConverted");
-            // console.log(nodeList.length);
+            const nodeList = aNode.querySelectorAll(".dccConverted");
             for (let i = 0; i < nodeList.length; ++i) {
-                let node = nodeList[i];
+                const node = nodeList[i];
                 if (node.dataset && node.dataset.dccOriginalContent) {
                     delete node.dataset.dccOriginalContent;
                 }
@@ -582,84 +582,88 @@ if (!this.DirectCurrencyContent) {
                     delete node.dataset.dccConvertedContent;
                 }
                 node.className = node.className.replace("dccConverted", "");
-                // console.log(node.className);
             }
         };
 
-        const traverseDomTree = function(aNode) {
-            // console.log("traverseDomTree");
-            if (aNode !== null) {
-                // The third check takes care of Google Images code "<div class=rg_meta>{"cb":3, ..."
-                if (aNode.nodeType === Node.TEXT_NODE && !/^\s*$/.test(aNode.nodeValue) && !/\{/.test(aNode.nodeValue)) {
-                    if (aNode.parentNode !== null && skippedElements.indexOf(aNode.parentNode.tagName.toLowerCase()) === -1) {
-                        replaceCurrency(aNode);
-                    }
-                }
-                for (let i = 0; i < aNode.childNodes.length; ++i) {
-                    let node = aNode.childNodes[i];
-                    traverseDomTree(node);
-                }
+        const traverseDomTree = (aNode) => {
+            if (!aNode) {
+                return
+            }
+            replaceCurrency(aNode);
+            for (let i = 0; i < aNode.childNodes.length; ++i) {
+                const node = aNode.childNodes[i];
+                traverseDomTree(node);
             }
         };
 
-        const substitute = function(aNode, isShowOriginal, aDccTitle) {
-            // console.log("substitute");
-            if (aNode === null) {
+        const substituteOne = (aNode, isShowOriginal, aDccTitle) => {
+            if (!aNode) {
                 return;
             }
-            // console.log("aDccTitle " + aDccTitle);
-            // console.log("aNode.nodeName " + aNode.nodeName);
-            // console.log("aNode.textContent " + aNode.textContent);
-            // console.log("aNode.parentNode.nodeName " + aNode.parentNode.nodeName);
-            // console.log("aNode.parentNode.textContent " + aNode.parentNode.textContent);
-            if (aNode.parentNode.dataset && aNode.parentNode.dataset.dccOriginalContent) {
-                // console.log("aNode.parentNode.dataset.dccOriginalContent " + aNode.parentNode.dataset.dccOriginalContent);
-                if (aDccTitle) {
-                    aNode.parentNode.dataset.dcctitle = aDccTitle;
-                }
+            if (!aNode.parentNode) {
+                return;
             }
-            //console.log(isShowOriginal);
-            //console.log(aReplacedUnit);
-
-            let nodeList = aNode.parentNode.querySelectorAll(".dccConverted");
-            if (nodeList && nodeList.length === 0 && aNode.parentNode.parentNode) {
-                nodeList = aNode.parentNode.parentNode.querySelectorAll(".dccConverted");
+            if (aNode.nodeType !== Node.TEXT_NODE) {
+                return;
             }
-                
-            // console.log(nodeList.length);
-            for (let i = 0; i < nodeList.length; ++i) {
-                let node = nodeList[i];
-                if (node.dataset && node.dataset.dccOriginalContent && node.dataset.dccConvertedContent) {
-                    node.textContent = isShowOriginal ? node.dataset.dccOriginalContent : node.dataset.dccConvertedContent;
-                    // TODO this won't happen
+            const isSibling = aNode.previousSibling;
+            const dataNode = isSibling ? aNode.previousSibling : aNode.parentNode;
+            if (isSibling) {
+                if (dataNode.dataset && dataNode.dataset.dccOriginalContentSibling) {
                     if (aDccTitle) {
-                        node.dataset.dcctitle = aDccTitle;
+                        aNode.parentNode.dataset.dcctitle = aNode.parentNode.dataset.dcctitle ? aNode.parentNode.dataset.dcctitle : "";
+                        aNode.parentNode.dataset.dcctitle += aDccTitle + "\n";
+                    }
+                    if (dataNode.dataset.dccConvertedContentSibling) {
+                        aNode.nodeValue = isShowOriginal ? dataNode.dataset.dccOriginalContentSibling : dataNode.dataset.dccConvertedContentSibling;
                     }
                 }
             }
-            // console.log("substitute done");
+            else {
+                if (dataNode.dataset && dataNode.dataset.dccOriginalContent) {
+                    if (aDccTitle) {
+                        aNode.parentNode.dataset.dcctitle = aNode.parentNode.dataset.dcctitle ? aNode.parentNode.dataset.dcctitle : "";
+                        aNode.parentNode.dataset.dcctitle += aDccTitle + "\n";
+                    }
+                    if (dataNode.dataset.dccConvertedContent) {
+                        aNode.nodeValue = isShowOriginal ? dataNode.dataset.dccOriginalContent : dataNode.dataset.dccConvertedContent;
+                    }
+                }
+            }
         };
 
-        const onSendEnabledStatus = function(aStatus) {
-            // console.log("onSendEnabledStatus");
+        const substituteAll = (aNode, isShowOriginal) => {
+            if (!aNode) {
+                return;
+            }
+            const nodeList = aNode.querySelectorAll(".dccConverted");
+
+            for (let i = 0; i < nodeList.length; ++i) {
+                const node = nodeList[i];
+                const textNode = node.firstChild ? node.firstChild : node.nextSibling;
+                if (node.dataset && node.dataset.dccOriginalContent && node.dataset.dccConvertedContent) {
+                    textNode.nodeValue = isShowOriginal ? node.dataset.dccOriginalContent : node.dataset.dccConvertedContent;
+                }
+            }
+        };
+
+        const onSendEnabledStatus = (aStatus) => {
             if (aDccFunctions.isExcludedDomain(excludedDomains, document.URL)) {
                 return;
             }
             if (aStatus.isEnabled && !aStatus.hasConvertedElements) {
-                // console.log("aStatus.isEnabled && !aStatus.hasConvertedElements");
                 startObserve();
                 traverseDomTree(document.body);
             }
-            substitute(document.body, !aStatus.isEnabled);
+            const showOriginal = !aStatus.isEnabled;
+            substituteAll(document.body, showOriginal);
         };
 
-        const onUpdateSettings = function(contentScriptParams) {
-            // console.log("onUpdateSettings");
-            const tempConvertUnits = contentScriptParams.tempConvertUnits;
-            let message = "...";
-            let hasConvertedElements = false;
-            substitute(document.body, true);
-            resetDomTree(document.body);
+        /**
+         *
+         * @param contentScriptParams
+         */
+        const readParameters = (contentScriptParams) => {
             conversionQuotes = contentScriptParams.conversionQuotes;
             excludedDomains = contentScriptParams.excludedDomains;
             currencyCode = contentScriptParams.convertToCurrency;
@@ -679,31 +683,45 @@ if (!this.DirectCurrencyContent) {
             showOriginalCurrencies = contentScriptParams.showOriginalCurrencies;
             showTooltip = contentScriptParams.showTooltip;
             quoteAdjustmentPercent = +contentScriptParams.quoteAdjustmentPercent;
+        };
 
-            const afterRegexesCreated = function() {
-                "use strict";
-                enabledCurrenciesWithRegexes.length = 0;
-                for (let currency of contentScriptParams.convertFroms) {
-                    if (currency.enabled) {
-                        enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency.isoName, regex1[currency.isoName], regex2[currency.isoName]));
-                    }
+        const readEnabledCurrencies = (contentScriptParams) => {
+            enabledCurrenciesWithRegexes.length = 0;
+            for (let currency of contentScriptParams.convertFroms) {
+                if (currency.enabled) {
+                    enabledCurrenciesWithRegexes.push(new CurrencyRegex(currency.isoName, regex1[currency.isoName], regex2[currency.isoName]));
                 }
-                if (tempConvertUnits) {
-                    const regexObj_inch = new CurrencyRegex("inch", regex1["inch"], regex2["inch"]);
-                    enabledCurrenciesWithRegexes.push(regexObj_inch);
-                    const regexObj_kcal = new CurrencyRegex("kcal", regex1["kcal"], regex2["kcal"]);
-                    enabledCurrenciesWithRegexes.push(regexObj_kcal);
-                    const regexObj_nmi = new CurrencyRegex("nmi", regex1["nmi"], regex2["nmi"]);
-                    enabledCurrenciesWithRegexes.push(regexObj_nmi);
-                    const regexObj_mile = new CurrencyRegex("mile", regex1["mile"], regex2["mile"]);
-                    enabledCurrenciesWithRegexes.push(regexObj_mile);
-                    const regexObj_mil = new CurrencyRegex("mil", regex1["mil"], regex2["mil"]);
-                    enabledCurrenciesWithRegexes.push(regexObj_mil);
-                    const regexObj_knots = new CurrencyRegex("knots", regex1["knots"], regex2["knots"]);
-                    enabledCurrenciesWithRegexes.push(regexObj_knots);
-                    const regexObj_hp = new CurrencyRegex("hp", regex1["hp"], regex2["hp"]);
-                    enabledCurrenciesWithRegexes.push(regexObj_hp);
-                }
+            }
+            if (contentScriptParams.tempConvertUnits) {
+                const regexObj_inch = new CurrencyRegex("inch", regex1["inch"], regex2["inch"]);
+                enabledCurrenciesWithRegexes.push(regexObj_inch);
+                const regexObj_kcal = new CurrencyRegex("kcal", regex1["kcal"], regex2["kcal"]);
+                enabledCurrenciesWithRegexes.push(regexObj_kcal);
+                const regexObj_nmi = new CurrencyRegex("nmi", regex1["nmi"], regex2["nmi"]);
+                enabledCurrenciesWithRegexes.push(regexObj_nmi);
+                const regexObj_mile = new CurrencyRegex("mile", regex1["mile"], regex2["mile"]);
+                enabledCurrenciesWithRegexes.push(regexObj_mile);
+                const regexObj_mil = new CurrencyRegex("mil", regex1["mil"], regex2["mil"]);
+                enabledCurrenciesWithRegexes.push(regexObj_mil);
+                const regexObj_knots = new CurrencyRegex("knots", regex1["knots"], regex2["knots"]);
+                enabledCurrenciesWithRegexes.push(regexObj_knots);
+                const regexObj_hp = new CurrencyRegex("hp", regex1["hp"], regex2["hp"]);
+                enabledCurrenciesWithRegexes.push(regexObj_hp);
+            }
+        };
+
+        /**
+         *
+         * @param contentScriptParams
+         */
+        const onUpdateSettings = (contentScriptParams) => {
+            const showOriginal = true;
+            substituteAll(document.body, showOriginal);
+            resetDomTree(document.body);
+            readParameters(contentScriptParams);
+
+            const startConversion = () => {
+                readEnabledCurrencies(contentScriptParams);
                 let process = true;
                 for (let excludedDomain of contentScriptParams.excludedDomains) {
                     const matcher = new RegExp(excludedDomain, "g");
@@ -713,16 +731,13 @@ if (!this.DirectCurrencyContent) {
                         break;
                     }
                 }
-                if (!contentScriptParams.isEnabled || !process) {
-                    message = "Did nothing. Conversion is turned off...";
-                }
-                else {
-                    message = "Content was converted...";
-                    // console.log("afterRegexesCreated");
+                let hasConvertedElements = false;
+                if (contentScriptParams.isEnabled && process) {
                     startObserve();
-                    if (document !== null) {
+                    if (document) {
                         traverseDomTree(document.body);
-                        substitute(document.body, false);
+                        const showOriginal = false;
+                        substituteAll(document.body, showOriginal);
                         hasConvertedElements = true;
                     }
                 }
@@ -731,34 +746,18 @@ if (!this.DirectCurrencyContent) {
 
             };
 
-            if(typeof Promise !== "undefined" && Promise.toString().includes("[native code]")){
-                const promise2 = new Promise(
-                    function(resolve, reject) {
-                        // console.log("promise2");
-                        if (PriceRegexes) {
-                            resolve();
-                        }
-                        else {
-                            reject(Error("promise2 NOK"));
-                        }
-                    }
+            const startConversionWhenReady = () => {
+                new Promise(
+                    (resolve, reject) => PriceRegexes ? resolve(): reject(Error("startConversionWhenReady Not OK"))
+                ).then(
+                    startConversion(),
+                    (err) => console.error("startConversionWhenReady then error " + err)
+                ).catch(
+                    (err) => console.error("startConversionWhenReady catch error " + err)
                 );
-                promise2.then(
-                    function() {
-                        afterRegexesCreated();
-                    },
-                    function (err) {
-                        console.error("promise2 then " + err);
-                    }
-                    //).catch(
-                    //    function (err) {
-                    //        console.error("promise2 catch " + err);
-                    //    }
-                );
-            }
-            else {
-                afterRegexesCreated();
-            }
+            };
+
+            startConversionWhenReady();
 
         };
         return {
@@ -766,5 +765,7 @@ if (!this.DirectCurrencyContent) {
             onUpdateSettings : onUpdateSettings
         };
     })(this.DccFunctions);
+
     this.DirectCurrencyContent = DirectCurrencyContent;
+
 }

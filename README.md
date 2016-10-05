@@ -232,4 +232,4 @@ Upgraded versions of jQuery to 2.2.4 and jQuery UI to 1.12.0
 
 Version: 2.4.9+1
 Date: 2016-08-13
-Internal change: enabled multiprocess
+Internal change: enabled multiprocess (not for Android)

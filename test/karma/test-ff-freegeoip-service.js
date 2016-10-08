@@ -9,8 +9,7 @@ const MockRequest = function(urlString, fn) {
 MockRequest.prototype.get = function() {};
 
 
-
-describe("FirefoxFreegeoipServiceProvider", function() {
+describe("FirefoxFreegeoipServiceProviderTest", function() {
     "use strict";
     describe("#new", function() {
         it("should not fail", function () {

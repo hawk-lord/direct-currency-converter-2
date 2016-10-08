@@ -10,7 +10,7 @@
     }
   ],
   "author": "Per Johansson",
-  "version": "2.4.3+0",
+  "version": "2.4.9+1",
   "main": "./lib/ff-main",
   "homepage": "http://www.joint.ax/",
   "description": "Converts prices from any currency to prices in a selectable currency automatically while browsing. Supports $, £, ¥, ؋, ৳, ฿, ៛, ₡, ₦, ₨, ₩, ₪, ₫, €, ₭, ₮, ₱, ₲, ₴, ₵, ₸, ₹, ₺, ₼, ₽, ﷼, etc.",
@@ -31,5 +31,16 @@
   "engines": {
     "seamonkey": ">=2.33",
     "firefox": ">=38.0a1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "karma": "^0.13.9",
+    "karma-chai": "^0.1.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "mocha": "^2.3.2",
+    "phantomjs": "^1.9.18",
+    "should": "^7.1.0"
   }
 }

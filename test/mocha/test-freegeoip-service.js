@@ -1,18 +1,20 @@
 const FreegeoipServiceProvider = require("../../lib/dcc-common-lib/freegeoip-service").FreegeoipServiceProvider;
-const assert = require("assert");
+// Chai installed locally, npm install chai --save-dev
+const assert = require("chai").assert;
 
-
-describe("FreegeoipServiceProvider", function() {
+describe("FreegeoipServiceProviderTest", function() {
     "use strict";
-    const GeoService = function() {};
-    GeoService.prototype.findCountry = () => {
-
+    var findCountryCalled = false;
+    const MockGeoService = function() {};
+    MockGeoService.prototype.findCountry = () => {
+        findCountryCalled = true;
     };
-    const geoService = new GeoService();
-    describe("#new", function() {
+    const geoService = new MockGeoService();
+    describe("#loadUserCountry", function() {
         const freegeoipServiceProvider = new FreegeoipServiceProvider();
-        it("test", function () {
+        it("should not fail", function () {
             freegeoipServiceProvider.loadUserCountry(geoService);
+            assert.isTrue(findCountryCalled);
         });
     })
 });

@@ -1,4 +1,4 @@
-Direct Currency Converter
+# Direct Currency Converter
 
 Version: 2.4.9+1
 Date: 2016-08-13
@@ -7,8 +7,8 @@ After installation, you'll have two new buttons in the browser toolbar.
 
 Conversion is enabled or disabled by the "Toggle currency conversion" button.
 
-The settings tab is opened with the "Open settings" button.
-Changed settings are saved with the "Save" button in the settings tab.
+The tools panel is opened with the "Open settings" button.
+From there you can open the Settings tab. Changed settings are saved with the "Save" button in the settings tab. Reload pages to see the changes.
 Settings can be reset to default with the "Reset" button.
 You can also open a test page with various price examples for all currencies.
 
@@ -37,7 +37,7 @@ Currencies in PDF files shown in the browser (using pdf.js) are converted too, i
 
 Optionally, if selected in the settings tab, some traditional units of measurement (such as miles and calories) are converted to SI units (such as kilometres and kilojoules).
 
-DCC is forked from <a href="https://addons.mozilla.org/addon/simple-currency-converter/">Simple Currency Converter</a>
+DCC is forked from [https://addons.mozilla.org/addon/simple-currency-converter/] (Simple Currency Converter)
 
 External libraries used:
 jQuery 2.2.4
@@ -54,45 +54,123 @@ Author: Per Johansson, Johanssons Informationsteknik JOINT, Åland Islands, Finl
 
 History
 
-Version: 2.0.0.0
-Date: 2014-12-19
-Ported from the Firefox version.
+Version: 1.0.0
+Date: 2014-06-14
 
-Version: 2.0.0.1
-Date: 2014-12-21
-Fixed JavaScript compilation error.
-Using JQuery UI with same hash code as AMO does.
+Version: 1.0.1
+Date: 2014-07-18
+Fixed some security issues.
 
-Version: 2.0.0.2
-Date: 2015-01-27
-Fixed button styles.
-Fixed logged errors.
+Version: 1.0.2
+Date: 2014-08-10
+Swedish and English localisation
+Updated jQuery UI to 1.11.0
+Some code review issues
+
+Version: 1.0.3
+Date: 2014-08-10
+Reverted jQuery UI to 1.10.4 since it is the most recent one supported by AMO
+Reverted SDK to 1.16
+
+Version: 1.0.4
+Date: 2014-08-10
+Rebuild
+jquery-ui-1.10.4.min.js replaced with another copy
+
+Version: 1.1.0
+Date: 2014-09-11
+Conversion to and from all 179 currencies
+
+Version: 1.1.1
+Date: 2014-09-16
+Improved support for conversion from AED, AFN, ALL, AMD, ANG, AOA currencies.
+
+Version: 1.1.2
+Date: 2014-09-21
+Improved support for conversion from ARS, AUD, AWG, AZN, BAM, BBD, BDT, BGN, BHD, BIF, BMD, BND, BOB, BOV, BRL, BSD, BTN, BWP, BYR and BZD currencies.
+
+Version: 1.1.3
+Date: 2014-09-26
+Fixed error with converted amounts close to 1,00, such as 0,999.
+Uses case-sensitive price search to avoid false positives like "100 audible".
+Improved support for conversion from CAD, CDF, CLF, CLP, CNY, COP, COU, CRC, CUC, CUP and CZK currencies.
+
+Version: 1.1.4
+Date: 2014-10-22
+Improved support for finding of and conversion from all currencies from AED to ZWL.
+Improved control to avoid false positives.
+
+Version: 2.0.0
+Date: 2014-11-06
+Changed program ID.
+Added test page with various price examples.
+Added panel with links to settings and test pages.
+Fixed an error with saving "Convert to" currency.
+Improved support for finding prices.
+Internal changes for compatibility with other web browsers.
+
+Version: 2.0.1.1
+Date: 2015-01-19
+Improved support for USD and GHC.
+Added fourth digit to version number, showing browser specific changes.
 
 Version: 2.0.2.0
-Date: 2015-01-28
-Improved support for USD and GHC.
+Date: 2015-01-21
 Fixed error with decimal calculation.
 
 Version: 2.0.2.1
-Date: 2015-02-10
-Fixed buttons settings.
+Date: 2015-01-28
+Internal changes.
+
+Version: 2.0.2.2
+Date: 2015-02-04
+Fixed PDF conversion style because of changes in pdf.js.
 
 Version: 2.0.3.0
-Date: 2015-06-02
+Date: 2015-02-23
 Added support for US cents (¢, ￠).
-Fixed "ReferenceError: tabBrowser is not defined"
 Improved support for non-English characters in price matches.
 Internal change: rewrote price regexes.
 Internal change: Updated jQuery and jQuery UI versions.
 
+Version: 2.1.1.0
+Date: 2015-05-23
+Removed Lithuanian Litas (LTL).
+Improved localisation, using default currency formats from Unicode Common Locale Data Repository (CLDR) Version 27.0.1.
+Changed some settings to CLDR names.
+Internal change: general code rewrite in order to ease maintenance and porting between web browsers.
+
+Version: 2.1.2.0
+Date: 2015-06-06
+Fix: upgrade settings from older versions.
+Fix: reset settings
+Fix: aWorker.tab is not defined
+Internal change: included code changes from the Google Chrome version.
+
+Version: 2.1.2+1
+Date: 2015-07-12
+Fix: save selected currencies.
+Internal change: built with JPM, not with CFX.
+
+Version: 2.1.2+2
+Date: 2015-07-12
+Internal change: new build.
+
 Version: 2.2.0+0
 Date: 2015-08-11
-Improved settings window.
-Internal change: using Add-On SDK and shared code with the Firefox version.
+Improved the settings window.
+Internal change: merged code with the SeaMonkey version.
 
-Version: 2.4.0+1
-Date: 2015-11-13
-Added an improved tooltip in the upper left corner that shows the conversion used for each element. It won't hide the original tooltip any more. It can be turned off and on in the settings.
+Version: 2.3.0+0
+Date: 2015-10-08
+Fix: the priority order of currencies to convert from. Users will have to save the currency list again. Sorry for that.
+Fix: write "-" instead of "NaN" if there is no conversion quote available.
+Better support for euro currency recognition in various languages.
+
+Version: 2.4.0+0
+Date: 2015-11-06
+Added an improved tooltip in the upper left corner that shows the conversion used for each element. It won't hide the original tooltip any more.
+ It can be turned off and on in the settings.
 Original price and original currency in brackets can now be hidden and shown separately in the settings.
 Fix: some settings had been disabled.
 
@@ -126,7 +204,7 @@ Bugfix: repeated values were shown.
 Version: 2.4.5+0
 Date: 2016-05-29
 Workaround: added icon.png so the icon will be shown in the add-ons list, pending a
-<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1141839">Firefox fix</a>.
+[https://bugzilla.mozilla.org/show_bug.cgi?id=1141839](Firefox fix).
 Fix: dynamically changed values were sometimes not shown as converted.
 Internal change: some Chrome specific changes in common code.
 

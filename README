@@ -12,7 +12,7 @@ From there you can open the Settings tab. Changed settings are saved with the "S
 Settings can be reset to default with the "Reset" button.
 You can also open a test page with various price examples for all currencies.
 
-Currency quotes are taken from Yahoo Finance and updated when you start the browser or when you switch currency.
+Currency quotes are taken from Yahoo Finance and updated when you start the browser, when you select  or when you switch currency.
 
 Your location is used to set your default region and currency (for example Finland - euro). It is guessed using the freegeoip.net or geoip.nekudo.com service.
 
@@ -241,3 +241,4 @@ Internal change: does not use Yahoo YQL any more, because of reliability issues.
 Version: 2.4.12+0
 Date: 2016-10-30
 Added a button to update currency quotes in the settings form.
+Fix: settings form now works also in offline mode, and when Yahoo is unavailable.

@@ -1,3 +1,9 @@
+// If NaN, do not show?
+// Offline: do not enable conversion?
+// Offline: show correct conversion state
+// Title shows NaN as conversion rate until reload
+
+
 // Parenthesis before "(500 USD)"
 
 // Shows same title everywhere

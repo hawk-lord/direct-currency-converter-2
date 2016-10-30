@@ -13,6 +13,9 @@ const SettingsAdapter = function() {
         },
         reset: () => {
             self.port.emit("resetSettings");
+        },
+        resetQuotes: () => {
+            self.port.emit("resetQuotes");
         }
     }
 }();

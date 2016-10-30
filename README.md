@@ -1,7 +1,7 @@
 # Direct Currency Converter
 
-Version: 2.4.9+1
-Date: 2016-08-13
+Version: 2.4.12+0
+Date: 2016-10-30
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -12,14 +12,14 @@ From there you can open the Settings tab. Changed settings are saved with the "S
 Settings can be reset to default with the "Reset" button.
 You can also open a test page with various price examples for all currencies.
 
-Currency rates are taken from Yahoo Finance and updated when you start the browser or when you switch currency.
+Currency quotes are taken from Yahoo Finance and updated when you start the browser or when you switch currency.
 
 Your location is used to set your default region and currency (for example Finland - euro). It is guessed using the freegeoip.net or geoip.nekudo.com service.
 
 If conversion does not work, it probably means that there was no reply from Yahoo. Try to reload the browser (F5 button) and check the internet connection. Also, force a reload by switching "to currency" from settings tab, save, and reload the web pages.
 
-You can convert to and from any existing currency code as defined by ISO 4217, including precious metals, if Yahoo provides a conversion rate for the currency.
-There are currently 16 codes with no conversion rates: BOV, CHE, CHW, COU, CUC, SSP, USN, UYI, XBA, XBB, XBC, XBD, XSU, XTS, XUA, XXX.
+You can convert to and from any existing currency code as defined by ISO 4217, including precious metals, if Yahoo provides a conversion quote for the currency.
+There are currently 16 codes with no conversion quotes: BOV, CHE, CHW, COU, CUC, SSP, USN, UYI, XBA, XBB, XBC, XBD, XSU, XTS, XUA, XXX.
 
 A few currencies (CHF, DKK, EUR, GBP, ISK, JPY, NOK, RUB, SEK and USD) are pre-selected for conversion. You can select all currencies, but having too many currencies selected may clutter the pages and result in slow performance.
 
@@ -232,4 +232,12 @@ Upgraded versions of jQuery to 2.2.4 and jQuery UI to 1.12.0
 
 Version: 2.4.9+1
 Date: 2016-08-13
-Internal change: enabled multiprocess (not for Android)
+Internal change: enabled multiprocess
+
+Version: 2.4.11+0
+Date: 2016-10-11
+Internal change: does not use Yahoo YQL any more, because of reliability issues.
+
+Version: 2.4.12+0
+Date: 2016-10-30
+Added a button to update currency quotes in the settings form.

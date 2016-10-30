@@ -8,30 +8,30 @@
  * https://addons.mozilla.org/addon/simple-currency-converter/
 -->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name=viewport content="width=device-width, initial-scale=1">
-        <title data-l10n-id="Direct Currency Converter">Direct Currency Converter</title>
-        <link rel="icon" type="image/png" href="images/1402781551_currency_exchange_1.png">
-        <link rel="stylesheet" type="text/css" href="direct-currency-converter.css">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title data-l10n-id="Direct Currency Converter">Direct Currency Converter</title>
+    <link rel="icon" type="image/png" href="images/1402781551_currency_exchange_1.png">
+    <link rel="stylesheet" type="text/css" href="direct-currency-converter.css">
+</head>
 
-    <body>
-    	<h1 data-l10n-id="Settings">Settings</h1>
-        <!-- http://jqueryui.com/sortable/#connect-lists -->
-    <p class="caption" data-l10n-id="caption">Drag and drop currencies to reorder them. If an ambiguous currency such as "kroner" (could be DKK or NOK) is found, it is converted to the first possible currency in the list.</p>
-        <fieldset>
-            <legend data-l10n-id="enabled-legend">
-                Convert from, in this order:
-            </legend>
-            <ol id="fromCurrencies"> </ol>
-        </fieldset>
-        <fieldset>
-            <legend data-l10n-id="convert-to-legend">
-                Convert to
-            </legend>
-            <label for="convert_to_currency"></label>
-            <select class="options-combo" id="convert_to_currency">
+<body>
+<h1 data-l10n-id="Settings">Settings</h1>
+<!-- http://jqueryui.com/sortable/#connect-lists -->
+<p class="caption" data-l10n-id="caption">Drag and drop currencies to reorder them. If an ambiguous currency such as "kroner" (could be DKK or NOK) is found, it is converted to the first possible currency in the list.</p>
+<fieldset>
+    <legend data-l10n-id="enabled-legend">
+        Convert from, in this order:
+    </legend>
+    <ol id="fromCurrencies"> </ol>
+</fieldset>
+<fieldset>
+    <legend data-l10n-id="convert-to-legend">
+        Convert to
+    </legend>
+    <label for="convert_to_currency"></label>
+    <select class="options-combo" id="convert_to_currency">
                 <option value="AFN_AF" data-l10n-id="AFGHANISTAN, Afghani (AFN)"></option>
                 <option value="EUR_AX" data-l10n-id="ÅLAND ISLANDS, Euro (EUR)"></option>
                 <option value="ALL_AL" data-l10n-id="ALBANIA, Lek (ALL)"></option>
@@ -311,146 +311,151 @@
                 <option value="XPT___" data-l10n-id="ZZ10_Platinum, Platinum (XPT)"></option>
                 <option value="XAG___" data-l10n-id="ZZ11_Silver, Silver (XAG)"></option>
                 <option value="gAu___" data-l10n-id="Gold, grams (gAu)"></option>
-            </select>
-        </fieldset>
-        <fieldset>
-            <legend data-l10n-id="General">
-                General
-            </legend>
-            <ul>
-                <li>
-                    <input type="checkbox" id="enable_conversion" checked="checked" />
+    </select>
+</fieldset>
+<fieldset>
+    <legend data-l10n-id="General">
+        General
+    </legend>
+    <ul>
+        <li>
+            <input type="checkbox" id="enable_conversion" checked="checked" />
             <label for="enable_conversion" data-l10n-id="Enable conversion on browser start">Enable conversion on program start</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="always_round" />
-                    <label for="always_round" data-l10n-id="Do not show amount subunits">Do not show amount subunits</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="show_original_prices" />
-                    <label for="show_original_prices" data-l10n-id="Show original amounts in parentheses">Show original amounts in parentheses: 6,12 € (55 SEK).
-                    If unselected, original amounts are shown in the element titles (tooltips).</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="showOriginalCurrencies" />
-                    <label for="showOriginalCurrencies" data-l10n-id="Show original currency in brackets">Show original currencies in brackets if needed: 6,12 € (55 kr [SEK]).</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="showTooltip" />
-                    <label for="showTooltip" data-l10n-id="Show tooltip">Show tooltip.</label>
-                </li>
-                <li>
-                    <select class="options-combo" id="adjustment_percentage">
-                        <option value="-10">-10</option>
-                        <option value="-9">-9</option>
-                        <option value="-8">-8</option>
-                        <option value="-7">-7</option>
-                        <option value="-6">-6</option>
-                        <option value="-5">-5</option>
-                        <option value="-4">-4</option>
-                        <option value="-3">-3</option>
-                        <option value="-2">-2</option>
-                        <option value="-1">-1</option>
-                        <option value="0" selected="selected">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                    <label for="adjustment_percentage" data-l10n-id="Percent exchange rate adjustment">% exchange rate adjustment</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="temp_convert_units" />
-                    <label for="temp_convert_units" data-l10n-id="Convert other units">Convert other units such as inches and miles to SI (experimental)</label>
-                </li>
-            </ul>
-        </fieldset>
-        <fieldset>
-            <legend data-l10n-id="Format">
-                Format
-            </legend>
-            <ul>
-                <li>
-                    <label data-l10n-id="Unit placement">Unit placement: </label>
-                    <input type="radio" name="unitPlacement" id="unitBefore">
-                    <label for="unitBefore" data-l10n-id="Before the amount">Before the amount</label>
-                    <input type="radio" name="unitPlacement" id="beforeCurrencySymbol" data-l10n-id="After the amount">
-                    <label for="beforeCurrencySymbol" data-l10n-id="After the amount">After the amount</label>
-                </li>
-                <li>
+        </li>
+        <li>
+            <input type="checkbox" id="always_round" />
+            <label for="always_round" data-l10n-id="Do not show amount subunits">Do not show amount subunits</label>
+        </li>
+        <li>
+            <input type="checkbox" id="show_original_prices" />
+            <label for="show_original_prices" data-l10n-id="Show original amounts in parentheses">Show original amounts in parentheses: 6,12 € (55 SEK).
+                If unselected, original amounts are shown in the element titles (tooltips).</label>
+        </li>
+        <li>
+            <input type="checkbox" id="showOriginalCurrencies" />
+            <label for="showOriginalCurrencies" data-l10n-id="Show original currency in brackets">Show original currencies in brackets if needed: 6,12 € (55 kr [SEK]).</label>
+        </li>
+        <li>
+            <input type="checkbox" id="showTooltip" />
+            <label for="showTooltip" data-l10n-id="Show tooltip">Show tooltip.</label>
+        </li>
+        <li>
+            <select class="options-combo" id="adjustment_percentage">
+                <option value="-10">-10</option>
+                <option value="-9">-9</option>
+                <option value="-8">-8</option>
+                <option value="-7">-7</option>
+                <option value="-6">-6</option>
+                <option value="-5">-5</option>
+                <option value="-4">-4</option>
+                <option value="-3">-3</option>
+                <option value="-2">-2</option>
+                <option value="-1">-1</option>
+                <option value="0" selected="selected">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <label for="adjustment_percentage" data-l10n-id="Percent exchange quote adjustment">% exchange quote adjustment</label>
+        </li>
+        <li>
+            <input type="checkbox" id="temp_convert_units" />
+            <label for="temp_convert_units" data-l10n-id="Convert other units">Convert other units such as inches and miles to SI (experimental)</label>
+        </li>
+    </ul>
+</fieldset>
+<fieldset>
+    <legend data-l10n-id="Format">
+        Format
+    </legend>
+    <ul>
+        <li>
+            <label data-l10n-id="Unit placement">Unit placement: </label>
+            <input type="radio" name="unitPlacement" id="unitBefore">
+            <label for="unitBefore" data-l10n-id="Before the amount">Before the amount</label>
+            <input type="radio" name="unitPlacement" id="beforeCurrencySymbol" data-l10n-id="After the amount">
+            <label for="beforeCurrencySymbol" data-l10n-id="After the amount">After the amount</label>
+        </li>
+        <li>
             <input type="checkbox" id="currency_spacing" checked="checked" />
             <label for="currency_spacing" data-l10n-id="Currency spacing">Currency spacing</label>
-                </li>
-                <li>
+        </li>
+        <li>
             <select class="options-combo" id="monetary_grouping_separator_symbol">
-                        <option value=",">,</option>
-                        <option value=" "> </option>
-                        <option value=".">.</option>
-                        <option value="'">'</option>
-                    </select>
+                <option value=",">,</option>
+                <option value=" "> </option>
+                <option value=".">.</option>
+                <option value="'">'</option>
+            </select>
             <label for="monetary_grouping_separator_symbol" data-l10n-id="Monetary grouping separator">Monetary grouping separator</label>
-                </li>
-                <li>
+        </li>
+        <li>
             <select class="options-combo" id="monetary_separator_symbol">
-                        <option value=",">,</option>
-                        <option value=" "> </option>
-                        <option value=".">.</option>
-                    </select>
+                <option value=",">,</option>
+                <option value=" "> </option>
+                <option value=".">.</option>
+            </select>
             <label for="monetary_separator_symbol" data-l10n-id="Monetary separator">Monetary separator</label>
-                </li>
-                <li>
-                    <input type="text" size="5" maxlength="55" id="custom_symbol" class="textbox"/>
-                    <label for="custom_symbol" data-l10n-id="Custom symbol">Custom symbol</label>
-                </li>
-                <li>
-                    <div id="custom_symbol_reset-button">
-                        <span id="custom_symbol_reset_text" class="loc" data-l10n-id="Reset custom symbol">Reset custom symbol</span>
-                    </div>
-                </li>
-                <li>
-                    <div id="format_preview">
-                        <span id="preview_left">¤</span><span id="preview_left_space"> </span><span>12</span><span id="preview_monetary_grouping_separator_symbol">,</span><span>345</span><span id="preview_monetary_separator_symbol">.</span><span>67</span><span id="preview_right_space"> </span><span id="preview_right">¤</span>
-                    </div>
-                    <span data-l10n-id="Preview">Preview</span>
-                </li>
-            </ul>
-        </fieldset>
-        <fieldset>
-            <legend data-l10n-id="Excluded Domains">
-                Excluded Domains
-            </legend>
-            <ul>
-                <li>
-                    <textarea id="excluded_domains" placeholder="Example: ebay.com" > </textarea>
-                </li>
-            </ul>
-        </fieldset>
-        <div class="footer">
-            <div id="save-button">
-                <span id="savebutton_text" class="loc" data-l10n-id="Save">Save</span>
+        </li>
+        <li>
+            <input type="text" size="5" maxlength="55" id="custom_symbol" class="textbox"/>
+            <label for="custom_symbol" data-l10n-id="Custom symbol">Custom symbol</label>
+        </li>
+        <li>
+            <div id="custom_symbol_reset-button">
+                <span id="custom_symbol_reset_text" class="loc" data-l10n-id="Reset custom symbol">Reset custom symbol</span>
             </div>
-        </div>
-        <div class="footer">
-            <div id="reset-button">
-                <span id="resetbutton_text" class="loc" data-l10n-id="Reset settings">Reset settings</span>
+        </li>
+        <li>
+            <div id="format_preview">
+                <span id="preview_left">¤</span><span id="preview_left_space"> </span><span>12</span><span id="preview_monetary_grouping_separator_symbol">,</span><span>345</span><span id="preview_monetary_separator_symbol">.</span><span>67</span><span id="preview_right_space"> </span><span id="preview_right">¤</span>
             </div>
-        </div>
-        <div class="footer">
-            <div id="select-all-button">
-                <span id="selectallbutton_text" class="loc" data-l10n-id="Select all">Select all</span>
-            </div>
-        </div>
-        <div class="footer">
-            <div id="select-none-button">
-                <span id="selectnonebutton_text" class="loc" data-l10n-id="Select none">Select none</span>
-            </div>
-        </div>
+            <span data-l10n-id="Preview">Preview</span>
+        </li>
+    </ul>
+</fieldset>
+<fieldset>
+    <legend data-l10n-id="Excluded Domains">
+        Excluded Domains
+    </legend>
+    <ul>
+        <li>
+            <textarea id="excluded_domains" placeholder="Example: ebay.com" > </textarea>
+        </li>
+    </ul>
+</fieldset>
+<div class="footer">
+    <div id="save-button">
+        <span id="savebutton_text" class="loc" data-l10n-id="Save">Save</span>
+    </div>
+</div>
+<div class="footer">
+    <div id="reset-button">
+        <span id="resetbutton_text" class="loc" data-l10n-id="Reset settings">Reset settings</span>
+    </div>
+</div>
+<div class="footer">
+    <div id="reset-quotes-button">
+        <span id="resetquotesbutton_text" class="loc" data-l10n-id="Reset quotes">Reset quotes</span>
+    </div>
+</div>
+<div class="footer">
+    <div id="select-all-button">
+        <span id="selectallbutton_text" class="loc" data-l10n-id="Select all">Select all</span>
+    </div>
+</div>
+<div class="footer">
+    <div id="select-none-button">
+        <span id="selectnonebutton_text" class="loc" data-l10n-id="Select none">Select none</span>
+    </div>
+</div>
 
-    </body>
+</body>
 </html>

@@ -5,34 +5,8 @@ MockQuotesService.prototype.fetchQuotesToFrom = () => {};
 const mockQuotesService = new MockQuotesService();
 const convertFromCurrencies = ["AFN"];
 const convertToCurrency = "EUR";
-const r1 = {
-    query: {
-        count: 1,
-        created: "2015-05-25T20:39:03Z",
-        lang: "en-US",
-        results: {
-            row: [ {
-                rate: 0.0151,
-                symbol: "AFNEUR=X"
-            } ]
-        }
-    }
-};
-const r2 = {
-    query: {
-        count: 1,
-        created: "2015-05-25T20:39:03Z",
-        lang: "en-US",
-        results: {
-            row: [ {
-                rate: 66.2251,
-                symbol: "EURAFN=X"
-            } ]
-        }
-    }
-};
-const response1 = JSON.stringify(r1);
-const response2 = JSON.stringify(r2);
+const response1 = '"AFNEUR=X","AFN/EUR",0.0138,"10/11/2016","8:15pm",0.0138,0.0138';
+const response2 = '"EURAFN=X","EUR/AFN",72.7000,"10/11/2016","8:15pm",72.7250,72.7000';
 
 var convertFromCurrency = "";
 var quote = 0;
@@ -52,8 +26,8 @@ describe("YahooQuotesServiceProvider", function() {
         it("currency should be AFN", function() {
             assert.equal(convertFromCurrency, "AFN");
         });
-        it("quote should be 0.0151", function() {
-            assert.equal(quote, 0.0151);
+        it("quote should be 0.0138", function() {
+            assert.equal(quote, 0.0138);
         });
     });
 });

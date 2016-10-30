@@ -1,59 +1,230 @@
-Detta tillägg kunde i verifieras av Firefox
-about:config
-xpinstall.signatures.required false
-
-Conversion state from the program state.
-
-// DONE Settings: new help text.
-Currencies own form? foldout?
-// DONE Support drag and drop, and ordering.
-
-Submenu with toggle, settings, test tab
-// DONE Text as labels in menu!
-
-// DONE Touch-punch copyright
-
-// DONE Error message from touch-punch,
-fixed by using unsafeWindow, but then initMouseEvent is deprecated
-22:16:44.907 TypeError: Argument 4 of MouseEvent.initMouseEvent does not implement interface Window.
-jquery.ui.touch-punch.js:44:0
-        simulatedEvent.initMouseEvent(
-            simulatedType,    // type
-            true,             // bubbles
-            true,             // cancelable
-            window,           // view
-
-Quicker start? Seems to hang at freegeoip.
-22:31:23.503 err SyntaxError: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data1 <unknown>
-const FirefoxFreegeoipServiceProvider = function() {
-25            console.error("err " + err);
-Defaults to CHF then
-
-Remove menu when uninstalling?
-
-Toggle with icon in Url field?
-
-Better CSS?
+// If NaN, do not show?
+// Offline: do not enable conversion?
+// Offline: show correct conversion state
+// Title shows NaN as conversion rate until reload
 
 
-Reintegrate code with main repository.
+// Parenthesis before "(500 USD)"
+
+// Shows same title everywhere
+http://www.dollartimes.com/inflation/inflation.php?amount=5&year=1960
+
+// Text confused
+http://www.svd.se/darfor-tror-yellen-inte-langre-pa-rantehojning/i/senaste/om/naringsliv
+
+// Text disappears in 2.4.7
+https://en.wikipedia.org/wiki/New_Belarusian_ruble
+
+p                       attributes = data-dcctitle
+-strong.dccConverted    attributes = data-dcc-converted-content, class
+--text                  " i de månadsvisa..."       should be "Allt syns heller inte..."
+-text                   " i de månadsvisa..."
+
+
+"3 öre" => " cent"
+
+
+// Start jpm run
+// catched error when no reply
+direct-currency-converter-2:err SyntaxError: JSON.parse: unexpected end of data at line 1 column 1 of the JSON data ff-freegeoip-service.js:23
+// right after the above error
+ReferenceError: reference to undefined property storage.dccPrefs.convertToCurrency ff-storage-service.js:101:13
+
+// Settings jpm run
+// ReferenceError: reference to undefined property customSymbols[currencyVal] dcc-settings.js:204:9
+// ReferenceError: reference to undefined property customSymbols[convertToCurrency] dcc-settings.js:146:9
+
+Quote list jpm run and jpm XPI
+// 1 [object Object] = NaN EUR
+
+// Settings jpm xpi
+        jQuery("#fromCurrencies").sortable({
+TypeError: jQuery(...).sortable is not a function dcc-settings.js:23:1
+
+// testPageWorker.tab = null;
+//direct-currency-converter-2:TypeError: setting a property that has only a getter
+//Stack trace:
+//FirefoxContentInterface/watchForPages/releaseTab@resource://gre/modules/commonjs/toolkit/loader.js -> resource://dcc-at-joint-dot-ax/lib/ff-contentInterface.js:142:21
+
+New setting showTooltip
+
+Check convertToCurrency initialisation at program start.
+
+Room for more than one converted price.
+
+Blocket: fix z-order.
+
+https://www.tivoli.dk/en/praktisk/priser/   z-order etc
+
+http://www.citydental.se/priser.asp
+
+CHF 10'000
+
+---------
+Converted to: CHF
+1.23 [USD]
+---------
+Original value: 1,23 USD
+Converted value: 1,17 CHF
+Conversion quote USD/CHF = 0,9551
+Conversion quote CHF/USD = 1,0470
+---------
+
+console.log: direct-currency-converter-2: BODY
+console.log: direct-currency-converter-2: true
+console.log: direct-currency-converter-2: null
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: #text
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: USD
+console.log: direct-currency-converter-2: BODY
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: null
+console.log: direct-currency-converter-2: BODY
+console.log: direct-currency-converter-2: true
+console.log: direct-currency-converter-2: null
+console.log: direct-currency-converter-2: BODY
+console.log: direct-currency-converter-2: false
+console.log: direct-currency-converter-2: null
+
+
+Must be more reliable when freegeoip is offline.
+
+require SDK to an own module
 
 
 
-// Can't be dragged in Fennec???? Seems to work now.
-<ol class="ui-sortable" id="fromCurrencies">
-<li id="SEK">
-<input checked="checked" type="checkbox">
-Swedish Krona (SEK)
-</li>
-<li id="DKK">
+
+const DirectCurrencyContent = (function() {
+    const CurrencyRegex = function (aCurrency, aRegex1, aRegex2){
+            function(resolve, reject) {
+            function(aPriceRegexes) {
+            function (err) {
+            function (err) {
+    const checkSubUnit = function (aPrice, aReplacedUnit, aConversionQuote) {
+    const checkOtherUnit = function (aReplacedUnit, aConversionQuote) {
+    // reads currencySymbol
+    const formatAlsoOtherUnit = function (aReplacedUnit, aConvertedAmount, aMultiplicator) {
+    const addOriginalUnit = function (anElementTitleText, aReplacedUnit) {
+    const makeCacheNodes = function(aNode, anElementTitleText, aConvertedContent, aReplacedUnit) {
+    // reads conversionQuotes, currencyCode, enabledCurrenciesWithRegexes, isEnabled, quoteAdjustmentPercent, showOriginalPrices, showOriginalCurrencies
+    const replaceCurrency = function(aNode) {
+    const getMultiplicator = function(aReplacedUnit, aPrice) {
+    const getSekMultiplicator = function(aUnit) {
+    const getDkkMultiplicator = function(aUnit) {
+    const getIskMultiplicator = function(aUnit) {
+    const getNokMultiplicator = function(aUnit) {
+    const makePrice = function(aMatch, anAmountPosition) {
+    const findPrices = function(aRegex, aText, anAmountPosition) {
+    const makeCacheNode = function(aClassName, aValue, aTitle) {
+    const convertAmount = function(anAmount, aConversionQuote) {
+    // reads currencyCode, customFormat, roundAmounts, subUnits
+    const formatPrice = function(anAmount, aUnit, aMultiplicator) {
+    const addMonetaryGroupingSeparatorSymbol = function(anAmount, aMonetaryGroupingSeparatorSymbol) {
+    const mergeArrays = function(destination, source) {
+    const mutationHandler = function(aMutationRecord) {
+    const mutationsHandler = function(aMutations) {
+    const startObserve = function() {
+    const resetDomTree = function(aNode) {
+    // reads skippedElements
+    const traverseDomTree = function(aNode) {
+    // reads currencyCode
+    const substitute = function(aNode, isShowOriginal, aReplacedUnit) {
+    // reads excludedDomains
+    // has its own isEnabled!
+    const onSendEnabledStatus = function(aStatus) {
+    // writes conversionQuotes, currencyCode, currencySymbol, customFormat, enabledCurrenciesWithRegexes, excludedDomains, isEnabled, quoteAdjustmentPercent, roundAmounts, showOriginalPrices, showOriginalCurrencies
+    // reads regex1, regex2
+    const onUpdateSettings = function(contentScriptParams) {
 
 
-// Works!
-<ul class="ui-sortable" id="sortable">
-        <li class="ui-state-default">Item 1</li>
-        <li class="ui-state-default">Item 2</li>
-        <li class="ui-state-default">Item 3</li>
-        <li class="ui-state-default">Item 4</li>
-        <li class="ui-state-default">Item 5</li>
-      </ul>
+console.error: direct-currency-converter-2:
+  Message: TypeError: originalNode is null
+  Stack:
+    substitute@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://dcc-at-joint-dot-ax/direct-currency-converter-2/data/common/dcc-content.js:604:13
+onUpdateSettings@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://dcc-at-joint-dot-ax/direct-currency-converter-2/data/common/dcc-content.js:648:9
+onEvent@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://gre/modules/commonjs/sdk/content/content-worker.js:45:22
+onEvent@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://gre/modules/commonjs/sdk/content/content-worker.js:45:22
+onChromeEvent@resource://gre/modules/commonjs/toolkit/loader.js -> resource://gre/modules/commonjs/sdk/loader/sandbox.js -> resource://gre/modules/commonjs/sdk/content/content-worker.js:91:16
+
+
+http://www.cheapestnatostraps.com/
+
+<span data-currency-usd="$18.95" class="money">$18.95</span>
+
+<span data-currency="EUR" data-currency-eur="&amp;euro;17.43 EUR" data-currency-usd="$18.95" class="money">€17.95 EUR</span>
+
+<span
+data-currency="EUR"
+data-currency-eur="&amp;euro;174,347,431,849,913,088.00 EUR"
+data-currency-usd="
+<input title=&quot;&quot; value=&quot;$18.95&quot; class=&quot;originalText&quot; type=&quot;hidden&quot;>
+<input title=&quot;&quot; value=&quot; 17,40&amp;nbsp;€ ($18.95 [USD])&quot; class=&quot;convertedText&quot; type=&quot;hidden&quot;> 17,40&amp;nbsp;€ ($18.95 [USD])
+"
+title="" class="money">€174,347,431,849,913,088.95 EUR</span>
+
+
+Refactoring:
+Use the RegionFormat class.
+Option to use € or EUR etc
+Update test page too after currency change.
+Select/unselect all currencies.
+Set conversion on individual tabs?
+Controller, so we can reinit and stuff that are done at start
+Testing
+
+Add own quote.
+
+
+General:
+Move workspaces close together.
+Import API's (Mozilla, Chrome, Safari) into WebStorm.
+
+Ignore .idea/workspace.xml etc.
+
+Write build instructions.
+
+Unit testing.
+
+
+FF/SM
+Check/remove language specific files at AMO.
+
+FF Mobile version
+
+
+FF
+Fix style for pdf.js
+<div class="textLayer"
+viewer.css:1309
+.textLayer {
+    opacity: 0.2;
+}
+
+

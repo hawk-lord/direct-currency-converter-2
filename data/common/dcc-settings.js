@@ -132,6 +132,9 @@ if (!this.DirectCurrencySettings) {
             jQuery("#reset-button").click(function() {
                 SettingsAdapter.reset();
             });
+            jQuery("#reset-quotes-button").click(function() {
+                SettingsAdapter.resetQuotes();
+            });
             jQuery("#select-all-button").click(function() {
                 const liFromCurrencies = jQuery("#fromCurrencies").find("li");
                 liFromCurrencies.each(function () {

@@ -1,7 +1,7 @@
 Direct Currency Converter
 
-Version: 2.4.9+1
-Date: 2016-08-13
+Version: 2.4.12+1
+Date: 2016-11-03
 
 After installation, you'll have a new submenu in the browser menu.
 
@@ -124,3 +124,12 @@ Upgraded versions of jQuery to 2.2.4 and jQuery UI to 1.12.0
 Version: 2.4.9+1
 Date: 2016-08-13
 Internal change: enabled multiprocess (not for Android)
+
+Version: 2.4.11+0
+Date: 2016-10-11
+Internal change: does not use Yahoo YQL any more, because of reliability issues.
+
+Version: 2.4.12+1
+Date: 2016-11-03
+Added a button to update currency quotes in the settings form.
+Fix: settings form now works also in offline mode, and when Yahoo is unavailable.

@@ -123,7 +123,7 @@ if (!this.DccFunctions) {
             const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
             const subUnit = subUnits[aCurrencyCode];
             const fractionDigits = (aRoundAmounts && anAmount > 1) || aUnit === "mm" || aUnit === "kJ" ? 0 : 2;
-            const amountString = anAmount.toFixed(fractionDigits);
+            const amountString = isNaN(anAmount) ? "Unknown" : anAmount.toFixed(fractionDigits);
             const amountParts = amountString.split(".");
             const amountIntegralPart = amountParts[0];
             const amountFractionalPart = amountParts.length > 1 ? amountParts[1] : "";

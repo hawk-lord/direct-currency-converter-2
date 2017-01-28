@@ -58,41 +58,41 @@ describe("DirectCurrencyContent", () => {
         it("should be same", () => {
             const price = {full: "50000 ariary"};
             const replacedUnit = "MGA";
-            const actual = DccFunctions.checkSubUnit(price, replacedUnit);
+            const actual = DccFunctions.checkSubUnit(price, replacedUnit, "");
             assert.strictEqual(actual, false, "is same");
         });
         it("should be one hundreth", () => {
             const price = {full: "50 öre"};
             const replacedUnit = "SEK";
-            const actual = DccFunctions.checkSubUnit(price, replacedUnit);
+            const actual = DccFunctions.checkSubUnit(price, replacedUnit, "");
             assert.strictEqual(actual, true, "is 1/100");
         });
         it("should be same", () => {
             const price = {full: "50 kr"};
             const replacedUnit = "SEK";
-            const actual = DccFunctions.checkSubUnit(price, replacedUnit);
+            const actual = DccFunctions.checkSubUnit(price, replacedUnit, "");
             assert.strictEqual(actual, false, "is same");
         })
     });
-    describe("#mult", () => {
+    describe("#multies", () => {
         it("should be empty", () => {
             const expected = "";
-            const actual = DccFunctions.multies["SEK"].func(expected);
+            const actual = DccFunctions.multies["SEK"].findMult(expected);
             assert.strictEqual(actual, expected, "is empty");
         });
         it("should be miljon", () => {
             const expected = "miljon ";
-            const actual = DccFunctions.multies["SEK"].func("miljon");
+            const actual = DccFunctions.multies["SEK"].findMult("miljon");
             assert.strictEqual(actual, expected, "is miljon");
         });
         it("should be mn", () => {
             const expected = "mn ";
-            const actual = DccFunctions.multies["SEK"].func("mkr");
+            const actual = DccFunctions.multies["SEK"].findMult("mkr");
             assert.strictEqual(actual, expected, "is mn");
         });
         it("should be G", () => {
             const expected = "G";
-            const actual = DccFunctions.multies["SEK"].func("gsek");
+            const actual = DccFunctions.multies["SEK"].findMult("gsek");
             assert.strictEqual(actual, expected, "is G");
         });
     });
@@ -155,7 +155,7 @@ describe("DirectCurrencyContent", () => {
             assert.strictEqual(actual, expected, "is same");
         });
     });
-    describe("#formattedAmount", () => {
+    describe("#formatAmount", () => {
         it("should be same", () => {
             const anAmountIntegralPart = "1";
             const anAmountFractionalPart = "23";
@@ -198,29 +198,47 @@ describe("DirectCurrencyContent", () => {
         });
     });
 
-    describe("#formattedPrice", () => {
-        it("should be same", () => {
+    describe("#formatPrice", () => {
+        it("should have grouping separator, decimal separator and unit separator", () => {
             const anAmount = 1234.56;
             const aMultiplicator = "";
             const aUnit = "€";
             const aRoundAmounts = false;
             const aCurrencyCode = "EUR";
+            const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
+            const aSubUnit = subUnits[aCurrencyCode];
             const aCustomFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
             const anAllowSubUnit = false;
             const expected = " 1\u00A0234,56\u2009€";
-            const actual = DccFunctions.formatPrice(aCurrencyCode, aRoundAmounts, anAmount, aUnit, anAllowSubUnit, aCustomFormat, aMultiplicator);
+            const actual = DccFunctions.formatPrice(aRoundAmounts, anAmount, aUnit, aSubUnit, anAllowSubUnit, aCustomFormat, aMultiplicator);
             assert.strictEqual(actual, expected, "is same");
         });
-        it("should be same", () => {
+        it("should have leading zero, decimal separator and unit separator", () => {
             const anAmount = 0.56;
             const aMultiplicator = "";
             const aUnit = "€";
             const aRoundAmounts = false;
             const aCurrencyCode = "EUR";
+            const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
+            const aSubUnit = subUnits[aCurrencyCode];
             const aCustomFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
             const anAllowSubUnit = false;
             const expected = " 0,56\u2009€";
-            const actual = DccFunctions.formatPrice(aCurrencyCode, aRoundAmounts, anAmount, aUnit, anAllowSubUnit, aCustomFormat, aMultiplicator);
+            const actual = DccFunctions.formatPrice(aRoundAmounts, anAmount, aUnit, aSubUnit, anAllowSubUnit, aCustomFormat, aMultiplicator);
+            assert.strictEqual(actual, expected, "is same");
+        });
+        it("should have leading zero, decimal separator, unit separator and multiple", () => {
+            const anAmount = 0.01;
+            const aMultiplicator = "miljoner ";
+            const aUnit = "€";
+            const aRoundAmounts = false;
+            const aCurrencyCode = "EUR";
+            const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
+            const aSubUnit = subUnits[aCurrencyCode];
+            const aCustomFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
+            const anAllowSubUnit = false;
+            const expected = " 0,01\u2009miljoner €";
+            const actual = DccFunctions.formatPrice(aRoundAmounts, anAmount, aUnit, aSubUnit, anAllowSubUnit, aCustomFormat, aMultiplicator);
             assert.strictEqual(actual, expected, "is same");
         });
     });
@@ -249,6 +267,11 @@ describe("DirectCurrencyContent", () => {
                 const actual = DccFunctions.parseAmount("0");
                 assert.strictEqual(actual, expected, "is same");
             });
+            it("should be 0.1", () => {
+                const expected = 0.1;
+                const actual = DccFunctions.parseAmount("0.10");
+                assert.strictEqual(actual, expected, "is same");
+            });
             it("should be 1", () => {
                 const expected = 1;
                 const actual = DccFunctions.parseAmount("1.00");
@@ -269,6 +292,130 @@ describe("DirectCurrencyContent", () => {
                 const actual = DccFunctions.parseAmount("1'000");
                 assert.strictEqual(actual, expected, "is same");
             });
+    });
+
+    describe("#convertAmount", () => {
+        it("should be 0.41", () => {
+            const conversionQuote = 0.000041;
+            const parsedAmount = 10000;
+            const currency = "EUR";
+            const originalCurrency = "VND";
+            const match = ["10000 VND", "10000 ", "10000", undefined, undefined, "10000", undefined, undefined, "VND"];
+            const amountPosition = 2;
+            const price = new Price(currency, originalCurrency, match, amountPosition);
+            const replacedUnit = "VND";
+            const expected = 0.41;
+            const actual = DccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit);
+            const actualRounded = Math.round(actual * 100) / 100;
+            assert.strictEqual(actualRounded, expected, "is same");
+        });
+        it("should be 1100", () => {
+            const conversionQuote = 0.11;
+            const parsedAmount = 10000;
+            const currency = "EUR";
+            const originalCurrency = "SEK";
+            const match = ["10000 SEK", "10000 ", "10000", undefined, undefined, "10000", undefined, undefined, "SEK"];
+            const amountPosition = 2;
+            const price = new Price(currency, originalCurrency, match, amountPosition);
+            const replacedUnit = "SEK";
+            const expected = 1100;
+            const actual = DccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit, "");
+            const actualRounded = Math.round(actual * 100) / 100;
+            assert.strictEqual(actualRounded, expected, "is same");
+        });
+        it("should be 0.11", () => {
+            const conversionQuote = 0.11;
+            const parsedAmount = 0.10;
+            const currency = "EUR";
+            const originalCurrency = "SEK";
+            const match = ["0.10 kr", "0.10 ", "0", undefined, undefined, "0", ".10", ".", "kr"];
+            const amountPosition = 2;
+            const price = new Price(currency, originalCurrency, match, amountPosition);
+            const replacedUnit = "SEK";
+            const expected = 0.01;
+            const actual = DccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit, "");
+            const actualRounded = Math.round(actual * 100) / 100;
+            assert.strictEqual(actualRounded, expected, "is same");
+        });
+        it("should be 0.01", () => {
+            const conversionQuote = 0.11;
+            const parsedAmount = 10;
+            const currency = "EUR";
+            const originalCurrency = "SEK";
+            const match = ["10 öre", "10 ", "10", undefined, undefined, "10", undefined, undefined, "öre"];
+            const amountPosition = 2;
+            const price = new Price(currency, originalCurrency, match, amountPosition);
+            const replacedUnit = "SEK";
+            const expected = 0.01;
+            const actual = DccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit, "");
+            const actualRounded = Math.round(actual * 100) / 100;
+            assert.strictEqual(actualRounded, expected, "is same");
+        });
+        it("should be 0.22", () => {
+            const conversionQuote = 0.11;
+            const parsedAmount = 2;
+            const currency = "EUR";
+            const originalCurrency = "SEK";
+            const match = ["2 miljoner kronor", "2 ", "2", undefined, undefined, "2", undefined, undefined, "miljoner kronor"];
+            const amountPosition = 2;
+            const price = new Price(currency, originalCurrency, match, amountPosition);
+            const replacedUnit = "SEK";
+            const expected = 0.22;
+            const actual = DccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit, "");
+            const actualRounded = Math.round(actual * 100) / 100;
+            assert.strictEqual(actualRounded, expected, "is same");
+        });
+        it("should be 0.22", () => {
+            const conversionQuote = 0.0156;
+            const parsedAmount = 2;
+            const currency = "EUR";
+            const originalCurrency = "RUB";
+            const match = ["2 RUB", "2 ", "2", undefined, undefined, "2", undefined, undefined, "RUB"];
+            const amountPosition = 2;
+            const price = new Price(currency, originalCurrency, match, amountPosition);
+            const replacedUnit = "RUB";
+            const expected = 0.03;
+            const actual = DccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit, "");
+            const actualRounded = Math.round(actual * 100) / 100;
+            assert.strictEqual(actualRounded, expected, "is same");
+        });
+    });
+
+    describe("#convertContent", () => {
+        it("should replace USD with EUR", () => {
+            const expected = " 28.179,00 € to $30,000";
+            const convertedPrice = " 28.179,00 €";
+            const convertedContent = "$3,000 to $30,000";
+            const showOriginalPrices = false;
+            const replacedUnit = "USD";
+            const showOriginalCurrencies = false;
+            const anOriginalCurrency = "USD";
+            const aCurrency = "EUR";
+            const match = ["$3,000", "", "$", "3,000", "3,000", ",000", ",", undefined, undefined, undefined];
+            match.index = 0;
+            const anAmountPosition = 3;
+            const price = new Price(aCurrency, anOriginalCurrency, match, anAmountPosition);
+            const actual = DccFunctions.convertContent(convertedPrice, convertedContent, showOriginalPrices,
+                replacedUnit, showOriginalCurrencies, price);
+            assert.strictEqual(actual, expected, "is same");
+        });
+        it("should replace RUB with EUR", () => {
+            const expected = " 155,47 €";
+            const convertedPrice = " 155,47 €";
+            const convertedContent = "10000 RUB";
+            const showOriginalPrices = false;
+            const replacedUnit = "RUB";
+            const showOriginalCurrencies = false;
+            const anOriginalCurrency = "RUB";
+            const aCurrency = "EUR";
+            const match = ["10000 RUB", "10000 ", "10000", undefined, undefined, "10000", undefined, undefined, "RUB"];
+            match.index = 0;
+            const anAmountPosition = 2;
+            const price = new Price(aCurrency, anOriginalCurrency, match, anAmountPosition);
+            const actual = DccFunctions.convertContent(convertedPrice, convertedContent, showOriginalPrices,
+                replacedUnit, showOriginalCurrencies, price);
+            assert.strictEqual(actual, expected, "is same");
+        });
     });
 
 });

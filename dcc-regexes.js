@@ -265,7 +265,7 @@ if (!this.PriceRegexes) {
                 aRegex1.RSD = makeRegex1("(RSD)");
                 aRegex2.RSD = makeRegex2("(RSD|РСД|dinars?|din\\.?|динара?|дин\\.?)");
                 aRegex1.RUB = makeRegex1("(RUB|₽)");
-                aRegex2.RUB = makeRegex2("(RUB|₽|рублей|рубль|руб\\.?|[рP]\\.|[rR]o?ubles?|rub\\.?)");
+                aRegex2.RUB = makeRegex2("(RUB|₽|рублей|рубль|руб\\.?|[рP]\\.|[rR]o?ubles?|rub\\.?|коп.?)");
                 aRegex1.RWF = makeRegex1("(RWF|RwF|Rwf)");
                 aRegex2.RWF = makeRegex2("(RWF|Rwf|Rwandan [fF]rancs?|[fF]rancs?)");
                 aRegex1.SAR = makeRegex1("(SAR|SR|﷼|ريال|ر\\.س)");
@@ -333,7 +333,7 @@ if (!this.PriceRegexes) {
                 aRegex1.VEF = makeRegex1("(VEF|[bB]s\\.?[fF]?\\.?)");
                 aRegex2.VEF = makeRegex2("(VEF|[bB]s\\.?[fF]?|[bB]olívar(es)?)");
                 aRegex1.VND = makeRegex1("(VND|₫)");
-                aRegex2.VND = makeRegex2("(VND|vnd|₫|[dD]ong|đồng|đ|ĐỒNG|Đ)");
+                aRegex2.VND = makeRegex2("(VND|vnd|vnđ|₫|[dD]ong|đồng|đ|ĐỒNG|Đ|ngàn|triệu|tỷ)");
                 aRegex1.VUV = makeRegex1("(VUV|VT|Vt)");
                 aRegex2.VUV = makeRegex2("(VUV|VT|vt|[vV]atu)");
                 aRegex1.WST = makeRegex1("(WST|WST\\$?|WS\\$|\\$|SAT\\$?|ST\\$)");

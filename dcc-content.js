@@ -11,13 +11,20 @@
 if (!this.DccFunctions) {
     const DccFunctions = (function(){
         "use strict";
+        //const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
+
         const allSubUnits = {
             "DKK": ["øre"],
             "NOK": ["øre"],
             "SEK": ["öre"],
-            "USD": ["¢", "￠"]
+            "USD": ["¢", "￠"],
+            "EUR": ["cent"],
+            "RUB": ["коп."]
         };
-        const checkSubUnit = (aPrice, aUnit) => {
+        const checkSubUnit = (aPrice, aUnit, aMultiplicator) => {
+            if (aMultiplicator !== "") {
+                return false;
+            }
             const currencySubUnits = allSubUnits[aUnit];
             if (currencySubUnits) {
                 for (let subUnit of currencySubUnits) {
@@ -56,22 +63,41 @@ if (!this.DccFunctions) {
             ["milliard", "milliard "],
             ["million", "million "]
         ];
+        const vnds = [
+            /**
+             * 10^3
+             */
+            ["ngàn", "ngàn "],
+            /**
+             * 10^6
+             */
+            ["triệu", "triệu "],
+            /**
+             * 10^9
+             */
+            ["tỷ", "tỷ "]
+        ];
 
         /**
          * Multiples of money: million, etc.
          *
-         * @param aMults
+         * @param aMulties
          * @constructor
          */
-        const Mult = function(aMults) {
+        const Mult = function(aMulties) {
             "use strict";
-            this.mults = new Map(aMults);
-            this.func = (aUnit) => {
-                this.multsIter = this.mults.keys();
+            this.multsMap = new Map(aMulties);
+            /**
+             *
+             * @param aUnit
+             * @returns {*}
+             */
+            this.findMult = (aUnit) => {
+                this.multsIter = this.multsMap.keys();
                 let entry = this.multsIter.next();
                 while (!entry.done) {
                     if (aUnit.includes(entry.value)) {
-                        return this.mults.get(entry.value);
+                        return this.multsMap.get(entry.value);
                     }
                     entry = this.multsIter.next();
                 }
@@ -84,14 +110,28 @@ if (!this.DccFunctions) {
         multies["DKK"] = new Mult(dkks);
         multies["ISK"] = new Mult(isks);
         multies["NOK"] = new Mult(noks);
+        multies["VND"] = new Mult(vnds);
 
+        /**
+         * If Mult is defined for the currenct currency, find if there is a multiple in the price.
+         * If so return the multiple, possibly corrected (mnkr becomes mn).
+         *
+         * @param aPrice
+         * @returns {*} a string with the
+         */
         const getMultiplicator = (aPrice) => {
             if (multies[aPrice.originalCurrency]) {
-                return multies[aPrice.originalCurrency].func(aPrice.full.toLowerCase());
+                return multies[aPrice.originalCurrency].findMult(aPrice.full.toLowerCase());
             }
             return "";
         };
 
+        /**
+         *
+         * @param anAmount
+         * @param aMonetaryGroupingSeparatorSymbol
+         * @returns {*}
+         */
         const addMonetaryGroupingSeparatorSymbol = (anAmount, aMonetaryGroupingSeparatorSymbol) => {
             let amount = anAmount;
             const regex = /(\d+)(\d{3})/;
@@ -101,6 +141,15 @@ if (!this.DccFunctions) {
             return amount;
         };
 
+        /**
+         *
+         * @param anAmountIntegralPart
+         * @param anAmountFractionalPart
+         * @param isSubUnit
+         * @param aMonetaryGroupingSeparatorSymbol
+         * @param aMonetarySeparatorSymbol
+         * @returns {*}
+         */
         const formatAmount = (anAmountIntegralPart, anAmountFractionalPart, isSubUnit,
                                       aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol) => {
             let formattedPrice;
@@ -118,27 +167,45 @@ if (!this.DccFunctions) {
             return formattedPrice;
         };
 
-        const formatPrice = (aCurrencyCode, aRoundAmounts, anAmount, aUnit, anAllowSubUnit, aCustomFormat,
+        /**
+         *
+         * @param aRoundAmounts
+         * @param anAmount
+         * @param aUnit
+         * @param aSubUnit
+         * @param anAllowSubUnit
+         * @param aCustomFormat
+         * @param aMultiplicator
+         * @returns {string}
+         */
+        const formatPrice = (aRoundAmounts, anAmount, aUnit, aSubUnit, anAllowSubUnit, aCustomFormat,
                                      aMultiplicator) => {
-            const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
-            const subUnit = subUnits[aCurrencyCode];
             const fractionDigits = (aRoundAmounts && anAmount > 1) || aUnit === "mm" || aUnit === "kJ" ? 0 : 2;
             const amountString = isNaN(anAmount) ? "Unknown" : anAmount.toFixed(fractionDigits);
             const amountParts = amountString.split(".");
             const amountIntegralPart = amountParts[0];
             const amountFractionalPart = amountParts.length > 1 ? amountParts[1] : "";
-            const isSubUnit = anAllowSubUnit && (subUnit !== undefined) && amountIntegralPart === "0" && amountFractionalPart !== "";
+            const isSubUnit = anAllowSubUnit && (aSubUnit !== null && aSubUnit !== undefined)
+                && amountIntegralPart === "0"
+                && amountFractionalPart !== ""
+                && aMultiplicator === "";
             let formattedPrice = formatAmount(amountIntegralPart, amountFractionalPart, isSubUnit,
                 aCustomFormat.monetaryGroupingSeparatorSymbol, aCustomFormat.monetarySeparatorSymbol);
             if (aCustomFormat.beforeCurrencySymbol) {
-                formattedPrice = formattedPrice + aCustomFormat.currencySpacing + aMultiplicator + (isSubUnit ? subUnit : aUnit);
+                formattedPrice = formattedPrice + aCustomFormat.currencySpacing + aMultiplicator + (isSubUnit ? aSubUnit : aUnit);
             }
             else {
-                formattedPrice = (isSubUnit ? subUnit : aUnit) + aCustomFormat.currencySpacing + formattedPrice + aMultiplicator;
+                formattedPrice = (isSubUnit ? aSubUnit : aUnit) + aCustomFormat.currencySpacing + formattedPrice + aMultiplicator;
             }
             return " " + formattedPrice;
         };
 
+        /**
+         *
+         * @param aReplacedUnit
+         * @param aCurrencySymbol
+         * @returns {*}
+         */
         const useUnit = (aReplacedUnit, aCurrencySymbol) => {
             const otherUnits = {
                 "inch": "mm",
@@ -152,6 +219,11 @@ if (!this.DccFunctions) {
             return otherUnits[aReplacedUnit] ? otherUnits[aReplacedUnit] : aCurrencySymbol;
         };
 
+        /**
+         *
+         * @param anAmount
+         * @returns {Number}
+         */
         const parseAmount = (anAmount) => {
             let amount = anAmount;
             const comma = amount.includes(",");
@@ -234,10 +306,28 @@ if (!this.DccFunctions) {
             return parseFloat(amount);
         };
 
-        const convertAmount = (aConversionQuote, aParsedAmount, aPrice, aReplacedUnit) => {
-            return aConversionQuote * aParsedAmount * (checkSubUnit(aPrice, aReplacedUnit) ? 1/100 : 1);
+        /**
+         *
+         * @param aConversionQuote
+         * @param aParsedAmount
+         * @param aPrice
+         * @param aReplacedUnit
+         * @returns {number}
+         */
+        const convertAmount = (aConversionQuote, aParsedAmount, aPrice, aReplacedUnit, aMultiplicator) => {
+            return aConversionQuote * aParsedAmount * (checkSubUnit(aPrice, aReplacedUnit, aMultiplicator) ? 1/100 : 1);
         };
 
+        /**
+         *
+         * @param aConvertedPrice
+         * @param aConvertedContent
+         * @param aShowOriginalPrices
+         * @param aReplacedUnit
+         * @param aShowOriginalCurrencies
+         * @param aPrice
+         * @returns {*}
+         */
         const convertContent = (aConvertedPrice, aConvertedContent, aShowOriginalPrices, aReplacedUnit,
                                         aShowOriginalCurrencies, aPrice) => {
             let convertedPrice = aConvertedPrice;
@@ -259,7 +349,16 @@ if (!this.DccFunctions) {
             return convertedContent;
         };
 
-        // Stores prices that will be replaced with converted prices
+        /**
+         * Stores prices that will be replaced with converted prices
+         *
+         * @param anOriginalCurrency
+         * @param aCurrency
+         * @param aRegex
+         * @param aText
+         * @param anAmountPosition
+         * @returns {Array}
+         */
         const findPricesInCurrency = (anOriginalCurrency, aCurrency, aRegex, aText, anAmountPosition) => {
             const prices = [];
             if (!aRegex) {
@@ -272,6 +371,13 @@ if (!this.DccFunctions) {
             return prices;
         };
 
+        /**
+         *
+         * @param anEnabledCurrenciesWithRegexes
+         * @param aCurrencyCode
+         * @param aTextContent
+         * @returns {Array}
+         */
         const findPrices = (anEnabledCurrenciesWithRegexes, aCurrencyCode, aTextContent) => {
             let prices = [];
             for (let currencyRegex of anEnabledCurrenciesWithRegexes) {
@@ -290,6 +396,12 @@ if (!this.DccFunctions) {
             return prices;
         };
 
+        /**
+         *
+         * @param anExcludedDomains
+         * @param anUrl
+         * @returns {boolean}
+         */
         const isExcludedDomain = (anExcludedDomains, anUrl) => {
             for (let excludedDomain of anExcludedDomains) {
                 const matcher = new RegExp(excludedDomain, "g");
@@ -313,7 +425,8 @@ if (!this.DccFunctions) {
             convertContent: convertContent,
             findPricesInCurrency: findPricesInCurrency,
             findPrices: findPrices,
-            isExcludedDomain: isExcludedDomain
+            isExcludedDomain: isExcludedDomain,
+            allSubUnits: allSubUnits
         }
     })();
     this.DccFunctions = DccFunctions;
@@ -354,6 +467,7 @@ if (!this.DirectCurrencyContent) {
         }
         let conversionQuotes = [];
         let currencyCode = "";
+        //const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
         let currencySymbol = "¤";
         const customFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
         let excludedDomains = [];
@@ -461,11 +575,15 @@ if (!this.DirectCurrencyContent) {
             let convertedContent = aNode.nodeValue;
             for (let price of prices) {
                 const parsedAmount = aDccFunctions.parseAmount(price.amount);
-                const convertedAmount = aDccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit);
-                const usedUnit = aDccFunctions.useUnit(replacedUnit, currencySymbol);
                 const multiplicator = aDccFunctions.getMultiplicator(price);
-                const convertedPrice = aDccFunctions.formatPrice(currencyCode, roundAmounts, convertedAmount, usedUnit,
+                const convertedAmount = aDccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit, multiplicator);
+                const usedUnit = aDccFunctions.useUnit(replacedUnit, currencySymbol);
+                const subUnits = aDccFunctions.allSubUnits[currencyCode];
+                const subUnit = subUnits ? subUnits[0] : null;
+                // "93,49 €"
+                const convertedPrice = aDccFunctions.formatPrice(roundAmounts, convertedAmount, usedUnit, subUnit,
                     true, customFormat, multiplicator);
+                // " 93,49 € (100 USD)"
                 convertedContent = aDccFunctions.convertContent(convertedPrice, convertedContent, showOriginalPrices,
                     replacedUnit, showOriginalCurrencies, price);
             }
@@ -527,13 +645,20 @@ if (!this.DirectCurrencyContent) {
             }
             if (isEnabled && showTooltip) {
                 let dccTitle = "Converted value: ";
-                dccTitle += aDccFunctions.formatPrice(currencyCode, roundAmounts, tempConvertedAmount, currencyCode, false, customFormat, "") + "\n";
+                const subUnit = null;
+                const allowSubUnit = false;
+                const multiplicator = "";
+                dccTitle += aDccFunctions.formatPrice(roundAmounts, tempConvertedAmount, currencyCode, subUnit,
+                        allowSubUnit, customFormat, multiplicator) + "\n";
                 dccTitle += "Original value: ";
-                dccTitle += aDccFunctions.formatPrice(replacedUnit, roundAmounts, tempAmount, replacedUnit, false, customFormat, "") + "\n";
+                dccTitle += aDccFunctions.formatPrice(roundAmounts, tempAmount, replacedUnit, subUnit, allowSubUnit,
+                        customFormat, multiplicator) + "\n";
                 dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " +
-                    aDccFunctions.formatPrice("", roundAmounts, conversionQuote, "", false, customFormat, "") + "\n";
+                    aDccFunctions.formatPrice(roundAmounts, conversionQuote, "", subUnit, allowSubUnit,
+                        customFormat, multiplicator) + "\n";
                 dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " +
-                    aDccFunctions.formatPrice("", roundAmounts, 1/conversionQuote, "", false, customFormat, "") + "\n";
+                    aDccFunctions.formatPrice(roundAmounts, 1/conversionQuote, "", subUnit, allowSubUnit,
+                        customFormat, multiplicator) + "\n";
                 const showOriginal = false;
                 substituteOne(aNode, showOriginal, dccTitle);
             }

@@ -381,7 +381,7 @@ describe("DirectCurrencyContent", () => {
         });
     });
 
-    describe("#convertContent", () => {
+    describe("#replaceContent", () => {
         it("should replace USD with EUR", () => {
             const expected = " 28.179,00 € to $30,000";
             const convertedPrice = " 28.179,00 €";
@@ -395,7 +395,7 @@ describe("DirectCurrencyContent", () => {
             match.index = 0;
             const anAmountPosition = 3;
             const price = new Price(aCurrency, anOriginalCurrency, match, anAmountPosition);
-            const actual = DccFunctions.convertContent(convertedPrice, convertedContent, showOriginalPrices,
+            const actual = DccFunctions.replaceContent(convertedPrice, convertedContent, showOriginalPrices,
                 replacedUnit, showOriginalCurrencies, price);
             assert.strictEqual(actual, expected, "is same");
         });
@@ -412,8 +412,32 @@ describe("DirectCurrencyContent", () => {
             match.index = 0;
             const anAmountPosition = 2;
             const price = new Price(aCurrency, anOriginalCurrency, match, anAmountPosition);
-            const actual = DccFunctions.convertContent(convertedPrice, convertedContent, showOriginalPrices,
+            const actual = DccFunctions.replaceContent(convertedPrice, convertedContent, showOriginalPrices,
                 replacedUnit, showOriginalCurrencies, price);
+            assert.strictEqual(actual, expected, "is same");
+        });
+    });
+
+    describe("#convertContent", () => {
+        it("should replace USD with EUR", () => {
+            const expected = " 2\u00A0700,00\u2009€ to $30,000";
+            const aCurrency = "EUR";
+            const anOriginalCurrency = "USD";
+            const match = ["$3,000", "", "$", "3,000", "3,000", ",000", ",", undefined, undefined, undefined];
+            match.index = 0;
+            const anAmountPosition = 3;
+            const price = new Price(aCurrency, anOriginalCurrency, match, anAmountPosition);
+            const conversionQuote = 0.9;
+            const replacedUnit = "USD";
+            const currencySymbol = "€";
+            const currencyCode = "EUR";
+            const roundAmounts = false;
+            const customFormat = {"beforeCurrencySymbol" : true, "monetaryGroupingSeparatorSymbol" : " ", "monetarySeparatorSymbol" : ",", "currencySpacing" : "\u2009"};
+            const showOriginalPrices = false;
+            const showOriginalCurrencies = false;
+            const convertedContent = "$3,000 to $30,000";
+            const actual = DccFunctions.convertContent(price, conversionQuote, replacedUnit, currencySymbol,
+                currencyCode, roundAmounts, customFormat, showOriginalPrices, showOriginalCurrencies, convertedContent);
             assert.strictEqual(actual, expected, "is same");
         });
     });

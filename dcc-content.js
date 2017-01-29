@@ -11,7 +11,6 @@
 if (!this.DccFunctions) {
     const DccFunctions = (function(){
         "use strict";
-        //const subUnits = {"EUR": "cent", "RUB" : "коп.", "SEK": "öre"};
 
         const allSubUnits = {
             "DKK": ["øre"],
@@ -113,7 +112,7 @@ if (!this.DccFunctions) {
         multies["VND"] = new Mult(vnds);
 
         /**
-         * If Mult is defined for the currenct currency, find if there is a multiple in the price.
+         * If Mult is defined for the current currency, find if there is a multiple in the price.
          * If so return the multiple, possibly corrected (mnkr becomes mn).
          *
          * @param aPrice
@@ -328,7 +327,7 @@ if (!this.DccFunctions) {
          * @param aPrice
          * @returns {*}
          */
-        const convertContent = (aConvertedPrice, aConvertedContent, aShowOriginalPrices, aReplacedUnit,
+        const replaceContent = (aConvertedPrice, aConvertedContent, aShowOriginalPrices, aReplacedUnit,
                                         aShowOriginalCurrencies, aPrice) => {
             let convertedPrice = aConvertedPrice;
             let convertedContent = aConvertedContent;
@@ -346,6 +345,37 @@ if (!this.DccFunctions) {
                 convertedContent = convertedContent.replace("##__##", aPrice.full);
                 convertedContent = convertedContent.replace("¤¤¤", aReplacedUnit);
             }
+            return convertedContent;
+        };
+
+        /**
+         *
+         * @param aPrice
+         * @param aConversionQuote
+         * @param aReplacedUnit
+         * @param aCurrencySymbol
+         * @param aCurrencyCode
+         * @param aRoundAmounts
+         * @param aCustomFormat
+         * @param aShowOriginalPrices
+         * @param aShowOriginalCurrencies
+         * @param aConvertedContent
+         * @returns {*}
+         */
+        const convertContent = (aPrice, aConversionQuote, aReplacedUnit, aCurrencySymbol, aCurrencyCode, aRoundAmounts,
+                                aCustomFormat, aShowOriginalPrices, aShowOriginalCurrencies, aConvertedContent) => {
+            const parsedAmount = parseAmount(aPrice.amount);
+            const multiplicator = getMultiplicator(aPrice);
+            const convertedAmount = convertAmount(aConversionQuote, parsedAmount, aPrice, aReplacedUnit, multiplicator);
+            const usedUnit = useUnit(aReplacedUnit, aCurrencySymbol);
+            const subUnits = allSubUnits[aCurrencyCode];
+            const subUnit = subUnits ? subUnits[0] : null;
+            // "93,49 €"
+            const convertedPrice = formatPrice(aRoundAmounts, convertedAmount, usedUnit, subUnit,
+                true, aCustomFormat, multiplicator);
+            // " 93,49 € (100 USD)"
+            const convertedContent = replaceContent(convertedPrice, aConvertedContent, aShowOriginalPrices,
+                aReplacedUnit, aShowOriginalCurrencies, aPrice);
             return convertedContent;
         };
 
@@ -422,6 +452,7 @@ if (!this.DccFunctions) {
             useUnit: useUnit,
             parseAmount: parseAmount,
             convertAmount: convertAmount,
+            replaceContent: replaceContent,
             convertContent: convertContent,
             findPricesInCurrency: findPricesInCurrency,
             findPrices: findPrices,
@@ -574,18 +605,8 @@ if (!this.DirectCurrencyContent) {
             let tempConvertedAmount;
             let convertedContent = aNode.nodeValue;
             for (let price of prices) {
-                const parsedAmount = aDccFunctions.parseAmount(price.amount);
-                const multiplicator = aDccFunctions.getMultiplicator(price);
-                const convertedAmount = aDccFunctions.convertAmount(conversionQuote, parsedAmount, price, replacedUnit, multiplicator);
-                const usedUnit = aDccFunctions.useUnit(replacedUnit, currencySymbol);
-                const subUnits = aDccFunctions.allSubUnits[currencyCode];
-                const subUnit = subUnits ? subUnits[0] : null;
-                // "93,49 €"
-                const convertedPrice = aDccFunctions.formatPrice(roundAmounts, convertedAmount, usedUnit, subUnit,
-                    true, customFormat, multiplicator);
-                // " 93,49 € (100 USD)"
-                convertedContent = aDccFunctions.convertContent(convertedPrice, convertedContent, showOriginalPrices,
-                    replacedUnit, showOriginalCurrencies, price);
+                convertedContent = aDccFunctions.convertContent(price, conversionQuote, replacedUnit, currencySymbol,
+                    currencyCode, roundAmounts, customFormat, showOriginalPrices, showOriginalCurrencies, convertedContent);
             }
             for (let price of prices) {
                 // FIXME show all amounts

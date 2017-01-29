@@ -205,7 +205,7 @@ if (!this.PriceRegexes) {
                 aRegex1.MDL = makeRegex1("(MDL)");
                 aRegex2.MDL = makeRegex2("(MDL|leu|lei|лей|леев)");
                 aRegex1.MGA = makeRegex1("(MGA|Ar)");
-                aRegex2.MGA = makeRegex2("(MGA|mga|Mga|[aA]riary|[aA]r)");
+                aRegex2.MGA = makeRegex2("(MGA|mga|Mga|[aA]riary|[aA]r|millions? [aA]riary|millions? [aA]r)");
                 aRegex1.MKD = makeRegex1("(MKD)");
                 aRegex2.MKD = makeRegex2("(MKD|денари?|ден|den(ari?)?)");
                 aRegex1.MMK = makeRegex1("(MMK|[kK][sS]|[kK]yat)");

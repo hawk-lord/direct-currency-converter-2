@@ -20,8 +20,15 @@ if (!this.DccFunctions) {
             "EUR": ["cent"],
             "RUB": ["коп."]
         };
-        const checkSubUnit = (aPrice, aUnit, aMultiplicator) => {
-            if (aMultiplicator !== "") {
+        /**
+         *
+         * @param aPrice
+         * @param aUnit
+         * @param aMultiplicatorString
+         * @returns {boolean}
+         */
+        const checkSubUnit = (aPrice, aUnit, aMultiplicatorString) => {
+            if (aMultiplicatorString !== "") {
                 return false;
             }
             const currencySubUnits = allSubUnits[aUnit];
@@ -35,46 +42,50 @@ if (!this.DccFunctions) {
             return false;
         };
         const seks = [
-            ["miljoner", "miljoner "],
-            ["miljon", "miljon "],
-            ["miljarder", "miljarder "],
-            ["miljard", "miljard "],
-            ["mnkr", "mn "],
-            ["mdkr", "md "],
-            ["mkr", "mn "],
-            ["ksek", "k"],
-            ["msek", "M"],
-            ["gsek", "G"]
+            ["miljoner", 6],
+            ["miljon", 6],
+            ["miljarder", 9],
+            ["miljard", 9],
+            ["mnkr", 9],
+            ["mdkr", 9],
+            ["mkr", 6],
+            ["ksek", 3],
+            ["msek", 6],
+            ["gsek", 9]
         ];
         const dkks = [
-            ["millión", "millión "],
-            ["miljón", "miljón "],
-            ["milliard", "milliard "],
-            ["mia.", "mia. "],
-            ["mio.", "mio. "],
-            ["million", "million "]
+            ["millión", 6],
+            ["miljón", 6],
+            ["milliard", 9],
+            ["mia.", 9],
+            ["mio.", 6],
+            ["million", 6]
         ];
         const isks = [
-            ["milljón", "milljón "],
-            ["milljarð", "milljarð "]
+            ["milljón", 6],
+            ["milljarð", 9]
         ];
         const noks = [
-            ["milliard", "milliard "],
-            ["million", "million "]
+            ["milliard", 9],
+            ["million", 6]
+        ];
+        const mgas = [
+            ["milliard", 9],
+            ["million", 6]
         ];
         const vnds = [
             /**
              * 10^3
              */
-            ["ngàn", "ngàn "],
+            ["ngàn", 3],
             /**
              * 10^6
              */
-            ["triệu", "triệu "],
+            ["triệu", 6],
             /**
              * 10^9
              */
-            ["tỷ", "tỷ "]
+            ["tỷ", 9]
         ];
 
         /**
@@ -96,11 +107,11 @@ if (!this.DccFunctions) {
                 let entry = this.multsIter.next();
                 while (!entry.done) {
                     if (aUnit.includes(entry.value)) {
-                        return this.multsMap.get(entry.value);
+                        return {text: entry.value, exponent: this.multsMap.get(entry.value)};
                     }
                     entry = this.multsIter.next();
                 }
-                return "";
+                return {text: "", exponent: 0};
             }
         };
 
@@ -109,6 +120,7 @@ if (!this.DccFunctions) {
         multies["DKK"] = new Mult(dkks);
         multies["ISK"] = new Mult(isks);
         multies["NOK"] = new Mult(noks);
+        multies["MGA"] = new Mult(mgas);
         multies["VND"] = new Mult(vnds);
 
         /**
@@ -122,7 +134,7 @@ if (!this.DccFunctions) {
             if (multies[aPrice.originalCurrency]) {
                 return multies[aPrice.originalCurrency].findMult(aPrice.full.toLowerCase());
             }
-            return "";
+            return {exponent: 0, text: ""};
         };
 
         /**
@@ -191,10 +203,10 @@ if (!this.DccFunctions) {
             let formattedPrice = formatAmount(amountIntegralPart, amountFractionalPart, isSubUnit,
                 aCustomFormat.monetaryGroupingSeparatorSymbol, aCustomFormat.monetarySeparatorSymbol);
             if (aCustomFormat.beforeCurrencySymbol) {
-                formattedPrice = formattedPrice + aCustomFormat.currencySpacing + aMultiplicator + (isSubUnit ? aSubUnit : aUnit);
+                formattedPrice = formattedPrice + aCustomFormat.currencySpacing + (isSubUnit ? aSubUnit : aUnit);
             }
             else {
-                formattedPrice = (isSubUnit ? aSubUnit : aUnit) + aCustomFormat.currencySpacing + formattedPrice + aMultiplicator;
+                formattedPrice = (isSubUnit ? aSubUnit : aUnit) + aCustomFormat.currencySpacing + formattedPrice;
             }
             return " " + formattedPrice;
         };
@@ -313,8 +325,9 @@ if (!this.DccFunctions) {
          * @param aReplacedUnit
          * @returns {number}
          */
-        const convertAmount = (aConversionQuote, aParsedAmount, aPrice, aReplacedUnit, aMultiplicator) => {
-            return aConversionQuote * aParsedAmount * (checkSubUnit(aPrice, aReplacedUnit, aMultiplicator) ? 1/100 : 1);
+        const convertAmount = (aConversionQuote, aParsedAmount, aPrice, aReplacedUnit, aMultiplicator, aMultiplicatorString) => {
+            return aConversionQuote * aParsedAmount * Math.pow(10, aMultiplicator)
+                * (checkSubUnit(aPrice, aReplacedUnit, aMultiplicatorString) ? 1/100 : 1);
         };
 
         /**
@@ -366,13 +379,14 @@ if (!this.DccFunctions) {
                                 aCustomFormat, aShowOriginalPrices, aShowOriginalCurrencies, aConvertedContent) => {
             const parsedAmount = parseAmount(aPrice.amount);
             const multiplicator = getMultiplicator(aPrice);
-            const convertedAmount = convertAmount(aConversionQuote, parsedAmount, aPrice, aReplacedUnit, multiplicator);
+            const convertedAmount = convertAmount(aConversionQuote, parsedAmount, aPrice, aReplacedUnit,
+                multiplicator.exponent, multiplicator.text);
             const usedUnit = useUnit(aReplacedUnit, aCurrencySymbol);
             const subUnits = allSubUnits[aCurrencyCode];
             const subUnit = subUnits ? subUnits[0] : null;
             // "93,49 €"
             const convertedPrice = formatPrice(aRoundAmounts, convertedAmount, usedUnit, subUnit,
-                true, aCustomFormat, multiplicator);
+                true, aCustomFormat, multiplicator.text);
             // " 93,49 € (100 USD)"
             const convertedContent = replaceContent(convertedPrice, aConvertedContent, aShowOriginalPrices,
                 aReplacedUnit, aShowOriginalCurrencies, aPrice);

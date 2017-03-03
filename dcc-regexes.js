@@ -277,7 +277,7 @@ if (!this.PriceRegexes) {
                 aRegex1.SDG = makeRegex1("(SDG|جنيه)");
                 aRegex2.SDG = makeRegex2("(SDG|جنيه|Sudanese [pP]ounds?|[pP]ounds?)");
                 aRegex1.SEK = RegExp(begin + "(SEK|kr|skr)(\\s?(\\d{1,3}((,|\\.|\\s)\\d{3})+|(\\d+))((\\.|,|:)\\d{1,9})?)", "g");
-                aRegex2.SEK = RegExp("((\\d{1,3}((,|\\.|\\s)\\d{3})+|(\\d+))((\\.|,|:)\\d{1,9})?\\s?)(SEK|öre|(svenska\\s)?kronor|miljon(er)? kronor|miljard(er)? kronor|mnkr|mdkr|mkr|s?[kK]r|kSEK|MSEK|GSEK|:-|,-)" + end, "g");
+                aRegex2.SEK = RegExp("((\\d{1,3}((,|\\.|\\s)\\d{3})+|(\\d+))((\\.|,|:)\\d{1,9})?\\s?)(SEK|öre|(svenska\\s)?kr(onor)?|miljon(er)? kronor|miljard(er)? kr(onor)?|mnkr|mdkr|mkr|s?[kK]r|kSEK|MSEK|GSEK|:-|,-)" + end, "g");
                 aRegex1.SGD = makeRegex1("(SGD|SGD\\s?\\$?|S?\\$)");
                 aRegex2.SGD = makeRegex2("(SGD|(Singapore)?\\s?[dD]ollars?)");
                 aRegex1.SHP = makeRegex1("(SHP|£)");
@@ -333,7 +333,7 @@ if (!this.PriceRegexes) {
                 aRegex1.VEF = makeRegex1("(VEF|[bB]s\\.?[fF]?\\.?)");
                 aRegex2.VEF = makeRegex2("(VEF|[bB]s\\.?[fF]?|[bB]olívar(es)?)");
                 aRegex1.VND = makeRegex1("(VND|₫)");
-                aRegex2.VND = makeRegex2("(VND|vnd|vnđ|₫|[dD]ong|đồng|đ|ĐỒNG|Đ|ngàn|triệu|tỷ)");
+                aRegex2.VND = makeRegex2("(VND|vnd|vnđ|₫|[dD]ong|đồng|đ|ĐỒNG|Đ|[nN]gàn|[tT]riệu|[tT]ỷ)");
                 aRegex1.VUV = makeRegex1("(VUV|VT|Vt)");
                 aRegex2.VUV = makeRegex2("(VUV|VT|vt|[vV]atu)");
                 aRegex1.WST = makeRegex1("(WST|WST\\$?|WS\\$|\\$|SAT\\$?|ST\\$)");

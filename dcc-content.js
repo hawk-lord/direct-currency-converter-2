@@ -12,35 +12,53 @@ if (!this.DccFunctions) {
     const DccFunctions = (function(){
         "use strict";
 
-        const allSubUnits = {
-            "DKK": ["øre"],
-            "NOK": ["øre"],
-            "SEK": ["öre"],
-            "USD": ["¢", "￠"],
-            "EUR": ["cent"],
-            "RUB": ["коп."]
+        const MinorUnit = function(code, decimals, names) {
+            this.code = code;
+            this.decimals = decimals;
+            this.names = names;
         };
-        /**
-         *
-         * @param aPrice
-         * @param aUnit
-         * @param aMultiplicatorString
-         * @returns {boolean}
-         */
-        const checkSubUnit = (aPrice, aUnit, aMultiplicatorString) => {
+
+        const minorUnits = [];
+        minorUnits.push(new MinorUnit("AED", 2, ["fils", "fulus"]));
+        minorUnits.push(new MinorUnit("AFN", 2, ["pul"]));
+        minorUnits.push(new MinorUnit("ALL", 2, ["qindarkë", "qindarka"]));
+        minorUnits.push(new MinorUnit("AMD", 2, ["luma"]));
+        minorUnits.push(new MinorUnit("ANG", 2, ["cent"]));
+        minorUnits.push(new MinorUnit("AOA", 2, ["cêntimo"]));
+        minorUnits.push(new MinorUnit("ARS", 2, ["centavo"]));
+        minorUnits.push(new MinorUnit("AUD", 2, ["cent"]));
+        minorUnits.push(new MinorUnit("AWG", 2, ["cent"]));
+        minorUnits.push(new MinorUnit("AZN", 2, ["qapik"]));
+        minorUnits.push(new MinorUnit("BAM", 2, ["pf"]));
+        minorUnits.push(new MinorUnit("BBD", 2, ["cent"]));
+        minorUnits.push(new MinorUnit("BDT", 2, ["p", "poisha"]));
+        minorUnits.push(new MinorUnit("BGN", 2, ["stotinka", "stotinki"]));
+        minorUnits.push(new MinorUnit("BHD", 3, ["fils"]));
+        minorUnits.push(new MinorUnit("DKK", 2, ["øre"]));
+        minorUnits.push(new MinorUnit("EUR", 2, ["cent"]));
+        minorUnits.push(new MinorUnit("NOK", 2, ["øre"]));
+        minorUnits.push(new MinorUnit("RUB", 2, ["коп."]));
+        minorUnits.push(new MinorUnit("SEK", 2, ["öre"]));
+        minorUnits.push(new MinorUnit("USD", 2, ["cent", "¢", "￠"]));
+
+        const checkMinorUnit = (aPrice, aUnit, aMultiplicatorString) => {
             if (aMultiplicatorString !== "") {
                 return false;
             }
-            const currencySubUnits = allSubUnits[aUnit];
-            if (currencySubUnits) {
-                for (let subUnit of currencySubUnits) {
-                    if (aPrice.full.includes(subUnit)) {
-                        return true;
+            for (let minorUnit of minorUnits) {
+                if (minorUnit.code === aUnit) {
+                    for (let name of minorUnit.names) {
+                        if (aPrice.full.includes(name)) {
+                            return minorUnit.decimals;
+                        }
                     }
+
                 }
             }
-            return false;
+            return 0;
         };
+
+
         const seks = [
             ["miljoner", 6],
             ["miljon", 6],
@@ -74,17 +92,8 @@ if (!this.DccFunctions) {
             ["million", 6]
         ];
         const vnds = [
-            /**
-             * 10^3
-             */
             ["ngàn", 3],
-            /**
-             * 10^6
-             */
             ["triệu", 6],
-            /**
-             * 10^9
-             */
             ["tỷ", 9]
         ];
 
@@ -156,24 +165,18 @@ if (!this.DccFunctions) {
          *
          * @param anAmountIntegralPart
          * @param anAmountFractionalPart
-         * @param isSubUnit
          * @param aMonetaryGroupingSeparatorSymbol
          * @param aMonetarySeparatorSymbol
          * @returns {*}
          */
-        const formatAmount = (anAmountIntegralPart, anAmountFractionalPart, isSubUnit,
+        const formatAmount = (anAmountIntegralPart, anAmountFractionalPart,
                                       aMonetaryGroupingSeparatorSymbol, aMonetarySeparatorSymbol) => {
             let formattedPrice;
             const hasFractionalPart = anAmountFractionalPart !== "";
-            if (anAmountIntegralPart === "0" && hasFractionalPart && isSubUnit) {
-                formattedPrice = anAmountFractionalPart.replace(/^0+/, "");
-            }
-            else {
-                const monetaryGroupingSeparatorSymbol = aMonetaryGroupingSeparatorSymbol === " " ? "\u00a0" : aMonetaryGroupingSeparatorSymbol;
-                formattedPrice = addMonetaryGroupingSeparatorSymbol(anAmountIntegralPart, monetaryGroupingSeparatorSymbol);
-                if (hasFractionalPart) {
-                    formattedPrice = formattedPrice + aMonetarySeparatorSymbol + anAmountFractionalPart;
-                }
+            const monetaryGroupingSeparatorSymbol = aMonetaryGroupingSeparatorSymbol === " " ? "\u00a0" : aMonetaryGroupingSeparatorSymbol;
+            formattedPrice = addMonetaryGroupingSeparatorSymbol(anAmountIntegralPart, monetaryGroupingSeparatorSymbol);
+            if (hasFractionalPart) {
+                formattedPrice = formattedPrice + aMonetarySeparatorSymbol + anAmountFractionalPart;
             }
             return formattedPrice;
         };
@@ -183,30 +186,22 @@ if (!this.DccFunctions) {
          * @param aRoundAmounts
          * @param anAmount
          * @param aUnit
-         * @param aSubUnit
-         * @param anAllowSubUnit
          * @param aCustomFormat
-         * @param aMultiplicator
          * @returns {string}
          */
-        const formatPrice = (aRoundAmounts, anAmount, aUnit, aSubUnit, anAllowSubUnit, aCustomFormat,
-                                     aMultiplicator) => {
+        const formatPrice = (aRoundAmounts, anAmount, aUnit, aCustomFormat) => {
             const fractionDigits = (aRoundAmounts && anAmount > 1) || aUnit === "mm" || aUnit === "kJ" ? 0 : 2;
             const amountString = isNaN(anAmount) ? "Unknown" : anAmount.toFixed(fractionDigits);
             const amountParts = amountString.split(".");
             const amountIntegralPart = amountParts[0];
             const amountFractionalPart = amountParts.length > 1 ? amountParts[1] : "";
-            const isSubUnit = anAllowSubUnit && (aSubUnit !== null && aSubUnit !== undefined)
-                && amountIntegralPart === "0"
-                && amountFractionalPart !== ""
-                && aMultiplicator === "";
-            let formattedPrice = formatAmount(amountIntegralPart, amountFractionalPart, isSubUnit,
+            let formattedPrice = formatAmount(amountIntegralPart, amountFractionalPart,
                 aCustomFormat.monetaryGroupingSeparatorSymbol, aCustomFormat.monetarySeparatorSymbol);
             if (aCustomFormat.beforeCurrencySymbol) {
-                formattedPrice = formattedPrice + aCustomFormat.currencySpacing + (isSubUnit ? aSubUnit : aUnit);
+                formattedPrice = formattedPrice + aCustomFormat.currencySpacing + aUnit;
             }
             else {
-                formattedPrice = (isSubUnit ? aSubUnit : aUnit) + aCustomFormat.currencySpacing + formattedPrice;
+                formattedPrice = aUnit + aCustomFormat.currencySpacing + formattedPrice;
             }
             return " " + formattedPrice;
         };
@@ -326,8 +321,8 @@ if (!this.DccFunctions) {
          * @returns {number}
          */
         const convertAmount = (aConversionQuote, aParsedAmount, aPrice, aReplacedUnit, aMultiplicator, aMultiplicatorString) => {
-            return aConversionQuote * aParsedAmount * Math.pow(10, aMultiplicator)
-                * (checkSubUnit(aPrice, aReplacedUnit, aMultiplicatorString) ? 1/100 : 1);
+            const decimals = checkMinorUnit(aPrice, aReplacedUnit, aMultiplicatorString);
+            return aConversionQuote * aParsedAmount * Math.pow(10, aMultiplicator) * Math.pow(10, -decimals);
         };
 
         /**
@@ -382,11 +377,8 @@ if (!this.DccFunctions) {
             const convertedAmount = convertAmount(aConversionQuote, parsedAmount, aPrice, aReplacedUnit,
                 multiplicator.exponent, multiplicator.text);
             const usedUnit = useUnit(aReplacedUnit, aCurrencySymbol);
-            const subUnits = allSubUnits[aCurrencyCode];
-            const subUnit = subUnits ? subUnits[0] : null;
             // "93,49 €"
-            const convertedPrice = formatPrice(aRoundAmounts, convertedAmount, usedUnit, subUnit,
-                true, aCustomFormat, multiplicator.text);
+            const convertedPrice = formatPrice(aRoundAmounts, convertedAmount, usedUnit, aCustomFormat);
             // " 93,49 € (100 USD)"
             const convertedContent = replaceContent(convertedPrice, aConvertedContent, aShowOriginalPrices,
                 aReplacedUnit, aShowOriginalCurrencies, aPrice);
@@ -457,7 +449,7 @@ if (!this.DccFunctions) {
         };
 
         return {
-            checkSubUnit: checkSubUnit,
+            checkMinorUnit: checkMinorUnit,
             multies: multies,
             getMultiplicator: getMultiplicator,
             addMonetaryGroupingSeparatorSymbol: addMonetaryGroupingSeparatorSymbol,
@@ -470,8 +462,7 @@ if (!this.DccFunctions) {
             convertContent: convertContent,
             findPricesInCurrency: findPricesInCurrency,
             findPrices: findPrices,
-            isExcludedDomain: isExcludedDomain,
-            allSubUnits: allSubUnits
+            isExcludedDomain: isExcludedDomain
         }
     })();
     this.DccFunctions = DccFunctions;
@@ -624,13 +615,13 @@ if (!this.DirectCurrencyContent) {
             }
             for (let price of prices) {
                 // FIXME show all amounts
-                const isFromSubUnit = aDccFunctions.checkSubUnit(price, replacedUnit);
-                tempAmount = aDccFunctions.parseAmount(price.amount)  * (isFromSubUnit ? 1/100 : 1) ;
+                const decimals = aDccFunctions.checkMinorUnit(price, replacedUnit);
+                tempAmount = aDccFunctions.parseAmount(price.amount) * Math.pow(10, -decimals);
             }
             for (let price of prices) {
                 // FIXME show all amounts
-                const isFromSubUnit = aDccFunctions.checkSubUnit(price, replacedUnit);
-                const convertedAmount = conversionQuote * aDccFunctions.parseAmount(price.amount) * (isFromSubUnit ? 1/100 : 1);
+                const decimals = aDccFunctions.checkMinorUnit(price, replacedUnit);
+                const convertedAmount = conversionQuote * aDccFunctions.parseAmount(price.amount) * Math.pow(10, -decimals);
                 tempConvertedAmount = convertedAmount;
             }
             /* FIXME use this old title creation
@@ -680,20 +671,13 @@ if (!this.DirectCurrencyContent) {
             }
             if (isEnabled && showTooltip) {
                 let dccTitle = "Converted value: ";
-                const subUnit = null;
-                const allowSubUnit = false;
-                const multiplicator = "";
-                dccTitle += aDccFunctions.formatPrice(roundAmounts, tempConvertedAmount, currencyCode, subUnit,
-                        allowSubUnit, customFormat, multiplicator) + "\n";
+                dccTitle += aDccFunctions.formatPrice(roundAmounts, tempConvertedAmount, currencyCode, customFormat) + "\n";
                 dccTitle += "Original value: ";
-                dccTitle += aDccFunctions.formatPrice(roundAmounts, tempAmount, replacedUnit, subUnit, allowSubUnit,
-                        customFormat, multiplicator) + "\n";
+                dccTitle += aDccFunctions.formatPrice(roundAmounts, tempAmount, replacedUnit, customFormat) + "\n";
                 dccTitle += "Conversion quote " + replacedUnit + "/" + currencyCode + " = " +
-                    aDccFunctions.formatPrice(roundAmounts, conversionQuote, "", subUnit, allowSubUnit,
-                        customFormat, multiplicator) + "\n";
+                    aDccFunctions.formatPrice(roundAmounts, conversionQuote, "", customFormat) + "\n";
                 dccTitle += "Conversion quote " + currencyCode + "/" + replacedUnit + " = " +
-                    aDccFunctions.formatPrice(roundAmounts, 1/conversionQuote, "", subUnit, allowSubUnit,
-                        customFormat, multiplicator) + "\n";
+                    aDccFunctions.formatPrice(roundAmounts, 1/conversionQuote, "", customFormat) + "\n";
                 const showOriginal = false;
                 substituteOne(aNode, showOriginal, dccTitle);
             }

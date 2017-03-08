@@ -24,14 +24,14 @@ if (!this.DccFunctions) {
         minorUnits.push(new MinorUnit("ALL", 2, ["qindarkë", "qindarka"]));
         minorUnits.push(new MinorUnit("AMD", 2, ["luma"]));
         minorUnits.push(new MinorUnit("ANG", 2, ["cent"]));
-        minorUnits.push(new MinorUnit("AOA", 2, ["cêntimo"]));
+        minorUnits.push(new MinorUnit("AOA", 2, ["cêntimo", "centimo"]));
         minorUnits.push(new MinorUnit("ARS", 2, ["centavo"]));
         minorUnits.push(new MinorUnit("AUD", 2, ["cent"]));
         minorUnits.push(new MinorUnit("AWG", 2, ["cent"]));
         minorUnits.push(new MinorUnit("AZN", 2, ["qapik"]));
         minorUnits.push(new MinorUnit("BAM", 2, ["pf"]));
         minorUnits.push(new MinorUnit("BBD", 2, ["cent"]));
-        minorUnits.push(new MinorUnit("BDT", 2, ["p", "poisha"]));
+        minorUnits.push(new MinorUnit("BDT", 2, ["poisha"]));
         minorUnits.push(new MinorUnit("BGN", 2, ["stotinka", "stotinki"]));
         minorUnits.push(new MinorUnit("BHD", 3, ["fils"]));
         minorUnits.push(new MinorUnit("BIF", 0, []));
@@ -43,13 +43,13 @@ if (!this.DccFunctions) {
         minorUnits.push(new MinorUnit("BSD", 2, ["cent"]));
         minorUnits.push(new MinorUnit("BTN", 2, ["chhertum"]));
         minorUnits.push(new MinorUnit("BWP", 2, ["thebe"]));
-        minorUnits.push(new MinorUnit("BYN", 2, ["kopek"]));
+        minorUnits.push(new MinorUnit("BYN", 2, ["kopek", "капейка", "капейкі"]));
         minorUnits.push(new MinorUnit("BZD", 2, ["cent"]));
         minorUnits.push(new MinorUnit("CAD", 2, ["cent"]));
         minorUnits.push(new MinorUnit("CDF", 2, ["centime"]));
-        minorUnits.push(new MinorUnit("CHE", 2, ["rappen", "centime", "centesimo", "rap"]));
-        minorUnits.push(new MinorUnit("CHF", 2, ["rappen", "centime", "centesimo", "rap"]));
-        minorUnits.push(new MinorUnit("CHW", 2, ["rappen", "centime", "centesimo", "rap"]));
+        minorUnits.push(new MinorUnit("CHE", 2, ["rappen", "centime", "centesimo", "centesimi", "rap"]));
+        minorUnits.push(new MinorUnit("CHF", 2, ["rappen", "centime", "centesimo", "centesimi", "rap"]));
+        minorUnits.push(new MinorUnit("CHW", 2, ["rappen", "centime", "centesimo", "centesimi", "rap"]));
         minorUnits.push(new MinorUnit("CLF", 4, []));
         minorUnits.push(new MinorUnit("CLP", 0, []));
         minorUnits.push(new MinorUnit("CNY", 2, ["fen", "fēn"]));
@@ -129,8 +129,8 @@ if (!this.DccFunctions) {
         minorUnits.push(new MinorUnit("NPR", 2, ["paisa"]));
         minorUnits.push(new MinorUnit("NZD", 2, ["cent"]));
         minorUnits.push(new MinorUnit("OMR", 3, ["baisa"]));
-        minorUnits.push(new MinorUnit("PAB", 2, ["centésimo"]));
-        minorUnits.push(new MinorUnit("PEN", 2, ["céntimo"]));
+        minorUnits.push(new MinorUnit("PAB", 2, ["centésimo", "centesimo"]));
+        minorUnits.push(new MinorUnit("PEN", 2, ["céntimo", "centimo"]));
         minorUnits.push(new MinorUnit("PGK", 2, ["toea"]));
         minorUnits.push(new MinorUnit("PHP", 2, ["sentimo", "centavo"]));
         minorUnits.push(new MinorUnit("PKR", 2, ["paisa"]));
@@ -151,8 +151,8 @@ if (!this.DccFunctions) {
         minorUnits.push(new MinorUnit("SLL", 2, ["cent"]));
         minorUnits.push(new MinorUnit("SOS", 2, ["senti"]));
         minorUnits.push(new MinorUnit("SRD", 2, ["cent"]));
-        minorUnits.push(new MinorUnit("SSP", 2, ["piaster", "piasters"]));
-        minorUnits.push(new MinorUnit("STD", 2, ["cêntimo", "cêntimos"]));
+        minorUnits.push(new MinorUnit("SSP", 2, ["piaster"]));
+        minorUnits.push(new MinorUnit("STD", 2, ["cêntimo", "centimo"]));
         minorUnits.push(new MinorUnit("SVC", 2, ["centavo"]));
         minorUnits.push(new MinorUnit("SYP", 2, ["piastre"]));
         minorUnits.push(new MinorUnit("SZL", 2, ["cent"]));
@@ -194,7 +194,7 @@ if (!this.DccFunctions) {
         minorUnits.push(new MinorUnit("XUA", 0, []));
         minorUnits.push(new MinorUnit("XXX", 0, []));
         minorUnits.push(new MinorUnit("YER", 2, ["fils"]));
-        minorUnits.push(new MinorUnit("ZAR", 2, ["cent", "c"]));
+        minorUnits.push(new MinorUnit("ZAR", 2, ["cent"]));
         minorUnits.push(new MinorUnit("ZMW", 2, ["ngwee"]));
         minorUnits.push(new MinorUnit("ZWL", 2, ["cent"]));
 
@@ -205,7 +205,7 @@ if (!this.DccFunctions) {
             for (let minorUnit of minorUnits) {
                 if (minorUnit.code === aUnit) {
                     for (let name of minorUnit.names) {
-                        if (aPrice.full.includes(name)) {
+                        if (aPrice.full.toLowerCase().includes(name)) {
                             return minorUnit.decimals;
                         }
                     }

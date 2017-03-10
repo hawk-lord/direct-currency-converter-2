@@ -248,6 +248,10 @@ if (!this.DccFunctions) {
             ["milliard", 9],
             ["million", 6]
         ];
+        const usds = [
+            ["billion", 9],
+            ["million", 6]
+        ];
         const vnds = [
             ["ngàn", 3],
             ["triệu", 6],
@@ -265,14 +269,14 @@ if (!this.DccFunctions) {
             this.multsMap = new Map(aMulties);
             /**
              *
-             * @param aPrice
+             * @param aMult
              * @returns {*}
              */
-            this.findMult = (aPrice) => {
+            this.findMult = (aMult) => {
                 this.multsIter = this.multsMap.keys();
                 let entry = this.multsIter.next();
                 while (!entry.done) {
-                    if (aPrice.includes(entry.value)) {
+                    if (aMult.includes(entry.value)) {
                         return {text: entry.value, exponent: this.multsMap.get(entry.value)};
                     }
                     entry = this.multsIter.next();
@@ -287,6 +291,7 @@ if (!this.DccFunctions) {
         multies["ISK"] = new Mult(isks);
         multies["NOK"] = new Mult(noks);
         multies["MGA"] = new Mult(mgas);
+        multies["USD"] = new Mult(usds);
         multies["VND"] = new Mult(vnds);
 
         /**
@@ -297,8 +302,8 @@ if (!this.DccFunctions) {
          * @returns {*} a string with the
          */
         const getMultiplicator = (aPrice) => {
-            if (multies[aPrice.originalCurrency]) {
-                return multies[aPrice.originalCurrency].findMult(aPrice.full.toLowerCase());
+            if (multies[aPrice.originalCurrency] && aPrice.mult) {
+                return multies[aPrice.originalCurrency].findMult(aPrice.mult.toLowerCase());
             }
             return {exponent: 0, text: ""};
         };
@@ -552,14 +557,14 @@ if (!this.DccFunctions) {
          * @param anAmountPosition
          * @returns {Array}
          */
-        const findPricesInCurrency = (anOriginalCurrency, aCurrency, aRegex, aText, anAmountPosition) => {
+        const findPricesInCurrency = (anOriginalCurrency, aCurrency, aRegex, aText, aBeforeCurrencySymbol) => {
             const prices = [];
             if (!aRegex) {
                 return prices;
             }
             let match;
             while (match = aRegex.exec(aText)) {
-                prices.push(new Price(anOriginalCurrency, aCurrency, match, anAmountPosition));
+                prices.push(new Price(anOriginalCurrency, aCurrency, match, aBeforeCurrencySymbol));
             }
             return prices;
         };
@@ -577,9 +582,9 @@ if (!this.DccFunctions) {
                 if (currencyRegex.currency === aCurrencyCode) {
                     continue;
                 }
-                prices = findPricesInCurrency(aCurrencyCode, currencyRegex.currency, currencyRegex.regex1, aTextContent, 2);
+                prices = findPricesInCurrency(aCurrencyCode, currencyRegex.currency, currencyRegex.regex1, aTextContent, false);
                 if (prices.length === 0) {
-                    prices = findPricesInCurrency(aCurrencyCode, currencyRegex.currency, currencyRegex.regex2, aTextContent, 1);
+                    prices = findPricesInCurrency(aCurrencyCode, currencyRegex.currency, currencyRegex.regex2, aTextContent, true);
                 }
                 if (prices.length === 0) {
                     continue;
@@ -626,14 +631,22 @@ if (!this.DccFunctions) {
 }
 
 if (!this.Price) {
-    const Price = function(aCurrency, anOriginalCurrency, aMatch, anAmountPosition) {
+    const Price = function(aCurrency, anOriginalCurrency, aMatch, aBeforeCurrencySymbol) {
         "use strict";
         this.originalCurrency = anOriginalCurrency;
         this.currency = aCurrency;
-        // 848,452.63
-        this.amount = aMatch[anAmountPosition].trim();
         // 848,452.63 NOK
         this.full = aMatch[0];
+        if (aBeforeCurrencySymbol) {
+            // 848,452.63
+            this.amount = aMatch[1].trim();
+            this.mult = aMatch[2];
+        }
+        else {
+            this.amount = aMatch[2].trim();
+            this.mult = aMatch[3];
+        }
+        //console.log(this.mult);
         // 1 (position in the string where the price was found)
         this.positionInString = aMatch.index;
     };

@@ -265,14 +265,14 @@ if (!this.DccFunctions) {
             this.multsMap = new Map(aMulties);
             /**
              *
-             * @param aUnit
+             * @param aPrice
              * @returns {*}
              */
-            this.findMult = (aUnit) => {
+            this.findMult = (aPrice) => {
                 this.multsIter = this.multsMap.keys();
                 let entry = this.multsIter.next();
                 while (!entry.done) {
-                    if (aUnit.includes(entry.value)) {
+                    if (aPrice.includes(entry.value)) {
                         return {text: entry.value, exponent: this.multsMap.get(entry.value)};
                     }
                     entry = this.multsIter.next();
@@ -577,7 +577,7 @@ if (!this.DccFunctions) {
                 if (currencyRegex.currency === aCurrencyCode) {
                     continue;
                 }
-                prices = findPricesInCurrency(aCurrencyCode, currencyRegex.currency, currencyRegex.regex1, aTextContent, 3);
+                prices = findPricesInCurrency(aCurrencyCode, currencyRegex.currency, currencyRegex.regex1, aTextContent, 2);
                 if (prices.length === 0) {
                     prices = findPricesInCurrency(aCurrencyCode, currencyRegex.currency, currencyRegex.regex2, aTextContent, 1);
                 }

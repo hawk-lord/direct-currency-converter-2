@@ -10,13 +10,13 @@ describe("PriceRegexes", function() {
             assert.equal(regex1.ALL.exec("ALL 100 000.00")[1], "ALL");
         });
         it("should be ALL", function () {
-            assert.equal(regex2.ALL.exec("100 000.00 ALL")[2], "ALL");
+            assert.equal(regex2.ALL.exec("100 000.00 ALL")[3], "ALL");
         });
         it("should be DOP", function () {
             assert.notEqual(regex1.DOP.exec("RD$0 - RD$150,000 DOP")[2], "DOP");
         });
         it("should be DOP", function () {
-            assert.equal(regex2.DOP.exec("RD$0 - RD$150,000 DOP")[2], "DOP");
+            assert.equal(regex2.DOP.exec("RD$0 - RD$150,000 DOP")[3], "DOP");
         })
     })
 });

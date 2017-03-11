@@ -44,7 +44,7 @@ if (!this.PriceRegexes) {
             };
             try {
                 aRegex1.AED = makeRegex1("(AED|Dhs?)");
-                aRegex2.AED = makeRegex2("(AED|Dhs?|dirhams?|fils)");
+                aRegex2.AED = makeRegex2("(AED|Dhs?|dirhams?|fils|fulus)");
                 aRegex1.AFN = makeRegex1("(AFN|؋|افغانۍ|[aA]fs?)");
                 aRegex2.AFN = makeRegex2("(AFN|\\s؋\\s?afs?|afs?|افغانۍ|afghanis?|pul)");
                 aRegex1.ALL = makeRegex1("(ALL|Lekë?)");
@@ -128,7 +128,7 @@ if (!this.PriceRegexes) {
                 aRegex1.DJF = makeRegex1("(DJF)");
                 aRegex2.DJF = makeRegex2("(DJF|[Ff][Dd][Jj]|francs?)");
                 aRegex1.DKK = makeRegex1("(DKK|kr|kr\\.|dkr)");
-                aRegex2.DKK = makeRegex2("(DKK|mio\\. kroner|million(er)? kroner|mia\\. kroner|kroner|s?mia\\. kr(ónur)?|milliard(ir)? krónur?|s?mi[oó]\\. kr(ónur)?|millión(ir)? krónur?|mill?jón(ir)? krónur?|krónur?|kr|dkr|øre|:-|,-)");
+                aRegex2.DKK = makeRegex2("(DKK|kroner|kr(ónur)?|krónur?|kr|dkr|øre|:-|,-)", "(mio\\.|million(er)?|mia\\.|.milliard(ir)?|millión(ir)?|mill?jón(ir)?)?");
                 aRegex1.DOP = makeRegex1("(DOP|DOP\\s?\\$|RD\\$|\\$)");
                 aRegex2.DOP = makeRegex2("(DOP|pesos?|centavos?)");
                 aRegex1.DZD = makeRegex1("(DZD|دج|DA)");
@@ -145,8 +145,8 @@ if (!this.PriceRegexes) {
                 aRegex2.FJD = makeRegex2("(FJD|\\$|dollars?|[cC]ents?)");
                 aRegex1.FKP = makeRegex1("(FKP|FK£|£)");
                 aRegex2.FKP = makeRegex2("(FKP|pounds?|penny|pence)");
-                aRegex1.GBP = makeRegex1("(GBP|£)");
-                aRegex2.GBP = makeRegex2("(GBP|£|pounds?|penny|pence)");
+                aRegex1.GBP = makeRegex1("(GBP|£)", "([mM]illions?|[bB]illions?)?");
+                aRegex2.GBP = makeRegex2("(GBP|£|pounds?|penny|pence)", "([mM]illions?|[bB]illions?)?");
                 aRegex1.GEL = makeRegex1("(GEL)");
                 aRegex2.GEL = makeRegex2("(GEL|ლარი|lari|tetri)");
                 aRegex1.GHS = makeRegex1("(GHS|GH₵|GH¢|GH[cC])");
@@ -182,7 +182,7 @@ if (!this.PriceRegexes) {
                 aRegex1.IRR = makeRegex1("(IRR|ریال|﷼)");
                 aRegex2.IRR = makeRegex2("(IRR|ریال|﷼|[rR]ials?)");
                 aRegex1.ISK = makeRegex1("(ISK|kr|iskr)");
-                aRegex2.ISK = makeRegex2("(ISK|milljarð(ar?)?(ur)? króna|milljón(a)?(ir)?(um)? króna|þúsund króna?(ur)?|króna?(ur)?|kr|iskr|:-|,-)");
+                aRegex2.ISK = makeRegex2("(ISK|króna?(ur)?|kr|iskr|:-|,-)", "(milljarð(ar?)?(ur)?|milljón(a)?(ir)?(um)?|þúsund)?");
                 aRegex1.JMD = makeRegex1("(JMD|JMD\\$|J\\$|\\$)");
                 aRegex2.JMD = makeRegex2("(JMD|\\$|dollars?|[cC]ents?)");
                 aRegex1.JOD = makeRegex1("(JOD|دينار|JD\\.?)");
@@ -256,7 +256,7 @@ if (!this.PriceRegexes) {
                 aRegex1.NIO = makeRegex1("(NIO|C?\\$)");
                 aRegex2.NIO = makeRegex2("(NIO|córdoba|centavos?)");
                 aRegex1.NOK = makeRegex1("(NOK|kr\\.?|NKR\\.?|NKr\\.?|Nkr\\.?|nkr\\.?)");
-                aRegex2.NOK = makeRegex2("(NOK|milliard(er)? kroner|million(er)? kroner|kroner|kr\\.?|NKR|NKr|Nkr|nkr|:-|,-)");
+                aRegex2.NOK = makeRegex2("(NOK|kroner|kr\\.?|NKR|NKr|Nkr|nkr|:-|,-)", "(milliard(er)?|million(er)?)?");
                 aRegex1.NPR = makeRegex1("(NPR|N?Rs\\.?|रू)");
                 aRegex2.NPR = makeRegex2("(NPR|rupees?|रूपैयाँ|paisa)");
                 aRegex1.NZD = makeRegex1("(NZD|NZ\\s?\\$|\\$)");
@@ -296,7 +296,7 @@ if (!this.PriceRegexes) {
                 aRegex1.SDG = makeRegex1("(SDG|جنيه)");
                 aRegex2.SDG = makeRegex2("(SDG|جنيه|Sudanese [pP]ounds?|[pP]ounds?|qirsh|piastre)");
                 aRegex1.SEK = makeRegex1("(SEK|kr|skr)");
-                aRegex2.SEK = makeRegex2("(SEK|öre|(svenska\\s)?kr(onor)?|mnkr|mdkr|mkr|s?[kK]r|kSEK|MSEK|GSEK|:-|,-)", "(miljon(er)?|miljard(er)?)");
+                aRegex2.SEK = makeRegex2("(SEK|öre|(svenska\\s)?kr(onor)?|mnkr|mdkr|mkr|s?[kK]r|kSEK|MSEK|GSEK|:-|,-)", "(miljon(er)?|miljard(er)?)?");
                 aRegex1.SGD = makeRegex1("(SGD|SGD\\s?\\$?|S?\\$)");
                 aRegex2.SGD = makeRegex2("(SGD|(Singapore)?\\s?[dD]ollars?|[cC]ents?)");
                 aRegex1.SHP = makeRegex1("(SHP|£)");

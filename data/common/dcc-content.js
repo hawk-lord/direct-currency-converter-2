@@ -209,7 +209,7 @@ if (!this.DccFunctions) {
                             return minorUnit.decimals;
                         }
                     }
-
+                    return 0;
                 }
             }
             return 0;
@@ -234,6 +234,10 @@ if (!this.DccFunctions) {
             ["milliard", 9],
             ["mia.", 9],
             ["mio.", 6],
+            ["million", 6]
+        ];
+        const gbps = [
+            ["billion", 9],
             ["million", 6]
         ];
         const isks = [
@@ -288,6 +292,7 @@ if (!this.DccFunctions) {
         const multies = {};
         multies["SEK"] = new Mult(seks);
         multies["DKK"] = new Mult(dkks);
+        multies["GBP"] = new Mult(gbps);
         multies["ISK"] = new Mult(isks);
         multies["NOK"] = new Mult(noks);
         multies["MGA"] = new Mult(mgas);

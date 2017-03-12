@@ -254,6 +254,7 @@ if (!this.DccFunctions) {
         ];
         const usds = [
             ["billion", 9],
+            ["milliard", 9],
             ["million", 6]
         ];
         const vnds = [

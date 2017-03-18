@@ -28,11 +28,11 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
         "knots": 1.852,
         "hp": 0.73549875
     };
-    const findCurrency = function(aCountry) {
+    const findCurrency = (aCountry) => {
         const regions = aCurrencyData.region;
         // TODO Default currency
         let foundCurrency = "GBP";
-        const findCurrentCurrency = function(aCurrency){
+        const findCurrentCurrency = (aCurrency) =>{
             if (!aCurrency["@to"]) {
                 if (aCurrency["@tender"] !== "false") {
                     foundCurrency = aCurrency["@iso4217"];
@@ -40,7 +40,7 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
                 }
             }
         };
-        const found = Object.keys(regions).some(function(regionKey) {
+        const found = Object.keys(regions).some((regionKey) => {
             if (aCountry === regions[regionKey]["@iso3166"]) {
                 const currencies = regions[regionKey]["currency"];
                 if (Array.isArray(currencies)) {
@@ -57,31 +57,31 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
     let numberOfReadCurrencies = 0;
     let conversionEnabled = aStorageService.enableOnStart;
     const _currencyNames = {};
-    aConvertFroms.forEach(function(aCurrency) {
+    aConvertFroms.forEach((aCurrency) => {
         _currencyNames[aCurrency.isoName] = _(aCurrency.isoName);
     });
     let quoteStrings = [];
 
-    const getConversionQuotes = function() {
+    const getConversionQuotes = () => {
         return conversionQuotes;
     };
-    const setConversionQuote = function(aConvertFromCurrencyName, aQuote) {
+    const setConversionQuote = (aConvertFromCurrencyName, aQuote) => {
         conversionQuotes[aConvertFromCurrencyName] = aQuote;
         numberOfReadCurrencies++;
     };
-    const getCurrencySymbols = function() {
+    const getCurrencySymbols = () => {
         return aCurrencySymbols;
     };
-    const getCurrencyNames = function () {
+    const getCurrencyNames = () => {
         return _currencyNames;
     };
-    const getConvertFroms = function () {
+    const getConvertFroms = () => {
         return aConvertFroms;
     };
-    const isAllCurrenciesRead = function() {
+    const isAllCurrenciesRead = () => {
         return numberOfReadCurrencies >= aConvertFroms.length;
     };
-    const makeQuoteString = function(aConvertFromCurrency) {
+    const makeQuoteString = (aConvertFromCurrency) => {
         if (aConvertFromCurrency.isoName != aStorageService.convertToCurrency) {
             const quote = parseFloat(conversionQuotes[aConvertFromCurrency.isoName]);
             if (isNaN(quote)) {
@@ -95,15 +95,15 @@ const InformationHolder = function(aStorageService, aCurrencyData, aCurrencySymb
             }
         }
     };
-    const getQuoteString = function () {
+    const getQuoteString = () => {
         quoteStrings = [];
         aConvertFroms.forEach(makeQuoteString);
         return quoteStrings.join("; ");
     };
-    const resetReadCurrencies = function() {
+    const resetReadCurrencies = () => {
         numberOfReadCurrencies = 0;
     };
-    const resetSettings = function(iso4217Currencies) {
+    const resetSettings = (iso4217Currencies) => {
         aStorageService.resetSettings(iso4217Currencies);
     };
 

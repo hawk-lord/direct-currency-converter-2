@@ -15,8 +15,8 @@ const YahooQuotesServiceProvider = function(anEventAggregator) {
     const gramsPerOunce = 31.1034768;
     // Since Yahoo quote response only has four decimals, we sometimes get imprecise quotes
     // In such cases, we use the inverse quote and invert it.
-    const makeOneResponse = function() {
-        quotesFromTo.forEach( function(aRow, anIndex) {
+    const makeOneResponse = () => {
+        quotesFromTo.forEach((aRow, anIndex) => {
             // "USDEUR=X",0.7317
             const fromToRow = aRow.split(",");
             if (fromToRow.length < 2) {
@@ -45,7 +45,7 @@ const YahooQuotesServiceProvider = function(anEventAggregator) {
             }
         });
     };
-    const quotesHandlerFromTo = function(aResponse) {
+    const quotesHandlerFromTo = (aResponse) => {
         try {
             quotesFromTo = aResponse.split("\n");
             if (quotesFromTo.length > 0 && quotesToFrom.length > 0) {
@@ -56,7 +56,7 @@ const YahooQuotesServiceProvider = function(anEventAggregator) {
             console.error("err " + err);
         }
     };
-    const quotesHandlerToFrom = function(aResponse) {
+    const quotesHandlerToFrom = (aResponse) => {
         try {
             quotesToFrom = aResponse.split("\n");
             if (quotesFromTo.length > 0 && quotesToFrom.length > 0) {
@@ -67,7 +67,7 @@ const YahooQuotesServiceProvider = function(anEventAggregator) {
             console.error("err " + err);
         }
     };
-    const makeQuoteQuery = function(aConvertFromCurrency) {
+    const makeQuoteQuery = (aConvertFromCurrency) => {
         if (convertToCurrency === "gAu") {
             quoteQueriesFromTo.push(aConvertFromCurrency + "XAU" + "=X");
             quoteQueriesToFrom.push("XAU" + aConvertFromCurrency + "=X");
@@ -77,7 +77,7 @@ const YahooQuotesServiceProvider = function(anEventAggregator) {
             quoteQueriesToFrom.push(convertToCurrency + aConvertFromCurrency.isoName + "=X");
         }
     };
-    const loadQuotes = function (aYahooQuotesService, aConvertFroms, aConvertToCurrency) {
+    const loadQuotes = (aYahooQuotesService, aConvertFroms, aConvertToCurrency) => {
         convertToCurrency = aConvertToCurrency;
         quotesFromTo = [];
         quotesToFrom = [];

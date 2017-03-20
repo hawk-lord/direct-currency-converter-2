@@ -11,78 +11,78 @@
 if (!this.DirectCurrencySettings) {
     const DirectCurrencySettings = (function() {
         "use strict";
-        const escapeHtml = (s) => {
+        const escapeHtml = function(s) {
             if (s === null || s == null) {
                 return "";
             }
             return String(s).replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         };
-        jQuery(document).ready(() => {
-            jQuery( "#toggleCurrencies" ).click(() => {
+        jQuery(document).ready(function() {
+            jQuery( "#toggleCurrencies" ).click(function() {
                 jQuery("fieldset.currencies").toggleClass( "minimised" );
             });
             jQuery("#fromCurrencies").sortable({
                 revert: true
             });
-    // Why was this used?        jQuery("ol, li").disableSelection();
-            jQuery("#convert_to_currency").change(() => {
+            // Why was this used?        jQuery("ol, li").disableSelection();
+            jQuery("#convert_to_currency").change(function() {
                 const currencyCountry = jQuery(this).val();
                 convertToCurrency = currencyCountry.substr(0, 3);
                 convertToCountry = currencyCountry.substr(-2);
                 onCurrencyChange(convertToCurrency);
             });
-            jQuery("#custom_symbol").change(() => {
+            jQuery("#custom_symbol").change(function() {
                 const customSymbol = escapeHtml(jQuery(this).val());
                 customSymbols[convertToCurrency] = customSymbol;
                 jQuery("#preview_left").html(customSymbol);
                 jQuery("#preview_right").html(customSymbol);
             });
-            jQuery("#custom_symbol_reset-button").click(() => {
+            jQuery("#custom_symbol_reset-button").click(function() {
                 customSymbols = {};
                 onCurrencyChange(convertToCurrency);
             });
-            jQuery("#monetary_separator_symbol").change(() => {
+            jQuery("#monetary_separator_symbol").change(function() {
                 monetarySeparatorSymbol = escapeHtml(jQuery(this).val());
                 jQuery("#preview_monetary_separator_symbol").html(monetarySeparatorSymbol);
             });
-            jQuery("#monetary_grouping_separator_symbol").change(() => {
+            jQuery("#monetary_grouping_separator_symbol").change(function() {
                 monetaryGroupingSeparatorSymbol = jQuery(this).val();
                 jQuery("#preview_monetary_grouping_separator_symbol").html(monetaryGroupingSeparatorSymbol);
             });
-            jQuery("#enable_conversion").change(() => {
+            jQuery("#enable_conversion").change(function() {
                 enableOnStart = jQuery(this).is(":checked");
             });
-            jQuery("#adjustment_percentage").change(() => {
+            jQuery("#adjustment_percentage").change(function() {
                 quoteAdjustmentPercent = jQuery(this).val();
             });
-            jQuery("#always_round").change(() => {
+            jQuery("#always_round").change(function() {
                 roundAmounts = jQuery(this).is(":checked");
             });
-            jQuery("#currency_spacing").change(() => {
+            jQuery("#currency_spacing").change(function() {
                 currencySpacing = jQuery(this).is(":checked");
                 onCurrencySpacingChange(currencySpacing);
             });
-            jQuery("#show_original_prices").change(() => {
+            jQuery("#show_original_prices").change(function() {
                 showOriginalPrices = jQuery(this).is(":checked");
             });
-            jQuery("#showOriginalCurrencies").change(() => {
+            jQuery("#showOriginalCurrencies").change(function() {
                 showOriginalCurrencies = jQuery(this).is(":checked");
             });
-            jQuery("#showTooltip").change(() => {
+            jQuery("#showTooltip").change(function() {
                 showTooltip = jQuery(this).is(":checked");
             });
-            jQuery("#beforeCurrencySymbol").change(() => {
+            jQuery("#beforeCurrencySymbol").change(function() {
                 beforeCurrencySymbol = jQuery(this).is(":checked");
                 onBeforeCurrencySymbolChange(beforeCurrencySymbol);
             });
-            jQuery("#unitBefore").change(() => {
+            jQuery("#unitBefore").change(function() {
                 beforeCurrencySymbol = !jQuery(this).is(":checked");
                 onBeforeCurrencySymbolChange(beforeCurrencySymbol);
             });
-            jQuery("#temp_convert_units").change(() => {
+            jQuery("#temp_convert_units").change(function() {
                 tempConvertUnits = jQuery(this).is(":checked");
             });
-            jQuery("#save-button").click(() => {
+            jQuery("#save-button").click(function() {
                 const customSymbol = escapeHtml(jQuery("#custom_symbol").val());
                 if (customSymbol !== null && customSymbol !== "") {
                     customSymbols[convertToCurrency] = customSymbol;
@@ -90,14 +90,14 @@ if (!this.DirectCurrencySettings) {
                 const excludedTextAreaString = escapeHtml(jQuery("#excluded_domains").val());
                 let excludedLines = excludedTextAreaString.replace(/\r\n/g, "\n").split("\n");
                 // remove empty entries
-                excludedLines = jQuery.grep(excludedLines, (n) => { return(n); });
+                excludedLines = jQuery.grep(excludedLines, function(n){ return(n); });
                 if (excludedLines === null || excludedLines[0] === "") {
                     excludedLines = [];
                 }
                 excludedDomains = excludedLines;
                 convertFroms = [];
                 const liFromCurrencies = jQuery("#fromCurrencies").find("li");
-                liFromCurrencies.each(() => {
+                liFromCurrencies.each(function () {
                     let inputs = jQuery(this).find("input");
                     let input = jQuery(inputs)[0];
                     if (input && input.checked) {
@@ -129,15 +129,15 @@ if (!this.DirectCurrencySettings) {
                 contentScriptParams.monetaryGroupingSeparatorSymbol = monetaryGroupingSeparatorSymbol;
                 SettingsAdapter.save(contentScriptParams);
             });
-            jQuery("#reset-button").click(() => {
+            jQuery("#reset-button").click(function() {
                 SettingsAdapter.reset();
             });
-            jQuery("#reset-quotes-button").click(() => {
+            jQuery("#reset-quotes-button").click(function() {
                 SettingsAdapter.resetQuotes();
             });
-            jQuery("#select-all-button").click(() => {
+            jQuery("#select-all-button").click(function() {
                 const liFromCurrencies = jQuery("#fromCurrencies").find("li");
-                liFromCurrencies.each(() => {
+                liFromCurrencies.each(function () {
                     let inputs = jQuery(this).find("input");
                     let input = jQuery(inputs)[0];
                     if (input) {
@@ -145,9 +145,9 @@ if (!this.DirectCurrencySettings) {
                     }
                 });
             });
-            jQuery("#select-none-button").click(() => {
+            jQuery("#select-none-button").click(function() {
                 const liFromCurrencies = jQuery("#fromCurrencies").find("li");
-                liFromCurrencies.each(() => {
+                liFromCurrencies.each(function () {
                     let inputs = jQuery(this).find("input");
                     let input = jQuery(inputs)[0];
                     if (input) {
@@ -174,7 +174,7 @@ if (!this.DirectCurrencySettings) {
         let tempConvertUnits = null;
         let monetaryGroupingSeparatorSymbol = null;
         let currencyNames = {};
-        const setUIFromPreferences = () => {
+        const setUIFromPreferences = function() {
             jQuery("#convert_to_currency").val(convertToCurrency + "_" + convertToCountry);
             onCurrencyChange(convertToCurrency);
             if (customSymbols[convertToCurrency]) {
@@ -222,7 +222,7 @@ if (!this.DirectCurrencySettings) {
             jQuery("#temp_convert_units").prop("checked", tempConvertUnits);
             const selectedOption = jQuery('#convert_to_currency').val();
             const selectList = jQuery("#convert_to_currency").find("option");
-            selectList.sort((a,b) =>{
+            selectList.sort(function(a,b){
                 const A = jQuery(a).text().toLowerCase();
                 const B = jQuery(b).text().toLowerCase();
                 if (A < B){
@@ -238,7 +238,7 @@ if (!this.DirectCurrencySettings) {
             jQuery("#convert_to_currency").html(selectList);
             jQuery('#convert_to_currency').val(selectedOption);
         };
-        const onCurrencyChange = (val) => {
+        const onCurrencyChange = function(val) {
             let currencyVal = escapeHtml(val);
             if (customSymbols[currencyVal]) {
                 jQuery("#custom_symbol").val(customSymbols[currencyVal]);
@@ -250,7 +250,7 @@ if (!this.DirectCurrencySettings) {
             jQuery("#preview_left").html(currencyVal);
             jQuery("#preview_right").html(currencyVal);
         };
-        const onCurrencySpacingChange = (val) => {
+        const onCurrencySpacingChange = function(val) {
             if (val) {
                 if (beforeCurrencySymbol) {
                     jQuery("#preview_right_space").html(" ");
@@ -266,7 +266,7 @@ if (!this.DirectCurrencySettings) {
                 jQuery("#preview_right_space").html("");
             }
         };
-        const onBeforeCurrencySymbolChange = (beforeCurrencySymbol) => {
+        const onBeforeCurrencySymbolChange = function(beforeCurrencySymbol) {
             if (beforeCurrencySymbol) {
                 jQuery("#preview_left").hide();
                 jQuery("#preview_right").show();
@@ -290,7 +290,7 @@ if (!this.DirectCurrencySettings) {
                 }
             }
         };
-        const showSettings = (contentScriptParams) => {
+        const showSettings = function(contentScriptParams) {
             convertToCurrency = escapeHtml(contentScriptParams.convertToCurrency);
             convertToCountry = escapeHtml(contentScriptParams.convertToCountry);
             currencySymbols = contentScriptParams.currencySymbols;

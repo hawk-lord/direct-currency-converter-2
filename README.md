@@ -1,7 +1,7 @@
 # Direct Currency Converter
 
-Version: 2.4.12+0
-Date: 2016-10-30
+Version: 2.5.0+0
+Date: 2017-03-25
 
 After installation, you'll have two new buttons in the browser toolbar.
 
@@ -241,3 +241,9 @@ Internal change: does not use Yahoo YQL any more, because of reliability issues.
 Version: 2.4.12+0
 Date: 2016-10-30
 Added a button to update currency quotes in the settings form.
+
+Version: 2.5.0+0
+Date: 2017-03-25
+Improved handling of unit multiples ($ million, etc.). More will be found.
+Improved handling of minor units (cents, etc.). Most existing minor units should be found.
+Internal change: improved regular expressions.

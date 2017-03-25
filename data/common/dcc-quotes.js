@@ -60,7 +60,7 @@ if (!this.DirectCurrencyQuotes) {
             while (caption.hasChildNodes()) {
                 caption.removeChild(caption.lastChild);
             }
-            const textNodeCaption = document.createTextNode("Quotes " + currencyCode + " / XXX = ");
+            const textNodeCaption = document.createTextNode("Quotes XXX / " + currencyCode + " = ");
             caption.appendChild(textNodeCaption);
 
             const tableBody =  document.getElementById("tableBody");

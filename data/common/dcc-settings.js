@@ -24,7 +24,7 @@ if (!this.DirectCurrencySettings) {
             jQuery("#fromCurrencies").sortable({
                 revert: true
             });
-    // Why was this used?        jQuery("ol, li").disableSelection();
+            // Why was this used?        jQuery("ol, li").disableSelection();
             jQuery("#convert_to_currency").change(function() {
                 const currencyCountry = jQuery(this).val();
                 convertToCurrency = currencyCountry.substr(0, 3);

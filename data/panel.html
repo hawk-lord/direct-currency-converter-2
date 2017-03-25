@@ -8,28 +8,35 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript">
-        const openSettingsPage = function() {
-            addon.port.emit("showSettingsTab");
-        };
-        const openTestPage = function() {
-            addon.port.emit("showTestTab");
-        };
-    </script>
 </head>
 <body>
 <ul>
     <li>
-        <a onclick="openSettingsPage()">Open settings page</a>
+        <a id="openSettings">Open settings page</a>
     </li>
     <li>
-        <a onclick="openTestPage()">Open test page</a>
+        <a id="openTest">Open test page</a>
     </li>
-<!--
     <li>
-        <a onclick="showRates()">Show exchange rates</a>
+        <a id="openQuotes">Open quotes page</a>
     </li>
-    -->
 </ul>
+<script type="text/javascript">
+    const openSettingsPage = () => {
+        addon.port.emit("showSettingsTab");
+    };
+    const openTestPage = () => {
+        addon.port.emit("showTestTab");
+    };
+    const openQuotesPage = () => {
+        addon.port.emit("showQuotesTab");
+    };
+    const openSettings = document.getElementById("openSettings");
+    openSettings.addEventListener("click", openSettingsPage);
+    const openTest = document.getElementById("openTest");
+    openTest.addEventListener("click", openTestPage);
+    const openQuotes = document.getElementById("openQuotes");
+    openQuotes.addEventListener("click", openQuotesPage);
+</script>
 </body>
 </html>

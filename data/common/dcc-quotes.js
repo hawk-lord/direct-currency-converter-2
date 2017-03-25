@@ -26,7 +26,10 @@ if (!this.DirectCurrencyQuotes) {
         let showOriginalCurrencies = false;
         let showTooltip = true;
 
-        const numberFormat = new Intl.NumberFormat(window.navigator.language, { minimumFractionDigits: 6 });
+        // Firefox Android does not supprt Intl until verion 54
+        if (typeof Intl !== 'undefined') {
+            var numberFormat = new Intl.NumberFormat(window.navigator.language, { minimumFractionDigits: 6 });
+        }
         var ascending = false;
 
         /**
@@ -90,8 +93,14 @@ if (!this.DirectCurrencyQuotes) {
                 tableCell1.appendChild(textNode1);
                 tableRow.appendChild(tableCell1);
                 const tableCell2 = document.createElement("td");
-                const textNode2 = document.createTextNode(numberFormat.format(conversionQuote.value));
-                tableCell2.appendChild(textNode2);
+                if (typeof numberFormat !== 'undefined') {
+                    const textNode2 = document.createTextNode(numberFormat.format(conversionQuote.value));
+                    tableCell2.appendChild(textNode2);
+                }
+                else {
+                    const textNode2 = document.createTextNode(conversionQuote.value);
+                    tableCell2.appendChild(textNode2);
+                }
                 tableRow.appendChild(tableCell2);
                 tableBody.appendChild(tableRow);
             }

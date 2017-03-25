@@ -9,10 +9,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript">
-        const openSettingsPage = function() {
+        const openSettingsPage = () => {
             addon.port.emit("showSettingsTab");
         };
-        const openTestPage = function() {
+        const openTestPage = () => {
             addon.port.emit("showTestTab");
         };
     </script>

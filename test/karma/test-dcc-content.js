@@ -35,7 +35,7 @@ describe("DirectCurrencyContent", () => {
             document.body.appendChild(paragraph);
             DirectCurrencyContent.onUpdateSettings(contentScriptParams);
             // TODO use Promise PriceRegexes
-            var unixtime_ms = new Date().getTime();
+            let unixtime_ms = new Date().getTime();
             // while(new Date().getTime() < unixtime_ms + 5000) {
             //     //console.log("waiting");
             // }

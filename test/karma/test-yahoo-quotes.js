@@ -34,8 +34,8 @@ const r2 = {
 const response1 = JSON.stringify(r1);
 const response2 = JSON.stringify(r2);
 
-var convertFromCurrency = "";
-var quote = 0;
+let convertFromCurrency = "";
+let quote = 0;
 const onQuoteReceived = function(eventArgs) {
     convertFromCurrency = eventArgs.convertFromCurrencyName;
     quote = eventArgs.quote;

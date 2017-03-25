@@ -4,7 +4,7 @@
 describe("eventAggregator", () => {
     "use strict";
     it("should not fail", () => {
-        var called = false;
+        let called = false;
         const eventName = "message";
         const eventArgs = { foo : "bar" };
         const callback = (data) => {

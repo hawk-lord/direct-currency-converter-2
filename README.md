@@ -1,5 +1,7 @@
 # Direct Currency Converter
 
+This version is deprecated. See https://github.com/hawk-lord/direct-currency-converter-3
+
 Version: 2.5.0+0
 Date: 2017-03-12
 
